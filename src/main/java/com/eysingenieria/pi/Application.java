@@ -2701,12 +2701,12 @@ public class Application {
                     SuscriptorLocalMQTT subscriberMQTTServiceLocal = new SuscriptorLocalMQTT(topics, "tcp://localhost:1883", "PILocal");
                     subscriberMQTTServiceLocal.Subscribe();
                     while (true) {
-
+                        JSONObject re;
                         if (subscriberMQTTServiceLocal.isMessageArrived()) {
                             subscriberMQTTServiceLocal.setMessageArrived(false);
                             OP_RegistroCrudo registroCrudo = new OP_RegistroCrudo();
                             registroCrudoString = subscriberMQTTServiceLocal.getData();
-                            JSONObject re = new JSONObject(registroCrudoString);
+                            re = new JSONObject(registroCrudoString);
 //                            if(!re.isNull("fechaHoraOcurrencia"))
 //                            System.out.println(re.getString("fechaHoraOcurrencia") + "  " + new Date());
                             registroCrudo = cast.JSONtoRegistroEventoCrudo(registroCrudoString);
@@ -2728,9 +2728,21 @@ public class Application {
                                 }
                             }
                             registroCrudo.setOrigen("Estacion");
-
+                            if(EncontrarVagon(registroCrudo.getIdVagon()).nuevoMensaje(registroCrudo) && (registroCrudo.getFuncion().equalsIgnoreCase("EVENTO") || registroCrudo.getFuncion().equalsIgnoreCase("BOTON_EMERGENCIA"))){
+                                EncontrarVagon(registroCrudo.getIdVagon()).setUltimo_registro(registroCrudo);
+                                JSONObject ack = new JSONObject();
+                                ack.put("origen", "PI");
+                                ack.put("funcion", "ACK");
+                                if(!re.isNull("idRegistro")){
+                                    ack.put("idRegistro", re.getString("idRegistro"));
+                                }
+                                publisherMQTTServiceInterno.Publisher(ack.toString().getBytes(), registroCrudo.getIdVagon());
+                                registrosCrudos.add(registroCrudo);
+                            }else{
+                                registrosCrudos.add(registroCrudo);
+                            }
 //                            System.out.println("Julian:  " + new Gson().toJson(subscriberMQTTServiceLocal.getData()));
-                            registrosCrudos.add(registroCrudo);
+                            
 
                         }
 
@@ -2744,6 +2756,20 @@ public class Application {
             }
         }.start();
 
+    }
+    
+    
+    public Vagon EncontrarVagon(String vagon){
+        Vagon re = new Vagon();
+        ArrayList<Vagon> vagonesT = new ArrayList<>();
+        vagonesT.addAll(vagones);
+        for (Vagon vagone : vagonesT) {
+            if (vagone.getNombre().equalsIgnoreCase(vagon)) {
+                re = vagone;
+                //System.out.println(re);
+            }
+        }
+        return re;
     }
 
     public String nombreVagon(String nombre) {
