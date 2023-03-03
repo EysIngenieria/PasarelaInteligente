@@ -1,0 +1,2893 @@
+{
+  "ACTIVADO": 0,
+  "MacBluetooth": "",
+  "MacWifi": "",
+  "MacEthernet": "",
+  "MLAN": {
+    "paradas": [
+      {
+        "parada": "01",
+        "vagon": "WA",
+        "nombre": "OC"
+      },
+      {
+        "parada": "02",
+        "vagon": "WA",
+        "nombre": "OC"
+      },
+      {
+        "parada": "03",
+        "vagon": "WA",
+        "nombre": "OR"
+      },
+      {
+        "parada": "04",
+        "vagon": "WA",
+        "nombre": "OR"
+      },
+      {
+        "parada": "01",
+        "vagon": "WB",
+        "nombre": "OC"
+      },
+      {
+        "parada": "02",
+        "vagon": "WB",
+        "nombre": "OC"
+      },
+      {
+        "parada": "03",
+        "vagon": "WB",
+        "nombre": "OR"
+      },
+      {
+        "parada": "04",
+        "vagon": "WB",
+        "nombre": "OR"
+      },
+      {
+        "parada": "02",
+        "vagon": "WC",
+        "nombre": "OC"
+      },
+      {
+        "parada": "03",
+        "vagon": "WC",
+        "nombre": "OR"
+      }
+      
+    ],
+    "PuertoTransmisorMLAN": "9300",
+    "DireccionMLAN": "192.168.1.101,192.168.1.102,192.168.1.103",
+    "PuertoReceptorMLAN": "9300"
+  },
+  "MQTTCDEG": {
+    "mqttServerAddress": "ssl://mqtt.googleapis.com:443",
+    "registro": "assabloyp",
+    "proyecto": "smart-helios-cgtm-qa", 
+    "region": "us-central1"
+  },
+  "servidoLocalMQTT": "tcp://localhost:1883",
+  "nombreEstacion": "LasNieves",
+  "Universidades": {
+    "idEstacion": "6111",
+    "Puertas": [
+      {
+        "canal": "1",
+        "id": "1",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "6111-WA-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "2",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "6111-WA-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "3",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "6111-WA-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "4",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "6111-WA-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "5",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "6111-WA-OR-5"
+      },
+      {
+        "canal": "1",
+        "id": "6",
+        "vagon": "1",
+        "idPuerta": "6",
+        "descripcion": "6111-WA-OR-6"
+      },
+      {
+        "canal": "1",
+        "id": "7",
+        "vagon": "1",
+        "idPuerta": "7",
+        "descripcion": "6111-WA-OR-7"
+      },
+      {
+        "canal": "2",
+        "id": "8",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "6111-WA-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "9",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "6111-WA-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "10",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "6111-WA-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "11",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "6111-WA-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "12",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "6111-WA-OC-5"
+      },
+      {
+        "canal": "2",
+        "id": "13",
+        "vagon": "1",
+        "idPuerta": "6",
+        "descripcion": "6111-WA-OC-6"
+      },
+      {
+        "canal": "2",
+        "id": "14",
+        "vagon": "1",
+        "idPuerta": "7",
+        "descripcion": "6111-WA-OC-7"
+      },
+      {
+        "canal": "1",
+        "id": "15",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "6111-WB-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "16",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "6111-WB-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "17",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "6111-WB-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "18",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "6111-WB-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "19",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "6111-WB-OR-5"
+      },
+      {
+        "canal": "1",
+        "id": "20",
+        "vagon": "2",
+        "idPuerta": "6",
+        "descripcion": "6111-WB-OR-6"
+      },
+      {
+        "canal": "1",
+        "id": "21",
+        "vagon": "2",
+        "idPuerta": "7",
+        "descripcion": "6111-WB-OR-7"
+      },
+      {
+        "canal": "2",
+        "id": "22",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "6111-WB-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "23",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "6111-WB-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "24",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "6111-WB-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "25",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "6111-WB-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "26",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "6111-WB-OC-5"
+      },
+      {
+        "canal": "2",
+        "id": "27",
+        "vagon": "2",
+        "idPuerta": "6",
+        "descripcion": "6111-WB-OC-6"
+      },
+      {
+        "canal": "2",
+        "id": "28",
+        "vagon": "2",
+        "idPuerta": "7",
+        "descripcion": "6111-WB-OC-7"
+      }
+    ]
+  },
+"Parque": {
+    "idEstacion": "8001",
+    "Puertas": [
+      {
+        "canal": "1",
+        "id": "1",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "8001-WA-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "2",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "8001-WA-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "3",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "8001-WA-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "4",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "8001-WA-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "5",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "8001-WA-OR-5"
+      },
+      {
+        "canal": "1",
+        "id": "6",
+        "vagon": "1",
+        "idPuerta": "6",
+        "descripcion": "8001-WA-OR-6"
+      },
+      {
+        "canal": "1",
+        "id": "7",
+        "vagon": "1",
+        "idPuerta": "7",
+        "descripcion": "8001-WA-OR-7"
+      },
+      {
+        "canal": "2",
+        "id": "8",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "8001-WA-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "9",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "8001-WA-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "10",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "8001-WA-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "11",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "8001-WA-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "12",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "8001-WA-OC-5"
+      },
+      {
+        "canal": "2",
+        "id": "13",
+        "vagon": "1",
+        "idPuerta": "6",
+        "descripcion": "8001-WA-OC-6"
+      },
+      {
+        "canal": "2",
+        "id": "14",
+        "vagon": "1",
+        "idPuerta": "7",
+        "descripcion": "8001-WA-OC-7"
+      }
+    ]
+  },
+"Biblioteca": {
+    "idEstacion": "8002",
+    "Puertas": [
+      {
+        "canal": "1",
+        "id": "1",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "8002-WA-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "2",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "8002-WA-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "3",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "8002-WA-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "4",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "8002-WA-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "5",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "8002-WA-OR-5"
+      },
+      {
+        "canal": "1",
+        "id": "6",
+        "vagon": "1",
+        "idPuerta": "6",
+        "descripcion": "8002-WA-OR-6"
+      },
+      {
+        "canal": "1",
+        "id": "7",
+        "vagon": "1",
+        "idPuerta": "7",
+        "descripcion": "8002-WA-OR-7"
+      },
+      {
+        "canal": "2",
+        "id": "8",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "8002-WA-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "9",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "8002-WA-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "10",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "8002-WA-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "11",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "8002-WA-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "12",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "8002-WA-OC-5"
+      },
+      {
+        "canal": "2",
+        "id": "13",
+        "vagon": "1",
+        "idPuerta": "6",
+        "descripcion": "8002-WA-OC-6"
+      },
+      {
+        "canal": "2",
+        "id": "14",
+        "vagon": "1",
+        "idPuerta": "7",
+        "descripcion": "8002-WA-OC-7"
+      }
+    ]
+  },
+"SantaLucia": {
+    "idEstacion": "9004",
+    "Puertas": [
+      {
+        "canal": "1",
+        "id": "1",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "9004-WA-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "2",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "9004-WA-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "3",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "9004-WA-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "4",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "9004-WA-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "5",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "9004-WA-OR-5"
+      },
+      {
+        "canal": "1",
+        "id": "6",
+        "vagon": "1",
+        "idPuerta": "6",
+        "descripcion": "9004-WA-OR-6"
+      },
+      {
+        "canal": "1",
+        "id": "7",
+        "vagon": "1",
+        "idPuerta": "7",
+        "descripcion": "9004-WA-OR-7"
+      },
+      {
+        "canal": "2",
+        "id": "8",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "9004-WA-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "9",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "9004-WA-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "10",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "9004-WA-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "11",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "9004-WA-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "12",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "9004-WA-OC-5"
+      },
+      {
+        "canal": "2",
+        "id": "13",
+        "vagon": "1",
+        "idPuerta": "6",
+        "descripcion": "9004-WA-OC-6"
+      },
+      {
+        "canal": "2",
+        "id": "14",
+        "vagon": "1",
+        "idPuerta": "7",
+        "descripcion": "9004-WA-OC-7"
+      },
+      {
+        "canal": "1",
+        "id": "15",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "9004-WB-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "16",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "9004-WB-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "17",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "9004-WB-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "18",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "9004-WB-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "19",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "9004-WB-OR-5"
+      },
+      {
+        "canal": "1",
+        "id": "20",
+        "vagon": "2",
+        "idPuerta": "6",
+        "descripcion": "9004-WB-OR-6"
+      },
+      {
+        "canal": "1",
+        "id": "21",
+        "vagon": "2",
+        "idPuerta": "7",
+        "descripcion": "9004-WB-OR-7"
+      },
+      {
+        "canal": "2",
+        "id": "22",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "9004-WB-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "23",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "9004-WB-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "24",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "9004-WB-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "25",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "9004-WB-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "26",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "9004-WB-OC-5"
+      },
+      {
+        "canal": "2",
+        "id": "27",
+        "vagon": "2",
+        "idPuerta": "6",
+        "descripcion": "9004-WB-OC-6"
+      },
+      {
+        "canal": "2",
+        "id": "28",
+        "vagon": "2",
+        "idPuerta": "7",
+        "descripcion": "9004-WB-OC-7"
+      }
+    ]
+  },
+"AvenidaJimenez": {
+    "idEstacion": "9110",
+    "Puertas": [
+      {
+        "canal": "1",
+        "id": "1",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "9110-WA-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "2",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "9110-WA-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "3",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "9110-WA-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "4",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "9110-WA-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "5",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "9110-WA-OR-5"
+      },
+      {
+        "canal": "2",
+        "id": "6",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "9110-WA-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "7",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "9110-WA-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "8",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "9110-WA-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "9",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "9110-WA-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "10",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "9110-WA-OC-5"
+      },
+      {
+        "canal": "1",
+        "id": "11",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "9110-WB-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "12",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "9110-WB-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "13",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "9110-WB-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "14",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "9110-WB-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "15",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "9110-WB-OR-5"
+      },
+      {
+        "canal": "2",
+        "id": "16",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "9110-WB-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "17",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "9110-WB-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "18",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "9110-WB-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "19",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "9110-WB-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "20",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "9110-WB-OC-5"
+      },
+      {
+        "canal": "1",
+        "id": "21",
+        "vagon": "3",
+        "idPuerta": "1",
+        "descripcion": "9110-WC-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "22",
+        "vagon": "3",
+        "idPuerta": "2",
+        "descripcion": "9110-WC-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "23",
+        "vagon": "3",
+        "idPuerta": "3",
+        "descripcion": "9110-WC-OR-3"
+      },
+      {
+        "canal": "2",
+        "id": "24",
+        "vagon": "3",
+        "idPuerta": "1",
+        "descripcion": "9110-WC-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "25",
+        "vagon": "3",
+        "idPuerta": "2",
+        "descripcion": "9110-WC-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "26",
+        "vagon": "3",
+        "idPuerta": "3",
+        "descripcion": "9110-WC-OC-3"
+      }
+    ]
+  },
+"Calle19": {
+    "idEstacion": "9111",
+    "Puertas": [
+      {
+        "canal": "1",
+        "id": "1",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "9111-WA-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "2",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "9111-WA-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "3",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "9111-WA-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "4",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "9111-WA-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "5",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "9111-WA-OR-5"
+      },
+      {
+        "canal": "2",
+        "id": "6",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "9111-WA-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "7",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "9111-WA-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "8",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "9111-WA-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "9",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "9111-WA-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "10",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "9111-WA-OC-5"
+      },
+      {
+        "canal": "1",
+        "id": "11",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "9111-WB-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "12",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "9111-WB-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "13",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "9111-WB-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "14",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "9111-WB-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "15",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "9111-WB-OR-5"
+      },
+      {
+        "canal": "2",
+        "id": "16",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "9111-WB-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "17",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "9111-WB-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "18",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "9111-WB-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "19",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "9111-WB-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "20",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "9111-WB-OC-5"
+      },
+      {
+        "canal": "1",
+        "id": "21",
+        "vagon": "3",
+        "idPuerta": "1",
+        "descripcion": "9111-WC-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "22",
+        "vagon": "3",
+        "idPuerta": "2",
+        "descripcion": "9111-WC-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "23",
+        "vagon": "3",
+        "idPuerta": "3",
+        "descripcion": "9111-WC-OR-3"
+      },
+      {
+        "canal": "2",
+        "id": "24",
+        "vagon": "3",
+        "idPuerta": "1",
+        "descripcion": "9111-WC-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "25",
+        "vagon": "3",
+        "idPuerta": "2",
+        "descripcion": "9111-WC-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "26",
+        "vagon": "3",
+        "idPuerta": "3",
+        "descripcion": "9111-WC-OC-3"
+      }
+    ]
+  },
+"Calle22": {
+    "idEstacion": "9113",
+    "Puertas": [
+      {
+        "canal": "1",
+        "id": "1",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "9113-WA-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "2",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "9113-WA-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "3",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "9113-WA-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "4",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "9113-WA-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "5",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "9113-WA-OR-5"
+      },
+      {
+        "canal": "2",
+        "id": "6",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "9113-WA-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "7",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "9113-WA-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "8",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "9113-WA-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "9",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "9113-WA-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "10",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "9113-WA-OC-5"
+      },
+      {
+        "canal": "1",
+        "id": "11",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "9113-WB-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "12",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "9113-WB-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "13",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "9113-WB-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "14",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "9113-WB-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "15",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "9113-WB-OR-5"
+      },
+      {
+        "canal": "2",
+        "id": "16",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "9113-WB-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "17",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "9113-WB-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "18",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "9113-WB-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "19",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "9113-WB-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "20",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "9113-WB-OC-5"
+      },
+      {
+        "canal": "1",
+        "id": "21",
+        "vagon": "3",
+        "idPuerta": "1",
+        "descripcion": "9113-WC-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "22",
+        "vagon": "3",
+        "idPuerta": "2",
+        "descripcion": "9113-WC-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "23",
+        "vagon": "3",
+        "idPuerta": "3",
+        "descripcion": "9113-WC-OR-3"
+      },
+      {
+        "canal": "2",
+        "id": "24",
+        "vagon": "3",
+        "idPuerta": "1",
+        "descripcion": "9113-WC-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "25",
+        "vagon": "3",
+        "idPuerta": "2",
+        "descripcion": "9113-WC-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "26",
+        "vagon": "3",
+        "idPuerta": "3",
+        "descripcion": "9113-WC-OC-3"
+      }
+    ]
+  },
+"Calle26": {
+    "idEstacion": "9114",
+    "Puertas": [
+      {
+        "canal": "1",
+        "id": "1",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "9114-WA-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "2",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "9114-WA-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "3",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "9114-WA-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "4",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "9114-WA-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "5",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "9114-WA-OR-5"
+      },
+      {
+        "canal": "2",
+        "id": "6",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "9114-WA-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "7",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "9114-WA-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "8",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "9114-WA-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "9",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "9114-WA-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "10",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "9114-WA-OC-5"
+      },
+      {
+        "canal": "1",
+        "id": "11",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "9114-WB-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "12",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "9114-WB-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "13",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "9114-WB-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "14",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "9114-WB-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "15",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "9114-WB-OR-5"
+      },
+      {
+        "canal": "2",
+        "id": "16",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "9114-WB-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "17",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "9114-WB-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "18",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "9114-WB-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "19",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "9114-WB-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "20",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "9114-WB-OC-5"
+      },
+      {
+        "canal": "1",
+        "id": "21",
+        "vagon": "3",
+        "idPuerta": "1",
+        "descripcion": "9114-WC-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "22",
+        "vagon": "3",
+        "idPuerta": "2",
+        "descripcion": "9114-WC-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "23",
+        "vagon": "3",
+        "idPuerta": "3",
+        "descripcion": "9114-WC-OR-3"
+      },
+      {
+        "canal": "2",
+        "id": "24",
+        "vagon": "3",
+        "idPuerta": "1",
+        "descripcion": "9114-WC-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "25",
+        "vagon": "3",
+        "idPuerta": "2",
+        "descripcion": "9114-WC-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "26",
+        "vagon": "3",
+        "idPuerta": "3",
+        "descripcion": "9114-WC-OC-3"
+      }
+    ]
+  },
+"Bicentenario": {
+    "idEstacion": "10005",
+    "Puertas": [
+      {
+        "canal": "1",
+        "id": "1",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "10005-WA-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "2",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "10005-WA-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "3",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "10005-WA-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "4",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "10005-WA-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "5",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "10005-WA-OR-5"
+      },
+      {
+        "canal": "2",
+        "id": "6",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "10005-WA-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "7",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "10005-WA-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "8",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "10005-WA-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "9",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "10005-WA-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "10",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "10005-WA-OC-5"
+      },
+      {
+        "canal": "1",
+        "id": "11",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "10005-WB-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "12",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "10005-WB-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "13",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "10005-WB-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "14",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "10005-WB-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "15",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "10005-WB-OR-5"
+      },
+      {
+        "canal": "1",
+        "id": "16",
+        "vagon": "2",
+        "idPuerta": "6",
+        "descripcion": "10005-WB-OR-6"
+      },
+      {
+        "canal": "1",
+        "id": "17",
+        "vagon": "2",
+        "idPuerta": "7",
+        "descripcion": "10005-WB-OR-7"
+      },
+      {
+        "canal": "2",
+        "id": "18",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "10005-WB-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "19",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "10005-WB-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "20",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "10005-WB-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "21",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "10005-WB-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "22",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "10005-WB-OC-5"
+      },
+      {
+        "canal": "2",
+        "id": "23",
+        "vagon": "2",
+        "idPuerta": "6",
+        "descripcion": "10005-WB-OC-6"
+      },
+      {
+        "canal": "2",
+        "id": "24",
+        "vagon": "2",
+        "idPuerta": "7",
+        "descripcion": "10005-WB-OC-7"
+      },
+      {
+        "canal": "1",
+        "id": "25",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "10005-WC-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "26",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "10005-WC-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "27",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "10005-WC-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "28",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "10005-WC-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "29",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "10005-WC-OR-5"
+      },
+      {
+        "canal": "1",
+        "id": "30",
+        "vagon": "2",
+        "idPuerta": "6",
+        "descripcion": "10005-WC-OR-6"
+      },
+      {
+        "canal": "1",
+        "id": "31",
+        "vagon": "2",
+        "idPuerta": "7",
+        "descripcion": "10005-WC-OR-7"
+      },
+      {
+        "canal": "2",
+        "id": "32",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "10005-WC-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "33",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "10005-WC-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "34",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "10005-WC-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "35",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "10005-WC-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "36",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "10005-WC-OC-5"
+      },
+      {
+        "canal": "2",
+        "id": "37",
+        "vagon": "2",
+        "idPuerta": "6",
+        "descripcion": "10005-WC-OC-6"
+      },
+      {
+        "canal": "2",
+        "id": "38",
+        "vagon": "2",
+        "idPuerta": "7",
+        "descripcion": "10005-WC-OC-7"
+      }
+    ]
+  },
+"Sanvictorino": {
+    "idEstacion": "10006",
+    "Puertas": [
+      {
+        "canal": "1",
+        "id": "1",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "10006-WA-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "2",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "10006-WA-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "3",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "10006-WA-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "4",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "10006-WA-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "5",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "10006-WA-OR-5"
+      },
+      {
+        "canal": "2",
+        "id": "6",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "10006-WA-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "7",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "10006-WA-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "8",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "10006-WA-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "9",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "10006-WA-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "10",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "10006-WA-OC-5"
+      },
+      {
+        "canal": "1",
+        "id": "11",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "10006-WB-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "12",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "10006-WB-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "13",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "10006-WB-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "14",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "10006-WB-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "15",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "10006-WB-OR-5"
+      },
+      {
+        "canal": "1",
+        "id": "16",
+        "vagon": "2",
+        "idPuerta": "6",
+        "descripcion": "10006-WB-OR-6"
+      },
+      {
+        "canal": "1",
+        "id": "17",
+        "vagon": "2",
+        "idPuerta": "7",
+        "descripcion": "10006-WB-OR-7"
+      },
+      {
+        "canal": "2",
+        "id": "18",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "10006-WB-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "19",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "10006-WB-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "20",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "10006-WB-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "21",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "10006-WB-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "22",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "10006-WB-OC-5"
+      },
+      {
+        "canal": "2",
+        "id": "23",
+        "vagon": "2",
+        "idPuerta": "6",
+        "descripcion": "10006-WB-OC-6"
+      },
+      {
+        "canal": "2",
+        "id": "24",
+        "vagon": "2",
+        "idPuerta": "7",
+        "descripcion": "10006-WB-OC-7"
+      },
+      {
+        "canal": "1",
+        "id": "25",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "10006-WC-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "26",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "10006-WC-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "27",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "10006-WC-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "28",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "10006-WC-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "29",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "10006-WC-OR-5"
+      },
+      {
+        "canal": "1",
+        "id": "30",
+        "vagon": "2",
+        "idPuerta": "6",
+        "descripcion": "10006-WC-OR-6"
+      },
+      {
+        "canal": "1",
+        "id": "31",
+        "vagon": "2",
+        "idPuerta": "7",
+        "descripcion": "10006-WC-OR-7"
+      },
+      {
+        "canal": "2",
+        "id": "32",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "10006-WC-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "33",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "10006-WC-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "34",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "10006-WC-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "35",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "10006-WC-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "36",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "10006-WC-OC-5"
+      },
+      {
+        "canal": "2",
+        "id": "37",
+        "vagon": "2",
+        "idPuerta": "6",
+        "descripcion": "10006-WC-OC-6"
+      },
+      {
+        "canal": "2",
+        "id": "38",
+        "vagon": "2",
+        "idPuerta": "7",
+        "descripcion": "10006-WC-OC-7"
+      }
+    ]
+  },
+"LasNieves": {
+    "idEstacion": "10007",
+    "Puertas": [
+      {
+        "canal": "1",
+        "id": "1",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "10007-WA-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "2",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "10007-WA-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "3",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "10007-WA-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "4",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "10007-WA-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "5",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "10007-WA-OR-5"
+      },
+      {
+        "canal": "1",
+        "id": "6",
+        "vagon": "1",
+        "idPuerta": "6",
+        "descripcion": "10007-WA-OR-6"
+      },
+      {
+        "canal": "1",
+        "id": "7",
+        "vagon": "1",
+        "idPuerta": "7",
+        "descripcion": "10007-WA-OR-7"
+      },
+      {
+        "canal": "2",
+        "id": "8",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "10007-WA-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "9",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "10007-WA-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "10",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "10007-WA-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "11",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "10007-WA-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "12",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "10007-WA-OC-5"
+      },
+      {
+        "canal": "2",
+        "id": "13",
+        "vagon": "1",
+        "idPuerta": "6",
+        "descripcion": "10007-WA-OC-6"
+      },
+      {
+        "canal": "2",
+        "id": "14",
+        "vagon": "1",
+        "idPuerta": "7",
+        "descripcion": "10007-WA-OC-7"
+      },
+      {
+        "canal": "1",
+        "id": "15",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "10007-WB-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "16",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "10007-WB-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "17",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "10007-WB-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "18",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "10007-WB-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "19",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "10007-WB-OR-5"
+      },
+      {
+        "canal": "1",
+        "id": "20",
+        "vagon": "2",
+        "idPuerta": "6",
+        "descripcion": "10007-WB-OR-6"
+      },
+      {
+        "canal": "1",
+        "id": "21",
+        "vagon": "2",
+        "idPuerta": "7",
+        "descripcion": "10007-WB-OR-7"
+      },
+      {
+        "canal": "2",
+        "id": "22",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "10007-WB-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "23",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "10007-WB-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "24",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "10007-WB-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "25",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "10007-WB-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "26",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "10007-WB-OC-5"
+      },
+      {
+        "canal": "2",
+        "id": "27",
+        "vagon": "2",
+        "idPuerta": "6",
+        "descripcion": "10007-WB-OC-6"
+      },
+      {
+        "canal": "2",
+        "id": "28",
+        "vagon": "2",
+        "idPuerta": "7",
+        "descripcion": "10007-WB-OC-7"
+      }
+    ]
+  },
+"SanBernardo": {
+    "idEstacion": "10010",
+    "Puertas": [
+      {
+        "canal": "1",
+        "id": "1",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "10010-WA-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "2",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "10010-WA-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "3",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "10010-WA-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "4",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "10010-WA-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "5",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "10010-WA-OR-5"
+      },
+      {
+        "canal": "2",
+        "id": "6",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "10010-WA-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "7",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "10010-WA-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "8",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "10010-WA-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "9",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "10010-WA-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "10",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "10010-WA-OC-5"
+      },
+      {
+        "canal": "1",
+        "id": "11",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "10010-WB-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "12",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "10010-WB-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "13",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "10010-WB-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "14",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "10010-WB-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "15",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "10010-WB-OR-5"
+      },      
+      {
+        "canal": "2",
+        "id": "16",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "10010-WB-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "17",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "10010-WB-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "18",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "10010-WB-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "19",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "10010-WB-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "20",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "10010-WB-OC-5"
+      }
+    ]
+  },
+"DeLaSabana": {
+    "idEstacion": "12004",
+    "Puertas": [
+      {
+        "canal": "1",
+        "id": "1",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "12004-WA-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "2",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "12004-WA-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "3",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "12004-WA-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "4",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "12004-WA-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "5",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "12004-WA-OR-5"
+      },
+      {
+        "canal": "1",
+        "id": "6",
+        "vagon": "1",
+        "idPuerta": "6",
+        "descripcion": "12004-WA-OR-6"
+      },
+      {
+        "canal": "1",
+        "id": "7",
+        "vagon": "1",
+        "idPuerta": "7",
+        "descripcion": "12004-WA-OR-7"
+      },
+      {
+        "canal": "2",
+        "id": "8",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "12004-WA-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "9",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "12004-WA-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "10",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "12004-WA-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "11",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "12004-WA-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "12",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "12004-WA-OC-5"
+      },
+      {
+        "canal": "2",
+        "id": "13",
+        "vagon": "1",
+        "idPuerta": "6",
+        "descripcion": "12004-WA-OC-6"
+      },
+      {
+        "canal": "2",
+        "id": "14",
+        "vagon": "1",
+        "idPuerta": "7",
+        "descripcion": "12004-WA-OC-7"
+      },
+      {
+        "canal": "1",
+        "id": "15",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "12004-WB-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "16",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "12004-WB-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "17",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "12004-WB-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "18",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "12004-WB-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "19",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "12004-WB-OR-5"
+      },
+      {
+        "canal": "1",
+        "id": "20",
+        "vagon": "2",
+        "idPuerta": "6",
+        "descripcion": "12004-WB-OR-6"
+      },
+      {
+        "canal": "1",
+        "id": "21",
+        "vagon": "2",
+        "idPuerta": "7",
+        "descripcion": "12004-WB-OR-7"
+      },
+      {
+        "canal": "2",
+        "id": "22",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "12004-WB-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "23",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "12004-WB-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "24",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "12004-WB-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "25",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "12004-WB-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "26",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "12004-WB-OC-5"
+      },
+      {
+        "canal": "2",
+        "id": "27",
+        "vagon": "2",
+        "idPuerta": "6",
+        "descripcion": "12004-WB-OC-6"
+      },
+      {
+        "canal": "2",
+        "id": "28",
+        "vagon": "2",
+        "idPuerta": "7",
+        "descripcion": "12004-WB-OC-7"
+      }
+    ]
+  },
+"SanFasonCarrera22": {
+    "idEstacion": "14001",
+    "Puertas": [
+      {
+        "canal": "1",
+        "id": "1",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "14001-WA-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "2",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "14001-WA-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "3",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "14001-WA-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "4",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "14001-WA-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "5",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "14001-WA-OR-5"
+      },
+      {
+        "canal": "1",
+        "id": "6",
+        "vagon": "1",
+        "idPuerta": "6",
+        "descripcion": "14001-WA-OR-6"
+      },
+      {
+        "canal": "1",
+        "id": "7",
+        "vagon": "1",
+        "idPuerta": "7",
+        "descripcion": "14001-WA-OR-7"
+      },
+      {
+        "canal": "2",
+        "id": "8",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "14001-WA-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "9",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "14001-WA-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "10",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "14001-WA-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "11",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "14001-WA-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "12",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "14001-WA-OC-5"
+      },
+      {
+        "canal": "2",
+        "id": "13",
+        "vagon": "1",
+        "idPuerta": "6",
+        "descripcion": "14001-WA-OC-6"
+      },
+      {
+        "canal": "2",
+        "id": "14",
+        "vagon": "1",
+        "idPuerta": "7",
+        "descripcion": "14001-WA-OC-7"
+      }
+    ]
+  },
+"MuseoDelOro": {
+    "idEstacion": "14004",
+    "Puertas": [
+      {
+        "canal": "1",
+        "id": "1",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "14004-WA-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "2",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "14004-WA-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "3",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "14004-WA-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "4",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "14004-WA-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "5",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "14004-WA-OR-5"
+      },
+      {
+        "canal": "1",
+        "id": "6",
+        "vagon": "1",
+        "idPuerta": "6",
+        "descripcion": "14004-WA-OR-6"
+      },
+      {
+        "canal": "1",
+        "id": "7",
+        "vagon": "1",
+        "idPuerta": "7",
+        "descripcion": "14004-WA-OR-7"
+      },
+      {
+        "canal": "2",
+        "id": "8",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "14004-WA-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "9",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "14004-WA-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "10",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "14004-WA-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "11",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "14004-WA-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "12",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "14004-WA-OC-5"
+      },
+      {
+        "canal": "2",
+        "id": "13",
+        "vagon": "1",
+        "idPuerta": "6",
+        "descripcion": "14004-WA-OC-6"
+      },
+      {
+        "canal": "2",
+        "id": "14",
+        "vagon": "1",
+        "idPuerta": "7",
+        "descripcion": "14004-WA-OC-7"
+      },
+      {
+        "canal": "1",
+        "id": "15",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "14004-WB-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "16",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "14004-WB-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "17",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "14004-WB-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "18",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "14004-WB-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "19",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "14004-WB-OR-5"
+      },
+      {
+        "canal": "1",
+        "id": "20",
+        "vagon": "2",
+        "idPuerta": "6",
+        "descripcion": "14004-WB-OR-6"
+      },
+      {
+        "canal": "1",
+        "id": "21",
+        "vagon": "2",
+        "idPuerta": "7",
+        "descripcion": "14004-WB-OR-7"
+      },
+      {
+        "canal": "2",
+        "id": "22",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "14004-WB-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "23",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "14004-WB-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "24",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "14004-WB-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "25",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "14004-WB-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "26",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "14004-WB-OC-5"
+      },
+      {
+        "canal": "2",
+        "id": "27",
+        "vagon": "2",
+        "idPuerta": "6",
+        "descripcion": "14004-WB-OC-6"
+      },
+      {
+        "canal": "2",
+        "id": "28",
+        "vagon": "2",
+        "idPuerta": "7",
+        "descripcion": "14004-WB-OC-7"
+      }
+    ]
+  },
+"LasAguas": {
+    "idEstacion": "14005",
+    "Puertas": [
+      {
+        "canal": "1",
+        "id": "1",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "14005-WA-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "2",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "14005-WA-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "3",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "14005-WA-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "4",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "14005-WA-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "5",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "14005-WA-OR-5"
+      },
+      {
+        "canal": "1",
+        "id": "6",
+        "vagon": "1",
+        "idPuerta": "6",
+        "descripcion": "14005-WA-OR-6"
+      },
+      {
+        "canal": "1",
+        "id": "7",
+        "vagon": "1",
+        "idPuerta": "7",
+        "descripcion": "14005-WA-OR-7"
+      }
+    ]
+  },
+  "dispositivo": "E10007_0_Estacion_V1",
+  "idOperador": "P02",
+  "MQTTMANATEE": {
+    "clave": "Manatee2022.",
+    "broker": "tcp://4.236.168.64:1883",
+    "usuario": "admin"  
+      },
+  "inicioOperacion": {
+    "HoraInicioOperacion": "0400",
+    "FechaInicioOperacion": "27/10/2022"
+  },
+  "finOperacion": {
+    "HoraFinOperacion": "0000",
+    "TiempoFinOperacion": "900",
+    "FechaFinOperacion": "26/12/2022",
+    "HoraLimite": "0030"
+  },
+  "versionTrama": "1.0.0"
+}

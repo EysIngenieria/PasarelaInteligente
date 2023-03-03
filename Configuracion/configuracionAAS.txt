@@ -1,0 +1,291 @@
+{
+  "ACTIVADO": 2,
+  "MacBluetooth": "",
+  "MacWifi": "",
+  "MacEthernet": "",
+  "MLAN": {
+    "paradas": [
+      {
+        "parada": "01",
+        "vagon": "WA",
+        "nombre": "OC"
+      },
+      {
+        "parada": "02",
+        "vagon": "WA",
+        "nombre": "OC"
+      },
+      {
+        "parada": "03",
+        "vagon": "WA",
+        "nombre": "OR"
+      },
+      {
+        "parada": "04",
+        "vagon": "WA",
+        "nombre": "OR"
+      },
+      {
+        "parada": "01",
+        "vagon": "WB",
+        "nombre": "OC"
+      },
+      {
+        "parada": "02",
+        "vagon": "WB",
+        "nombre": "OC"
+      },
+      {
+        "parada": "03",
+        "vagon": "WB",
+        "nombre": "OR"
+      },
+      {
+        "parada": "04",
+        "vagon": "WB",
+        "nombre": "OR"
+      },
+      {
+        "parada": "02",
+        "vagon": "WC",
+        "nombre": "OC"
+      },
+      {
+        "parada": "03",
+        "vagon": "WC",
+        "nombre": "OR"
+      }
+      
+    ],
+    "PuertoTransmisorMLAN": "9300",
+    "DireccionMLAN": "192.168.1.101,192.168.1.102,192.168.1.103",
+    "PuertoReceptorMLAN": "9300"
+  },
+  "MQTTCDEG": {
+    "mqttServerAddress": "ssl://mqtt.googleapis.com:443",
+    "registro": "assabloyp",
+    "proyecto": "smart-helios-cgtm-qa", 
+    "region": "us-central1"
+  },
+  "servidoLocalMQTT": "tcp://localhost:1883",
+  "nombreEstacion": "SantaLucia",
+  "SantaLucia": {
+    "idEstacion": "9004",
+    "Puertas": [
+      {
+        "canal": "1",
+        "id": "1",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "9004-WA-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "2",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "9004-WA-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "3",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "9004-WA-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "4",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "9004-WA-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "5",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "9004-WA-OR-5"
+      },
+      {
+        "canal": "1",
+        "id": "6",
+        "vagon": "1",
+        "idPuerta": "6",
+        "descripcion": "9004-WA-OR-6"
+      },
+      {
+        "canal": "1",
+        "id": "7",
+        "vagon": "1",
+        "idPuerta": "7",
+        "descripcion": "9004-WA-OR-7"
+      },
+      {
+        "canal": "2",
+        "id": "8",
+        "vagon": "1",
+        "idPuerta": "1",
+        "descripcion": "9004-WA-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "9",
+        "vagon": "1",
+        "idPuerta": "2",
+        "descripcion": "9004-WA-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "10",
+        "vagon": "1",
+        "idPuerta": "3",
+        "descripcion": "9004-WA-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "11",
+        "vagon": "1",
+        "idPuerta": "4",
+        "descripcion": "9004-WA-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "12",
+        "vagon": "1",
+        "idPuerta": "5",
+        "descripcion": "9004-WA-OC-5"
+      },
+      {
+        "canal": "2",
+        "id": "13",
+        "vagon": "1",
+        "idPuerta": "6",
+        "descripcion": "9004-WA-OC-6"
+      },
+      {
+        "canal": "2",
+        "id": "14",
+        "vagon": "1",
+        "idPuerta": "7",
+        "descripcion": "9004-WA-OC-7"
+      },
+      {
+        "canal": "1",
+        "id": "15",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "9004-WB-OR-1"
+      },
+      {
+        "canal": "1",
+        "id": "16",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "9004-WB-OR-2"
+      },
+      {
+        "canal": "1",
+        "id": "17",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "9004-WB-OR-3"
+      },
+      {
+        "canal": "1",
+        "id": "18",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "9004-WB-OR-4"
+      },
+      {
+        "canal": "1",
+        "id": "19",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "9004-WB-OR-5"
+      },
+      {
+        "canal": "1",
+        "id": "20",
+        "vagon": "2",
+        "idPuerta": "6",
+        "descripcion": "9004-WB-OR-6"
+      },
+      {
+        "canal": "1",
+        "id": "21",
+        "vagon": "2",
+        "idPuerta": "7",
+        "descripcion": "9004-WB-OR-7"
+      },
+      {
+        "canal": "2",
+        "id": "22",
+        "vagon": "2",
+        "idPuerta": "1",
+        "descripcion": "9004-WB-OC-1"
+      },
+      {
+        "canal": "2",
+        "id": "23",
+        "vagon": "2",
+        "idPuerta": "2",
+        "descripcion": "9004-WB-OC-2"
+      },
+      {
+        "canal": "2",
+        "id": "24",
+        "vagon": "2",
+        "idPuerta": "3",
+        "descripcion": "9004-WB-OC-3"
+      },
+      {
+        "canal": "2",
+        "id": "25",
+        "vagon": "2",
+        "idPuerta": "4",
+        "descripcion": "9004-WB-OC-4"
+      },
+      {
+        "canal": "2",
+        "id": "26",
+        "vagon": "2",
+        "idPuerta": "5",
+        "descripcion": "9004-WB-OC-5"
+      },
+      {
+        "canal": "2",
+        "id": "27",
+        "vagon": "2",
+        "idPuerta": "6",
+        "descripcion": "9004-WB-OC-6"
+      },
+      {
+        "canal": "2",
+        "id": "28",
+        "vagon": "2",
+        "idPuerta": "7",
+        "descripcion": "9004-WB-OC-7"
+      }
+    ]
+  },
+  "dispositivo": "E9004_0_Estacion_V1",
+  "idOperador": "P02",
+  "MQTTMANATEE": {
+    "clave": "Manatee2022.",
+    "broker": "tcp://4.236.168.64:1883",
+    "usuario": "admin"  
+      },
+  "inicioOperacion": {
+    "HoraInicioOperacion": "0400",
+    "FechaInicioOperacion": "27/10/2022"
+  },
+  "finOperacion": {
+    "HoraFinOperacion": "0000",
+    "TiempoFinOperacion": "900",
+    "FechaFinOperacion": "26/12/2022",
+    "HoraLimite": "0030"
+  },
+  "versionTrama": "1.0.0"
+}
