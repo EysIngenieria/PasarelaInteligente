@@ -2734,7 +2734,7 @@ public class Application {
                                 ack.put("origen", "PI");
                                 ack.put("funcion", "ACK");
                                 if(!re.isNull("idRegistro")){
-                                    ack.put("idRegistro", re.getString("idRegistro"));
+                                    ack.put("idRegistro", re.getInt("idRegistro") );
                                 }
                                 publisherMQTTServiceInterno.Publisher(ack.toString().getBytes(), registroCrudo.getIdVagon());
                                 registrosCrudos.add(registroCrudo);
@@ -2761,9 +2761,8 @@ public class Application {
     
     public Vagon EncontrarVagon(String vagon){
         Vagon re = new Vagon();
-        ArrayList<Vagon> vagonesT = new ArrayList<>();
-        vagonesT.addAll(vagones);
-        for (Vagon vagone : vagonesT) {
+        
+        for (Vagon vagone : vagones) {
             if (vagone.getNombre().equalsIgnoreCase(vagon)) {
                 re = vagone;
                 //System.out.println(re);
