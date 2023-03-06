@@ -1,5 +1,5 @@
 {
-  "ACTIVADO": 0,
+  "ACTIVADO": 4,
   "MacBluetooth": "",
   "MacWifi": "",
   "MacEthernet": "",

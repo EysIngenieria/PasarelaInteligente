@@ -2064,7 +2064,7 @@ public class Application {
                 }
             }
         }.start();
-        if (activado != 0) {
+        if (false) {
             new Thread() {
                 @Override
                 public void run() {

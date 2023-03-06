@@ -86,6 +86,5 @@ com\eysingenieria\pi\Application$10.class
 com\eysingenieria\pi\controller\exceptions\IllegalOrphanException.class
 com\eysingenieria\pi\entities\Puerta_.class
 com\eysingenieria\pi\service\Constantes.class
-com\eysingenieria\pi\Application$2.class
 com\eysingenieria\pi\controller\exceptions\NonexistentEntityException.class
 com\eysingenieria\pi\entities\CFG_NivelAlarma.class

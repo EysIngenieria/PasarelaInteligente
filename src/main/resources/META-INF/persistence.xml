@@ -17,10 +17,10 @@
     <class>com.eysingenieria.pi.entities.Puerta</class>
     <class>com.eysingenieria.pi.entities.OP_RegistroTemporalManatee</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/PIDB?serverTimezone=UTC"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3307/PIDB?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="PIUSER"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="desarrolloMTE"/>
+      <property name="javax.persistence.jdbc.password" value="desarrolloEYS"/>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>
