@@ -12,6 +12,7 @@ import com.eysingenieria.pi.controller.CFG_CamposValidosJpaController;
 import com.eysingenieria.pi.controller.CFG_ConfiguracionJpaController;
 import com.eysingenieria.pi.controller.CFG_EventoJpaController;
 import com.eysingenieria.pi.controller.CFG_NivelAlarmaJpaController;
+import com.eysingenieria.pi.controller.ComandoCDEGJpaController;
 import com.eysingenieria.pi.controller.OP_ParametroJpaController;
 import com.eysingenieria.pi.controller.OP_RegistroCrudoJpaController;
 import com.eysingenieria.pi.controller.OP_RegistroJpaController;
@@ -26,6 +27,7 @@ import com.eysingenieria.pi.entities.CFG_CamposValidos;
 import com.eysingenieria.pi.entities.CFG_Configuracion;
 import com.eysingenieria.pi.entities.CFG_Evento;
 import com.eysingenieria.pi.entities.CFG_NivelAlarma;
+import com.eysingenieria.pi.entities.ComandoCDEG;
 import com.eysingenieria.pi.entities.OP_Parametro;
 import com.eysingenieria.pi.entities.OP_Registro;
 import com.eysingenieria.pi.entities.OP_RegistroCrudo;
@@ -54,10 +56,12 @@ public class DataAccess implements IDataAccess {
     private final CFG_EventoJpaController eventoJpaController;
     private final CFG_AlarmaJpaController alarmaJpaController;
     private final CFG_NivelAlarmaJpaController nivelAlarmaJpaController;
+    private final ComandoCDEGJpaController comandoController;
     
     private final PuertaJpaController puertaController;
 
     public DataAccess() {
+        comandoController = new ComandoCDEGJpaController();
         parametroJpaController = new OP_ParametroJpaController();
         registroJpaController = new OP_RegistroJpaController();
         registroTemporalJpaController = new OP_RegistroTemporalJpaController();
@@ -368,6 +372,25 @@ public class DataAccess implements IDataAccess {
     @Override
     public List<OP_RegistroTemporal> GetRegistroTemporalByCDEG() {
         return registroTemporalJpaController.findOP_RegistroTemporalEntitiesByCDEG();
+    }
+
+    @Override
+    public void saveComando(ComandoCDEG comando) {
+        comandoController.create(comando);
+    }
+
+    @Override
+    public List<ComandoCDEG> getComandosCDEG() {
+        return comandoController.findComandoCDEGEntities();
+    }
+
+    @Override
+    public void deleteComandoCDEG(Long id) {
+        try {
+            comandoController.destroy(id);
+        } catch (com.eysingenieria.pi.exceptions.NonexistentEntityException ex) {
+            Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     

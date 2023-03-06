@@ -16,6 +16,7 @@ import com.eysingenieria.pi.entities.CFG_Configuracion;
 import com.eysingenieria.pi.entities.CFG_Evento;
 import com.eysingenieria.pi.entities.CFG_NivelAlarma;
 import com.eysingenieria.pi.entities.Comando;
+import com.eysingenieria.pi.entities.ComandoCDEG;
 import com.eysingenieria.pi.entities.ComandoInterfazVisual;
 import com.eysingenieria.pi.entities.Configuracion;
 import com.eysingenieria.pi.entities.DatoCDEG;
@@ -31,6 +32,7 @@ import com.eysingenieria.pi.entities.Vagon;
 import com.eysingenieria.pi.service.TransmisorUDP;
 import com.eysingenieria.pi.service.Constantes;
 import com.eysingenieria.pi.service.GenerarClave;
+import com.eysingenieria.pi.service.JsonService;
 import com.eysingenieria.pi.service.ProcesarDatoCDEG;
 import com.eysingenieria.pi.service.ProcesarDatoEstacion;
 import com.eysingenieria.pi.service.PublicadorExternoMQTT;
@@ -82,6 +84,8 @@ public class Application {
     private DatoCDEG puerta2;
     private DatoCDEG vagon;
     private DatoCDEG estacion;
+    private JsonService jsonService;
+    
     Cast cast;
     private PublicadorMANATEEMQTT1 publicadorManatee;
     private String clienteManatee;
@@ -155,7 +159,7 @@ public class Application {
         vagon = new DatoCDEG();
         estacion = new DatoCDEG();
         cast = new Cast();
-
+        jsonService = new JsonService();
     }
 
     public void Run() {
@@ -2086,14 +2090,11 @@ public class Application {
                                         if (!datoCDEGString.equalsIgnoreCase(" ")) {
                                             registrosCrudos.add(registroCrudo);
                                         }
-                                        JSONObject envioManatee = new JSONObject();
-                                        envioManatee.put("trama", datoCDEGString);
-                                        envioManatee.put("estadoEnvioManatee", true);
-                                        Long idF = Long.valueOf(new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
-                                        String id = idEstacion + idF;
-                                        envioManatee.put("IDManatee", id);
-                                        envioManatee.put("fechaHoraEnvio", formatoFecha.format(new Date()));
-                                        publicadorManatee.Publisher(envioManatee.toString().getBytes(), "CDEGR");
+                                        ComandoCDEG comandoRecibido = new ComandoCDEG();
+                                        comandoRecibido.setTrama(datoCDEGString);
+                                        comandoRecibido.setFechaHoraOcurrencia(registroCrudo.getFechaOcurrencia());
+                                        dataManager.saveComando(comandoRecibido);
+                                        publicadorManatee.Publisher(jsonService.comandoCDEGMTE(datoCDEGString, idEstacion, formatoFecha).toString().getBytes(), "CDEGR");
                                     } catch (Exception ex) {
                                         Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                                     }
