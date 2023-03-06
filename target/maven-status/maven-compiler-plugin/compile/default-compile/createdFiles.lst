@@ -5,6 +5,7 @@ com\eysingenieria\pi\entities\CFG_Evento.class
 com\eysingenieria\pi\controller\OP_RegistroCrudoJpaController.class
 com\eysingenieria\pi\controller\CFG_CamposCabeceraJpaController.class
 com\eysingenieria\pi\entities\OP_Registro_.class
+com\eysingenieria\pi\entities\ComandoCDEG.class
 com\eysingenieria\pi\Application$5.class
 com\eysingenieria\pi\entities\OP_Registro.class
 com\eysingenieria\pi\Application$12.class
@@ -48,6 +49,7 @@ com\eysingenieria\pi\controller\OP_RegistroTemporalJpaController.class
 com\eysingenieria\pi\exceptions\NonexistentEntityException.class
 com\eysingenieria\pi\Application$7.class
 com\eysingenieria\pi\entities\CFG_CamposEvento_.class
+com\eysingenieria\pi\controller\ComandoCDEGJpaController.class
 com\eysingenieria\pi\entities\Vagones.class
 com\eysingenieria\pi\controller\exceptions\PreexistingEntityException.class
 com\eysingenieria\pi\service\ReceptorUDP.class
@@ -57,10 +59,12 @@ com\eysingenieria\pi\datamanager\DataManager.class
 com\eysingenieria\pi\Application$11.class
 com\eysingenieria\pi\Application$3.class
 com\eysingenieria\pi\entities\OP_RegistroCrudo.class
+com\eysingenieria\pi\service\JsonService.class
 com\eysingenieria\pi\entities\Vagon.class
 com\eysingenieria\pi\casting\Cast.class
 com\eysingenieria\pi\service\CommunicationSerialService.class
 com\eysingenieria\pi\entities\CFG_Configuracion.class
+com\eysingenieria\pi\entities\ComandoCDEG_.class
 com\eysingenieria\pi\controller\CFG_AlarmaJpaController.class
 com\eysingenieria\pi\entities\CFG_CamposValidos_.class
 com\eysingenieria\pi\entities\OP_Parametro_.class

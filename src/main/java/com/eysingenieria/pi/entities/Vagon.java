@@ -31,6 +31,7 @@ public class Vagon {
     private Queue comandos;
     
     private OP_RegistroCrudo ultimo_registro;
+    
     public void diferenciaFechas(){
         long date = 0;
         if (ultimaConexion != 0) {

@@ -19,6 +19,7 @@ C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eys
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\entities\Configuracion.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\entities\DatoCDEG.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\exceptions\NonexistentEntityException.java
+C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\controller\ComandoCDEGJpaController.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\datamanager\IDataAccess.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\entities\Evento.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\controller\OP_RegistroJpaController.java
@@ -34,6 +35,7 @@ C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eys
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\service\SuscriptorLocalMQTT.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\controller\OP_RegistroTemporalJpaController.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\controller\PuertaJpaController.java
+C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\entities\ComandoCDEG.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\service\CommunicationSerialService.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\controller\CFG_CamposEventoJpaController.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\entities\OP_RegistroCrudo.java
@@ -58,6 +60,7 @@ C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eys
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\entities\CFG_CamposEvento.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\entities\HubData.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\casting\Cast.java
+C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\service\JsonService.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\service\PublicadorMANATEEMQTT1.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\service\ReceptorUDP.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\entities\NivelAlarma.java
