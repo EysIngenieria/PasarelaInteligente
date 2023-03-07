@@ -2071,41 +2071,41 @@ public class Application {
             new Thread() {
                 @Override
                 public void run() {
-                    while (true) {
-                        clavePrivada = new GenerarClave().Generar(nombreEstacion);
-                        publicadorExternoMQTT.Suscribir(clavePrivada, dispositivo, servidorExternoMQTT, proyecto, region, registro);
-                        while (publicadorExternoMQTT.conect()) {
-                            if (publicadorExternoMQTT.isEntroDato()) {
-                                if (!publicadorExternoMQTT.getDato().equalsIgnoreCase("")) {
-                                    try {
-                                        datoCDEGString = publicadorExternoMQTT.getDato();
-                                        System.out.println("\nDato Plataforma: " + datoCDEGString + " - " + "Topico: " + publicadorExternoMQTT.getTopicoEntro() + "\n");
-                                        publicadorExternoMQTT.setEntroDato(false);
-                                        OP_RegistroCrudo registroCrudo = new OP_RegistroCrudo();
-                                        registroCrudo.setOrigen("CDEG");
-                                        registroCrudo.setTrama(datoCDEGString);
-                                        registroCrudo.setFechaOcurrencia(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
 
-                                        if (!datoCDEGString.equalsIgnoreCase(" ")) {
-                                            registrosCrudos.add(registroCrudo);
-                                        }
-                                        ComandoCDEG comandoRecibido = new ComandoCDEG();
-                                        comandoRecibido.setTrama(datoCDEGString);
-                                        comandoRecibido.setFechaHoraOcurrencia(registroCrudo.getFechaOcurrencia());
-                                        dataManager.saveComando(comandoRecibido);
-                                        publicadorManatee.Publisher(jsonService.comandoCDEGMTE(datoCDEGString, idEstacion, formatoFecha).toString().getBytes(), "CDEGR");
-                                    } catch (Exception ex) {
-                                        Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+                    clavePrivada = new GenerarClave().Generar(nombreEstacion);
+                    publicadorExternoMQTT.Suscribir(clavePrivada, dispositivo, servidorExternoMQTT, proyecto, region, registro);
+                    while (publicadorExternoMQTT.conect()) {
+                        if (publicadorExternoMQTT.isEntroDato()) {
+                            if (!publicadorExternoMQTT.getDato().equalsIgnoreCase("")) {
+                                try {
+                                    datoCDEGString = publicadorExternoMQTT.getDato();
+                                    System.out.println("\nDato Plataforma: " + datoCDEGString + " - " + "Topico: " + publicadorExternoMQTT.getTopicoEntro() + "\n");
+                                    publicadorExternoMQTT.setEntroDato(false);
+                                    OP_RegistroCrudo registroCrudo = new OP_RegistroCrudo();
+                                    registroCrudo.setOrigen("CDEG");
+                                    registroCrudo.setTrama(datoCDEGString);
+                                    registroCrudo.setFechaOcurrencia(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+
+                                    if (!datoCDEGString.equalsIgnoreCase(" ")) {
+                                        registrosCrudos.add(registroCrudo);
                                     }
+                                    ComandoCDEG comandoRecibido = new ComandoCDEG();
+                                    comandoRecibido.setTrama(datoCDEGString);
+                                    comandoRecibido.setFechaHoraOcurrencia(registroCrudo.getFechaOcurrencia());
+                                    dataManager.saveComando(comandoRecibido);
+                                    publicadorManatee.Publisher(jsonService.comandoCDEGMTE(datoCDEGString, idEstacion, formatoFecha).toString().getBytes(), "CDEGR");
+                                } catch (Exception ex) {
+                                    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                             }
-                            try {
-                                Thread.sleep(10);
-                            } catch (InterruptedException ie) {
-                            }
-
                         }
+                        try {
+                            Thread.sleep(10);
+                        } catch (InterruptedException ie) {
+                        }
+
                     }
+
 
                 }
             }.start();
