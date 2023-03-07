@@ -2728,16 +2728,17 @@ public class Application {
                                 }
                             }
                             registroCrudo.setOrigen("Estacion");
-                            if (!re.isNull("idRegistro")&& (registroCrudo.getFuncion().equalsIgnoreCase("EVENTO") || registroCrudo.getFuncion().equalsIgnoreCase("BOTON_EMERGENCIA"))) {
+                            if (!re.isNull("idRegistro") && (registroCrudo.getFuncion().equalsIgnoreCase("EVENTO") || registroCrudo.getFuncion().equalsIgnoreCase("BOTON_EMERGENCIA"))) {
+                                JSONObject ack = new JSONObject();
+                                ack.put("origen", "PI");
+                                ack.put("funcion", "ACK");
+
+                                ack.put("idRegistro", re.getInt("idRegistro"));
+
+                                publisherMQTTServiceInterno.Publisher(ack.toString().getBytes(), registroCrudo.getIdVagon());
                                 if (EncontrarVagon(registroCrudo.getIdVagon()).nuevoMensaje(re.getInt("idRegistro"))) {
                                     EncontrarVagon(registroCrudo.getIdVagon()).setUltimo_registro(re.getInt("idRegistro"));
-                                    JSONObject ack = new JSONObject();
-                                    ack.put("origen", "PI");
-                                    ack.put("funcion", "ACK");
 
-                                    ack.put("idRegistro", re.getInt("idRegistro"));
-
-                                    publisherMQTTServiceInterno.Publisher(ack.toString().getBytes(), registroCrudo.getIdVagon());
                                     registrosCrudos.add(registroCrudo);
                                 }
                             } else {
