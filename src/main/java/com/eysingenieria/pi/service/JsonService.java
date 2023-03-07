@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 /**
  *
- * @author DesarrolloJC
+ * @author Josue Rodriguez EyS
  */
 public class JsonService {
     

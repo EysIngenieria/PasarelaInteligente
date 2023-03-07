@@ -11,7 +11,6 @@ import java.util.List;
  * @author DesarrolloJC
  */
 public class Configuracion {
-
     private String versionTrama;
     private int tipoTrama;
     private String fechaHoraConfiguracion;
