@@ -14,9 +14,13 @@ import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -28,7 +32,7 @@ import org.joda.time.DateTime;
  *
  * @author DesarrolloJC
  */
-public class PublicadorExternoMQTT {
+public class PublicadorExternoMQTT implements MqttCallback{
     private String servidorMQTT;
     private String proyecto;
     private String region;
@@ -37,6 +41,10 @@ public class PublicadorExternoMQTT {
     private String topico;
     private String mqttClientId;
     private String clavePrivada;
+    private boolean conectado;
+     private String dato;
+    private String topicoEntro;
+    private boolean entroDato;
     private MqttConnectOptions mqttConnectOptions;
     private Properties sslClientProperties;
     private MqttClient mqttClient;
@@ -72,6 +80,7 @@ public class PublicadorExternoMQTT {
             mqttConnectOptions.setKeepAliveInterval(60);
             mqttClient = new MqttClient(servidorMQTT, mqttClientId, memoryPersistence);
             mqttClient.connect(mqttConnectOptions);
+            
             
         } catch (MqttException ex) {
             Logger.getLogger(PublicadorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex);
@@ -119,5 +128,103 @@ public class PublicadorExternoMQTT {
         KeyFactory kf = KeyFactory.getInstance("RSA");
         return jwtBuilder.signWith(SignatureAlgorithm.RS256, kf.generatePrivate(spec)).compact();
     }
+
+    public String getDato() {
+        return dato;
+    }
+
+    public void setDato(String dato) {
+        this.dato = dato;
+    }
+
+    public String getTopicoEntro() {
+        return topicoEntro;
+    }
+
+    public void setTopicoEntro(String topicoEntro) {
+        this.topicoEntro = topicoEntro;
+    }
+
+    public boolean isEntroDato() {
+        return entroDato;
+    }
+
+    public void setEntroDato(boolean entroDato) {
+        this.entroDato = entroDato;
+    }
+
+    public boolean isConectado() {
+        return conectado;
+    }
+
+    public void setConectado(boolean conectado) {
+        this.conectado = conectado;
+    }
+
+    public void Suscribir(String clave,String dispositivo, String servidorMQTT, String proyecto, String region, String registro) {
+        
+
+        this.proyecto = proyecto;
+        this.region = region;
+        this.registro = registro;
+        this.dispositivo = dispositivo;
+        String[] topico = {String.format("/devices/%s/config", dispositivo), String.format("/devices/%s/commands/#", dispositivo)};
+       
+
+        try {
+            
+            mqttClient.setCallback(this);
+            mqttClient.subscribe(topico);
+            conectado = true;
+            System.out.println("Conexion correcta" + " - " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(new Date()));
+        } catch (MqttException ex) {
+            ex.printStackTrace();
+            conectado = false;
+            /*
+            if (!cerrar) {
+                Reconectar(clave);
+            } else {
+                try {
+                    mqttClient.close(true);
+                } catch (MqttException ex1) {
+                    Logger.getLogger(SuscriptorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+            }
+             */
+
+        }
+
+    }
+
+    @Override
+    public void connectionLost(Throwable arg0) {
+        System.out.println("Conexion Perdida" + " - " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(new Date()));
+        conectado = false;
+        /*
+        if (!cerrar) {
+            Reconectar(clave);
+        } else {
+            try {
+                mqttClient.close(true);
+            } catch (MqttException ex1) {
+                Logger.getLogger(SuscriptorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+         */
+
+    }
+
+    @Override
+    public void deliveryComplete(IMqttDeliveryToken arg0) {
+        System.out.println("Entregado");
+    }
+
+    @Override
+    public void messageArrived(String topico, MqttMessage message) {
+        dato = message.toString();
+        topicoEntro = topico;
+        entroDato = true;
+    }
+
     
 }
