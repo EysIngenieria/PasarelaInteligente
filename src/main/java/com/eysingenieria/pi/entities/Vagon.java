@@ -30,7 +30,7 @@ public class Vagon {
     
     private Queue comandos;
     
-    private OP_RegistroCrudo ultimo_registro;
+    private int ultimo_registro;
     
     public void diferenciaFechas(){
         long date = 0;
@@ -137,20 +137,20 @@ public class Vagon {
         }
     }
 
-    public OP_RegistroCrudo getUltimo_registro() {
+    public int getUltimo_registro() {
         return ultimo_registro;
     }
 
-    public void setUltimo_registro(OP_RegistroCrudo ultimo_registro) {
+    public void setUltimo_registro(int ultimo_registro) {
         this.ultimo_registro = ultimo_registro;
     }
     
-    public boolean nuevoMensaje(OP_RegistroCrudo nuevo) {
+    public boolean nuevoMensaje(int nuevo) {
         boolean aux = false;
-        if (ultimo_registro == null) {
+        if (ultimo_registro == 0) {
             ultimo_registro = nuevo;
             aux = true;
-        } else if (!ultimo_registro.equals(nuevo)) {
+        } else if (ultimo_registro!=nuevo) {
             ultimo_registro = nuevo;
             aux = true;
         }
