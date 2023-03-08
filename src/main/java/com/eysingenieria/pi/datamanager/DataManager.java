@@ -214,6 +214,7 @@ public class DataManager implements IDataManager {
 
     @Override
     public void UpdatePuerta(Puerta puerta) {
+        
         db.UpdatePuerta(puerta);
     }
 
