@@ -29,18 +29,18 @@ import com.eysingenieria.pi.data.entities.OP_RegistroTemporal;
 import com.eysingenieria.pi.data.model.MLan;
 import com.eysingenieria.pi.data.entities.Puerta;
 import com.eysingenieria.pi.data.model.Vagon;
-import com.eysingenieria.pi.service.TransmisorUDP;
-import com.eysingenieria.pi.service.Constantes;
-import com.eysingenieria.pi.service.GenerarClave;
+import com.eysingenieria.pi.service.TransmisorUDPService;
+import com.eysingenieria.pi.constants.Constantes;
+import com.eysingenieria.pi.service.GenerarClaveService;
 import com.eysingenieria.pi.service.JsonService;
-import com.eysingenieria.pi.service.ProcesarDatoCDEG;
-import com.eysingenieria.pi.service.ProcesarDatoEstacion;
-import com.eysingenieria.pi.service.PublicadorExternoMQTT;
-import com.eysingenieria.pi.service.PublicadorLocalMQTT;
-import com.eysingenieria.pi.service.PublicadorMANATEEMQTT1;
-import com.eysingenieria.pi.service.ReceptorUDP;
-import com.eysingenieria.pi.service.SuscriptorExternoMQTT;
-import com.eysingenieria.pi.service.SuscriptorLocalMQTT;
+import com.eysingenieria.pi.service.ProcesarDatoCDEGService;
+import com.eysingenieria.pi.service.ProcesarDatoEstacionService;
+import com.eysingenieria.pi.service.PublicadorExternoMQTTService;
+import com.eysingenieria.pi.service.PublicadorLocalMQTTService;
+import com.eysingenieria.pi.service.PublicadorMANATEEMQTT1Service;
+import com.eysingenieria.pi.service.ReceptorUDPService;
+import com.eysingenieria.pi.service.SuscriptorExternoMQTTService;
+import com.eysingenieria.pi.service.SuscriptorLocalMQTTService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
@@ -73,9 +73,9 @@ public class Application {
 
     int activado = 0;
     DataManager dataManager;
-    PublicadorLocalMQTT publisherMQTTServiceInterno;
-    PublicadorExternoMQTT publicadorExternoMQTT;
-    ProcesarDatoEstacion datoEstacion;
+    PublicadorLocalMQTTService publisherMQTTServiceInterno;
+    PublicadorExternoMQTTService publicadorExternoMQTT;
+    ProcesarDatoEstacionService datoEstacion;
     List<DatoCDEG> vagonA;
     List<OP_RegistroCrudo> registrosCrudos;
     List<Vagon> vagones;
@@ -86,7 +86,7 @@ public class Application {
     private JsonService jsonService;
 
     Cast cast;
-    private PublicadorMANATEEMQTT1 publicadorManatee;
+    private PublicadorMANATEEMQTT1Service publicadorManatee;
     private String clienteManatee;
     private String brokerManatee;
     private String contraseñaManatee;
@@ -149,7 +149,7 @@ public class Application {
         MLans = new ArrayList<>();
         registrosCrudos = new ArrayList<>();
         dataManager = new DataManager();
-        datoEstacion = new ProcesarDatoEstacion();
+        datoEstacion = new ProcesarDatoEstacionService();
         vagones = new ArrayList<>();
         vagonA = new ArrayList<>();
         puertas = new ArrayList<>();
@@ -228,10 +228,10 @@ public class Application {
         direccionMLAN = parametros.stream().filter(info -> info.getNombre().equalsIgnoreCase("direccionMLAN")).findFirst().get().getValor();
         puertoReceptorMLAN = parametros.stream().filter(info -> info.getNombre().equalsIgnoreCase("puertoReceptorMLAN")).findFirst().get().getValor();
         puertoTransmisorMLAN = parametros.stream().filter(info -> info.getNombre().equalsIgnoreCase("puertoTransmisorMLAN")).findFirst().get().getValor();
-        publisherMQTTServiceInterno = new PublicadorLocalMQTT(servidorLocalMQTT);
+        publisherMQTTServiceInterno = new PublicadorLocalMQTTService(servidorLocalMQTT);
 
-        clavePrivada = new GenerarClave().Generar(nombreEstacion);
-        publicadorExternoMQTT = new PublicadorExternoMQTT(clavePrivada, dispositivo, servidorExternoMQTT, proyecto, region, registro);
+        clavePrivada = new GenerarClaveService().Generar(nombreEstacion);
+        publicadorExternoMQTT = new PublicadorExternoMQTTService(clavePrivada, dispositivo, servidorExternoMQTT, proyecto, region, registro);
     }
 
     public void GetPuertas() {
@@ -1156,7 +1156,7 @@ public class Application {
 
     private void ProcesarComandoCDEG(Comando comando) {
         Puerta temp = dataManager.GetPuerta(comando.getCodigoPuerta());
-        String comandoString = new ProcesarDatoCDEG().ProcesarComando(comando, dataManager);
+        String comandoString = new ProcesarDatoCDEGService().ProcesarComando(comando, dataManager);
 
         DatoCDEG datoAux = new DatoCDEG();
         datoAux.setVersionTrama(versionTrama);
@@ -1888,7 +1888,7 @@ public class Application {
             }
 
             try {
-                publicadorManatee = new PublicadorMANATEEMQTT1(brokerManatee, claveManatee,
+                publicadorManatee = new PublicadorMANATEEMQTT1Service(brokerManatee, claveManatee,
                         usuarioManatee);
             } catch (Exception e) {
                 System.out.println("error publicador manatee");
@@ -1910,7 +1910,7 @@ public class Application {
             @Override
             public void run() {
                 String[] topic = {"Estacion", "CDEG", "InterfazVisual", "MCV485"};
-                SuscriptorLocalMQTT subscriberMQTTServiceLocal = new SuscriptorLocalMQTT(topic, "tcp://localhost:1883", "PILocal");
+                SuscriptorLocalMQTTService subscriberMQTTServiceLocal = new SuscriptorLocalMQTTService(topic, "tcp://localhost:1883", "PILocal");
                 subscriberMQTTServiceLocal.Subscribe();
                 while (true) {
                     if (subscriberMQTTServiceLocal.isMessageArrived()) {
@@ -2034,7 +2034,7 @@ public class Application {
                 @Override
                 public void run() {
 
-                    clavePrivada = new GenerarClave().Generar(nombreEstacion);
+                    clavePrivada = new GenerarClaveService().Generar(nombreEstacion);
                     publicadorExternoMQTT.Suscribir(clavePrivada, dispositivo, servidorExternoMQTT, proyecto, region, registro);
                     while (publicadorExternoMQTT.conect()) {
                         if (publicadorExternoMQTT.isEntroDato()) {
@@ -2092,7 +2092,7 @@ public class Application {
         new Thread() {
             @Override
             public void run() {
-                ReceptorUDP receptorUDP = new ReceptorUDP(direccionMLAN, Integer.parseInt(puertoReceptorMLAN));
+                ReceptorUDPService receptorUDP = new ReceptorUDPService(direccionMLAN, Integer.parseInt(puertoReceptorMLAN));
                 while (true) {
                     try {
                         receptorUDP.RecibirDato();
@@ -2135,7 +2135,7 @@ public class Application {
                 while (true) {
                     try {
                         for (String dato : datos) {
-                            TransmisorUDP transmisorUDP = new TransmisorUDP(dato, Integer.parseInt(puertoTransmisorMLAN));
+                            TransmisorUDPService transmisorUDP = new TransmisorUDPService(dato, Integer.parseInt(puertoTransmisorMLAN));
                             Date date = new Date();
                             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
                             String formattedDate = formatter.format(date);
@@ -2268,7 +2268,7 @@ public class Application {
         new Thread() {
             @Override
             public void run() {
-                publicadorManatee = new PublicadorMANATEEMQTT1(brokerManatee, claveManatee,
+                publicadorManatee = new PublicadorMANATEEMQTT1Service(brokerManatee, claveManatee,
                         usuarioManatee);
                 while (true) {
                     try {
@@ -2575,8 +2575,8 @@ public class Application {
                 retransmitida.put("tramaRetransmitida", true);
                 registroTemporal.setTrama(retransmitida.toString());
                 try {
-                    clavePrivada = new GenerarClave().Generar(nombreEstacion);
-                    publicadorExternoMQTT = new PublicadorExternoMQTT(clavePrivada, dispositivo, servidorExternoMQTT, proyecto, region, registro);
+                    clavePrivada = new GenerarClaveService().Generar(nombreEstacion);
+                    publicadorExternoMQTT = new PublicadorExternoMQTTService(clavePrivada, dispositivo, servidorExternoMQTT, proyecto, region, registro);
                     if (registroTemporal.getIDManatee() == null) {
 
                         registroTemporal.setfechaHoraEnvio(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
@@ -2660,7 +2660,7 @@ public class Application {
             public void run() {
                 try {
                     String topics[] = {topic};
-                    SuscriptorLocalMQTT subscriberMQTTServiceLocal = new SuscriptorLocalMQTT(topics, "tcp://localhost:1883", "PILocal");
+                    SuscriptorLocalMQTTService subscriberMQTTServiceLocal = new SuscriptorLocalMQTTService(topics, "tcp://localhost:1883", "PILocal");
                     subscriberMQTTServiceLocal.Subscribe();
                     while (true) {
                         JSONObject re;

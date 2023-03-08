@@ -24,7 +24,7 @@ import org.joda.time.DateTime;
  *
  * @author DesarrolloJC
  */
-public class GenerarClave {
+public class GenerarClaveService {
 
     public String Generar(String estacion) {
         try {
@@ -47,7 +47,7 @@ public class GenerarClave {
             return token;
         } catch (IOException | NoSuchAlgorithmException | InvalidKeySpecException ex) {
             ex.toString();
-            Logger.getLogger(GenerarClave.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GenerarClaveService.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }

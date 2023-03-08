@@ -13,11 +13,11 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
  *
  * @author DesarrolloJC
  */
-public class PublicadorMANATEEMQTT1 {
+public class PublicadorMANATEEMQTT1Service {
     private MqttClient mqttClient;
     private MqttConnectOptions mqttConnectOptions;
     private String clave;
-    public PublicadorMANATEEMQTT1( String broker, String clave, String clienteManatee) {
+    public PublicadorMANATEEMQTT1Service( String broker, String clave, String clienteManatee) {
         try {
             this.clave = clave;
             MemoryPersistence memoryPersistence = new MemoryPersistence();
@@ -51,13 +51,13 @@ public class PublicadorMANATEEMQTT1 {
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(PublicadorMANATEEMQTT1.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(PublicadorMANATEEMQTT1Service.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 System.out.println(me + " ERROR 8");
                 mqttClient.connect(mqttConnectOptions);
                 return false;
             } catch (MqttException ex) {
-                Logger.getLogger(PublicadorMANATEEMQTT1.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PublicadorMANATEEMQTT1Service.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return false;

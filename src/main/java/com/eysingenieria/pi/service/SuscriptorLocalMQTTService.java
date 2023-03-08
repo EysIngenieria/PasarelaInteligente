@@ -15,7 +15,7 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
  *
  * @author DesarrolloJC
  */
-public class SuscriptorLocalMQTT implements MqttCallback {
+public class SuscriptorLocalMQTTService implements MqttCallback {
 
     private String data;
     private Boolean connected;
@@ -27,7 +27,7 @@ public class SuscriptorLocalMQTT implements MqttCallback {
     private MqttClient mqttClient;
     private MqttConnectOptions mqttConnectOptions;
 
-    public SuscriptorLocalMQTT(String[] topic, String broker, String clientId) {
+    public SuscriptorLocalMQTTService(String[] topic, String broker, String clientId) {
         this.topic = topic;
         this.broker = broker;
         this.clientId = clientId;
@@ -81,7 +81,7 @@ public class SuscriptorLocalMQTT implements MqttCallback {
             mqttClient.connect(mqttConnectOptions);
             mqttClient.subscribe(topic);
         } catch (MqttException ex) {
-            Logger.getLogger(SuscriptorLocalMQTT.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SuscriptorLocalMQTTService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

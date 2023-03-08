@@ -4,6 +4,7 @@
  */
 package com.eysingenieria.pi.service;
 
+import com.eysingenieria.pi.constants.Constantes;
 import com.eysingenieria.pi.casting.Cast;
 import com.eysingenieria.pi.data.model.DatoCDEG;
 import com.eysingenieria.pi.data.model.HubData;
@@ -12,12 +13,12 @@ import com.eysingenieria.pi.data.model.HubData;
  *
  * @author DesarrolloJC
  */
-public class ProcesarDatoEstacion {
+public class ProcesarDatoEstacionService {
 
     Cast cast;
     HubData hubData;
 
-    public ProcesarDatoEstacion() {
+    public ProcesarDatoEstacionService() {
         cast = new Cast();
     }
 

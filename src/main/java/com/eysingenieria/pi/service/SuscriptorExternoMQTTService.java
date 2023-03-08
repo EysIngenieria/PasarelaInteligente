@@ -21,7 +21,7 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
  *
  * @author DesarrolloJC
  */
-public class SuscriptorExternoMQTT implements MqttCallback {
+public class SuscriptorExternoMQTTService implements MqttCallback {
 
     private String dato;
     private String topicoEntro;

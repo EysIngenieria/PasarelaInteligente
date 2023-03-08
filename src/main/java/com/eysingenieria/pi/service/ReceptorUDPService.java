@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author DesarrolloJC
  */
-public class ReceptorUDP {
+public class ReceptorUDPService {
     
     private String dato;
     private boolean entroDato;
@@ -25,7 +25,7 @@ public class ReceptorUDP {
     private DatagramSocket socket;
     private String ip;
     
-    public ReceptorUDP(String direccionIP, int puertoRecibir) {
+    public ReceptorUDPService(String direccionIP, int puertoRecibir) {
         this.direccionIP = direccionIP;
         this.puertoRecibir = puertoRecibir;
         Inicializar();
@@ -53,7 +53,7 @@ public class ReceptorUDP {
             socket = new DatagramSocket(puertoRecibir);
             
         } catch (SocketException ex) {
-            Logger.getLogger(TransmisorUDP.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TransmisorUDPService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -69,7 +69,7 @@ public class ReceptorUDP {
             dato = new String(packet.getData(), 0, packet.getLength());
             entroDato = true;
         } catch (IOException ex) {
-            Logger.getLogger(TransmisorUDP.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TransmisorUDPService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

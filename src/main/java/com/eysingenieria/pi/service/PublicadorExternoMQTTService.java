@@ -32,7 +32,7 @@ import org.joda.time.DateTime;
  *
  * @author DesarrolloJC
  */
-public class PublicadorExternoMQTT implements MqttCallback{
+public class PublicadorExternoMQTTService implements MqttCallback{
     private String servidorMQTT;
     private String proyecto;
     private String region;
@@ -49,7 +49,7 @@ public class PublicadorExternoMQTT implements MqttCallback{
     private Properties sslClientProperties;
     private MqttClient mqttClient;
 
-    public PublicadorExternoMQTT(String clave, String dispositivo, String servidorMQTT, String proyecto, String region, String registro) {
+    public PublicadorExternoMQTTService(String clave, String dispositivo, String servidorMQTT, String proyecto, String region, String registro) {
         
         try {
             MemoryPersistence memoryPersistence = new MemoryPersistence();
@@ -77,7 +77,7 @@ public class PublicadorExternoMQTT implements MqttCallback{
             
             
         } catch (MqttException ex) {
-            Logger.getLogger(PublicadorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PublicadorExternoMQTTService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -102,11 +102,11 @@ public class PublicadorExternoMQTT implements MqttCallback{
 
                     Thread.sleep(5000);
                 } catch (InterruptedException ex1) {
-                    Logger.getLogger(PublicadorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex1);
+                    Logger.getLogger(PublicadorExternoMQTTService.class.getName()).log(Level.SEVERE, null, ex1);
                 }
                 mqttClient.connect(mqttConnectOptions);
             } catch (MqttException ex1) {
-                Logger.getLogger(PublicadorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(PublicadorExternoMQTTService.class.getName()).log(Level.SEVERE, null, ex1);
             }
             return false;
         }

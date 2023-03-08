@@ -12,12 +12,12 @@ import java.util.logging.*;
  *
  * @author DesarrolloJC
  */
-public class TransmisorUDP {
+public class TransmisorUDPService {
 
     private final String direccionIP;
     private final int puertoPublicar;
 
-    public TransmisorUDP(String direccionIP, int puertoPublicar) {
+    public TransmisorUDPService(String direccionIP, int puertoPublicar) {
         this.direccionIP = direccionIP;
         this.puertoPublicar = puertoPublicar;
     }

@@ -4,6 +4,7 @@
  */
 package com.eysingenieria.pi.service;
 
+import com.eysingenieria.pi.constants.Constantes;
 import com.eysingenieria.pi.datamanager.DataManager;
 import com.eysingenieria.pi.data.model.Comando;
 import com.eysingenieria.pi.data.entities.Puerta;
@@ -12,7 +13,7 @@ import com.eysingenieria.pi.data.entities.Puerta;
  *
  * @author DesarrolloJC
  */
-public class ProcesarDatoCDEG {
+public class ProcesarDatoCDEGService {
 
     String trama = "";
 
