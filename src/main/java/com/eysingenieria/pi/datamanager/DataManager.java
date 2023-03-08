@@ -12,6 +12,7 @@ import com.eysingenieria.pi.entities.CFG_CamposValidos;
 import com.eysingenieria.pi.entities.CFG_Configuracion;
 import com.eysingenieria.pi.entities.CFG_Evento;
 import com.eysingenieria.pi.entities.CFG_NivelAlarma;
+import com.eysingenieria.pi.entities.ComandoCDEG;
 import com.eysingenieria.pi.entities.OP_Parametro;
 import com.eysingenieria.pi.entities.OP_Registro;
 import com.eysingenieria.pi.entities.OP_RegistroCrudo;
@@ -259,6 +260,21 @@ public class DataManager implements IDataManager {
     @Override
     public List<OP_RegistroTemporal> GetRegistroTemporalByCDEG() {
         return db.GetRegistroTemporalByCDEG();
+    }
+
+    @Override
+    public void saveComando(ComandoCDEG comando) {
+        db.saveComando(comando);
+    }
+
+    @Override
+    public List<ComandoCDEG> getComandosCDEG() {
+        return db.getComandosCDEG();
+    }
+
+    @Override
+    public void deleteComandoCDEG(Long id) {
+        db.deleteComandoCDEG(id);
     }
 
     

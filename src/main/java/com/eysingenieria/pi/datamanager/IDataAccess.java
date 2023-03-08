@@ -17,6 +17,8 @@ import com.eysingenieria.pi.entities.OP_Registro;
 import com.eysingenieria.pi.entities.OP_RegistroCrudo;
 import com.eysingenieria.pi.entities.OP_RegistroTemporal;
 import com.eysingenieria.pi.entities.Puerta;
+import com.eysingenieria.pi.entities.Comando;
+import com.eysingenieria.pi.entities.ComandoCDEG;
 import java.util.List;
 
 /**
@@ -110,6 +112,9 @@ public interface IDataAccess {
     public void AddPuerta(Puerta puerta);
     public void DeletePuerta(int id)throws Exception;
     public void UpdatePuerta(Puerta puerta);
+    //Comando CDEG
     
-    
+    public void saveComando(ComandoCDEG comando);
+    public List<ComandoCDEG> getComandosCDEG();
+    public void deleteComandoCDEG(Long id);
 }
