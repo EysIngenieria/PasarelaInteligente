@@ -178,16 +178,12 @@ public class Application {
         GetCamposAlarmas();
         GetCamposValidos();
 
-        //System.out.println("ENTRADA1");
         GetNivelAlarma();
         GetEventos();
         GetAlarmas();
         InicializarVagones();
-        //System.out.println("ENTRADA2");
         StartThreads();
-        //System.out.println("ENTRADA3");
         InterrogarRed();
-        //System.out.println("ENTRADA4");
 
         try {
             while (true) {
@@ -336,9 +332,7 @@ public class Application {
         dato.setTipoTrama(2);
         String idRegistro = new SimpleDateFormat("yyMMddHHmmssSSS").format(new Date()) + consecutivo();
         dato.setIdRegistro(Long.parseLong(idRegistro));
-        //dato.setIdRegistro(new SimpleDateFormat("yyyyMMddHHmmssS").format(new Date()));
         if (dato.getCodigoEvento() != null) {
-
             Map<String, Object> mapEvento = new ObjectMapper().convertValue(dato, Map.class);
             Map<String, Object> mapDato = new ObjectMapper().convertValue(datoCDEGSalida, Map.class);
             for (CFG_CamposCabecera campo : camposCabecera) {
@@ -353,7 +347,6 @@ public class Application {
             mapDato.put("fechaHoraEnvioDato", formatoFecha.format(new Date()));
             String datoString = new Gson().toJson(mapDato);
             OP_RegistroTemporal registroTemporal = new OP_RegistroTemporal();
-            //System.out.println("\n" + "Evento creado: " + datoString + "\n");
             registroTemporal.setTrama(datoString);
 
             Calendar calendar = Calendar.getInstance();
@@ -368,14 +361,12 @@ public class Application {
 
     private void ArmarAlarmas(DatoCDEG dato) {
         DatoCDEG datoCDEGSalida = new DatoCDEG();
-
         dato.setTipoTrama(3);
         Map<String, Object> mapAlarma = new ObjectMapper().convertValue(dato, Map.class);
         System.out.println(dato.getCodigoAlarma());
         if (dato.getCodigoAlarma() != null) {
             String idRegistro = new SimpleDateFormat("yyMMddHHmmssSSS").format(new Date()) + consecutivo();
             dato.setIdRegistro(Long.parseLong(idRegistro));
-            //dato.setIdRegistro(new SimpleDateFormat("yyyyMMddHHmmssS").format(new Date()));
             Map<String, Object> mapDato = new ObjectMapper().convertValue(datoCDEGSalida, Map.class);
             for (CFG_CamposCabecera campo : camposCabecera) {
                 mapDato.put(campo.getCamposValidos().getNombre(), mapAlarma.get(campo.getCamposValidos().getNombre()));
@@ -443,12 +434,6 @@ public class Application {
                                                     temp.setTiempoApertura(datoAux.getTiempoApertura());
                                                     temp.setPorcentajeApertura(datoAux.getPorcentajeApertura());
                                                     temp.setUsoBotonManual(datoAux.getUsoBotonManual());
-//                                                if (temp.getUsoBotonManual() == 1) {
-//                                                    temp.setEstado("MANUAL");
-//                                                    envioJson = new JSONObject(new Gson().toJson(temp));
-//                                                    envioJson.put("fecha", datoAux.getFechaHoraLecturaDato());
-//                                                }
-                                                    //new Gson().toJson(puerta1));
                                                     datoAux.setCanal(temp.getCanal());
                                                     datoAux.setIdVagon(temp.getVagon());
                                                     datoAux.setCodigoPuerta(temp.getDescripcion());
@@ -460,21 +445,6 @@ public class Application {
                                                             Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                                                         }
                                                     }
-//                                         if (temp.getEstadoErrorCritico() != null && temp.getModoOperacion() != null) {
-//                                            if (temp.getEstadoBotonManual() == null && !temp.getEstadoErrorCritico() && temp.getModoOperacion() != 1) {
-//                                                temp.setEstado("ABIERTA");
-//
-//                                            } else if (temp.getEstadoErrorCritico() && temp.getModoOperacion() != 1) {
-//                                                temp.setEstado("ERROR");
-//                                            } else {
-//                                                temp.setEstado("MANUAL");
-//                                            }
-//                                        }
-//                                        envioJson = new JSONObject(new Gson().toJson(temp));
-//                                        envioJson.put("fecha", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-//                                        publisherMQTTServiceInterno.Publisher(envioJson.toString().getBytes(), "ActualizacionEstado", servidorLocalMQTT, dispositivo);
-//
-//
                                                     datoAux.setIdVagon(nombreVagon(temp.getVagon()));
                                                     ArmarEventos(datoAux);
                                                     dataManager.UpdatePuerta(temp);
@@ -998,8 +968,6 @@ public class Application {
                                         System.out.println("VAGON EMERGENCIA  " + new Gson().toJson(datoAux));
                                          {
                                             try {
-                                                //vagon.setIdPuerta("9115-WA-OR-1");
-                                                //vagon.setCodigoPuerta("9115-WA-OR-1");
                                                 datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date(registroCrudo.getFechaOcurrencia().getTime()))));
                                             } catch (ParseException ex) {
                                                 Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
@@ -1177,7 +1145,7 @@ public class Application {
                     }
                 }
                 Thread.sleep(40);
-            } catch (Exception ex) {
+            } catch (InterruptedException | JSONException ex) {
                 registrosCrudos.remove(registroCrudo);
                 System.out.println("Error en registro Crudo");
                 Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
@@ -1228,7 +1196,6 @@ public class Application {
             case Constantes.Comandos.RESET: //new Gson().toJson(puerta1));
             {
                 try {
-                    //puerta.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
                     datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
                 } catch (ParseException ex) {
                     Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
@@ -1242,10 +1209,8 @@ public class Application {
             case Constantes.Comandos.BOTON_MANUAL:
                 try {
 
-                //System.out.println(new Gson().toJson(puerta1));
                 {
                     try {
-                        //puerta.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
                         datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
                     } catch (ParseException ex) {
                         Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
@@ -1267,8 +1232,6 @@ public class Application {
             }
             break;
             case Constantes.Comandos.REPRODUCCION:
-                //System.out.println(new Gson().toJson(puerta1));
-
                 datoAux.setProcesarReproduccion(false);
                 temp.setProcesarReproduccion(false);
                 datoAux.setFechaHoraInicioReproducción(comando.getFechaHoraInicioReproduccion());
@@ -1485,7 +1448,6 @@ public class Application {
                 if (puerta.getFechaHoraInicioReproduccion() != null && puerta.getFechaHoraFinalReproduccion() != null && formatoFecha.parse(puerta.getFechaHoraFinalReproduccion()).after(new Date()) && formatoFecha.parse(puerta.getFechaHoraInicioReproduccion()).before(new Date())) {
                     if (!puerta.getProcesarReproduccion()) {
                         puerta.setProcesarReproduccion(true);
-                        //datoAux.setProcesarReproduccion(Boolean.TRUE);
                         puerta.setCantidadReproduccionT(0);
                         long diff = formatoFecha.parse(puerta.getFechaHoraFinalReproduccion()).getTime() - formatoFecha.parse(puerta.getFechaHoraInicioReproduccion()).getTime();
                         TimeUnit time = TimeUnit.MINUTES;
@@ -1520,7 +1482,7 @@ public class Application {
                     }
                 }
                 dataManager.UpdatePuerta(puerta);
-            } catch (Exception ex) {
+            } catch (NumberFormatException | ParseException ex) {
 
             }
             ArmarEventos(datoAux);
