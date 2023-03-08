@@ -33,7 +33,7 @@ public class Vagon {
     private int ultimo_registro;
     
     public void diferenciaFechas(){
-        long date = 0;
+        long date;
         if (ultimaConexion != 0) {
             
             date = System.currentTimeMillis();
@@ -117,20 +117,18 @@ public class Vagon {
             date = System.currentTimeMillis();
             double restaFechas = ((date - ultimaConexionCanalA));
             double segundos = restaFechas / (1000);
-            //System.out.println("Tiempo transcurrido: " + minutos);
             return segundos > 14;
         } else {
             return true;
         }
     }
     public boolean desconexionB() {
-        long date = 0;
+        long date ;
         if (ultimaConexionCanalB != 0) {
             
             date = System.currentTimeMillis();
             double restaFechas = ((date - ultimaConexionCanalB));
             double segundos = restaFechas / (1000);
-            //System.out.println("Tiempo transcurrido: " + minutos);
             return segundos > 14;
         } else {
             return true;

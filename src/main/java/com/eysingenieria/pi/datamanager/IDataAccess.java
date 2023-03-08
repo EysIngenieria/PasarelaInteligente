@@ -101,19 +101,19 @@ public interface IDataAccess {
 
 //NivelAlarma
     public List<CFG_NivelAlarma> GetNivelAlarma();
-
     public void DeleteNivelAlarma(int i) throws Exception;
-
     public void AddNivelAlarma(CFG_NivelAlarma nivelAlarma) throws Exception;
-    //PUERTA
+    
+//Puerta
     public List<Puerta> GetPuertas();
     public Puerta GetPuerta(String canal, String vagon, String idPuerta);
     public Puerta GetPuerta(String descripcion);
     public void AddPuerta(Puerta puerta);
     public void DeletePuerta(int id)throws Exception;
     public void UpdatePuerta(Puerta puerta);
-    //Comando CDEG
+   
     
+//Comando CDEG    
     public void saveComando(ComandoCDEG comando);
     public List<ComandoCDEG> getComandosCDEG();
     public void deleteComandoCDEG(Long id);

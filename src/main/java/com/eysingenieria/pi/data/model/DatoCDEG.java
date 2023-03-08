@@ -10,6 +10,9 @@ import java.util.Date;
  *
  * @author DesarrolloJC
  */
+/*
+CDEG es Centro de Gestion
+*/
 public class DatoCDEG {
 
     private String versionTrama;

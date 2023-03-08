@@ -38,7 +38,7 @@ public class MLan {
     }
     
     public boolean conectado(){
-        long date = 0;
+        long date ;
         if (ultimaconexion != 0) {
             
             date = System.currentTimeMillis();
