@@ -56,24 +56,18 @@ public class PublicadorExternoMQTT implements MqttCallback{
             this.servidorMQTT = servidorMQTT;
             this.proyecto = proyecto;
             this.region = region;
-            //String registro = "test_puertas";
             this.registro = registro;
-            //String dispositivo = "pasarela_inteligente2_test";
             this.dispositivo = dispositivo;
             
-            //clavePrivada = "./Certificados/T1XX7.rsa_private.der";
-            //String.format("/projects/%s/topics/nautiliusp_events", proyecto),
-            //String topico = String.format("/projects/%s/topics/nautiliusp_events", proyecto);
+
             topico = "/devices/"+dispositivo+"/events";
             mqttClientId = String.format("projects/%s/locations/%s/registries/%s/devices/%s", proyecto, region, registro, dispositivo);
             
             mqttConnectOptions = new MqttConnectOptions();
-            //mqttConnectOptions.setMqttVersion(MqttConnectOptions.MQTT_VERSION_3_1_1);
             sslClientProperties = new Properties();
             sslClientProperties.setProperty("com.ibm.ssl.protocol", "TLSv1.2");
             mqttConnectOptions.setSSLProperties(sslClientProperties);
             mqttConnectOptions.setUserName("unused");
-            //mqttConnectOptions.setPassword(createJwtRsa(proyecto, clavePrivada).toCharArray());
             mqttConnectOptions.setPassword(clave.toCharArray());
             mqttConnectOptions.setCleanSession(true);
             mqttConnectOptions.setConnectionTimeout(1000);
@@ -99,15 +93,13 @@ public class PublicadorExternoMQTT implements MqttCallback{
             mqttMessage.setQos(1);
             mqttClient.publish(topico, mqttMessage);
 
-            //System.out.println("Publicado Externo");
-            //mqttClient.disconnect();
+
             return true;
 
         } catch (MqttException ex) {
             try {
                 try {
-                    //System.out.println("Error al publicar");
-                    //Logger.getLogger(PublicadorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex);
+
                     Thread.sleep(5000);
                 } catch (InterruptedException ex1) {
                     Logger.getLogger(PublicadorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex1);
@@ -119,7 +111,7 @@ public class PublicadorExternoMQTT implements MqttCallback{
             return false;
         }
     }
-
+/*
     private String createJwtRsa(String projectId, String clavePrivada) throws NoSuchAlgorithmException, IOException, InvalidKeySpecException {
         DateTime now = new DateTime();
         JwtBuilder jwtBuilder = Jwts.builder().setIssuedAt(now.toDate()).setExpiration(now.plusMinutes(20).toDate()).setAudience(projectId);
@@ -127,7 +119,7 @@ public class PublicadorExternoMQTT implements MqttCallback{
         PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(keyBytes);
         KeyFactory kf = KeyFactory.getInstance("RSA");
         return jwtBuilder.signWith(SignatureAlgorithm.RS256, kf.generatePrivate(spec)).compact();
-    }
+    }*/
 
     public String getDato() {
         return dato;
@@ -180,18 +172,6 @@ public class PublicadorExternoMQTT implements MqttCallback{
         } catch (MqttException ex) {
             ex.printStackTrace();
             conectado = false;
-            /*
-            if (!cerrar) {
-                Reconectar(clave);
-            } else {
-                try {
-                    mqttClient.close(true);
-                } catch (MqttException ex1) {
-                    Logger.getLogger(SuscriptorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex1);
-                }
-            }
-             */
-
         }
 
     }
@@ -200,18 +180,6 @@ public class PublicadorExternoMQTT implements MqttCallback{
     public void connectionLost(Throwable arg0) {
         System.out.println("Conexion Perdida" + " - " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(new Date()));
         conectado = false;
-        /*
-        if (!cerrar) {
-            Reconectar(clave);
-        } else {
-            try {
-                mqttClient.close(true);
-            } catch (MqttException ex1) {
-                Logger.getLogger(SuscriptorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        }
-         */
-
     }
 
     @Override

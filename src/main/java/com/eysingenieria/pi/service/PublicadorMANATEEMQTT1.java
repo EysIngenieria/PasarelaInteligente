@@ -46,8 +46,6 @@ public class PublicadorMANATEEMQTT1 {
             mqttMessage.setQos(1);
             mqttClient.publish(topic, mqttMessage);
             return true;
-            //System.out.println("Publicado: " + new String(data, StandardCharsets.UTF_8));
-            //mqttClient.disconnect();
         } catch (MqttException me) {
             try {
                 try {

@@ -103,18 +103,6 @@ public class SuscriptorExternoMQTT implements MqttCallback {
         } catch (MqttException ex) {
             ex.printStackTrace();
             conectado = false;
-            /*
-            if (!cerrar) {
-                Reconectar(clave);
-            } else {
-                try {
-                    mqttClient.close(true);
-                } catch (MqttException ex1) {
-                    Logger.getLogger(SuscriptorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex1);
-                }
-            }
-             */
-
         }
 
     }
@@ -123,17 +111,6 @@ public class SuscriptorExternoMQTT implements MqttCallback {
     public void connectionLost(Throwable arg0) {
         System.out.println("Conexion Perdida" + " - " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(new Date()));
         conectado = false;
-        /*
-        if (!cerrar) {
-            Reconectar(clave);
-        } else {
-            try {
-                mqttClient.close(true);
-            } catch (MqttException ex1) {
-                Logger.getLogger(SuscriptorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        }
-         */
 
     }
 

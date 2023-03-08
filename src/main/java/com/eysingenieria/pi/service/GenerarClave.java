@@ -28,18 +28,12 @@ public class GenerarClave {
 
     public String Generar(String estacion) {
         try {
-            //String clavePrivada = "C:\\Users\\DesarrolloJC\\/home/pi/JavaProjects/PI/Certificado/\\Juan\\Proyecto TRANSMILENIO\\Certificado\\T1XX7.rsa_private.der";
-            //            File doc = new File("./src/main/java/com/eysingenieria/pi/Configuracion/configuracion.txt");
             String clavePrivada =  "./Certificado/"+estacion + ".rsa.der";
             
-            Path pathToFile = Paths.get(clavePrivada);
-            //System.out.println(pathToFile.toAbsolutePath() );
             File doc = new File(clavePrivada);
-            //System.out.println(Paths.get(doc.getCanonicalPath()));
             String proyecto = "smart-helios-cgtm-qa";
             DateTime now = new DateTime();
             JwtBuilder jwtBuilder = Jwts.builder().setIssuedAt(now.toDate()).setExpiration(now.plusDays(1).toDate()).setAudience(proyecto);
-            //JwtBuilder jwtBuilder = Jwts.builder().setIssuedAt(now.toDate()).setExpiration(now.plusMinutes(10).toDate()).setAudience(proyecto);
             byte[] keyBytes = Files.readAllBytes(Paths.get(doc.getCanonicalPath()));
             
             
@@ -49,7 +43,6 @@ public class GenerarClave {
             
             String token = jwtBuilder.signWith(SignatureAlgorithm.RS256, kf.generatePrivate(spec)).compact();
             
-            //System.out.println("Contraseña: " + token);
             
             return token;
         } catch (IOException | NoSuchAlgorithmException | InvalidKeySpecException ex) {

@@ -25,7 +25,6 @@ public class ProcesarDatoEstacion {
         byte[] tramaBytes = hexStringToByteArray(data);
         try {
             datoCDEG.setInfo("DESCONOCIDO");
-            //0x70 = 112d evento de puerta
             if (tramaBytes[3] == 112) {
                 switch (tramaBytes[5]) {
                     case Constantes.Eventos.ABRIENDO:
@@ -250,8 +249,8 @@ public class ProcesarDatoEstacion {
             
             }
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (NumberFormatException ex) {
+
         }
 
         return datoCDEG;

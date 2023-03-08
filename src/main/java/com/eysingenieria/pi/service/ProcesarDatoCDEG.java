@@ -21,18 +21,9 @@ public class ProcesarDatoCDEG {
         trama += "00";
         Puerta tem = dm.GetPuerta(comando.getIdPuerta());
         trama += "0"+ tem.getIdPuerta();
-//        switch (comando.getIdPuerta().split("-")[3]) {
-//            case "1":
-//                trama += "01";
-//                break;
-//            case "2":
-//                trama += "02";
-//                break;
-//        }
         trama += "007101";
         switch (comando.getCodigoMensaje()) {
             case Constantes.Comandos.RESET:
-                //trama += "01";
                 break;
             case Constantes.Comandos.AUTODIAGNOSTICO:
 
@@ -48,7 +39,6 @@ public class ProcesarDatoCDEG {
                 break;
         }
         trama += "00";
-        //trama += "7E";
         return trama;
     }
 
