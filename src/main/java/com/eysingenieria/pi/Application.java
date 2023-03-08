@@ -54,7 +54,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -230,7 +229,7 @@ public class Application {
         puertoTransmisorMLAN = parametros.stream().filter(info -> info.getNombre().equalsIgnoreCase("puertoTransmisorMLAN")).findFirst().get().getValor();
         publisherMQTTServiceInterno = new PublicadorLocalMQTTService(servidorLocalMQTT);
 
-        clavePrivada = new GenerarClaveService().Generar(nombreEstacion);
+        clavePrivada = new GenerarClaveService().GenerarClaveService(nombreEstacion);
         publicadorExternoMQTT = new PublicadorExternoMQTTService(clavePrivada, dispositivo, servidorExternoMQTT, proyecto, region, registro);
     }
 
@@ -1680,11 +1679,9 @@ public class Application {
 
     public void cargarConfiguracion() throws IOException {
         formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
-        //System.out.println(nombreEstacion);
         String jsonlec = "";
         try {
             File doc = new File("./Configuracion/configuracion.txt");
-            //System.out.println(doc.getAbsolutePath());
             String lec;
             BufferedReader text = new BufferedReader(new FileReader(doc));
             while ((lec = text.readLine()) != null) {
@@ -1692,8 +1689,6 @@ public class Application {
                 jsonlec += lec + "\n";
 
             }
-
-            //System.out.println(jsonlec);
         } catch (IOException ex) {
             Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1883,8 +1878,6 @@ public class Application {
                     }
 
                 }
-
-                //System.out.println("Vagones " + "\n" + new Gson().toJson(vagones));
             }
 
             try {
@@ -1893,7 +1886,7 @@ public class Application {
             } catch (Exception e) {
                 System.out.println("error publicador manatee");
             }
-        } catch (Exception e) {
+        } catch (JSONException e) {
             System.out.println("Error al cargar el json");
         }
 
@@ -2034,7 +2027,7 @@ public class Application {
                 @Override
                 public void run() {
 
-                    clavePrivada = new GenerarClaveService().Generar(nombreEstacion);
+                    clavePrivada = new GenerarClaveService().GenerarClaveService(nombreEstacion);
                     publicadorExternoMQTT.Suscribir(clavePrivada, dispositivo, servidorExternoMQTT, proyecto, region, registro);
                     while (publicadorExternoMQTT.conect()) {
                         if (publicadorExternoMQTT.isEntroDato()) {
@@ -2575,7 +2568,7 @@ public class Application {
                 retransmitida.put("tramaRetransmitida", true);
                 registroTemporal.setTrama(retransmitida.toString());
                 try {
-                    clavePrivada = new GenerarClaveService().Generar(nombreEstacion);
+                    clavePrivada = new GenerarClaveService().GenerarClaveService(nombreEstacion);
                     publicadorExternoMQTT = new PublicadorExternoMQTTService(clavePrivada, dispositivo, servidorExternoMQTT, proyecto, region, registro);
                     if (registroTemporal.getIDManatee() == null) {
 

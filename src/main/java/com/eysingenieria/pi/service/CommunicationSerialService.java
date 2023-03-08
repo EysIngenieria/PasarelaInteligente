@@ -19,19 +19,19 @@ public class CommunicationSerialService {
     private String data;
     private boolean messageArrived;
 
-    public String getData() {
+    public String getDataCommunicationSerialService() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setDataCommunicationSerialService(String data) {
         this.data = data;
     }
 
-    public boolean isMessageArrived() {
+    public boolean isMessageArrivedCommunicationSerialService() {
         return messageArrived;
     }
 
-    public void setMessageArrived(boolean messageArrived) {
+    public void setMessageArrivedCommunicationSerialService(boolean messageArrived) {
         this.messageArrived = messageArrived;
     }
 
@@ -46,7 +46,7 @@ public class CommunicationSerialService {
         }
     }
 
-    public void SendData(String data) {
+    public void SendDataCommunicationSerialService(String data) {
         try {
             serial.write(data);
         } catch (IOException ex) {
@@ -54,7 +54,7 @@ public class CommunicationSerialService {
         }
     }
 
-    public void ReceivedData() {
+    public void ReceivedDataCommunicationSerialService() {
         try {
             serial.addListener(event -> {
                 try {

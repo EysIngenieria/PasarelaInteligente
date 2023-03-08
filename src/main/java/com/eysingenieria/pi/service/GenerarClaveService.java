@@ -26,7 +26,7 @@ import org.joda.time.DateTime;
  */
 public class GenerarClaveService {
 
-    public String Generar(String estacion) {
+    public String GenerarClaveService(String estacion) {
         try {
             String clavePrivada =  "./Certificado/"+estacion + ".rsa.der";
             
