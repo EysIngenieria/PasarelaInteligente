@@ -336,6 +336,7 @@ public class Application {
         dato.setTipoTrama(2);
         String idRegistro = new SimpleDateFormat("yyMMddHHmmssSSS").format(new Date()) + consecutivo();
         dato.setIdRegistro(Long.parseLong(idRegistro));
+        //dato.setIdRegistro(new SimpleDateFormat("yyyyMMddHHmmssS").format(new Date()));
         if (dato.getCodigoEvento() != null) {
 
             Map<String, Object> mapEvento = new ObjectMapper().convertValue(dato, Map.class);
@@ -402,6 +403,8 @@ public class Application {
     }
 
     private void ProcesarRegistrosCrudos() {
+        //System.out.println("ENTRADA6");
+
         List<OP_RegistroCrudo> listRegistrosCrudos = new ArrayList<>();
         listRegistrosCrudos.addAll(registrosCrudos);
         for (OP_RegistroCrudo registroCrudo : listRegistrosCrudos) {
@@ -416,9 +419,10 @@ public class Application {
 
                     switch (registroCrudo.getOrigen()) {
                         case "Estacion":
-                            Vagon vagon = new Vagon();
-                            vagon.setNombre(registroCrudo.getIdVagon());
-                            conexionVagon(vagon);
+                            Vagon v = new Vagon();
+                            v.setNombre(registroCrudo.getIdVagon());
+                            conexionVagon(v);
+                            //System.out.println("nombre vagon " +v.getNombre());
                             if (registroCrudo.getFuncion() != null) {
                                 switch (registroCrudo.getFuncion()) {
                                     case "EVENTO":
@@ -427,7 +431,7 @@ public class Application {
                                         datoAux.setIdEstacion(idEstacion);
                                         JSONObject envioJson;
                                         if (datoAux.getCanal() != null) {
-                                            conexionVagon(vagon, datoAux.getCanal());
+                                            conexionVagon(v, datoAux.getCanal());
                                         }
                                         switch (datoAux.getInfo()) {
 
@@ -439,6 +443,13 @@ public class Application {
                                                     temp.setTiempoApertura(datoAux.getTiempoApertura());
                                                     temp.setPorcentajeApertura(datoAux.getPorcentajeApertura());
                                                     temp.setUsoBotonManual(datoAux.getUsoBotonManual());
+                                                    temp.setUltimaConexion(System.currentTimeMillis());
+//                                                if (temp.getUsoBotonManual() == 1) {
+//                                                    temp.setEstado("MANUAL");
+//                                                    envioJson = new JSONObject(new Gson().toJson(temp));
+//                                                    envioJson.put("fecha", datoAux.getFechaHoraLecturaDato());
+//                                                }
+                                                    //new Gson().toJson(puerta1));
                                                     datoAux.setCanal(temp.getCanal());
                                                     datoAux.setIdVagon(temp.getVagon());
                                                     datoAux.setCodigoPuerta(temp.getDescripcion());
@@ -450,18 +461,37 @@ public class Application {
                                                             Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                                                         }
                                                     }
+//                                         if (temp.getEstadoErrorCritico() != null && temp.getModoOperacion() != null) {
+//                                            if (temp.getEstadoBotonManual() == null && !temp.getEstadoErrorCritico() && temp.getModoOperacion() != 1) {
+//                                                temp.setEstado("ABIERTA");
+//
+//                                            } else if (temp.getEstadoErrorCritico() && temp.getModoOperacion() != 1) {
+//                                                temp.setEstado("ERROR");
+//                                            } else {
+//                                                temp.setEstado("MANUAL");
+//                                            }
+//                                        }
+//                                        envioJson = new JSONObject(new Gson().toJson(temp));
+//                                        envioJson.put("fecha", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+//                                        publisherMQTTServiceInterno.Publisher(envioJson.toString().getBytes(), "ActualizacionEstado", servidorLocalMQTT, dispositivo);
+//
+//
+                                                    datoAux.setIdVagon(nombreVagon(temp.getVagon()));
                                                     ArmarEventos(datoAux);
                                                     dataManager.UpdatePuerta(temp);
                                                 }
                                                 break;
 
                                             case "ABIERTA":
+                                                System.out.println("ABIERTA " + registroCrudo.getCanal() + " " + registroCrudo.getIdPuerta());
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
                                                 if (temp != null) {
                                                     temp.setEstadoAperturaCierre(datoAux.getEstadoAperturaCierrePuertas());
                                                     temp.setEntradasApertura(datoAux.getEntradasApertura());
                                                     temp.setTiempoApertura(datoAux.getTiempoApertura());
                                                     temp.setPorcentajeApertura(datoAux.getPorcentajeApertura());
+                                                    temp.setUltimaConexion(System.currentTimeMillis());
+                                                    //new Gson().toJson(puerta1));
                                                     datoAux.setCanal(temp.getCanal());
                                                     datoAux.setIdVagon(temp.getVagon());
                                                     datoAux.setCodigoPuerta(temp.getDescripcion());
@@ -499,6 +529,8 @@ public class Application {
                                                     temp.setEntradasApertura(datoAux.getEntradasApertura());
                                                     temp.setTiempoApertura(datoAux.getTiempoApertura());
                                                     temp.setPorcentajeApertura(datoAux.getPorcentajeApertura());
+                                                    temp.setUltimaConexion(System.currentTimeMillis());
+                                                    //new Gson().toJson(puerta1));
                                                     datoAux.setCanal(temp.getCanal());
                                                     datoAux.setIdVagon(temp.getVagon());
                                                     datoAux.setCodigoPuerta(temp.getDescripcion());
@@ -526,10 +558,13 @@ public class Application {
                                                     temp.setEntradasApertura(datoAux.getEntradasApertura());
                                                     temp.setTiempoApertura(datoAux.getTiempoApertura());
                                                     temp.setPorcentajeApertura(datoAux.getPorcentajeApertura());
+
+                                                    //new Gson().toJson(puerta1));
                                                     datoAux.setCanal(temp.getCanal());
                                                     datoAux.setIdVagon(temp.getVagon());
                                                     datoAux.setCodigoPuerta(temp.getDescripcion());
                                                     datoAux.setIdPuerta(temp.getDescripcion());
+                                                    temp.setUltimaConexion(System.currentTimeMillis());
                                                     {
                                                         try {
                                                             datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date(registroCrudo.getFechaOcurrencia().getTime()))));
@@ -564,7 +599,10 @@ public class Application {
                                                     temp.setEntradasApertura(datoAux.getEntradasApertura());
                                                     temp.setTiempoApertura(datoAux.getTiempoApertura());
                                                     temp.setPorcentajeApertura(datoAux.getPorcentajeApertura());
+                                                    temp.setUltimaConexion(System.currentTimeMillis());
                                                     dataManager.UpdatePuerta(temp);
+
+                                                    //new Gson().toJson(puerta1));
                                                     datoAux.setCanal(temp.getCanal());
                                                     datoAux.setIdVagon(temp.getVagon());
                                                     datoAux.setCodigoPuerta(temp.getDescripcion());
@@ -590,7 +628,9 @@ public class Application {
                                                     temp.setEntradasApertura(datoAux.getEntradasApertura());
                                                     temp.setTiempoApertura(datoAux.getTiempoApertura());
                                                     temp.setPorcentajeApertura(datoAux.getPorcentajeApertura());
+                                                    temp.setUltimaConexion(System.currentTimeMillis());
                                                     dataManager.UpdatePuerta(temp);
+                                                    //new Gson().toJson(puerta1));
                                                     datoAux.setCanal(temp.getCanal());
                                                     datoAux.setIdVagon(temp.getVagon());
                                                     datoAux.setCodigoPuerta(temp.getDescripcion());
@@ -613,10 +653,13 @@ public class Application {
                                                 if (temp != null) {
                                                     temp.setEstadoAperturaCierre(datoAux.getEstadoAperturaCierrePuertas());
                                                     temp.setPorcentajeApertura(datoAux.getPorcentajeApertura());
+                                                    temp.setUltimaConexion(System.currentTimeMillis());
                                                     temp.setEstado("ABIERTA");
                                                     envioJson = new JSONObject(new Gson().toJson(temp));
                                                     envioJson.put("fecha", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
                                                     dataManager.UpdatePuerta(temp);
+
+                                                    //new Gson().toJson(puerta1));
                                                     datoAux.setCanal(temp.getCanal());
                                                     datoAux.setIdVagon(temp.getVagon());
                                                     datoAux.setCodigoPuerta(temp.getDescripcion());
@@ -641,10 +684,12 @@ public class Application {
                                                     temp.setPorcentajeApertura(datoAux.getPorcentajeApertura());
                                                     temp.setEstado("CERRADA");
                                                     dataManager.UpdatePuerta(temp);
+                                                    //new Gson().toJson(puerta1));
                                                     datoAux.setCanal(temp.getCanal());
                                                     datoAux.setIdVagon(temp.getVagon());
                                                     datoAux.setCodigoPuerta(temp.getDescripcion());
                                                     datoAux.setIdPuerta(temp.getDescripcion());
+                                                    temp.setUltimaConexion(System.currentTimeMillis());
 
                                                     {
                                                         try {
@@ -665,9 +710,11 @@ public class Application {
                                                     temp.setEstadoCalibracion(datoAux.getEstadoCalibracion());
                                                     temp.setContadorEncoder(datoAux.getContadorEncoder());
                                                     dataManager.UpdatePuerta(temp);
+                                                    //new Gson().toJson(puerta1));
                                                     datoAux.setCanal(temp.getCanal());
                                                     datoAux.setIdVagon(temp.getVagon());
                                                     datoAux.setCodigoPuerta(temp.getDescripcion());
+                                                    temp.setUltimaConexion(System.currentTimeMillis());
                                                     datoAux.setIdPuerta(temp.getDescripcion());
                                                     {
                                                         try {
@@ -687,9 +734,12 @@ public class Application {
                                                     temp.setVoltajeBateria(datoAux.getVoltajeBateria());
                                                     temp.setPorcentajeCargaBaterias(datoAux.getPorcentajeCargaBaterias());
                                                     temp.setVoltajeVI(datoAux.getVoltajeVI());
+
+                                                    //new Gson().toJson(puerta1));
                                                     datoAux.setCanal(temp.getCanal());
                                                     datoAux.setIdVagon(temp.getVagon());
                                                     datoAux.setCodigoPuerta(temp.getDescripcion());
+                                                    temp.setUltimaConexion(System.currentTimeMillis());
                                                     datoAux.setIdPuerta(temp.getDescripcion());
                                                     {
                                                         try {
@@ -728,9 +778,11 @@ public class Application {
                                                     temp.setEstadoPoder(datoAux.getEstadoPoder());
                                                     temp.setTipoEnergizacion(datoAux.getTipoEnergizacion());
                                                     temp.setVoltajeBateria(datoAux.getVoltajeBateria());
+                                                    temp.setUltimaConexion(System.currentTimeMillis());
                                                     temp.setPorcentajeCargaBaterias(datoAux.getPorcentajeCargaBaterias());
                                                     temp.setVoltajeVI(datoAux.getVoltajeVI());
                                                     dataManager.UpdatePuerta(temp);
+                                                    //new Gson().toJson(puerta1));
                                                     datoAux.setCanal(temp.getCanal());
                                                     datoAux.setIdVagon(temp.getVagon());
                                                     datoAux.setCodigoPuerta(temp.getDescripcion());
@@ -751,6 +803,7 @@ public class Application {
                                             case "BATERIA_NO_CARGA":
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
                                                 if (temp != null) {
+                                                    temp.setUltimaConexion(System.currentTimeMillis());
                                                     temp.setEstadoPoder(datoAux.getEstadoPoder());
                                                     temp.setTipoEnergizacion(datoAux.getTipoEnergizacion());
                                                     temp.setVoltajeBateria(datoAux.getVoltajeBateria());
@@ -777,7 +830,9 @@ public class Application {
 
                                             case "PERIODICO_1":
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
+                                                //new Gson().toJson(puerta1));
                                                 if (temp != null) {
+                                                    temp.setUltimaConexion(System.currentTimeMillis());
                                                     datoAux.setCanal(temp.getCanal());
                                                     datoAux.setIdVagon(temp.getVagon());
                                                     datoAux.setCodigoPuerta(temp.getDescripcion());
@@ -852,7 +907,9 @@ public class Application {
 
                                             case "PERIODICO_2":
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
+                                                //new Gson().toJson(puerta1));
                                                 if (temp != null) {
+                                                    temp.setUltimaConexion(System.currentTimeMillis());
                                                     datoAux.setCanal(temp.getCanal());
                                                     datoAux.setIdVagon(temp.getVagon());
                                                     datoAux.setCodigoPuerta(temp.getDescripcion());
@@ -919,8 +976,10 @@ public class Application {
 
                                                 break;
                                             case "CAMBIO_MODO":
+                                                
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
                                                 if (temp != null) {
+                                                    temp.setUltimaConexion(System.currentTimeMillis());
                                                     temp.setModoOperacion(datoAux.getModoOperacion());
                                                     if (temp.getModoOperacion() == 1) {
                                                         temp.setEstado("MANUAL");
@@ -953,6 +1012,8 @@ public class Application {
                                         System.out.println("VAGON EMERGENCIA  " + new Gson().toJson(datoAux));
                                          {
                                             try {
+                                                //vagon.setIdPuerta("9115-WA-OR-1");
+                                                //vagon.setCodigoPuerta("9115-WA-OR-1");
                                                 datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date(registroCrudo.getFechaOcurrencia().getTime()))));
                                             } catch (ParseException ex) {
                                                 Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
@@ -1132,6 +1193,7 @@ public class Application {
                 Thread.sleep(40);
             } catch (Exception ex) {
                 registrosCrudos.remove(registroCrudo);
+                System.out.println("Error en registro Crudo");
                 Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -1164,7 +1226,7 @@ public class Application {
         cast.datosPuerta(temp, datoAux);
 
         switch (comando.getCodigoMensaje()) {
-            case Constantes.Comandos.AUTODIAGNOSTICO:
+            case Constantes.Comandos.AUTODIAGNOSTICO: //new Gson().toJson(puerta1));
             {
                 try {
                     datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
@@ -1177,7 +1239,7 @@ public class Application {
             ArmarEventos(datoAux);
             break;
 
-            case Constantes.Comandos.RESET:
+            case Constantes.Comandos.RESET: //new Gson().toJson(puerta1));
             {
                 try {
                     //puerta.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
@@ -1193,8 +1255,11 @@ public class Application {
 
             case Constantes.Comandos.BOTON_MANUAL:
                 try {
+
+                //System.out.println(new Gson().toJson(puerta1));
                 {
                     try {
+                        //puerta.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
                         datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
                     } catch (ParseException ex) {
                         Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
@@ -1216,6 +1281,8 @@ public class Application {
             }
             break;
             case Constantes.Comandos.REPRODUCCION:
+                //System.out.println(new Gson().toJson(puerta1));
+
                 datoAux.setProcesarReproduccion(false);
                 temp.setProcesarReproduccion(false);
                 datoAux.setFechaHoraInicioReproducción(comando.getFechaHoraInicioReproduccion());
@@ -1247,6 +1314,7 @@ public class Application {
                 envio.put("idPuerta", temp.getIdPuerta());
                 envio.put("trama", comandoCrudo.getTrama());
                 System.out.println(envio + "APERTURA CDG");
+
                 publisherMQTTServiceInterno.Publisher(envio.toString().getBytes(), comandoCrudo.getIdVagon());
                 break;
             case Constantes.Comandos.CIERRE:
@@ -1271,9 +1339,11 @@ public class Application {
                 publisherMQTTServiceInterno.Publisher(envioC.toString().getBytes(), comandoCrudo.getIdVagon());
                 break;
         }
+        //ArmarEventos();
     }
 
     private void ProcesarMLAN(String dato) {
+        //System.out.println("DATO MLAN " + dato);
         String[] datos = ((dato.split(">")[1]).split("<")[0]).split(",");
         if (datos.length == 10) {
             try {
@@ -1429,6 +1499,7 @@ public class Application {
                 if (puerta.getFechaHoraInicioReproduccion() != null && puerta.getFechaHoraFinalReproduccion() != null && formatoFecha.parse(puerta.getFechaHoraFinalReproduccion()).after(new Date()) && formatoFecha.parse(puerta.getFechaHoraInicioReproduccion()).before(new Date())) {
                     if (!puerta.getProcesarReproduccion()) {
                         puerta.setProcesarReproduccion(true);
+                        //datoAux.setProcesarReproduccion(Boolean.TRUE);
                         puerta.setCantidadReproduccionT(0);
                         long diff = formatoFecha.parse(puerta.getFechaHoraFinalReproduccion()).getTime() - formatoFecha.parse(puerta.getFechaHoraInicioReproduccion()).getTime();
                         TimeUnit time = TimeUnit.MINUTES;
@@ -1443,7 +1514,9 @@ public class Application {
                     puerta.setTiempoReproduccionT(puerta.getTiempoReproduccionT() + 1);
                     if (puerta.getTiempoReproduccionT() >= (puerta.getTiempoReproduccion() * 600)) {
                         puerta.setTiempoReproduccionT(0);
+                        //datoAux.setTiempoReproduccionT(0);
                         puerta.setCantidadReproduccionT(puerta.getCantidadReproduccionT() + 1);
+                        //datoAux.setCantidadReproduccion(puerta.getCantidadReproduccion());
                         OP_RegistroCrudo comando = new OP_RegistroCrudo();
                         comando.setIdVagon(puerta.getVagon());
                         comando.setCanal(puerta.getCanal());
@@ -1659,9 +1732,11 @@ public class Application {
 
     public void cargarConfiguracion() throws IOException {
         formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
+        //System.out.println(nombreEstacion);
         String jsonlec = "";
         try {
             File doc = new File("./Configuracion/configuracion.txt");
+            //System.out.println(doc.getAbsolutePath());
             String lec;
             BufferedReader text = new BufferedReader(new FileReader(doc));
             while ((lec = text.readLine()) != null) {
@@ -1669,6 +1744,8 @@ public class Application {
                 jsonlec += lec + "\n";
 
             }
+
+            //System.out.println(jsonlec);
         } catch (IOException ex) {
             Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1697,6 +1774,7 @@ public class Application {
                 case 1:
                     System.exit(0);
                     break;
+                //System.out.println("mlan " + mlan);
                 case 2:
                     dataManager.deletParametros();
                     dataManager.DeleteRegistros();
@@ -2083,6 +2161,7 @@ public class Application {
                             } catch (ParseException ex) {
                                 Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                            //System.out.println(new Gson().toJson(registroCrudo));
                             registrosCrudos.add(registroCrudo);
 
                         }
@@ -2139,8 +2218,9 @@ public class Application {
                                         JSONObject tempPuerta = puertasVivas.getJSONObject(i);
                                         if (!tempPuerta.getString("idPuerta").equalsIgnoreCase("0")) {
                                             conexionVagon(conjunto, tempPuerta.getString("canal"));
+                                            Puerta temp = dataManager.GetPuerta(tempPuerta.getString("canal"), vagonid, tempPuerta.getString("idPuerta"));
                                             if (!tempPuerta.getBoolean("conectada")) {
-                                                Puerta temp = dataManager.GetPuerta(tempPuerta.getString("canal"), vagonid, tempPuerta.getString("idPuerta"));
+                                                
                                                 if (temp != null) {
                                                     if (temp.getEstado() == null) {
                                                         temp.setEstado("SIN CONEXION");
@@ -2189,6 +2269,31 @@ public class Application {
                                                     }
                                                 }
 
+                                            } else {
+                                                if (temp!=null && !temp.conexion()) {
+                                                    temp.setEstado("SIN CONEXION");
+                                                    temp.setEstadoErrorCritico(true);
+                                                    DatoCDEG datoAux = new DatoCDEG();
+                                                    datoAux.setVersionTrama(versionTrama);
+                                                    datoAux.setIdOperador(idOperador);
+                                                    datoAux.setTipoTrama(2);
+                                                    cast.datosPuerta(temp, datoAux);
+                                                    datoAux.setCodigoEvento("EVP5");
+                                                    datoAux.setCanal(temp.getCanal());
+                                                    datoAux.setIdVagon(temp.getVagon());
+                                                    datoAux.setCodigoPuerta(temp.getDescripcion());
+                                                    datoAux.setIdPuerta(temp.getDescripcion());
+                                                    try {
+                                                        datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+                                                    } catch (ParseException ex) {
+                                                        Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+                                                    }
+                                                    datoAux.setIdVagon(nombreVagon(temp.getVagon()));
+                                                    ArmarEventos(datoAux);
+                                                    dataManager.UpdatePuerta(temp);
+
+                                                }
+                                            
                                             }
                                         }
 
@@ -2222,6 +2327,22 @@ public class Application {
                 }
             }
         }.start();
+
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                while (true) {
+//                    try {
+//                        //ProcesarRegistrosCrudos();
+//                        
+//
+//                        Thread.sleep(1);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }.start();
         new Thread() {
             @Override
             public void run() {
@@ -2229,6 +2350,7 @@ public class Application {
                         usuarioManatee);
                 while (true) {
                     try {
+                        //ProcesarRegistrosCrudos();
                         if (activado != 0) {
                             EnviarRegistro();
                             enviarManatee();
@@ -2260,13 +2382,15 @@ public class Application {
                             }
 
                         }
-                        Thread.sleep(60 * 60 * 24 * 1000); //Sleeps for a day
+                        //1 dia
+                        Thread.sleep(60 * 60 * 24 * 1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
             }
         }.start();
+
         new Thread() {
             @Override
             public void run() {
@@ -2281,6 +2405,8 @@ public class Application {
                         for (Vagon dato : vagones) {
                             try {
                                 dato.diferenciaFechas();
+
+                                //System.out.println("revicion conexion");
                                 if (dato.isDesconectado()) {
                                     for (Puerta datoP : dataManager.GetPuertas()) {
                                         if (datoP.getVagon().equalsIgnoreCase(dato.getNombre())) {
@@ -2458,8 +2584,11 @@ public class Application {
             if (vagonT.getNombre().equalsIgnoreCase(conect.getNombre())) {
                 vagonT.setUltimaConexion(System.currentTimeMillis());
                 vagonT.setDesconectado(false);
+
+                //System.out.println(new Gson().toJson(conect));
             }
         }
+        //System.out.println(new Gson().toJson(vagones));
     }
 
     public void conexionVagon(Vagon conect, String canal) {
@@ -2474,8 +2603,10 @@ public class Application {
                     vagonT.setUltimaConexionCanalB(System.currentTimeMillis());
                     vagonT.setDesconectado(false);
                 }
+                //System.out.println(new Gson().toJson(conect));
             }
         }
+        //System.out.println(new Gson().toJson(vagones));
     }
 
     public void envio(OP_RegistroTemporal registroTemporal) {
@@ -2574,6 +2705,8 @@ public class Application {
                 JSONObject temp = new JSONObject(registroTemporal);
                 temp.put("fechaHoraEnvio", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date()));
                 publicadorManatee.Publisher(temp.toString().getBytes(), "S1");
+
+                //System.out.println("Envio a manatee cc " + temp);
             }
 
         }
@@ -2611,9 +2744,11 @@ public class Application {
                         JSONObject re;
                         if (subscriberMQTTServiceLocal.isMessageArrived()) {
                             subscriberMQTTServiceLocal.setMessageArrived(false);
-                            OP_RegistroCrudo registroCrudo;
+                            OP_RegistroCrudo registroCrudo = new OP_RegistroCrudo();
                             registroCrudoString = subscriberMQTTServiceLocal.getData();
                             re = new JSONObject(registroCrudoString);
+//                            if(!re.isNull("fechaHoraOcurrencia"))
+//                            System.out.println(re.getString("fechaHoraOcurrencia") + "  " + new Date());
                             registroCrudo = cast.JSONtoRegistroEventoCrudo(registroCrudoString);
                             if (!re.isNull("fechaHoraOcurrencia")) {
                                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
@@ -2621,6 +2756,7 @@ public class Application {
                                 try {
                                     Date date = simpleDateFormat.parse(re.getString("fechaHoraOcurrencia"));
                                     registroCrudo.setFechaOcurrencia(date);
+                                    //System.out.println(registroCrudo.getFechaOcurrencia());
                                 } catch (ParseException e) {
                                     System.out.println("Error en convertir fecha");
                                 }
@@ -2648,6 +2784,8 @@ public class Application {
                             } else {
                                 registrosCrudos.add(registroCrudo);
                             }
+//                            System.out.println("Julian:  " + new Gson().toJson(subscriberMQTTServiceLocal.getData()));
+
                         }
 
                         Thread.sleep(1);
@@ -2668,6 +2806,7 @@ public class Application {
         for (Vagon vagone : vagones) {
             if (vagone.getNombre().equalsIgnoreCase(vagon)) {
                 re = vagone;
+                //System.out.println(re);
             }
         }
         return re;
@@ -2681,6 +2820,7 @@ public class Application {
         for (Vagon vagone : vagonesT) {
             if (vagone.getNombre().equalsIgnoreCase(nombre)) {
                 re = vagone.getNombreCDEG();
+                //System.out.println(re);
             }
         }
         return re;
@@ -2694,6 +2834,7 @@ public class Application {
         for (Vagon vagone : vagonesT) {
             if (vagone.getNombreCDEG().equalsIgnoreCase(nombre)) {
                 re = vagone.getNombre();
+                //System.out.println(re);
             }
         }
         return re;
@@ -2714,6 +2855,7 @@ public class Application {
     public void mlanVivo(String ip) {
         for (MLan MLanT : MLans) {
             if (MLanT.getIp().equalsIgnoreCase(ip)) {
+                //System.out.println("entro" + ip);
                 MLanT.setUltimaconexion(new Date().getTime());
             }
         }

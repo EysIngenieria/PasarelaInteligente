@@ -103,6 +103,8 @@ public class Puerta implements Serializable{
     private Integer tiempoReproduccion;
     
     private Integer tiempoReproduccionT;
+    
+    private long ultimaConexion; 
 
     public Integer getTiempoReproduccionT() {
         return tiempoReproduccionT;
@@ -473,8 +475,28 @@ public class Puerta implements Serializable{
         this.codigoMensajeReproduccion = codigoMensajeReproduccion;
     }
 
-    
+    public long getUltimaConexion() {
+        return ultimaConexion;
+    }
 
+    public void setUltimaConexion(long ultimaConexion) {
+        this.ultimaConexion = ultimaConexion;
+    }
+
+    
+    public boolean conexion() {
+        long date = 0;
+        if (ultimaConexion != 0) {
+            
+            date = System.currentTimeMillis();
+            double restaFechas = ((date - ultimaConexion));
+            
+            //System.out.println("Tiempo transcurrido: " + minutos);
+            return restaFechas < 120000;
+        } else {
+            return false;
+        }
+    }
     
      
     

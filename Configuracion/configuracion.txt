@@ -1,5 +1,5 @@
 {
-  "ACTIVADO": 2,
+  "ACTIVADO": 3,
   "MacBluetooth": "",
   "MacWifi": "",
   "MacEthernet": "",
@@ -68,7 +68,7 @@
     "region": "us-central1"
   },
   "servidoLocalMQTT": "tcp://localhost:1883",
-  "nombreEstacion": "LasNieves",
+  "nombreEstacion": "SantaLucia",
   "Universidades": {
     "idEstacion": "6111",
     "Puertas": [
@@ -2872,7 +2872,7 @@
       }
     ]
   },
-  "dispositivo": "E10007_0_Estacion_V1",
+  "dispositivo": "E9004_0_Estacion_V1",
   "idOperador": "P02",
   "MQTTMANATEE": {
     "clave": "Manatee2022.",
