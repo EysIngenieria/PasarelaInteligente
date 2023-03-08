@@ -5,8 +5,8 @@
 package com.eysingenieria.pi.service;
 
 import com.eysingenieria.pi.casting.Cast;
-import com.eysingenieria.pi.entities.DatoCDEG;
-import com.eysingenieria.pi.entities.HubData;
+import com.eysingenieria.pi.data.model.DatoCDEG;
+import com.eysingenieria.pi.data.model.HubData;
 
 /**
  *

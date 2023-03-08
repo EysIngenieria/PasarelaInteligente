@@ -1,11 +1,12 @@
 package com.eysingenieria.pi.entities;
 
-import com.eysingenieria.pi.entities.CFG_Alarma;
+import com.eysingenieria.pi.data.CFG_NivelAlarma;
+import com.eysingenieria.pi.data.CFG_Alarma;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2023-03-07T09:29:22")
+@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2023-03-08T10:46:29")
 @StaticMetamodel(CFG_NivelAlarma.class)
 public class CFG_NivelAlarma_ { 
 

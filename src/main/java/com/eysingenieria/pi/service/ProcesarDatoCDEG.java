@@ -5,8 +5,8 @@
 package com.eysingenieria.pi.service;
 
 import com.eysingenieria.pi.datamanager.DataManager;
-import com.eysingenieria.pi.entities.Comando;
-import com.eysingenieria.pi.entities.Puerta;
+import com.eysingenieria.pi.data.model.Comando;
+import com.eysingenieria.pi.data.entities.Puerta;
 
 /**
  *

@@ -4,20 +4,20 @@
  */
 package com.eysingenieria.pi.casting;
 
-import com.eysingenieria.pi.entities.Alarma;
-import com.eysingenieria.pi.entities.CFG_Alarma;
-import com.eysingenieria.pi.entities.CFG_Evento;
-import com.eysingenieria.pi.entities.CFG_NivelAlarma;
-import com.eysingenieria.pi.entities.Comando;
-import com.eysingenieria.pi.entities.ComandoInterfazVisual;
-import com.eysingenieria.pi.entities.Configuracion;
-import com.eysingenieria.pi.entities.DatoCDEG;
-import com.eysingenieria.pi.entities.Evento;
-import com.eysingenieria.pi.entities.HubData;
-import com.eysingenieria.pi.entities.NivelAlarma;
-import com.eysingenieria.pi.entities.OP_RegistroCrudo;
-import com.eysingenieria.pi.entities.Puerta;
-import com.eysingenieria.pi.entities.TipoDatoCDEG;
+import com.eysingenieria.pi.data.model.Alarma;
+import com.eysingenieria.pi.data.entities.CFG_Alarma;
+import com.eysingenieria.pi.data.entities.CFG_Evento;
+import com.eysingenieria.pi.data.entities.CFG_NivelAlarma;
+import com.eysingenieria.pi.data.model.Comando;
+import com.eysingenieria.pi.data.model.ComandoInterfazVisual;
+import com.eysingenieria.pi.data.model.Configuracion;
+import com.eysingenieria.pi.data.model.DatoCDEG;
+import com.eysingenieria.pi.data.model.Evento;
+import com.eysingenieria.pi.data.model.HubData;
+import com.eysingenieria.pi.data.model.NivelAlarma;
+import com.eysingenieria.pi.data.entities.OP_RegistroCrudo;
+import com.eysingenieria.pi.data.entities.Puerta;
+import com.eysingenieria.pi.data.model.TipoDatoCDEG;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;

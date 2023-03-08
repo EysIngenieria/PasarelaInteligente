@@ -5,7 +5,7 @@
 package com.eysingenieria.pi.controller;
 
 import com.eysingenieria.pi.controller.exceptions.NonexistentEntityException;
-import com.eysingenieria.pi.entities.Puerta;
+import com.eysingenieria.pi.data.entities.Puerta;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;

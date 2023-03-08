@@ -5,7 +5,7 @@
 package com.eysingenieria.pi.controller;
 
 import com.eysingenieria.pi.controller.exceptions.NonexistentEntityException;
-import com.eysingenieria.pi.entities.OP_Parametro;
+import com.eysingenieria.pi.data.entities.OP_Parametro;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;

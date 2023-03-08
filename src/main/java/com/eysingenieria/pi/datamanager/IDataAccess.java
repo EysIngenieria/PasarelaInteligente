@@ -4,21 +4,21 @@
  */
 package com.eysingenieria.pi.datamanager;
 
-import com.eysingenieria.pi.entities.CFG_Alarma;
-import com.eysingenieria.pi.entities.CFG_CamposAlarma;
-import com.eysingenieria.pi.entities.CFG_CamposCabecera;
-import com.eysingenieria.pi.entities.CFG_CamposEvento;
-import com.eysingenieria.pi.entities.CFG_CamposValidos;
-import com.eysingenieria.pi.entities.CFG_Configuracion;
-import com.eysingenieria.pi.entities.CFG_Evento;
-import com.eysingenieria.pi.entities.CFG_NivelAlarma;
-import com.eysingenieria.pi.entities.OP_Parametro;
-import com.eysingenieria.pi.entities.OP_Registro;
-import com.eysingenieria.pi.entities.OP_RegistroCrudo;
-import com.eysingenieria.pi.entities.OP_RegistroTemporal;
-import com.eysingenieria.pi.entities.Puerta;
-import com.eysingenieria.pi.entities.Comando;
-import com.eysingenieria.pi.entities.ComandoCDEG;
+import com.eysingenieria.pi.data.entities.CFG_Alarma;
+import com.eysingenieria.pi.data.entities.CFG_CamposAlarma;
+import com.eysingenieria.pi.data.entities.CFG_CamposCabecera;
+import com.eysingenieria.pi.data.entities.CFG_CamposEvento;
+import com.eysingenieria.pi.data.entities.CFG_CamposValidos;
+import com.eysingenieria.pi.data.entities.CFG_Configuracion;
+import com.eysingenieria.pi.data.entities.CFG_Evento;
+import com.eysingenieria.pi.data.entities.CFG_NivelAlarma;
+import com.eysingenieria.pi.data.entities.OP_Parametro;
+import com.eysingenieria.pi.data.entities.OP_Registro;
+import com.eysingenieria.pi.data.entities.OP_RegistroCrudo;
+import com.eysingenieria.pi.data.entities.OP_RegistroTemporal;
+import com.eysingenieria.pi.data.entities.Puerta;
+import com.eysingenieria.pi.data.model.Comando;
+import com.eysingenieria.pi.data.entities.ComandoCDEG;
 import java.util.List;
 
 /**

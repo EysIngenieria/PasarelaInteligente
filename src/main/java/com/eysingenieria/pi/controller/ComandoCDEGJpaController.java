@@ -4,7 +4,7 @@
  */
 package com.eysingenieria.pi.controller;
 
-import com.eysingenieria.pi.entities.ComandoCDEG;
+import com.eysingenieria.pi.data.entities.ComandoCDEG;
 import com.eysingenieria.pi.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.List;

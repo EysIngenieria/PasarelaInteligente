@@ -1,11 +1,12 @@
 package com.eysingenieria.pi.entities;
 
+import com.eysingenieria.pi.data.OP_RegistroTemporal;
 import java.util.Date;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2023-03-07T09:29:22")
+@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2023-03-08T10:46:29")
 @StaticMetamodel(OP_RegistroTemporal.class)
 public class OP_RegistroTemporal_ { 
 

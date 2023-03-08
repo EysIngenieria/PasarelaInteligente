@@ -5,7 +5,7 @@
 package com.eysingenieria.pi.controller;
 
 import com.eysingenieria.pi.controller.exceptions.NonexistentEntityException;
-import com.eysingenieria.pi.entities.CFG_Alarma;
+import com.eysingenieria.pi.data.entities.CFG_Alarma;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
