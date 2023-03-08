@@ -4,7 +4,7 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2023-03-07T09:29:22")
+@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2023-03-07T14:36:20")
 @StaticMetamodel(Puerta.class)
 public class Puerta_ { 
 
@@ -19,6 +19,7 @@ public class Puerta_ {
     public static volatile SingularAttribute<Puerta, Integer> tiempoReproduccionT;
     public static volatile SingularAttribute<Puerta, Integer> voltajeBateria;
     public static volatile SingularAttribute<Puerta, Integer> porcentajeApertura;
+    public static volatile SingularAttribute<Puerta, Long> ultimaConexion;
     public static volatile SingularAttribute<Puerta, String> vagon;
     public static volatile SingularAttribute<Puerta, String> nivelAlarma1;
     public static volatile SingularAttribute<Puerta, String> fechaHoraFinalActivacionDesactivacion;
