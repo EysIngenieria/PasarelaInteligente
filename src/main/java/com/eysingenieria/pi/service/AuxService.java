@@ -83,8 +83,8 @@ public class AuxService {
             trama += "08";
             int tiempo = 0;
             trama += String.format("%04X", (tiempo & 0xFFFF) * 60);
-            trama += "00:00:00:00:00:00";
-            trama += "00:00:00:00:00:00";
+            trama += "000000000000";
+            trama += "000000000000";
         } else if (comandoInterfazVisual.getComando().replaceAll(" ", "").equalsIgnoreCase("aperturaDePuerta")) {
             trama += "0402";
         } else if (comandoInterfazVisual.getComando().replaceAll(" ", "").equalsIgnoreCase("cierreDePuerta")) {
