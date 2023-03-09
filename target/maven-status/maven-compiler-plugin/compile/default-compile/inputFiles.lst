@@ -13,6 +13,7 @@ C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eys
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\controller\CFG_CamposAlarmaJpaController.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\service\PublicadorExternoMQTT.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\service\ProcesarDatoEstacion.java
+C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\service\AuxService.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\entities\Alarma.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\entities\CFG_Configuracion.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\controller\CFG_CamposValidosJpaController.java
@@ -60,7 +61,6 @@ C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eys
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\entities\CFG_CamposEvento.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\entities\HubData.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\casting\Cast.java
-C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\service\JsonService.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\service\PublicadorMANATEEMQTT1.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\service\ReceptorUDP.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\entities\NivelAlarma.java

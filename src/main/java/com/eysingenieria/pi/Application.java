@@ -1982,12 +1982,12 @@ public class Application {
                                             puertas.put("Estacion", nombreEstacion);
                                             publisherMQTTServiceInterno.Publisher(puertas.toString().getBytes(), "STATUSIV");
                                             break;
-                                        default:
+                                        case "InterfazVisual":
                                             try {
                                             for (String puerta : comandoInterfazVisual.getPuertas()) {
 
                                                 Puerta puertaTemp = dataManager.GetPuerta(puerta);
-                                                
+                      
                                                 
                                                 JSONObject dato = auxService.JsonProcesarComandoIV(comandoInterfazVisual, puerta, puertaTemp);
                                                 
@@ -1995,8 +1995,8 @@ public class Application {
                                                 System.out.println("Dato Interfaz VIsual: " + dato);
                                                 publisherMQTTServiceInterno.Publisher(dato.toString().getBytes(), puertaTemp.getVagon());
                                                 
-                                                //System.out.println("ENVIO CORRECTO MVC " + envio + " " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date()));
 
+                                                
                                                 Thread.sleep(250);
 
                                             }
@@ -2007,6 +2007,10 @@ public class Application {
                                     //System.out.println(new Gson().toJson(comandoInterfazVisual));
 
                                     break;
+                                    
+                                    default:
+                                        break;
+                                    
 
                                 case "MCV485":
                                     System.out.println("Dato: " + subscriberMQTTServiceLocal.getData());

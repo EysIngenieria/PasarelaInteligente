@@ -36,6 +36,7 @@ com\eysingenieria\pi\service\ProcesarDatoEstacion.class
 com\eysingenieria\pi\service\TransmisorUDP.class
 com\eysingenieria\pi\Application$4.class
 com\eysingenieria\pi\controller\CFG_CamposAlarmaJpaController.class
+com\eysingenieria\pi\service\AuxService.class
 com\eysingenieria\pi\service\Constantes$Comandos.class
 com\eysingenieria\pi\entities\MLan.class
 com\eysingenieria\pi\PIApp.class
@@ -59,7 +60,6 @@ com\eysingenieria\pi\datamanager\DataManager.class
 com\eysingenieria\pi\Application$11.class
 com\eysingenieria\pi\Application$3.class
 com\eysingenieria\pi\entities\OP_RegistroCrudo.class
-com\eysingenieria\pi\service\JsonService.class
 com\eysingenieria\pi\entities\Vagon.class
 com\eysingenieria\pi\casting\Cast.class
 com\eysingenieria\pi\service\CommunicationSerialService.class
