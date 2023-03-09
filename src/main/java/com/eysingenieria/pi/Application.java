@@ -70,7 +70,7 @@ import org.json.JSONObject;
  * @author DesarrolloJC
  */
 public class Application {
-
+    private static final String VERSION = "1.0.0";
     int activado = 0;
     DataManager dataManager;
     PublicadorLocalMQTT publisherMQTTServiceInterno;
@@ -1966,6 +1966,10 @@ public class Application {
                                     String id = idEstacion + idF;
                                     envioManatee.put("IDManatee", id);
                                     envioManatee.put("fechaHoraEnvio", formatoFecha.format(new Date()));
+                                    ComandoCDEG comandoRecibido = new ComandoCDEG();
+                                    comandoRecibido.setTrama(datoCDEGString);
+                                    comandoRecibido.setFechaHoraOcurrencia(registroCrudo.getFechaOcurrencia());
+                                    dataManager.saveComando(comandoRecibido);
                                     publicadorManatee.Publisher(envioManatee.toString().getBytes(), "S1");
                                     registrosCrudos.add(registroCrudo);
                                     break;
@@ -1973,43 +1977,26 @@ public class Application {
                                     ComandoInterfazVisual comandoInterfazVisual = new ComandoInterfazVisual();
                                     comandoInterfazVisual = cast.JSONtoComandoInterfazVisual(subscriberMQTTServiceLocal.getData());
                                     //System.out.println("InterfazVisual: " + subscriberMQTTServiceLocal.getData());
-                                    switch (comandoInterfazVisual.getComando()) {
-                                        case "STATUS":
-                                            //auxService.ComandoAperturaPuertaCDEG(registroCrudo, temp, id)
-                                            JSONObject puertas = new JSONObject();
-                                            //System.out.println("CONEXION INTERFAZ VISUAL");
-                                            puertas.put("puertas", dataManager.GetPuertas());
-                                            puertas.put("Estacion", nombreEstacion);
-                                            publisherMQTTServiceInterno.Publisher(puertas.toString().getBytes(), "STATUSIV");
-                                            break;
-                                        case "InterfazVisual":
-                                            try {
-                                            for (String puerta : comandoInterfazVisual.getPuertas()) {
 
-                                                Puerta puertaTemp = dataManager.GetPuerta(puerta);
-                      
-                                                
-                                                JSONObject dato = auxService.JsonProcesarComandoIV(comandoInterfazVisual, puerta, puertaTemp);
-                                                
-                                                
-                                                System.out.println("Dato Interfaz VIsual: " + dato);
-                                                publisherMQTTServiceInterno.Publisher(dato.toString().getBytes(), puertaTemp.getVagon());
-                                                
+                                    try {
+                                        for (String puerta : comandoInterfazVisual.getPuertas()) {
 
-                                                
-                                                Thread.sleep(250);
+                                            Puerta puertaTemp = dataManager.GetPuerta(puerta);
 
-                                            }
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
+                                            JSONObject dato = auxService.JsonProcesarComandoIV(comandoInterfazVisual, puerta, puertaTemp);
+
+                                            System.out.println("Dato Interfaz VIsual: " + dato);
+                                            publisherMQTTServiceInterno.Publisher(dato.toString().getBytes(), puertaTemp.getVagon());
+
+                                            Thread.sleep(250);
+
                                         }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
                                     }
-                                    //System.out.println(new Gson().toJson(comandoInterfazVisual));
 
-                                    break;
-                                    
-                                    default:
-                                        break;
+                                //System.out.println(new Gson().toJson(comandoInterfazVisual));
+
                                     
 
                                 case "MCV485":
@@ -2511,6 +2498,7 @@ public class Application {
 
                         puertas.put("puertas", dataManager.GetPuertas());
                         puertas.put("Estacion", nombreEstacion);
+                        puertas.put("version", VERSION);
                         puertas.put("conexiones", conexiones);
                         publisherMQTTServiceInterno.Publisher(puertas.toString().getBytes(), "STATUSIV");
                         Thread.sleep(250);
@@ -2721,6 +2709,7 @@ public class Application {
                                 ack.put("funcion", "ACK");
 
                                 ack.put("idRegistro", re.getInt("idRegistro"));
+                                ack.put("canal", registroCrudo.getCanal());
 
                                 publisherMQTTServiceInterno.Publisher(ack.toString().getBytes(), registroCrudo.getIdVagon());
                                 if (EncontrarVagon(registroCrudo.getIdVagon()).nuevoMensaje(re.getInt("idRegistro"))) {
