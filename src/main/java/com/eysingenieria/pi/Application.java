@@ -32,7 +32,7 @@ import com.eysingenieria.pi.entities.Vagon;
 import com.eysingenieria.pi.service.TransmisorUDP;
 import com.eysingenieria.pi.service.Constantes;
 import com.eysingenieria.pi.service.GenerarClave;
-import com.eysingenieria.pi.service.JsonService;
+import com.eysingenieria.pi.service.AuxService;
 import com.eysingenieria.pi.service.ProcesarDatoCDEG;
 import com.eysingenieria.pi.service.ProcesarDatoEstacion;
 import com.eysingenieria.pi.service.PublicadorExternoMQTT;
@@ -83,7 +83,7 @@ public class Application {
     private DatoCDEG puerta2;
     private DatoCDEG vagon;
     private DatoCDEG estacion;
-    private JsonService jsonService;
+    private AuxService auxService;
 
     Cast cast;
     private PublicadorMANATEEMQTT1 publicadorManatee;
@@ -158,7 +158,7 @@ public class Application {
         vagon = new DatoCDEG();
         estacion = new DatoCDEG();
         cast = new Cast();
-        jsonService = new JsonService();
+        auxService = new AuxService();
     }
 
     public void Run() {
@@ -1034,13 +1034,8 @@ public class Application {
 
                                     case "GET_DATE":
 
-                                        JSONObject wr_date = new JSONObject();
-                                        wr_date.put("origen", "PI");
-                                        wr_date.put("funcion", "WR_DATE");
-                                        Calendar calendar = Calendar.getInstance();
-                                        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                                        wr_date.put("trama", format.format(calendar.getTime()));
-                                        publisherMQTTServiceInterno.Publisher(wr_date.toString().getBytes(), registroCrudo.getIdVagon());
+                                        
+                                        publisherMQTTServiceInterno.Publisher(auxService.wr_date().toString().getBytes(), registroCrudo.getIdVagon());
                                         break;
 
                                     default:
@@ -1297,23 +1292,7 @@ public class Application {
                 dataManager.UpdatePuerta(temp);
                 break;
             case Constantes.Comandos.APERTURA:
-                comandoCrudo.setFuncion("CMD");
-                String trama = "00";
-                trama += String.format("%02x", (Integer.parseInt(temp.getIdPuerta()) & 0xFF));
-                String consecutivo = "01";
-                trama += consecutivo + "7101";
-                trama += "0402";
-                trama += "00";
-                comandoCrudo.setIdVagon(numeroVagon(comandoCrudo.getIdVagon()));
-                comandoCrudo.setTrama(trama);
-                JSONObject envio = new JSONObject();
-                envio.put("origen", comandoCrudo.getOrigen());
-                envio.put("funcion", comandoCrudo.getFuncion());
-                envio.put("idVagon", comandoCrudo.getIdVagon());
-                envio.put("canal", comandoCrudo.getCanal());
-                envio.put("idPuerta", temp.getIdPuerta());
-                envio.put("trama", comandoCrudo.getTrama());
-                System.out.println(envio + "APERTURA CDG");
+                JSONObject envio =  auxService.ComandoAperturaPuertaCDEG(comandoCrudo, temp, numeroVagon(comandoCrudo.getIdVagon()));
 
                 publisherMQTTServiceInterno.Publisher(envio.toString().getBytes(), comandoCrudo.getIdVagon());
                 break;
@@ -1957,21 +1936,24 @@ public class Application {
         publisherMQTTServiceInterno.Publisher(new Gson().toJson(comandoInterfazVisual).getBytes(), "Broadcast");
     }
 
-    private void StartThreads() {
+    public void StartThreads() {
         new Thread() {
             @Override
             public void run() {
                 String[] topic = {"Estacion", "CDEG", "InterfazVisual", "MCV485"};
                 SuscriptorLocalMQTT subscriberMQTTServiceLocal = new SuscriptorLocalMQTT(topic, "tcp://localhost:1883", "PILocal");
                 subscriberMQTTServiceLocal.Subscribe();
+                
                 while (true) {
                     if (subscriberMQTTServiceLocal.isMessageArrived()) {
+                        
                         try {
+                        
                             subscriberMQTTServiceLocal.setMessageArrived(false);
                             OP_RegistroCrudo registroCrudo = new OP_RegistroCrudo();
                             switch (subscriberMQTTServiceLocal.getMessageTopicArrived()) {
                                 case "CDEG":
-
+                                    
                                     datoCDEGString = subscriberMQTTServiceLocal.getData();
                                     System.out.println("DATO A REVISAR " + datoCDEGString + "");
                                     registroCrudo.setTrama(datoCDEGString);
@@ -1993,6 +1975,7 @@ public class Application {
                                     //System.out.println("InterfazVisual: " + subscriberMQTTServiceLocal.getData());
                                     switch (comandoInterfazVisual.getComando()) {
                                         case "STATUS":
+                                            //auxService.ComandoAperturaPuertaCDEG(registroCrudo, temp, id)
                                             JSONObject puertas = new JSONObject();
                                             //System.out.println("CONEXION INTERFAZ VISUAL");
                                             puertas.put("puertas", dataManager.GetPuertas());
@@ -2004,54 +1987,14 @@ public class Application {
                                             for (String puerta : comandoInterfazVisual.getPuertas()) {
 
                                                 Puerta puertaTemp = dataManager.GetPuerta(puerta);
-                                                OP_RegistroCrudo comandoCrudo = new OP_RegistroCrudo();
-                                                comandoCrudo.setOrigen("InterfazVisual");
-                                                comandoCrudo.setIdVagon(String.format("%01d", Integer.parseInt(puertaTemp.getVagon())));
-                                                comandoCrudo.setIdPuerta(puerta);
-                                                String trama = "00";
-                                                trama += String.format("%02x", (Integer.parseInt(puertaTemp.getIdPuerta()) & 0xFF));
-                                                comandoCrudo.setCanal(puertaTemp.getCanal());
-                                                String consecutivo = "01";
-                                                trama += consecutivo + "7101";
-                                                if ((comandoInterfazVisual.getComando().replaceAll(" ", "").equalsIgnoreCase("activarBluetooth"))) {
-                                                    trama += "08";
-                                                    trama += String.format("%04X", (comandoInterfazVisual.getActivationTime() & 0xFFFF) * 60);
-                                                    trama += comandoInterfazVisual.getDireccionMac();
-                                                    trama += comandoInterfazVisual.getDireccionMac();
-                                                } else if (comandoInterfazVisual.getComando().replaceAll(" ", "").equalsIgnoreCase("desactivarBluetooth")) {
-                                                    trama += "08";
-                                                    int tiempo = 0;
-                                                    trama += String.format("%04X", (tiempo & 0xFFFF) * 60);
-                                                    trama += "00:00:00:00:00:00";
-                                                    trama += "00:00:00:00:00:00";
-                                                } else if (comandoInterfazVisual.getComando().replaceAll(" ", "").equalsIgnoreCase("aperturaDePuerta")) {
-                                                    trama += "0402";
-                                                } else if (comandoInterfazVisual.getComando().replaceAll(" ", "").equalsIgnoreCase("cierreDePuerta")) {
-                                                    trama += "0404";
-                                                } else if (comandoInterfazVisual.getComando().replaceAll(" ", "").equalsIgnoreCase("cicloDeApertura")) {
-                                                    trama += "05";
-                                                } else if (comandoInterfazVisual.getComando().replaceAll(" ", "").equalsIgnoreCase("activarBotonDeUsuario")) {
-                                                    trama += "0701";
-                                                } else if (comandoInterfazVisual.getComando().replaceAll(" ", "").equalsIgnoreCase("desactivarBotonDeUsuario")) {
-                                                    trama += "0700";
-                                                } else if (comandoInterfazVisual.getComando().replaceAll(" ", "").equalsIgnoreCase("activarModoManual")) {
-                                                    trama += "0401";
-                                                }
-                                                trama += "00";
-                                                comandoCrudo.setTrama(trama);
-                                                comandoCrudo.setFuncion("CMD");
-
-                                                //JSONObject dato = new JSONObject(trama);
-                                                JSONObject envio = new JSONObject();
-                                                envio.put("origen", comandoCrudo.getOrigen());
-                                                envio.put("funcion", comandoCrudo.getFuncion());
-                                                envio.put("idVagon", comandoCrudo.getIdVagon());
-                                                envio.put("canal", comandoCrudo.getCanal());
-                                                envio.put("idPuerta", puertaTemp.getIdPuerta());
-                                                envio.put("trama", comandoCrudo.getTrama());
-
-                                                System.out.println("Dato Interfaz VIsual: " + envio);
-                                                publisherMQTTServiceInterno.Publisher(envio.toString().getBytes(), comandoCrudo.getIdVagon());
+                                                
+                                                
+                                                JSONObject dato = auxService.JsonProcesarComandoIV(comandoInterfazVisual, puerta, puertaTemp);
+                                                
+                                                
+                                                System.out.println("Dato Interfaz VIsual: " + dato);
+                                                publisherMQTTServiceInterno.Publisher(dato.toString().getBytes(), puertaTemp.getVagon());
+                                                
                                                 //System.out.println("ENVIO CORRECTO MVC " + envio + " " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date()));
 
                                                 Thread.sleep(250);
@@ -2107,7 +2050,7 @@ public class Application {
                                     comandoRecibido.setTrama(datoCDEGString);
                                     comandoRecibido.setFechaHoraOcurrencia(registroCrudo.getFechaOcurrencia());
                                     dataManager.saveComando(comandoRecibido);
-                                    publicadorManatee.Publisher(jsonService.comandoCDEGMTE(datoCDEGString, idEstacion, formatoFecha).toString().getBytes(), "CDEGR");
+                                    publicadorManatee.Publisher(auxService.comandoCDEGMTE(datoCDEGString, idEstacion, formatoFecha).toString().getBytes(), "CDEGR");
                                 } catch (Exception ex) {
                                     Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                                 }
