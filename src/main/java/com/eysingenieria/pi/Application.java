@@ -165,9 +165,7 @@ public class Application {
         try {
             Thread.sleep(3000);
             cargarConfiguracion();
-        } catch (IOException ex) {
-            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
+        } catch (IOException | InterruptedException ex) {
             Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
         }
         GetParametros();
@@ -186,18 +184,12 @@ public class Application {
 
         try {
             while (true) {
-                //EliminarRegistroCrudo();
-
-                //ProcesarRegistrosCrudos();
-                //EnviarRegistro();
                 try {
                     VerificarBotonUsuario();
                     VerificarReproducciónAudio();
                 } catch (Exception e) {
 
                 }
-                //GenerarClave();
-                //System.out.println("ENTRADA7");
                 Thread.sleep(100);
             }
         } catch (InterruptedException ie) {
