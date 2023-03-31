@@ -30,7 +30,8 @@ public class Vagon {
     
     private Queue comandos;
     
-    private int ultimo_registro;
+    private int ultimo_registro_canalA;
+    private int ultimo_registro_canalB;
     
     public void diferenciaFechas(){
         long date = 0;
@@ -137,21 +138,42 @@ public class Vagon {
         }
     }
 
-    public int getUltimo_registro() {
-        return ultimo_registro;
+    public int getUltimo_registro_canalA() {
+        return ultimo_registro_canalA;
     }
 
-    public void setUltimo_registro(int ultimo_registro) {
-        this.ultimo_registro = ultimo_registro;
+    public void setUltimo_registro_canalA(int ultimo_registro_canalA) {
+        this.ultimo_registro_canalA = ultimo_registro_canalA;
     }
+
+    public int getUltimo_registro_canalB() {
+        return ultimo_registro_canalB;
+    }
+
+    public void setUltimo_registro_canalB(int ultimo_registro_canalB) {
+        this.ultimo_registro_canalB = ultimo_registro_canalB;
+    }
+
     
-    public boolean nuevoMensaje(int nuevo) {
+    
+    public boolean nuevoMensajeCanalA(int nuevo) {
         boolean aux = false;
-        if (ultimo_registro == 0) {
-            ultimo_registro = nuevo;
+        if (ultimo_registro_canalA == 0) {
+            ultimo_registro_canalA = nuevo;
             aux = true;
-        } else if (ultimo_registro!=nuevo) {
-            ultimo_registro = nuevo;
+        } else if (ultimo_registro_canalA!=nuevo) {
+            ultimo_registro_canalA = nuevo;
+            aux = true;
+        }
+        return aux;
+    }
+    public boolean nuevoMensajeCanalB(int nuevo) {
+        boolean aux = false;
+        if (ultimo_registro_canalB == 0) {
+            ultimo_registro_canalB = nuevo;
+            aux = true;
+        } else if (ultimo_registro_canalB!=nuevo) {
+            ultimo_registro_canalB = nuevo;
             aux = true;
         }
         return aux;

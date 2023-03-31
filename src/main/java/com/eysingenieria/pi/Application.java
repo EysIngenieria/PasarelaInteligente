@@ -72,6 +72,7 @@ import org.json.JSONObject;
 public class Application {
     private static final String VERSION = "1.0.0";
     int activado = 0;
+    int ModoACK = 0;
     DataManager dataManager;
     PublicadorLocalMQTT publisherMQTTServiceInterno;
     PublicadorExternoMQTT publicadorExternoMQTT;
@@ -84,6 +85,7 @@ public class Application {
     private DatoCDEG vagon;
     private DatoCDEG estacion;
     private AuxService auxService;
+    final static int ACK_ON = 1;
 
     Cast cast;
     private PublicadorMANATEEMQTT1 publicadorManatee;
@@ -372,9 +374,10 @@ public class Application {
         dato.setTipoTrama(3);
         Map<String, Object> mapAlarma = new ObjectMapper().convertValue(dato, Map.class);
         System.out.println(dato.getCodigoAlarma());
+        String idRegistro = new SimpleDateFormat("yyMMddHHmmssSSS").format(new Date()) + consecutivo();
+        dato.setIdRegistro(Long.parseLong(idRegistro));
         if (dato.getCodigoAlarma() != null) {
-            String idRegistro = new SimpleDateFormat("yyMMddHHmmssSSS").format(new Date()) + consecutivo();
-            dato.setIdRegistro(Long.parseLong(idRegistro));
+            
             //dato.setIdRegistro(new SimpleDateFormat("yyyyMMddHHmmssS").format(new Date()));
             Map<String, Object> mapDato = new ObjectMapper().convertValue(datoCDEGSalida, Map.class);
             for (CFG_CamposCabecera campo : camposCabecera) {
@@ -444,12 +447,6 @@ public class Application {
                                                     temp.setPorcentajeApertura(datoAux.getPorcentajeApertura());
                                                     temp.setUsoBotonManual(datoAux.getUsoBotonManual());
                                                     temp.setUltimaConexion(System.currentTimeMillis());
-//                                                if (temp.getUsoBotonManual() == 1) {
-//                                                    temp.setEstado("MANUAL");
-//                                                    envioJson = new JSONObject(new Gson().toJson(temp));
-//                                                    envioJson.put("fecha", datoAux.getFechaHoraLecturaDato());
-//                                                }
-                                                    //new Gson().toJson(puerta1));
                                                     datoAux.setCanal(temp.getCanal());
                                                     datoAux.setIdVagon(temp.getVagon());
                                                     datoAux.setCodigoPuerta(temp.getDescripcion());
@@ -461,21 +458,7 @@ public class Application {
                                                             Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                                                         }
                                                     }
-//                                         if (temp.getEstadoErrorCritico() != null && temp.getModoOperacion() != null) {
-//                                            if (temp.getEstadoBotonManual() == null && !temp.getEstadoErrorCritico() && temp.getModoOperacion() != 1) {
-//                                                temp.setEstado("ABIERTA");
-//
-//                                            } else if (temp.getEstadoErrorCritico() && temp.getModoOperacion() != 1) {
-//                                                temp.setEstado("ERROR");
-//                                            } else {
-//                                                temp.setEstado("MANUAL");
-//                                            }
-//                                        }
-//                                        envioJson = new JSONObject(new Gson().toJson(temp));
-//                                        envioJson.put("fecha", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-//                                        publisherMQTTServiceInterno.Publisher(envioJson.toString().getBytes(), "ActualizacionEstado", servidorLocalMQTT, dispositivo);
-//
-//
+
                                                     datoAux.setIdVagon(nombreVagon(temp.getVagon()));
                                                     ArmarEventos(datoAux);
                                                     dataManager.UpdatePuerta(temp);
@@ -863,9 +846,6 @@ public class Application {
                                                             temp.setNivelAlarma1(datoAux.getNivelAlarma1());
                                                             datoAux.setIdVagon(nombreVagon(datoAux.getIdVagon()));
                                                             ArmarAlarmas(datoAux);
-                                                            envioJson = new JSONObject(new Gson().toJson(temp));
-                                                            envioJson.put("fecha", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-                                                            publisherMQTTServiceInterno.Publisher(envioJson.toString().getBytes(), "ActualizacionEstado");
 
                                                         } else if (!temp.getNivelAlarma1().equalsIgnoreCase(datoAux.getNivelAlarma1())) {
                                                             temp.setNivelAlarma1(datoAux.getNivelAlarma1());
@@ -1623,7 +1603,8 @@ public class Application {
     }
 
     private void ComprobarAlarmas1(DatoCDEG dato) {
-        dato.setIdRegistro(Long.parseLong(new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date())));
+        String idRegistro = new SimpleDateFormat("yyMMddHHmmssSSS").format(new Date()) + consecutivo();
+        dato.setIdRegistro(Long.parseLong(idRegistro));
         for (CFG_NivelAlarma nivelAlarma : nivelesAlarma) {
             if (nivelAlarma.getAlarma().getNombre().equalsIgnoreCase("ALAP1") && dato.getPorcentajeCargaBaterias() != null) {
                 if ((dato.getPorcentajeCargaBaterias() >= nivelAlarma.getNivelInferior()) && (dato.getPorcentajeCargaBaterias() < nivelAlarma.getNivelSuperior())) {
@@ -1648,7 +1629,7 @@ public class Application {
     }
 
     private void ComprobarAlarmas2(DatoCDEG dato) {
-        dato.setIdRegistro(Long.parseLong(new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date())));
+        dato.setIdRegistro(Long.parseLong(new SimpleDateFormat("yyMMddHHmmssSSS").format(new Date())+ consecutivo()));
         for (CFG_NivelAlarma nivelAlarma : nivelesAlarma) {
 
             if (nivelAlarma.getAlarma().getNombre().equalsIgnoreCase("ALAP2") && dato.getTiempoApertura() != null) {
@@ -1749,6 +1730,7 @@ public class Application {
             dataManager.DeletePuertas();
 
             activado = (int) configuracion.getNumber("ACTIVADO");
+            ModoACK = (int) configuracion.getNumber("ACK");
             switch (activado) {
                 case 1:
                     System.exit(0);
@@ -2021,7 +2003,6 @@ public class Application {
                 public void run() {
 
                     clavePrivada = new GenerarClave().Generar(nombreEstacion);
-                    publicadorExternoMQTT.Suscribir(clavePrivada, dispositivo, servidorExternoMQTT, proyecto, region, registro);
                     while (publicadorExternoMQTT.conect()) {
                         if (publicadorExternoMQTT.isEntroDato()) {
                             if (!publicadorExternoMQTT.getDato().equalsIgnoreCase("")) {
@@ -2671,11 +2652,12 @@ public class Application {
         new Thread() {
             @Override
             public void run() {
-                try {
+                
                     String topics[] = {topic};
                     SuscriptorLocalMQTT subscriberMQTTServiceLocal = new SuscriptorLocalMQTT(topics, "tcp://localhost:1883", "PILocal");
                     subscriberMQTTServiceLocal.Subscribe();
                     while (true) {
+                    try {
                         JSONObject re;
                         if (subscriberMQTTServiceLocal.isMessageArrived()) {
                             subscriberMQTTServiceLocal.setMessageArrived(false);
@@ -2703,7 +2685,8 @@ public class Application {
                                 }
                             }
                             registroCrudo.setOrigen("Estacion");
-                            if (!re.isNull("idRegistro") && (registroCrudo.getFuncion().equalsIgnoreCase("EVENTO") || registroCrudo.getFuncion().equalsIgnoreCase("BOTON_EMERGENCIA"))) {
+                            if (!re.isNull("idRegistro") && ModoACK == ACK_ON && (registroCrudo.getFuncion().equalsIgnoreCase("EVENTO") || registroCrudo.getFuncion().equalsIgnoreCase("BOTON_EMERGENCIA"))) {
+
                                 JSONObject ack = new JSONObject();
                                 ack.put("origen", "PI");
                                 ack.put("funcion", "ACK");
@@ -2712,10 +2695,20 @@ public class Application {
                                 ack.put("canal", registroCrudo.getCanal());
 
                                 publisherMQTTServiceInterno.Publisher(ack.toString().getBytes(), registroCrudo.getIdVagon());
-                                if (EncontrarVagon(registroCrudo.getIdVagon()).nuevoMensaje(re.getInt("idRegistro"))) {
-                                    EncontrarVagon(registroCrudo.getIdVagon()).setUltimo_registro(re.getInt("idRegistro"));
 
-                                    registrosCrudos.add(registroCrudo);
+                                if (registroCrudo.getCanal().equalsIgnoreCase("1")) {
+                                    if (EncontrarVagon(registroCrudo.getIdVagon()).nuevoMensajeCanalA(re.getInt("idRegistro"))) {
+                                        EncontrarVagon(registroCrudo.getIdVagon()).setUltimo_registro_canalA(re.getInt("idRegistro"));
+                                        //System.out.println(EncontrarVagon(registroCrudo.getIdVagon()).getNombre() + "  " + EncontrarVagon(registroCrudo.getIdVagon()).getUltimo_registro_canalA());
+                                        registrosCrudos.add(registroCrudo);
+                                    }
+                                } else {
+                                    if (EncontrarVagon(registroCrudo.getIdVagon()).nuevoMensajeCanalB(re.getInt("idRegistro"))) {
+                                        EncontrarVagon(registroCrudo.getIdVagon()).setUltimo_registro_canalB(re.getInt("idRegistro"));
+                                        //System.out.println(EncontrarVagon(registroCrudo.getIdVagon()).getNombre() + "  " + EncontrarVagon(registroCrudo.getIdVagon()).getUltimo_registro_canalB());
+                                        registrosCrudos.add(registroCrudo);
+                                    }
+
                                 }
                             } else {
                                 registrosCrudos.add(registroCrudo);
@@ -2725,11 +2718,12 @@ public class Application {
                         }
 
                         Thread.sleep(1);
+                    } catch (Exception e) {
+                        System.out.println("ERROR EN TRAMA DEL MVC");
                     }
-
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
+                
 
             }
         }.start();

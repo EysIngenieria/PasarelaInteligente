@@ -37,6 +37,7 @@ public class PublicadorExternoMQTT implements MqttCallback{
     private String proyecto;
     private String region;
     private String registro;
+    String mqttServerAddress;
     private String dispositivo;
     private String topico;
     private String mqttClientId;
@@ -48,44 +49,47 @@ public class PublicadorExternoMQTT implements MqttCallback{
     private MqttConnectOptions mqttConnectOptions;
     private Properties sslClientProperties;
     private MqttClient mqttClient;
+    private String clave;
+    
+    MemoryPersistence memoryPersistence;
 
-    public PublicadorExternoMQTT(String clave, String dispositivo, String servidorMQTT, String proyecto, String region, String registro) {
-        
-        try {
-            MemoryPersistence memoryPersistence = new MemoryPersistence();
-            this.servidorMQTT = servidorMQTT;
-            this.proyecto = proyecto;
-            this.region = region;
-            //String registro = "test_puertas";
-            this.registro = registro;
-            //String dispositivo = "pasarela_inteligente2_test";
-            this.dispositivo = dispositivo;
-            
-            //clavePrivada = "./Certificados/T1XX7.rsa_private.der";
-            //String.format("/projects/%s/topics/nautiliusp_events", proyecto),
-            //String topico = String.format("/projects/%s/topics/nautiliusp_events", proyecto);
-            topico = "/devices/"+dispositivo+"/events";
-            mqttClientId = String.format("projects/%s/locations/%s/registries/%s/devices/%s", proyecto, region, registro, dispositivo);
-            
-            mqttConnectOptions = new MqttConnectOptions();
-            //mqttConnectOptions.setMqttVersion(MqttConnectOptions.MQTT_VERSION_3_1_1);
-            sslClientProperties = new Properties();
-            sslClientProperties.setProperty("com.ibm.ssl.protocol", "TLSv1.2");
-            mqttConnectOptions.setSSLProperties(sslClientProperties);
-            mqttConnectOptions.setUserName("unused");
-            //mqttConnectOptions.setPassword(createJwtRsa(proyecto, clavePrivada).toCharArray());
-            mqttConnectOptions.setPassword(clave.toCharArray());
-            mqttConnectOptions.setCleanSession(true);
-            mqttConnectOptions.setConnectionTimeout(1000);
-            mqttConnectOptions.setKeepAliveInterval(60);
-            mqttClient = new MqttClient(servidorMQTT, mqttClientId, memoryPersistence);
-            mqttClient.connect(mqttConnectOptions);
-            
-            
-        } catch (MqttException ex) {
-            Logger.getLogger(PublicadorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    public PublicadorExternoMQTT(String clave, String dispositivo, String servidorMQTT, String proyecto, String region, String registro) {
+//        
+//        try {
+//            MemoryPersistence memoryPersistence = new MemoryPersistence();
+//            this.servidorMQTT = servidorMQTT;
+//            this.proyecto = proyecto;
+//            this.region = region;
+//            //String registro = "test_puertas";
+//            this.registro = registro;
+//            //String dispositivo = "pasarela_inteligente2_test";
+//            this.dispositivo = dispositivo;
+//            
+//            //clavePrivada = "./Certificados/T1XX7.rsa_private.der";
+//            //String.format("/projects/%s/topics/nautiliusp_events", proyecto),
+//            //String topico = String.format("/projects/%s/topics/nautiliusp_events", proyecto);
+//            topico = "/devices/"+dispositivo+"/events";
+//            mqttClientId = String.format("projects/%s/locations/%s/registries/%s/devices/%s", proyecto, region, registro, dispositivo);
+//            
+//            mqttConnectOptions = new MqttConnectOptions();
+//            //mqttConnectOptions.setMqttVersion(MqttConnectOptions.MQTT_VERSION_3_1_1);
+//            sslClientProperties = new Properties();
+//            sslClientProperties.setProperty("com.ibm.ssl.protocol", "TLSv1.2");
+//            mqttConnectOptions.setSSLProperties(sslClientProperties);
+//            mqttConnectOptions.setUserName("unused");
+//            //mqttConnectOptions.setPassword(createJwtRsa(proyecto, clavePrivada).toCharArray());
+//            mqttConnectOptions.setPassword(clave.toCharArray());
+//            mqttConnectOptions.setCleanSession(true);
+//            mqttConnectOptions.setConnectionTimeout(1000);
+//            mqttConnectOptions.setKeepAliveInterval(60);
+//            mqttClient = new MqttClient(servidorMQTT, mqttClientId, memoryPersistence);
+//            mqttClient.connect(mqttConnectOptions);
+//            
+//            
+//        } catch (MqttException ex) {
+//            Logger.getLogger(PublicadorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     
     public boolean conect(){
         return mqttClient.isConnected();
@@ -161,18 +165,33 @@ public class PublicadorExternoMQTT implements MqttCallback{
         this.conectado = conectado;
     }
 
-    public void Suscribir(String clave,String dispositivo, String servidorMQTT, String proyecto, String region, String registro) {
+    public PublicadorExternoMQTT(String clave,String dispositivo, String servidorMQTT, String proyecto, String region, String registro) {
         
 
+       this.clave = clave;
+        topico = "/devices/"+dispositivo+"/events";
         this.proyecto = proyecto;
         this.region = region;
         this.registro = registro;
         this.dispositivo = dispositivo;
+        this.mqttServerAddress = servidorMQTT;
         String[] topico = {String.format("/devices/%s/config", dispositivo), String.format("/devices/%s/commands/#", dispositivo)};
-       
+        mqttClientId = String.format("projects/%s/locations/%s/registries/%s/devices/%s", proyecto, region, registro, dispositivo);
+        memoryPersistence = new MemoryPersistence();
 
         try {
-            
+            MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
+            mqttConnectOptions.setMqttVersion(MqttConnectOptions.MQTT_VERSION_3_1_1);
+            Properties sslClientProperties = new Properties();
+            sslClientProperties.setProperty("com.ibm.ssl.protocol", "TLSv1.2");
+            mqttConnectOptions.setSSLProperties(sslClientProperties);
+            mqttConnectOptions.setUserName("unused");
+            mqttConnectOptions.setPassword(clave.toCharArray());
+            mqttConnectOptions.setCleanSession(true);
+            mqttConnectOptions.setConnectionTimeout(2000);
+            mqttConnectOptions.setKeepAliveInterval(60);
+            mqttClient = new MqttClient(mqttServerAddress, mqttClientId, memoryPersistence);
+            mqttClient.connect(mqttConnectOptions);
             mqttClient.setCallback(this);
             mqttClient.subscribe(topico);
             conectado = true;
@@ -200,17 +219,12 @@ public class PublicadorExternoMQTT implements MqttCallback{
     public void connectionLost(Throwable arg0) {
         System.out.println("Conexion Perdida" + " - " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(new Date()));
         conectado = false;
-        /*
-        if (!cerrar) {
-            Reconectar(clave);
-        } else {
-            try {
-                mqttClient.close(true);
-            } catch (MqttException ex1) {
-                Logger.getLogger(SuscriptorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex1);
-            }
+        try {
+            Thread.sleep(1000);
+            
+        } catch (InterruptedException ex) {
+            Logger.getLogger(PublicadorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex);
         }
-         */
 
     }
 
