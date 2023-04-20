@@ -70,7 +70,8 @@ import org.json.JSONObject;
  * @author DesarrolloJC
  */
 public class Application {
-    private static final String VERSION = "1.0.0";
+
+    private static final String VERSION = "1.1.1";
     int activado = 0;
     int ModoACK = 0;
     DataManager dataManager;
@@ -377,7 +378,7 @@ public class Application {
         String idRegistro = new SimpleDateFormat("yyMMddHHmmssSSS").format(new Date()) + consecutivo();
         dato.setIdRegistro(Long.parseLong(idRegistro));
         if (dato.getCodigoAlarma() != null) {
-            
+
             //dato.setIdRegistro(new SimpleDateFormat("yyyyMMddHHmmssS").format(new Date()));
             Map<String, Object> mapDato = new ObjectMapper().convertValue(datoCDEGSalida, Map.class);
             for (CFG_CamposCabecera campo : camposCabecera) {
@@ -956,7 +957,7 @@ public class Application {
 
                                                 break;
                                             case "CAMBIO_MODO":
-                                                
+
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
                                                 if (temp != null) {
                                                     temp.setUltimaConexion(System.currentTimeMillis());
@@ -1014,7 +1015,6 @@ public class Application {
 
                                     case "GET_DATE":
 
-                                        
                                         publisherMQTTServiceInterno.Publisher(auxService.wr_date().toString().getBytes(), registroCrudo.getIdVagon());
                                         break;
 
@@ -1272,7 +1272,7 @@ public class Application {
                 dataManager.UpdatePuerta(temp);
                 break;
             case Constantes.Comandos.APERTURA:
-                JSONObject envio =  auxService.ComandoAperturaPuertaCDEG(comandoCrudo, temp, numeroVagon(comandoCrudo.getIdVagon()));
+                JSONObject envio = auxService.ComandoAperturaPuertaCDEG(comandoCrudo, temp, numeroVagon(comandoCrudo.getIdVagon()));
 
                 publisherMQTTServiceInterno.Publisher(envio.toString().getBytes(), comandoCrudo.getIdVagon());
                 break;
@@ -1629,7 +1629,7 @@ public class Application {
     }
 
     private void ComprobarAlarmas2(DatoCDEG dato) {
-        dato.setIdRegistro(Long.parseLong(new SimpleDateFormat("yyMMddHHmmssSSS").format(new Date())+ consecutivo()));
+        dato.setIdRegistro(Long.parseLong(new SimpleDateFormat("yyMMddHHmmssSSS").format(new Date()) + consecutivo()));
         for (CFG_NivelAlarma nivelAlarma : nivelesAlarma) {
 
             if (nivelAlarma.getAlarma().getNombre().equalsIgnoreCase("ALAP2") && dato.getTiempoApertura() != null) {
@@ -1925,17 +1925,17 @@ public class Application {
                 String[] topic = {"Estacion", "CDEG", "InterfazVisual", "MCV485"};
                 SuscriptorLocalMQTT subscriberMQTTServiceLocal = new SuscriptorLocalMQTT(topic, "tcp://localhost:1883", "PILocal");
                 subscriberMQTTServiceLocal.Subscribe();
-                
+
                 while (true) {
                     if (subscriberMQTTServiceLocal.isMessageArrived()) {
-                        
+
                         try {
-                        
+
                             subscriberMQTTServiceLocal.setMessageArrived(false);
                             OP_RegistroCrudo registroCrudo = new OP_RegistroCrudo();
                             switch (subscriberMQTTServiceLocal.getMessageTopicArrived()) {
                                 case "CDEG":
-                                    
+
                                     datoCDEGString = subscriberMQTTServiceLocal.getData();
                                     System.out.println("DATO A REVISAR " + datoCDEGString + "");
                                     registroCrudo.setTrama(datoCDEGString);
@@ -1978,9 +1978,6 @@ public class Application {
                                     }
 
                                 //System.out.println(new Gson().toJson(comandoInterfazVisual));
-
-                                    
-
                                 case "MCV485":
                                     System.out.println("Dato: " + subscriberMQTTServiceLocal.getData());
                                     break;
@@ -2001,41 +1998,50 @@ public class Application {
             new Thread() {
                 @Override
                 public void run() {
+                    while (true) {
+                        clavePrivada = new GenerarClave().Generar(nombreEstacion);
+                        while (publicadorExternoMQTT.conect()) {
+                            if (publicadorExternoMQTT.isEntroDato()) {
+                                if (!publicadorExternoMQTT.getDato().equalsIgnoreCase("")) {
+                                    try {
+                                        datoCDEGString = publicadorExternoMQTT.getDato();
+                                        System.out.println("\nDato Plataforma: " + datoCDEGString + " - " + "Topico: " + publicadorExternoMQTT.getTopicoEntro() + "\n");
+                                        publicadorExternoMQTT.setEntroDato(false);
+                                        OP_RegistroCrudo registroCrudo = new OP_RegistroCrudo();
+                                        registroCrudo.setOrigen("CDEG");
+                                        registroCrudo.setTrama(datoCDEGString);
+                                        registroCrudo.setFechaOcurrencia(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
 
-                    clavePrivada = new GenerarClave().Generar(nombreEstacion);
-                    while (publicadorExternoMQTT.conect()) {
-                        if (publicadorExternoMQTT.isEntroDato()) {
-                            if (!publicadorExternoMQTT.getDato().equalsIgnoreCase("")) {
-                                try {
-                                    datoCDEGString = publicadorExternoMQTT.getDato();
-                                    System.out.println("\nDato Plataforma: " + datoCDEGString + " - " + "Topico: " + publicadorExternoMQTT.getTopicoEntro() + "\n");
-                                    publicadorExternoMQTT.setEntroDato(false);
-                                    OP_RegistroCrudo registroCrudo = new OP_RegistroCrudo();
-                                    registroCrudo.setOrigen("CDEG");
-                                    registroCrudo.setTrama(datoCDEGString);
-                                    registroCrudo.setFechaOcurrencia(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-
-                                    if (!datoCDEGString.equalsIgnoreCase(" ")) {
-                                        registrosCrudos.add(registroCrudo);
+                                        if (!datoCDEGString.equalsIgnoreCase(" ")) {
+                                            registrosCrudos.add(registroCrudo);
+                                        }
+                                        ComandoCDEG comandoRecibido = new ComandoCDEG();
+                                        comandoRecibido.setTrama(datoCDEGString);
+                                        comandoRecibido.setFechaHoraOcurrencia(registroCrudo.getFechaOcurrencia());
+                                        dataManager.saveComando(comandoRecibido);
+                                        publicadorManatee.Publisher(auxService.comandoCDEGMTE(datoCDEGString, idEstacion, formatoFecha).toString().getBytes(), "CDEGR");
+                                    } catch (Exception ex) {
+                                        Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                                     }
-                                    ComandoCDEG comandoRecibido = new ComandoCDEG();
-                                    comandoRecibido.setTrama(datoCDEGString);
-                                    comandoRecibido.setFechaHoraOcurrencia(registroCrudo.getFechaOcurrencia());
-                                    dataManager.saveComando(comandoRecibido);
-                                    publicadorManatee.Publisher(auxService.comandoCDEGMTE(datoCDEGString, idEstacion, formatoFecha).toString().getBytes(), "CDEGR");
-                                } catch (Exception ex) {
-                                    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                             }
+                            try {
+                                Thread.sleep(10);
+                            } catch (InterruptedException ie) {
+                            }
+                            
+
                         }
+
                         try {
-                            Thread.sleep(10);
-                        } catch (InterruptedException ie) {
+                            Thread.sleep(5000);
+
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                         }
-
+                        publicadorExternoMQTT.reconectar();
                     }
-
-
+                    
                 }
             }.start();
         }
@@ -2135,7 +2141,7 @@ public class Application {
                                             conexionVagon(conjunto, tempPuerta.getString("canal"));
                                             Puerta temp = dataManager.GetPuerta(tempPuerta.getString("canal"), vagonid, tempPuerta.getString("idPuerta"));
                                             if (!tempPuerta.getBoolean("conectada")) {
-                                                
+
                                                 if (temp != null) {
                                                     if (temp.getEstado() == null) {
                                                         temp.setEstado("SIN CONEXION");
@@ -2185,7 +2191,7 @@ public class Application {
                                                 }
 
                                             } else {
-                                                if (temp!=null && !temp.conexion()) {
+                                                if (temp != null && !temp.conexion()) {
                                                     temp.setEstado("SIN CONEXION");
                                                     temp.setEstadoErrorCritico(true);
                                                     DatoCDEG datoAux = new DatoCDEG();
@@ -2208,7 +2214,7 @@ public class Application {
                                                     dataManager.UpdatePuerta(temp);
 
                                                 }
-                                            
+
                                             }
                                         }
 
@@ -2652,11 +2658,11 @@ public class Application {
         new Thread() {
             @Override
             public void run() {
-                
-                    String topics[] = {topic};
-                    SuscriptorLocalMQTT subscriberMQTTServiceLocal = new SuscriptorLocalMQTT(topics, "tcp://localhost:1883", "PILocal");
-                    subscriberMQTTServiceLocal.Subscribe();
-                    while (true) {
+
+                String topics[] = {topic};
+                SuscriptorLocalMQTT subscriberMQTTServiceLocal = new SuscriptorLocalMQTT(topics, "tcp://localhost:1883", "PILocal");
+                subscriberMQTTServiceLocal.Subscribe();
+                while (true) {
                     try {
                         JSONObject re;
                         if (subscriberMQTTServiceLocal.isMessageArrived()) {
@@ -2722,8 +2728,6 @@ public class Application {
                         System.out.println("ERROR EN TRAMA DEL MVC");
                     }
                 }
-
-                
 
             }
         }.start();
