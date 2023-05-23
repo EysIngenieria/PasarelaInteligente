@@ -73,7 +73,7 @@ public class PublicadorExternoMQTT implements MqttCallback {
         } catch (MqttException ex) {
 
             try {
-                reconectar();
+                
                 //System.out.println("Error al publicar");
                 //Logger.getLogger(PublicadorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex);
                 Thread.sleep(5000);
@@ -161,17 +161,7 @@ public class PublicadorExternoMQTT implements MqttCallback {
         } catch (MqttException ex) {
             ex.printStackTrace();
             conectado = false;
-            /*
-            if (!cerrar) {
-                Reconectar(clave);
-            } else {
-                try {
-                    mqttClient.close(true);
-                } catch (MqttException ex1) {
-                    Logger.getLogger(SuscriptorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex1);
-                }
-            }
-             */
+            
 
         }
 
@@ -183,13 +173,9 @@ public class PublicadorExternoMQTT implements MqttCallback {
         conectado = false;
         try {
             Thread.sleep(1000);
-            mqttClient.reconnect();
-            System.out.println("se reconecto");
-            reconectar();
+            
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(PublicadorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (MqttException ex) {
             Logger.getLogger(PublicadorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex);
         }
 

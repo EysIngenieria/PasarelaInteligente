@@ -71,7 +71,7 @@ import org.json.JSONObject;
  */
 public class Application {
 
-    private static final String VERSION = "1.1.1";
+    private static final String VERSION = "1.1.2";
     int activado = 0;
     int ModoACK = 0;
     DataManager dataManager;
@@ -2039,9 +2039,9 @@ public class Application {
                         } catch (InterruptedException ex) {
                             Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        publicadorExternoMQTT.reconectar();
+                        
                     }
-                    
+    
                 }
             }.start();
         }
@@ -2249,21 +2249,7 @@ public class Application {
             }
         }.start();
 
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                while (true) {
-//                    try {
-//                        //ProcesarRegistrosCrudos();
-//                        
-//
-//                        Thread.sleep(1);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        }.start();
+
         new Thread() {
             @Override
             public void run() {
@@ -2290,6 +2276,8 @@ public class Application {
             public void run() {
                 while (true) {
                     try {
+                        boolean ce = true;
+                        while(ce){
                         for (OP_Registro dato : dataManager.GetRegistro()) {
                             try {
                                 Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date()));
@@ -2297,14 +2285,39 @@ public class Application {
                                 long dias = restaFechas / (60 * 60 * 1000 * 24);
                                 if (dias >= 60) {
                                     dataManager.DeleteRegistro(dato.getId());
+                                }else{
+                                    ce = false;
+                                    break;
                                 }
                             } catch (ParseException ex) {
                                 Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                             }
 
                         }
-                        //1 dia
-                        Thread.sleep(60 * 60 * 24 * 1000);
+                        }
+                        ce=true;
+                        while(ce){
+                        for (OP_RegistroTemporal dato : dataManager.GetRegistroTemporal()) {
+                            try {
+                                Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date()));
+                                long restaFechas = ((date.getTime() - dato.getfechaHoraOcurrencia().getTime()));
+                                long dias = restaFechas / (60 * 60 * 1000 * 24);
+                                if (dias >= 60) {
+                                    dataManager.DeleteRegistroTemporal(dato.getId());
+                                }else{
+                                    ce = false;
+                                    break;
+                                }
+                            } catch (ParseException ex) {
+                                Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (Exception ex) {
+                                Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+
+                        }
+                        }
+                        //cada 8 horas
+                        Thread.sleep(24 * 60 * 60 * 1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
