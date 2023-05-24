@@ -71,7 +71,7 @@ import org.json.JSONObject;
  */
 public class Application {
 
-    private static final String VERSION = "1.1.2";
+    private static final String VERSION = "1.1.3";
     int activado = 0;
     int ModoACK = 0;
     DataManager dataManager;
@@ -2277,7 +2277,7 @@ public class Application {
                 while (true) {
                     try {
                         boolean ce = true;
-                        while(ce){
+                       while(ce){
                         for (OP_Registro dato : dataManager.GetRegistro()) {
                             try {
                                 Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date()));
@@ -2294,28 +2294,9 @@ public class Application {
                             }
 
                         }
-                        }
-                        ce=true;
-                        while(ce){
-                        for (OP_RegistroTemporal dato : dataManager.GetRegistroTemporal()) {
-                            try {
-                                Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date()));
-                                long restaFechas = ((date.getTime() - dato.getfechaHoraOcurrencia().getTime()));
-                                long dias = restaFechas / (60 * 60 * 1000 * 24);
-                                if (dias >= 60) {
-                                    dataManager.DeleteRegistroTemporal(dato.getId());
-                                }else{
-                                    ce = false;
-                                    break;
-                                }
-                            } catch (ParseException ex) {
-                                Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
-                            } catch (Exception ex) {
-                                Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-
-                        }
-                        }
+                        Thread.sleep(1000);
+                       }
+                        
                         //cada 8 horas
                         Thread.sleep(24 * 60 * 60 * 1000);
                     } catch (InterruptedException e) {
@@ -2653,14 +2634,27 @@ public class Application {
 
         for (OP_RegistroTemporal registroTemporal : registros) {
 
-            if (registroTemporal.isestadoEnvio() && registroTemporal.isEstadoEnvioManatee()) {
+            try {
+                Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date()));
+                long restaFechas = ((date.getTime() - registroTemporal.getfechaHoraOcurrencia().getTime()));
+                long dias = restaFechas / (60 * 60 * 1000 * 24);
+                if (dias >= 60) {
+                    try {
+                        dataManager.DeleteRegistroTemporal(registroTemporal.getId());
+                    } catch (Exception ex) {
+                        Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (registroTemporal.isestadoEnvio() && registroTemporal.isEstadoEnvioManatee()) {
 
-                try {
-                    dataManager.DeleteRegistroTemporal(registroTemporal.getId());
-                } catch (Exception ex) {
-                    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+                    try {
+                        dataManager.DeleteRegistroTemporal(registroTemporal.getId());
+                    } catch (Exception ex) {
+                        Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
                 }
-
+            } catch (ParseException ex) {
+                Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }

@@ -1,6 +1,6 @@
 {
-  "ACK":0,
-  "ACTIVADO":3,
+  "ACK":4,
+  "ACTIVADO":4,
   "MacBluetooth": "",
   "MacWifi": "",
   "MacEthernet": "",
