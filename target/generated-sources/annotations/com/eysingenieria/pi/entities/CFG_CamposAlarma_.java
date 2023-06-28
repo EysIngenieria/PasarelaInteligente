@@ -7,7 +7,7 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2023-05-23T13:34:51")
+@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2023-06-26T16:22:57")
 @StaticMetamodel(CFG_CamposAlarma.class)
 public class CFG_CamposAlarma_ { 
 

@@ -1,6 +1,10 @@
 {
-  "ACK":4,
-  "ACTIVADO":4,
+  "ACK": 0,
+  "ACTIVADO": 0,
+  "CostadoPI": "NORTE",
+  "Orden": "ASC",
+  "CanalTop": 2,
+  "CanalButton": 1,
   "MacBluetooth": "",
   "MacWifi": "",
   "MacEthernet": "",
@@ -55,7 +59,7 @@
         "parada": "03",
         "vagon": "WC",
         "nombre": "OR"
-      }      
+      }
     ],
     "PuertoTransmisorMLAN": "9300",
     "DireccionMLAN": "192.168.1.101,192.168.1.102,192.168.1.103",
@@ -64,7 +68,7 @@
   "MQTTCDEG": {
     "mqttServerAddress": "ssl://mqtt.googleapis.com:443",
     "registro": "assabloyp",
-    "proyecto": "smart-helios-cgtm-qa", 
+    "proyecto": "smart-helios-cgtm-qa",
     "region": "us-central1"
   },
   "servidoLocalMQTT": "tcp://localhost:1883",
@@ -214,7 +218,7 @@
       }
     ]
   },
-"Parque": {
+  "Parque": {
     "idEstacion": "8001",
     "Puertas": [
       {
@@ -289,7 +293,7 @@
       }
     ]
   },
-"Biblioteca": {
+  "Biblioteca": {
     "idEstacion": "8002",
     "Puertas": [
       {
@@ -364,7 +368,7 @@
       }
     ]
   },
-"SantaLucia": {
+  "SantaLucia": {
     "idEstacion": "9004",
     "Puertas": [
       {
@@ -509,7 +513,7 @@
       }
     ]
   },
-"AvenidaJimenez": {
+  "AvenidaJimenez": {
     "idEstacion": "9110",
     "Puertas": [
       {
@@ -675,7 +679,7 @@
       }
     ]
   },
-"Calle22": {
+  "Calle22": {
     "idEstacion": "9113",
     "Puertas": [
       {
@@ -862,7 +866,7 @@
       }
     ]
   },
-"Bicentenario": {
+  "Bicentenario": {
     "idEstacion": "10005",
     "Puertas": [
       {
@@ -1077,7 +1081,7 @@
       }
     ]
   },
-"Sanvictorino": {
+  "Sanvictorino": {
     "idEstacion": "10006",
     "Puertas": [
       {
@@ -1292,7 +1296,7 @@
       }
     ]
   },
-"LasNieves": {
+  "LasNieves": {
     "idEstacion": "10007",
     "Puertas": [
       {
@@ -1437,7 +1441,7 @@
       }
     ]
   },
-"SanBernardo": {
+  "SanBernardo": {
     "idEstacion": "10010",
     "Puertas": [
       {
@@ -1544,7 +1548,7 @@
         "vagon": "2",
         "idPuerta": "5",
         "descripcion": "10010-WB-OR-5"
-      },      
+      },
       {
         "canal": "2",
         "id": "16",
@@ -1582,7 +1586,7 @@
       }
     ]
   },
-"SanFasonCarrera22": {
+  "SanFasonCarrera22": {
     "idEstacion": "12004",
     "Puertas": [
       {
@@ -1727,7 +1731,7 @@
       }
     ]
   },
-"DeLaSabana": {
+  "DeLaSabana": {
     "idEstacion": "14001",
     "Puertas": [
       {
@@ -1844,7 +1848,7 @@
       }
     ]
   },
-"MuseoDelOro": {
+  "MuseoDelOro": {
     "idEstacion": "14004",
     "Puertas": [
       {
@@ -1919,7 +1923,7 @@
       }
     ]
   },
-"LasAguas": {
+  "LasAguas": {
     "idEstacion": "14005",
     "Puertas": [
       {
@@ -1973,7 +1977,7 @@
       }
     ]
   },
-"CiudadJardin": {
+  "CiudadJardin": {
     "idEstacion": "10003",
     "Puertas": [
       {
@@ -2118,7 +2122,7 @@
       }
     ]
   },
-"Policarpa": {
+  "Policarpa": {
     "idEstacion": "10004",
     "Puertas": [
       {
@@ -2268,8 +2272,8 @@
   "MQTTMANATEE": {
     "clave": "Manatee2022.",
     "broker": "tcp://4.236.168.64:1883",
-    "usuario": "admin"  
-      },
+    "usuario": "admin"
+  },
   "inicioOperacion": {
     "HoraInicioOperacion": "0400",
     "FechaInicioOperacion": "27/10/2022"

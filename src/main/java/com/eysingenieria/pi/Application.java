@@ -71,7 +71,7 @@ import org.json.JSONObject;
  */
 public class Application {
 
-    private static final String VERSION = "1.1.3";
+    private static final String VERSION = "1.1.4";
     int activado = 0;
     int ModoACK = 0;
     DataManager dataManager;
@@ -147,6 +147,9 @@ public class Application {
     private String tiempoFinOperacionDB;
 
     private int tiempoFinOperacion;
+    private String PrimerVagonDerecha;
+    private String CostadoPI;
+    private String CanalCostadoPI;
 
     public Application() {
         MLans = new ArrayList<>();
@@ -1711,6 +1714,9 @@ public class Application {
         }
         try {
             JSONObject configuracion = new JSONObject(jsonlec);
+            PrimerVagonDerecha = configuracion.getString("PrimerVagonDerecha");
+            CostadoPI = configuracion.getString("CostadoPI");
+            CanalCostadoPI = configuracion.getString("CanalCostadoPI");
             JSONObject confEstacion = configuracion.getJSONObject(configuracion.getString("nombreEstacion"));
             JSONObject mlan = new JSONObject(configuracion.getJSONObject("MLAN").toString());
             JSONObject manatee = new JSONObject(configuracion.getJSONObject("MQTTMANATEE").toString());
@@ -2350,7 +2356,8 @@ public class Application {
                                         }
                                     }
 
-                                } else if (dato.desconexionA()) {
+                                } 
+                                if (dato.desconexionA()) {
                                     for (Puerta datoP : dataManager.GetPuertas()) {
                                         if (datoP.getVagon().equalsIgnoreCase(dato.getNombre()) && datoP.getCanal().equalsIgnoreCase("1")) {
                                             if (datoP.getEstado() == null || !datoP.getEstado().equalsIgnoreCase("SIN CONEXION")) {
@@ -2377,7 +2384,8 @@ public class Application {
                                             }
                                         }
                                     }
-                                } else if (dato.desconexionB()) {
+                                } 
+                                if (dato.desconexionB()) {
                                     for (Puerta datoP : dataManager.GetPuertas()) {
                                         if (datoP.getVagon().equalsIgnoreCase(dato.getNombre()) && datoP.getCanal().equalsIgnoreCase("2")) {
                                             if (datoP.getEstado() == null || !datoP.getEstado().equalsIgnoreCase("SIN CONEXION")) {
@@ -2476,6 +2484,11 @@ public class Application {
                             }
                             conexiones.put(conexion);
                         }
+                        
+                        puertas.put("CanalCostadoPI", CanalCostadoPI);
+                        puertas.put("PrimerVagonDerecha", PrimerVagonDerecha);
+                        puertas.put("CostadoPI", CostadoPI);
+                        
 
                         puertas.put("puertas", dataManager.GetPuertas());
                         puertas.put("Estacion", nombreEstacion);
