@@ -137,7 +137,7 @@ public class Application {
     private String horaLimite;
     private String usuarioManatee;
     private String claveManatee;
-
+    private String topicManatee;
     SimpleDateFormat formatoFecha;
 
     private String versionTrama;
@@ -361,7 +361,7 @@ public class Application {
             OP_RegistroTemporal registroTemporal = new OP_RegistroTemporal();
             //System.out.println("\n" + "Evento creado: " + datoString + "\n");
             registroTemporal.setTrama(datoString);
-
+            registroTemporal.setId(Long.parseLong(idRegistro));
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(dato.getFechaHoraLecturaDato());
             calendar.add(Calendar.HOUR, -5);
@@ -1727,7 +1727,7 @@ public class Application {
             brokerManatee = manatee.getString("broker");
             claveManatee = manatee.getString("clave");
             usuarioManatee = manatee.getString("usuario");
-
+            topicManatee = manatee.getString("topic");
             JSONObject mqttcdeg = configuracion.getJSONObject("MQTTCDEG");
             horaLimite = fin.getString("HoraLimite");
             registro = mqttcdeg.getString("registro");
@@ -1958,7 +1958,7 @@ public class Application {
                                     comandoRecibido.setTrama(datoCDEGString);
                                     comandoRecibido.setFechaHoraOcurrencia(registroCrudo.getFechaOcurrencia());
                                     dataManager.saveComando(comandoRecibido);
-                                    publicadorManatee.Publisher(envioManatee.toString().getBytes(), "S1");
+                                    publicadorManatee.Publisher(envioManatee.toString().getBytes(), topicManatee);
                                     registrosCrudos.add(registroCrudo);
                                     break;
                                 case "InterfazVisual":
@@ -2025,7 +2025,7 @@ public class Application {
                                         comandoRecibido.setTrama(datoCDEGString);
                                         comandoRecibido.setFechaHoraOcurrencia(registroCrudo.getFechaOcurrencia());
                                         dataManager.saveComando(comandoRecibido);
-                                        publicadorManatee.Publisher(auxService.comandoCDEGMTE(datoCDEGString, idEstacion, formatoFecha).toString().getBytes(), "CDEGR");
+                                        publicadorManatee.Publisher(auxService.comandoCDEGMTE(datoCDEGString, idEstacion, formatoFecha).toString().getBytes(), topicManatee);
                                     } catch (Exception ex) {
                                         Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                                     }
@@ -2151,46 +2151,46 @@ public class Application {
                                                 if (temp != null) {
                                                     if (temp.getEstado() == null) {
                                                         temp.setEstado("SIN CONEXION");
-                                                        temp.setEstadoErrorCritico(true);
-                                                        DatoCDEG datoAux = new DatoCDEG();
-                                                        datoAux.setVersionTrama(versionTrama);
-                                                        datoAux.setIdOperador(idOperador);
-                                                        datoAux.setTipoTrama(2);
-                                                        cast.datosPuerta(temp, datoAux);
-                                                        datoAux.setCodigoEvento("EVP5");
-                                                        datoAux.setCanal(temp.getCanal());
-                                                        datoAux.setIdVagon(temp.getVagon());
-                                                        datoAux.setCodigoPuerta(temp.getDescripcion());
-                                                        datoAux.setIdPuerta(temp.getDescripcion());
-                                                        try {
-                                                            datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-                                                        } catch (ParseException ex) {
-                                                            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
-                                                        }
-                                                        datoAux.setIdVagon(nombreVagon(temp.getVagon()));
-                                                        ArmarEventos(datoAux);
+//                                                        temp.setEstadoErrorCritico(true);
+//                                                        DatoCDEG datoAux = new DatoCDEG();
+//                                                        datoAux.setVersionTrama(versionTrama);
+//                                                        datoAux.setIdOperador(idOperador);
+//                                                        datoAux.setTipoTrama(2);
+//                                                        cast.datosPuerta(temp, datoAux);
+//                                                        datoAux.setCodigoEvento("EVP5");
+//                                                        datoAux.setCanal(temp.getCanal());
+//                                                        datoAux.setIdVagon(temp.getVagon());
+//                                                        datoAux.setCodigoPuerta(temp.getDescripcion());
+//                                                        datoAux.setIdPuerta(temp.getDescripcion());
+//                                                        try {
+//                                                            datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+//                                                        } catch (ParseException ex) {
+//                                                            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+//                                                        }
+//                                                        datoAux.setIdVagon(nombreVagon(temp.getVagon()));
+//                                                        ArmarEventos(datoAux);
                                                         dataManager.UpdatePuerta(temp);
                                                     } else {
                                                         if (!temp.getEstado().equalsIgnoreCase("SIN CONEXION") || temp.getEstado() == null) {
                                                             temp.setEstado("SIN CONEXION");
-                                                            temp.setEstadoErrorCritico(true);
-                                                            DatoCDEG datoAux = new DatoCDEG();
-                                                            datoAux.setVersionTrama(versionTrama);
-                                                            datoAux.setIdOperador(idOperador);
-                                                            datoAux.setTipoTrama(2);
-                                                            cast.datosPuerta(temp, datoAux);
-                                                            datoAux.setCodigoEvento("EVP5");
-                                                            datoAux.setCanal(temp.getCanal());
-                                                            datoAux.setIdVagon(temp.getVagon());
-                                                            datoAux.setCodigoPuerta(temp.getDescripcion());
-                                                            datoAux.setIdPuerta(temp.getDescripcion());
-                                                            try {
-                                                                datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-                                                            } catch (ParseException ex) {
-                                                                Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
-                                                            }
-                                                            datoAux.setIdVagon(nombreVagon(temp.getVagon()));
-                                                            ArmarEventos(datoAux);
+//                                                            temp.setEstadoErrorCritico(true);
+//                                                            DatoCDEG datoAux = new DatoCDEG();
+//                                                            datoAux.setVersionTrama(versionTrama);
+//                                                            datoAux.setIdOperador(idOperador);
+//                                                            datoAux.setTipoTrama(2);
+//                                                            cast.datosPuerta(temp, datoAux);
+//                                                            datoAux.setCodigoEvento("EVP5");
+//                                                            datoAux.setCanal(temp.getCanal());
+//                                                            datoAux.setIdVagon(temp.getVagon());
+//                                                            datoAux.setCodigoPuerta(temp.getDescripcion());
+//                                                            datoAux.setIdPuerta(temp.getDescripcion());
+//                                                            try {
+//                                                                datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+//                                                            } catch (ParseException ex) {
+//                                                                Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+//                                                            }
+//                                                            datoAux.setIdVagon(nombreVagon(temp.getVagon()));
+//                                                            ArmarEventos(datoAux);
                                                             dataManager.UpdatePuerta(temp);
                                                         }
                                                     }
@@ -2199,24 +2199,24 @@ public class Application {
                                             } else {
                                                 if (temp != null && !temp.conexion()) {
                                                     temp.setEstado("SIN CONEXION");
-                                                    temp.setEstadoErrorCritico(true);
-                                                    DatoCDEG datoAux = new DatoCDEG();
-                                                    datoAux.setVersionTrama(versionTrama);
-                                                    datoAux.setIdOperador(idOperador);
-                                                    datoAux.setTipoTrama(2);
-                                                    cast.datosPuerta(temp, datoAux);
-                                                    datoAux.setCodigoEvento("EVP5");
-                                                    datoAux.setCanal(temp.getCanal());
-                                                    datoAux.setIdVagon(temp.getVagon());
-                                                    datoAux.setCodigoPuerta(temp.getDescripcion());
-                                                    datoAux.setIdPuerta(temp.getDescripcion());
-                                                    try {
-                                                        datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-                                                    } catch (ParseException ex) {
-                                                        Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
-                                                    }
-                                                    datoAux.setIdVagon(nombreVagon(temp.getVagon()));
-                                                    ArmarEventos(datoAux);
+//                                                    temp.setEstadoErrorCritico(true);
+//                                                    DatoCDEG datoAux = new DatoCDEG();
+//                                                    datoAux.setVersionTrama(versionTrama);
+//                                                    datoAux.setIdOperador(idOperador);
+//                                                    datoAux.setTipoTrama(2);
+//                                                    cast.datosPuerta(temp, datoAux);
+//                                                    datoAux.setCodigoEvento("EVP5");
+//                                                    datoAux.setCanal(temp.getCanal());
+//                                                    datoAux.setIdVagon(temp.getVagon());
+//                                                    datoAux.setCodigoPuerta(temp.getDescripcion());
+//                                                    datoAux.setIdPuerta(temp.getDescripcion());
+//                                                    try {
+//                                                        datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+//                                                    } catch (ParseException ex) {
+//                                                        Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+//                                                    }
+//                                                    datoAux.setIdVagon(nombreVagon(temp.getVagon()));
+//                                                    ArmarEventos(datoAux);
                                                     dataManager.UpdatePuerta(temp);
 
                                                 }
@@ -2333,24 +2333,24 @@ public class Application {
                                         if (datoP.getVagon().equalsIgnoreCase(dato.getNombre())) {
                                             if (datoP.getEstado() == null || !datoP.getEstado().equalsIgnoreCase("SIN CONEXION")) {
                                                 datoP.setEstado("SIN CONEXION");
-                                                datoP.setEstadoErrorCritico(true);
-                                                DatoCDEG datoAux = new DatoCDEG();
-                                                datoAux.setVersionTrama(versionTrama);
-                                                datoAux.setIdOperador(idOperador);
-                                                datoAux.setTipoTrama(2);
-                                                cast.datosPuerta(datoP, datoAux);
-                                                datoAux.setCodigoEvento("EVP5");
-                                                datoAux.setCanal(datoP.getCanal());
-                                                datoAux.setIdVagon(datoP.getVagon());
-                                                datoAux.setCodigoPuerta(datoP.getDescripcion());
-                                                datoAux.setIdPuerta(datoP.getDescripcion());
-                                                try {
-                                                    datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-                                                } catch (ParseException ex) {
-                                                    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
-                                                }
-                                                datoAux.setIdVagon(nombreVagon(datoP.getVagon()));
-                                                ArmarEventos(datoAux);
+//                                                datoP.setEstadoErrorCritico(true);
+//                                                DatoCDEG datoAux = new DatoCDEG();
+//                                                datoAux.setVersionTrama(versionTrama);
+//                                                datoAux.setIdOperador(idOperador);
+//                                                datoAux.setTipoTrama(2);
+//                                                cast.datosPuerta(datoP, datoAux);
+//                                                datoAux.setCodigoEvento("EVP5");
+//                                                datoAux.setCanal(datoP.getCanal());
+//                                                datoAux.setIdVagon(datoP.getVagon());
+//                                                datoAux.setCodigoPuerta(datoP.getDescripcion());
+//                                                datoAux.setIdPuerta(datoP.getDescripcion());
+//                                                try {
+//                                                    datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+//                                                } catch (ParseException ex) {
+//                                                    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+//                                                }
+//                                                datoAux.setIdVagon(nombreVagon(datoP.getVagon()));
+//                                                ArmarEventos(datoAux);
                                                 dataManager.UpdatePuerta(datoP);
                                             }
                                         }
@@ -2362,24 +2362,24 @@ public class Application {
                                         if (datoP.getVagon().equalsIgnoreCase(dato.getNombre()) && datoP.getCanal().equalsIgnoreCase("1")) {
                                             if (datoP.getEstado() == null || !datoP.getEstado().equalsIgnoreCase("SIN CONEXION")) {
                                                 datoP.setEstado("SIN CONEXION");
-                                                datoP.setEstadoErrorCritico(true);
-                                                DatoCDEG datoAux = new DatoCDEG();
-                                                datoAux.setVersionTrama(versionTrama);
-                                                datoAux.setIdOperador(idOperador);
-                                                datoAux.setTipoTrama(2);
-                                                cast.datosPuerta(datoP, datoAux);
-                                                datoAux.setCodigoEvento("EVP5");
-                                                datoAux.setCanal(datoP.getCanal());
-                                                datoAux.setIdVagon(datoP.getVagon());
-                                                datoAux.setCodigoPuerta(datoP.getDescripcion());
-                                                datoAux.setIdPuerta(datoP.getDescripcion());
-                                                try {
-                                                    datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-                                                } catch (ParseException ex) {
-                                                    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
-                                                }
-                                                datoAux.setIdVagon(nombreVagon(datoP.getVagon()));
-                                                ArmarEventos(datoAux);
+//                                                datoP.setEstadoErrorCritico(true);
+//                                                DatoCDEG datoAux = new DatoCDEG();
+//                                                datoAux.setVersionTrama(versionTrama);
+//                                                datoAux.setIdOperador(idOperador);
+//                                                datoAux.setTipoTrama(2);
+//                                                cast.datosPuerta(datoP, datoAux);
+//                                                datoAux.setCodigoEvento("EVP5");
+//                                                datoAux.setCanal(datoP.getCanal());
+//                                                datoAux.setIdVagon(datoP.getVagon());
+//                                                datoAux.setCodigoPuerta(datoP.getDescripcion());
+//                                                datoAux.setIdPuerta(datoP.getDescripcion());
+//                                                try {
+//                                                    datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+//                                                } catch (ParseException ex) {
+//                                                    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+//                                                }
+//                                                datoAux.setIdVagon(nombreVagon(datoP.getVagon()));
+//                                                ArmarEventos(datoAux);
                                                 dataManager.UpdatePuerta(datoP);
                                             }
                                         }
@@ -2390,24 +2390,24 @@ public class Application {
                                         if (datoP.getVagon().equalsIgnoreCase(dato.getNombre()) && datoP.getCanal().equalsIgnoreCase("2")) {
                                             if (datoP.getEstado() == null || !datoP.getEstado().equalsIgnoreCase("SIN CONEXION")) {
                                                 datoP.setEstado("SIN CONEXION");
-                                                datoP.setEstadoErrorCritico(true);
-                                                DatoCDEG datoAux = new DatoCDEG();
-                                                datoAux.setVersionTrama(versionTrama);
-                                                datoAux.setIdOperador(idOperador);
-                                                datoAux.setTipoTrama(2);
-                                                cast.datosPuerta(datoP, datoAux);
-                                                datoAux.setCodigoEvento("EVP5");
-                                                datoAux.setCanal(datoP.getCanal());
-                                                datoAux.setIdVagon(datoP.getVagon());
-                                                datoAux.setCodigoPuerta(datoP.getDescripcion());
-                                                datoAux.setIdPuerta(datoP.getDescripcion());
-                                                try {
-                                                    datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-                                                } catch (ParseException ex) {
-                                                    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
-                                                }
-                                                datoAux.setIdVagon(nombreVagon(datoP.getVagon()));
-                                                ArmarEventos(datoAux);
+//                                                datoP.setEstadoErrorCritico(true);
+//                                                DatoCDEG datoAux = new DatoCDEG();
+//                                                datoAux.setVersionTrama(versionTrama);
+//                                                datoAux.setIdOperador(idOperador);
+//                                                datoAux.setTipoTrama(2);
+//                                                cast.datosPuerta(datoP, datoAux);
+//                                                datoAux.setCodigoEvento("EVP5");
+//                                                datoAux.setCanal(datoP.getCanal());
+//                                                datoAux.setIdVagon(datoP.getVagon());
+//                                                datoAux.setCodigoPuerta(datoP.getDescripcion());
+//                                                datoAux.setIdPuerta(datoP.getDescripcion());
+//                                                try {
+//                                                    datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+//                                                } catch (ParseException ex) {
+//                                                    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+//                                                }
+//                                                datoAux.setIdVagon(nombreVagon(datoP.getVagon()));
+//                                                ArmarEventos(datoAux);
                                                 dataManager.UpdatePuerta(datoP);
                                             }
                                         }
@@ -2620,7 +2620,7 @@ public class Application {
                     registroTemporal.setEstadoEnvioManatee(true);
                     JSONObject temp = new JSONObject(registroTemporal);
                     temp.put("fechaHoraEnvio", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date()));
-                    publicadorManatee.Publisher(temp.toString().getBytes(), "S1");
+                    publicadorManatee.Publisher(temp.toString().getBytes(), topicManatee);
                     dataManager.UpdateRegistroTemporal(registroTemporal);
                     //System.out.println("Envio a manatee cc " + temp);
                 } catch (Exception ex) {
@@ -2633,7 +2633,7 @@ public class Application {
                 registroTemporal.setfechaHoraEnvio(null);
                 JSONObject temp = new JSONObject(registroTemporal);
                 temp.put("fechaHoraEnvio", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date()));
-                publicadorManatee.Publisher(temp.toString().getBytes(), "S1");
+                publicadorManatee.Publisher(temp.toString().getBytes(), topicManatee);
 
                 //System.out.println("Envio a manatee cc " + temp);
             }

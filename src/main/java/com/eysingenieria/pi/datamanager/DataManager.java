@@ -69,7 +69,7 @@ public class DataManager implements IDataManager {
     }
     
     @Override
-    public void DeleteRegistroTemporal(int id) throws Exception {
+    public void DeleteRegistroTemporal(long id) throws Exception {
         db.DeleteRegistroTemporal(id);
     }
 //RegistroCrudo

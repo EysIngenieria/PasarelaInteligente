@@ -117,7 +117,7 @@ public class DataAccess implements IDataAccess {
     }
 
     @Override
-    public void DeleteRegistroTemporal(int id) throws Exception {
+    public void DeleteRegistroTemporal(long id) throws Exception {
         registroTemporalJpaController.destroy(id);
     }
 

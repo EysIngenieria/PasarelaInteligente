@@ -52,7 +52,7 @@ public interface IDataAccess {
     
     public List<OP_RegistroTemporal> GetRegistroTemporalByCDEG();
 
-    public void DeleteRegistroTemporal(int id) throws Exception;
+    public void DeleteRegistroTemporal(long id) throws Exception;
     public void UpdateRegistroTemporal(OP_RegistroTemporal registroTemporal);
 
 //RegistroCrudo

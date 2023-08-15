@@ -2272,7 +2272,8 @@
   "MQTTMANATEE": {
     "clave": "Manatee2022.",
     "broker": "tcp://4.236.168.64:1883",
-    "usuario": "admin"
+    "usuario": "admin",
+    "topic": "S1"
   },
   "inicioOperacion": {
     "HoraInicioOperacion": "0400",

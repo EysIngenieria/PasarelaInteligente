@@ -61,7 +61,7 @@ public class OP_RegistroTemporalJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = OP_RegistroTemporal.getId();
+                long id = OP_RegistroTemporal.getId();
                 if (findOP_RegistroTemporal(id) == null) {
                     throw new NonexistentEntityException("The oP_RegistroTemporal with id " + id + " no longer exists.");
                 }
@@ -74,7 +74,7 @@ public class OP_RegistroTemporalJpaController implements Serializable {
         }
     }
 
-    public void destroy(int id) throws NonexistentEntityException {
+    public void destroy(long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -119,7 +119,7 @@ public class OP_RegistroTemporalJpaController implements Serializable {
         }
     }
 
-    public OP_RegistroTemporal findOP_RegistroTemporal(int id) {
+    public OP_RegistroTemporal findOP_RegistroTemporal(long id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(OP_RegistroTemporal.class, id);
