@@ -71,7 +71,7 @@ import org.json.JSONObject;
  */
 public class Application {
 
-    private static final String VERSION = "1.1.4";
+    private static final String VERSION = "1.1.5";
     int activado = 0;
     int ModoACK = 0;
     DataManager dataManager;
@@ -397,6 +397,7 @@ public class Application {
             String datoString = new Gson().toJson(mapDato);
             OP_RegistroTemporal registroTemporal = new OP_RegistroTemporal();
             registroTemporal.setTrama(datoString);
+            registroTemporal.setId(dato.getIdRegistro());
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(dato.getFechaHoraLecturaDato());
@@ -2421,7 +2422,7 @@ public class Application {
 
                         }
                         //30 segundos
-                        Thread.sleep(30 * 1000);
+                        Thread.sleep(1 * 1000);
                     } catch (InterruptedException e) {
 
                     }
@@ -2610,7 +2611,8 @@ public class Application {
 
         for (OP_RegistroTemporal registroTemporal : registros) {
             if (registroTemporal.getIDManatee() == null) {
-                registroTemporal.setIDManatee(registroTemporal.getId() + idEstacion);
+                String idmanatee = registroTemporal.getId() + "" + idEstacion;
+                registroTemporal.setIDManatee(idmanatee);
                 registroTemporal.setEstadoEnvioManatee(false);
                 dataManager.UpdateRegistroTemporal(registroTemporal);
             }

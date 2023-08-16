@@ -119,7 +119,7 @@ public class Vagon {
             double restaFechas = ((date - ultimaConexionCanalA));
             double segundos = restaFechas / (1000);
             //System.out.println("Tiempo transcurrido: " + minutos);
-            return segundos > 14;
+            return segundos > 120;
         } else {
             return true;
         }
@@ -132,7 +132,7 @@ public class Vagon {
             double restaFechas = ((date - ultimaConexionCanalB));
             double segundos = restaFechas / (1000);
             //System.out.println("Tiempo transcurrido: " + minutos);
-            return segundos > 14;
+            return segundos > 120;
         } else {
             return true;
         }
