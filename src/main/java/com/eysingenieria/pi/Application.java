@@ -71,7 +71,7 @@ import org.json.JSONObject;
  */
 public class Application {
 
-    private static final String VERSION = "1.1.5";
+    private static final String VERSION = "1.1.6";
     int activado = 0;
     int ModoACK = 0;
     DataManager dataManager;
@@ -471,7 +471,7 @@ public class Application {
                                                 break;
 
                                             case "ABIERTA":
-                                                System.out.println("ABIERTA " + registroCrudo.getCanal() + " " + registroCrudo.getIdPuerta());
+                                                //System.out.println("ABIERTA " + registroCrudo.getCanal() + " " + registroCrudo.getIdPuerta());
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
                                                 if (temp != null) {
                                                     temp.setEstadoAperturaCierre(datoAux.getEstadoAperturaCierrePuertas());
@@ -539,7 +539,7 @@ public class Application {
                                                 break;
 
                                             case "CERRADA":
-                                                System.out.println("cerrada " + registroCrudo.getCanal() + " " + registroCrudo.getIdPuerta());
+                                                //System.out.println("cerrada " + registroCrudo.getCanal() + " " + registroCrudo.getIdPuerta());
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
                                                 if (temp != null) {
                                                     temp.setEstadoAperturaCierre(datoAux.getEstadoAperturaCierrePuertas());
@@ -2723,7 +2723,6 @@ public class Application {
                                 ack.put("idRegistro", re.getInt("idRegistro"));
                                 ack.put("canal", registroCrudo.getCanal());
 
-                                publisherMQTTServiceInterno.Publisher(ack.toString().getBytes(), registroCrudo.getIdVagon());
 
                                 if (registroCrudo.getCanal().equalsIgnoreCase("1")) {
                                     if (EncontrarVagon(registroCrudo.getIdVagon()).nuevoMensajeCanalA(re.getInt("idRegistro"))) {
@@ -2739,6 +2738,7 @@ public class Application {
                                     }
 
                                 }
+                                publisherMQTTServiceInterno.Publisher(ack.toString().getBytes(), registroCrudo.getIdVagon());
                             } else {
                                 registrosCrudos.add(registroCrudo);
                             }
