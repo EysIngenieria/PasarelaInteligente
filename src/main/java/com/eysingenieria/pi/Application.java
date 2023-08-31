@@ -71,7 +71,7 @@ import org.json.JSONObject;
  */
 public class Application {
 
-    private static final String VERSION = "1.1.6";
+    private static final String VERSION = "1.1.5 BETA";
     int activado = 0;
     int ModoACK = 0;
     DataManager dataManager;
@@ -361,7 +361,7 @@ public class Application {
             OP_RegistroTemporal registroTemporal = new OP_RegistroTemporal();
             //System.out.println("\n" + "Evento creado: " + datoString + "\n");
             registroTemporal.setTrama(datoString);
-            registroTemporal.setId(Long.parseLong(idRegistro));
+            registroTemporal.setIDManatee(Long.parseLong(idRegistro));
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(dato.getFechaHoraLecturaDato());
             calendar.add(Calendar.HOUR, -5);
@@ -397,7 +397,7 @@ public class Application {
             String datoString = new Gson().toJson(mapDato);
             OP_RegistroTemporal registroTemporal = new OP_RegistroTemporal();
             registroTemporal.setTrama(datoString);
-            registroTemporal.setId(dato.getIdRegistro());
+            registroTemporal.setIDManatee(dato.getIdRegistro());
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(dato.getFechaHoraLecturaDato());
@@ -2201,24 +2201,6 @@ public class Application {
                                             } else {
                                                 if (temp != null && !temp.conexion()) {
                                                     temp.setEstado("SIN CONEXION");
-//                                                    temp.setEstadoErrorCritico(true);
-//                                                    DatoCDEG datoAux = new DatoCDEG();
-//                                                    datoAux.setVersionTrama(versionTrama);
-//                                                    datoAux.setIdOperador(idOperador);
-//                                                    datoAux.setTipoTrama(2);
-//                                                    cast.datosPuerta(temp, datoAux);
-//                                                    datoAux.setCodigoEvento("EVP5");
-//                                                    datoAux.setCanal(temp.getCanal());
-//                                                    datoAux.setIdVagon(temp.getVagon());
-//                                                    datoAux.setCodigoPuerta(temp.getDescripcion());
-//                                                    datoAux.setIdPuerta(temp.getDescripcion());
-//                                                    try {
-//                                                        datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-//                                                    } catch (ParseException ex) {
-//                                                        Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
-//                                                    }
-//                                                    datoAux.setIdVagon(nombreVagon(temp.getVagon()));
-//                                                    ArmarEventos(datoAux);
                                                     dataManager.UpdatePuerta(temp);
 
                                                 }
@@ -2586,17 +2568,17 @@ public class Application {
                 try {
                     clavePrivada = new GenerarClave().Generar(nombreEstacion);
                     publicadorExternoMQTT = new PublicadorExternoMQTT(clavePrivada, dispositivo, servidorExternoMQTT, proyecto, region, registro);
-                    if (registroTemporal.getIDManatee() == null) {
-
-                        registroTemporal.setfechaHoraEnvio(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTime(registroTemporal.getfechaHoraEnvio());
-                        calendar.add(Calendar.HOUR, -5);
-                        registroTemporal.setfechaHoraEnvio(calendar.getTime());
-                        registroTemporal.setEstadoEnvioManatee(false);
-                        dataManager.UpdateRegistroTemporal(registroTemporal);
-                    }
-                } catch (ParseException ex) {
+//                    if (registroTemporal.getIDManatee() == null) {
+//
+//                        registroTemporal.setfechaHoraEnvio(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+//                        Calendar calendar = Calendar.getInstance();
+//                        calendar.setTime(registroTemporal.getfechaHoraEnvio());
+//                        calendar.add(Calendar.HOUR, -5);
+//                        registroTemporal.setfechaHoraEnvio(calendar.getTime());
+//                        registroTemporal.setEstadoEnvioManatee(false);
+//                        dataManager.UpdateRegistroTemporal(registroTemporal);
+//                    }
+                } catch (Exception ex) {
                     Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -2611,12 +2593,12 @@ public class Application {
         List<OP_RegistroTemporal> registros = dataManager.GetRegistroTemporalByMTE();
 
         for (OP_RegistroTemporal registroTemporal : registros) {
-            if (registroTemporal.getIDManatee() == null) {
-                String idmanatee = registroTemporal.getId() + "" + idEstacion;
-                registroTemporal.setIDManatee(idmanatee);
-                registroTemporal.setEstadoEnvioManatee(false);
-                dataManager.UpdateRegistroTemporal(registroTemporal);
-            }
+//            if (registroTemporal.getIDManatee() == null) {
+//                String idmanatee = registroTemporal.getId() + "" + idEstacion;
+//                registroTemporal.setIDManatee(idmanatee);
+//                registroTemporal.setEstadoEnvioManatee(false);
+//                dataManager.UpdateRegistroTemporal(registroTemporal);
+//            }
             if (registroTemporal.isestadoEnvio()) {
                 try {
                     conexionMTE = new Date();
@@ -2714,7 +2696,11 @@ public class Application {
                                 }
                             }
                             registroCrudo.setOrigen("Estacion");
-                            if (!re.isNull("idRegistro") && ModoACK == ACK_ON && (registroCrudo.getFuncion().equalsIgnoreCase("EVENTO") || registroCrudo.getFuncion().equalsIgnoreCase("BOTON_EMERGENCIA"))) {
+                            if (!re.isNull("idRegistro") && ModoACK == ACK_ON && 
+                                    (registroCrudo.getFuncion().equalsIgnoreCase("EVENTO") || 
+                                    registroCrudo.getFuncion().equalsIgnoreCase("BOTON_EMERGENCIA"))&& 
+                                    !re.isNull("ActivacionAck") && 
+                                    re.getString("ActivacionAck").equalsIgnoreCase("1")) {
 
                                 JSONObject ack = new JSONObject();
                                 ack.put("origen", "PI");

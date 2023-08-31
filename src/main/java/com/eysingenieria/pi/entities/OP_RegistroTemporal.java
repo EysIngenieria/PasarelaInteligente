@@ -24,6 +24,7 @@ import javax.persistence.TemporalType;
 @Table(name = "OP_RegistroTemporal")
 public class OP_RegistroTemporal implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Basic
@@ -31,7 +32,7 @@ public class OP_RegistroTemporal implements Serializable {
     @Basic
     private boolean estadoEnvioManatee;
     @Column(length = 5000)
-    private String IDManatee;
+    private long IDManatee;
     @Column(length = 5000)
     private String trama;
     @Temporal(TemporalType.TIMESTAMP)
@@ -97,11 +98,11 @@ public class OP_RegistroTemporal implements Serializable {
         this.estadoEnvioManatee = estadoEnvioManatee;
     }
 
-    public String getIDManatee() {
+    public long getIDManatee() {
         return IDManatee;
     }
 
-    public void setIDManatee(String IDManatee) {
+    public void setIDManatee(long IDManatee) {
         this.IDManatee = IDManatee;
     }
     
