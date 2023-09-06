@@ -1,5 +1,6 @@
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\controller\exceptions\IllegalOrphanException.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\entities\CFG_CamposValidos.java
+C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\entities\ModuloConcentradorVagon.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\entities\CFG_CamposAlarma.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\controller\OP_RegistroCrudoJpaController.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\entities\Puerta.java
@@ -11,6 +12,7 @@ C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eys
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\entities\CFG_CamposCabecera.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\entities\ComandoInterfazVisual.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\controller\CFG_CamposAlarmaJpaController.java
+C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\entities\Canal.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\service\PublicadorExternoMQTT.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\service\ProcesarDatoEstacion.java
 C:\Users\DesarrolloJC\Documents\GitHub\PasarelaInteligente\src\main\java\com\eysingenieria\pi\service\AuxService.java

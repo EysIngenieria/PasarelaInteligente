@@ -4,6 +4,7 @@
  */
 package com.eysingenieria.pi.entities;
 
+import java.util.ArrayList;
 import java.util.Queue;
 import org.json.JSONArray;
 
@@ -20,9 +21,6 @@ public class Vagon {
     
     private long ultimaConexion;
     
-    private long ultimaConexionCanalA;
-    
-    private long ultimaConexionCanalB;
     
     private boolean desconectado;
 
@@ -30,8 +28,19 @@ public class Vagon {
     
     private Queue comandos;
     
-    private int ultimo_registro_canalA;
-    private int ultimo_registro_canalB;
+    
+    private ArrayList<ModuloConcentradorVagon> mvcs;
+    
+    public Vagon(){
+        this.mvcs = new ArrayList<>();
+    
+    }
+
+    public ArrayList<ModuloConcentradorVagon> getMVCS() {
+        return mvcs;
+    }
+    
+    
     
     public void diferenciaFechas(){
         long date = 0;
@@ -46,23 +55,10 @@ public class Vagon {
             desconectado = true;
         }  
     }
-
-    public long getUltimaConexionCanalA() {
-        return ultimaConexionCanalA;
-    }
-
-    public void setUltimaConexionCanalA(long ultimaConexionCanalA) {
-        this.ultimaConexionCanalA = ultimaConexionCanalA;
-    }
-
-    public long getUltimaConexionCanalB() {
-        return ultimaConexionCanalB;
-    }
-
-    public void setUltimaConexionCanalB(long ultimaConexionCanalB) {
-        this.ultimaConexionCanalB = ultimaConexionCanalB;
-    }
     
+    
+
+   
     public String getNombre() {
         return nombre;
     }
@@ -111,73 +107,82 @@ public class Vagon {
         this.comandos = comandos;
     }
 
-    public boolean desconexionA() {
-        long date = 0;
-        if (ultimaConexionCanalA != 0) {
-            
-            date = System.currentTimeMillis();
-            double restaFechas = ((date - ultimaConexionCanalA));
-            double segundos = restaFechas / (1000);
-            //System.out.println("Tiempo transcurrido: " + minutos);
-            return segundos > 120;
-        } else {
-            return true;
-        }
-    }
-    public boolean desconexionB() {
-        long date = 0;
-        if (ultimaConexionCanalB != 0) {
-            
-            date = System.currentTimeMillis();
-            double restaFechas = ((date - ultimaConexionCanalB));
-            double segundos = restaFechas / (1000);
-            //System.out.println("Tiempo transcurrido: " + minutos);
-            return segundos > 120;
-        } else {
-            return true;
-        }
-    }
-
-    public int getUltimo_registro_canalA() {
-        return ultimo_registro_canalA;
-    }
-
-    public void setUltimo_registro_canalA(int ultimo_registro_canalA) {
-        this.ultimo_registro_canalA = ultimo_registro_canalA;
-    }
-
-    public int getUltimo_registro_canalB() {
-        return ultimo_registro_canalB;
-    }
-
-    public void setUltimo_registro_canalB(int ultimo_registro_canalB) {
-        this.ultimo_registro_canalB = ultimo_registro_canalB;
-    }
+    
 
     
     
-    public boolean nuevoMensajeCanalA(int nuevo) {
-        boolean aux = false;
-        if (ultimo_registro_canalA == 0) {
-            ultimo_registro_canalA = nuevo;
-            aux = true;
-        } else if (ultimo_registro_canalA!=nuevo) {
-            ultimo_registro_canalA = nuevo;
-            aux = true;
+    
+    
+    
+    public boolean processMessage(String idDispositivo, int id, int canal) {
+        boolean ret = false;
+        ultimaConexion = System.currentTimeMillis();
+        
+        // Check if a ModuloConcentradorVagon object with the given MAC address already exists
+        boolean idExists = false;
+        for (ModuloConcentradorVagon mvc : mvcs) {
+            if (mvc.getIdDispositivo().equals(idDispositivo)) {
+                // MAC address already exists, call the actualizar method
+                idExists = true;
+                ret = mvc.actualizar(id,canal);
+                break;
+            }
         }
-        return aux;
-    }
-    public boolean nuevoMensajeCanalB(int nuevo) {
-        boolean aux = false;
-        if (ultimo_registro_canalB == 0) {
-            ultimo_registro_canalB = nuevo;
-            aux = true;
-        } else if (ultimo_registro_canalB!=nuevo) {
-            ultimo_registro_canalB = nuevo;
-            aux = true;
+
+        // If the MAC address doesn't exist, create a new ModuloConcentradorVagon object and add it to the list
+        if (!idExists) {
+            ModuloConcentradorVagon newMessage = new ModuloConcentradorVagon(idDispositivo);
+            mvcs.add(newMessage);
+            ret = true;
         }
-        return aux;
+        return ret;
     }
+    
+    public void processMessageSinAck(  int canal) {
+        
+        ultimaConexion = System.currentTimeMillis();
+        
+        // Check if a ModuloConcentradorVagon object with the given MAC address already exists
+        boolean idExists = false;
+        for (ModuloConcentradorVagon message : mvcs) {
+            if (message.getIdDispositivo().equals("0")) {
+                // MAC address already exists, call the actualizar method
+                idExists = true;
+                message.actualizarSinACK(canal);
+                break;
+            }
+        }
+
+        // If the MAC address doesn't exist, create a new ModuloConcentradorVagon object and add it to the list
+        if (!idExists) {
+            ModuloConcentradorVagon newMessage = new ModuloConcentradorVagon("0");
+            mvcs.add(newMessage);
+            
+        }
+    }
+    
+    public void actualizarConexionPuertas(String idDispositivo, String conexionPuertas, boolean canal1, boolean canal2){
+        boolean idExists = false;
+        for (ModuloConcentradorVagon mvc : mvcs) {
+            if (mvc.getIdDispositivo().equals(idDispositivo)) {
+                // MAC address already exists, call the actualizar method
+                mvc.actualizarConexionPuertas(conexionPuertas, canal1, canal2);
+                idExists = true;
+                break;
+            }
+        }
+
+        // If the MAC address doesn't exist, create a new ModuloConcentradorVagon object and add it to the list
+        if (!idExists) {
+            ModuloConcentradorVagon newMessage = new ModuloConcentradorVagon(idDispositivo);
+            newMessage.actualizarConexionPuertas(conexionPuertas, canal1, canal2);
+            mvcs.add(newMessage);
+            
+        }
+    
+    
+    }
+    
 
     
 }
