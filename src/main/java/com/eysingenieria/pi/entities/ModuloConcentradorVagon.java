@@ -15,12 +15,30 @@ public class ModuloConcentradorVagon {
     String idDispositivo;
     long ultimaConexion;
     ArrayList<Canal> canales;
+    String conexionPuertas;
+    int idRegistroEmergencia;
  
     public ModuloConcentradorVagon( String idDispositivo) {
         
         canales = new ArrayList<Canal>();
         this.idDispositivo = idDispositivo;
         this.ultimaConexion = System.currentTimeMillis();
+    }
+
+    public int getIdRegistroEmergencia() {
+        return idRegistroEmergencia;
+    }
+
+    public void setIdRegistroEmergencia(int idRegistroEmergencia) {
+        this.idRegistroEmergencia = idRegistroEmergencia;
+    }
+
+    public String getConexionPuertas() {
+        return conexionPuertas;
+    }
+
+    public void setConexionPuertas(String conexionPuertas) {
+        this.conexionPuertas = conexionPuertas;
     }
 
     
@@ -100,7 +118,7 @@ public class ModuloConcentradorVagon {
         boolean canalExists = false;
         for (Canal message : canales) {
             if (canal1 && canal2) {
-                message.actualizarSinACK();
+                actualicarMCV();
                 message.setConexionPuertas(conexionPuertas);
                 canalExists = true;
             
@@ -126,28 +144,44 @@ public class ModuloConcentradorVagon {
         if (!canalExists) {
             Canal newMessage = null;
             if (canal1 && canal2) {
-                newMessage = new Canal(1, 0);
-
-                newMessage.actualizarSinACK();
-                newMessage.setConexionPuertas(conexionPuertas);
-                canalExists = true;
+                setConexionPuertas(conexionPuertas);
+                actualicarMCV();
 
             } else if (canal1) {
                 newMessage = new Canal(1, 0);
                 newMessage.actualizarSinACK();
                 newMessage.setConexionPuertas(conexionPuertas);
+                canales.add(newMessage);
 
             } else {
                 newMessage = new Canal(2, 0);
                 newMessage.actualizarSinACK();
                 newMessage.setConexionPuertas(conexionPuertas);
                 canalExists = true;
+                canales.add(newMessage);
 
             }
-            canales.add(newMessage);
+            
             
         }
     
+    }
+
+    void actualicarMCV() {
+        for (Canal canale : canales) {
+            canale.actualizarSinACK();
+        }
+    }
+
+    boolean actualizarBotonEmergencia(int idRegistro) {
+        boolean ret = false;
+        actualicarMCV();
+        if(getIdRegistroEmergencia() != idRegistro){
+            ret = true;
+            idRegistroEmergencia = idRegistro;
+        }
+        
+        return ret;
     }
 }
 

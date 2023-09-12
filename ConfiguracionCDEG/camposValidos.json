@@ -1,0 +1,290 @@
+[
+    {
+        "id": 1,
+        "nombre": "codigoEvento",
+        "tipoDato": "String",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 2,
+        "nombre": "estadoAperturaCierrePuertas",
+        "tipoDato": "boolean",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 3,
+        "nombre": "estadoErrorCritico",
+        "tipoDato": "boolean",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 4,
+        "nombre": "porcentajeCargaBaterias",
+        "tipoDato": "double",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 5,
+        "nombre": "ciclosApertura",
+        "tipoDato": "int",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 6,
+        "nombre": "horasServicio",
+        "tipoDato": "int",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 7,
+        "nombre": "velocidaMotor",
+        "tipoDato": "double",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 8,
+        "nombre": "fuerzaMotor",
+        "tipoDato": "double",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 9,
+        "nombre": "modoOperacion",
+        "tipoDato": "int",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 10,
+        "nombre": "tipoEnergizacion",
+        "tipoDato": "int",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 11,
+        "nombre": "tipoTramaBusEstacion",
+        "tipoDato": "String",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 12,
+        "nombre": "numeroParada",
+        "tipoDato": "String",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 13,
+        "nombre": "nombreEstacion",
+        "tipoDato": "String",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 14,
+        "nombre": "nombreVagon",
+        "tipoDato": "String",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 15,
+        "nombre": "numeroEventoBusEstacion",
+        "tipoDato": "int",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 16,
+        "nombre": "idVehiculo",
+        "tipoDato": "String",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 17,
+        "nombre": "placaVehiculo",
+        "tipoDato": "String",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 18,
+        "nombre": "tipologiaVehiculo",
+        "tipoDato": "String",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 19,
+        "nombre": "codigoAlarma",
+        "tipoDato": "String",
+        "tipoCampoValido": "Alarma",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 20,
+        "nombre": "tiempoApertura",
+        "tipoDato": "int",
+        "tipoCampoValido": "Alarma",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 21,
+        "nombre": "versionTrama",
+        "tipoDato": "String",
+        "tipoCampoValido": "Cabecera",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 22,
+        "nombre": "idRegistro",
+        "tipoDato": "String",
+        "tipoCampoValido": "Cabecera",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 23,
+        "nombre": "idOperador",
+        "tipoDato": "String",
+        "tipoCampoValido": "Cabecera",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 24,
+        "nombre": "idEstacion",
+        "tipoDato": "String",
+        "tipoCampoValido": "Cabecera",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 25,
+        "nombre": "idVagon",
+        "tipoDato": "String",
+        "tipoCampoValido": "Cabecera",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 26,
+        "nombre": "idPuerta",
+        "tipoDato": "String",
+        "tipoCampoValido": "Cabecera",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 27,
+        "nombre": "codigoPuerta",
+        "tipoDato": "String",
+        "tipoCampoValido": "Cabecera",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 28,
+        "nombre": "fechaHoraLecturaDato",
+        "tipoDato": "Date",
+        "tipoCampoValido": "Cabecera",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 29,
+        "nombre": "fechaHoraEnvioDato",
+        "tipoDato": "Date",
+        "tipoCampoValido": "Cabecera",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 30,
+        "nombre": "tipoTrama",
+        "tipoDato": "int",
+        "tipoCampoValido": "Cabecera",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 31,
+        "nombre": "tramaRetransmitida",
+        "tipoDato": "boolean",
+        "tipoCampoValido": "Cabecera",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 32,
+        "nombre": "activadoDesactivado",
+        "tipoDato": "boolean",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 33,
+        "nombre": "codigoNivelAlarma",
+        "tipoDato": "String",
+        "tipoCampoValido": "Alarma",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 34,
+        "nombre": "usoBotonManual",
+        "tipoDato": "int",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 35,
+        "nombre": "estadoBotonManual",
+        "tipoDato": "int",
+        "tipoCampoValido": "Evento",
+        "manejaNivel": false,
+        "descripcion": null
+    },
+    {
+        "id": 36,
+        "nombre": "porcentajeCargaBaterias",
+        "tipoDato": "int",
+        "tipoCampoValido": "Alarma",
+        "manejaNivel": false,
+        "descripcion": null
+    }
+]

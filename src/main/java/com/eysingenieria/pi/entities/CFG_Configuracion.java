@@ -6,6 +6,7 @@ package com.eysingenieria.pi.entities;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class CFG_Configuracion implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Basic
+    @Column(length = 50000)
     private String trama;
 
     public int getId() {

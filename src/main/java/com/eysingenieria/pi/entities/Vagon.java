@@ -132,6 +132,7 @@ public class Vagon {
         // If the MAC address doesn't exist, create a new ModuloConcentradorVagon object and add it to the list
         if (!idExists) {
             ModuloConcentradorVagon newMessage = new ModuloConcentradorVagon(idDispositivo);
+            newMessage.actualizar(id, canal);
             mvcs.add(newMessage);
             ret = true;
         }
@@ -181,6 +182,38 @@ public class Vagon {
         }
     
     
+    }
+
+    public void actualizaConexionVagon() {
+        for (ModuloConcentradorVagon mvc : mvcs) {
+            mvc.actualicarMCV();
+            
+        }
+    }
+
+    public boolean processMessageEmergency(String idDispositivo, int idRegistro) {
+        boolean ret = false;
+        ultimaConexion = System.currentTimeMillis();
+        
+        // Check if a ModuloConcentradorVagon object with the given MAC address already exists
+        boolean idExists = false;
+        for (ModuloConcentradorVagon mvc : mvcs) {
+            if (mvc.getIdDispositivo().equals(idDispositivo)) {
+                // MAC address already exists, call the actualizar method
+                idExists = true;
+                ret = mvc.actualizarBotonEmergencia(idRegistro);
+                break;
+            }
+        }
+
+        // If the MAC address doesn't exist, create a new ModuloConcentradorVagon object and add it to the list
+        if (!idExists) {
+            ModuloConcentradorVagon newMessage = new ModuloConcentradorVagon(idDispositivo);
+            newMessage.actualizarBotonEmergencia(idRegistro);
+            mvcs.add(newMessage);
+            ret = true;
+        }
+        return ret;
     }
     
 

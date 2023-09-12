@@ -29,7 +29,7 @@ public class ComandoCDEG implements Serializable {
     private Long id;
     
     @Basic
-    @Column(length = 5000)
+    @Column(length = 50000)
     private String trama;
     
     @Temporal(TemporalType.TIMESTAMP)

@@ -45,11 +45,15 @@ import com.eysingenieria.pi.service.SuscriptorExternoMQTT;
 import com.eysingenieria.pi.service.SuscriptorLocalMQTT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.opencsv.CSVReader;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -61,8 +65,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -173,14 +182,18 @@ public class Application {
 
         try {
             Thread.sleep(3000);
+            iniciarPrograma();
+            cargarCamposValidos();
+            cargarConfiguracionCDEG();
             cargarConfiguracion();
+            
         } catch (IOException ex) {
             Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
             Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
         }
         GetParametros();
-
+            
         GetCamposCabecera();
         GetCamposEventos();
         GetCamposAlarmas();
@@ -245,6 +258,38 @@ public class Application {
         clavePrivada = new GenerarClave().Generar(nombreEstacion);
         publicadorExternoMQTT = new PublicadorExternoMQTT(clavePrivada, dispositivo, servidorExternoMQTT, proyecto, region, registro);
     }
+    private static final Logger logger = Logger.getLogger(SuscriptorLocalMQTT.class.getName());
+
+    // Resto del código de la clase
+
+    public void iniciarPrograma() {
+        // Especifica la ruta del directorio de logs
+        String logDirectoryPath = "./Logs_pi";
+
+        // Verifica si el directorio de logs existe, y si no, créalo
+        Path logDirectory = Paths.get(logDirectoryPath);
+        if (!Files.exists(logDirectory)) {
+            try {
+                Files.createDirectories(logDirectory);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        // Inicializar el logger
+        try {
+            FileHandler fileHandler = new FileHandler("./Logs_pi/program_log.txt", true);
+            logger.addHandler(fileHandler);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fileHandler.setFormatter(formatter);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Registrar un mensaje de inicio en el archivo de log
+        logger.log(Level.INFO, "El programa ha sido iniciado.");
+
+        // Resto de la lógica del programa
+    }
 
     public void GetPuertas() {
         puertas = dataManager.GetPuertas();
@@ -279,13 +324,15 @@ public class Application {
     }
 
     private void DeleteCamposCabecera() {
-        for (CFG_CamposCabecera campoCabecera : camposCabecera) {
-            try {
-                dataManager.DeleteCamposCabecera(campoCabecera.getId());
-            } catch (Exception e) {
-                System.out.println("Error en eliminar campos de cabecera");
-            }
+        if (camposCabecera != null) {
+            for (CFG_CamposCabecera campoCabecera : camposCabecera) {
+                try {
+                    dataManager.DeleteCamposCabecera(campoCabecera.getId());
+                } catch (Exception e) {
+                    System.out.println("Error en eliminar campos de cabecera");
+                }
 
+            }
         }
     }
 
@@ -411,6 +458,35 @@ public class Application {
         }
 
     }
+    public void cargarCamposValidos() {
+        GetCamposValidos();
+    if (camposValidos == null) {
+        try {
+            String jsonFile = new String(Files.readAllBytes(Paths.get("./ConfiguracionCDEG/camposValidos.json")));
+            JSONArray jsonArray = new JSONArray(jsonFile);
+            List<CFG_CamposValidos> camposValidosList = new ArrayList<>();
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                CFG_CamposValidos campoValido = new CFG_CamposValidos();
+                campoValido.setId(jsonObject.getInt("id"));
+                campoValido.setNombre(jsonObject.getString("nombre"));
+                campoValido.setTipoCampo(jsonObject.getString("tipoDato"));
+                campoValido.setTipoCampoValido(jsonObject.getString("tipoCampoValido"));
+                campoValido.setManejaNivel(jsonObject.getBoolean("manejaNivel") );
+                campoValido.setDescripcion(jsonObject.isNull("descripcion") ? null : jsonObject.getString("descripcion"));
+
+                camposValidosList.add(campoValido);
+            }
+
+            dataManager.addCamposValidos(camposValidosList);
+            camposValidos = dataManager.GetCamposValidos();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
 
     private void ProcesarRegistrosCrudos() {
         //System.out.println("ENTRADA6");
@@ -1695,6 +1771,137 @@ public class Application {
         estacion.setTipoTrama(2);
         vagonA.add(estacion);
     }
+    
+    public void actualizarCampos(String trama) {
+        GetCamposValidos();
+        CFG_Configuracion cfg_Configuracion = dataManager.GetConfiguracion();
+        if (cfg_Configuracion==null) {
+            cfg_Configuracion = new CFG_Configuracion();
+            System.out.println("Updated Configuration");
+            Configuracion configuracion = cast.JSONtoConfiguracion(trama);
+            cfg_Configuracion.setTrama(trama);
+            
+            ///Update Cabecera
+            DeleteCamposCabecera();
+            for (String cabecera : configuracion.getCabecera()) {
+                for (CFG_CamposValidos campoValido : camposValidos) {
+                    if (campoValido.getTipoCampoValido().equalsIgnoreCase("Cabecera")) {
+                        if (campoValido.getNombre().equals(cabecera)) {
+                            CFG_CamposCabecera campo = new CFG_CamposCabecera();
+                            campo.setConfiguracion(cfg_Configuracion);
+                            campo.setCamposValidos(campoValido);
+                            try {
+                                dataManager.AddCamposCabecera(campo);
+                                GetCamposCabecera();
+                            } catch (Exception e) {
+                                System.out.println("Error en agregar campos cabecera del CDEG");
+                            }
+                        }
+                    }
+                }
+            }
+            ///Update Evento
+            DeleteCamposEvento();
+            CFG_CamposEvento campo = new CFG_CamposEvento();
+            List<Evento> listEventos = new ArrayList<>();
+            for (Evento evento : configuracion.getEvento()) {
+                evento = UpdateIdEvento(evento);
+                listEventos.add(evento);
+            }
+            configuracion.setEvento(listEventos);
+            for (Evento e : configuracion.getEvento()) {
+                for (CFG_CamposValidos campoValido : camposValidos) {
+                    if (campoValido.getTipoCampoValido().equalsIgnoreCase("Evento")) {
+                        for (String variable : e.getVariable()) {
+                            if (campoValido.getNombre().equalsIgnoreCase(variable)) {
+                                campo.setEvento(cast.EventotoCFG_Evento(e));
+                                campo.setConfiguracion(cfg_Configuracion);
+                                campo.setCamposValidos(campoValido);
+                                try {
+                                    dataManager.AddCamposEvento(campo);
+                                    GetCamposEventos();
+                                } catch (Exception ex) {
+                                    System.out.println("Error en añadir campos Eventos CDEG");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            DeleteCamposAlarma();
+            DeleteNivelAlarma();
+            CFG_CamposAlarma campoAlarma = new CFG_CamposAlarma();
+            List<Alarma> listAlarmas = new ArrayList<>();
+            for (Alarma alarma : configuracion.getAlarma()) {
+                alarma = UpdateIdAlarma(alarma);
+                listAlarmas.add(alarma);
+            }
+            configuracion.setAlarma(listAlarmas);
+            for (Alarma a : configuracion.getAlarma()) {
+                for (CFG_CamposValidos campoValido : camposValidos) {
+                    if (campoValido.getTipoCampoValido().equalsIgnoreCase("Alarma")) {
+                        if (campoValido.getNombre().equalsIgnoreCase(a.getVariableAlarma())) {
+                            campoAlarma.setAlarma(cast.AlarmatoCFG_Alarma(a));
+                            campoAlarma.setConfiguracion(cfg_Configuracion);
+                            campoAlarma.setCamposValidos(campoValido);
+
+                            try {
+                                dataManager.AddCamposAlarma(campoAlarma);
+                                GetCamposAlarmas();
+                            } catch (Exception e) {
+                                System.out.println("Error en añadir Campos Alarma CDEG");
+                            }
+                        }
+                    }
+                    if (campoValido.getNombre().equalsIgnoreCase("codigoAlarma") || campoValido.getNombre().equalsIgnoreCase("codigoNivelAlarma")) {
+                        campoAlarma.setAlarma(cast.AlarmatoCFG_Alarma(a));
+                        campoAlarma.setConfiguracion(cfg_Configuracion);
+                        campoAlarma.setCamposValidos(campoValido);
+                        try {
+                            dataManager.AddCamposAlarma(campoAlarma);
+                            GetCamposAlarmas();
+                        } catch (Exception e) {
+                            System.out.println("Error en añadir Campos Alarma CDEG 2");
+                        }
+
+                    }
+                }
+                //NivelAlarma nivelAlarma = new NivelAlarma();
+                for (NivelAlarma nivel : a.getNivelAlarma()) {
+                    CFG_NivelAlarma nivelAlarma = cast.NivelAlarmatoCFG_NivelAlarma(nivel);
+                    nivelAlarma.setAlarma(cast.AlarmatoCFG_Alarma(a));
+                    try {
+                        dataManager.AddNivelAlarma(nivelAlarma);
+                    } catch (Exception ex) {
+                        Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                
+                dataManager.AddConfiguracion(cfg_Configuracion);
+                //nivelAlarma.setCodigoNivelAlarma(a.getNivelAlarma());
+            }
+        }
+    }
+    
+    public void cargarConfiguracionCDEG(){
+        String jsonlec = "";
+        try {
+            File doc = new File("./ConfiguracionCDEG/configuracion.txt");
+            //System.out.println(doc.getAbsolutePath());
+            String lec;
+            BufferedReader text = new BufferedReader(new FileReader(doc));
+            while ((lec = text.readLine()) != null) {
+
+                jsonlec += lec + "\n";
+
+            }
+            actualizarCampos(jsonlec);
+            //System.out.println(jsonlec);
+        } catch (Exception ex) {
+            System.out.println("Error en cargar la configuracion del CDEG" + ex.getLocalizedMessage());
+        }
+    
+    }
 
     public void cargarConfiguracion() throws IOException {
         formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
@@ -1746,16 +1953,16 @@ public class Application {
                     break;
                 //System.out.println("mlan " + mlan);
                 case 2:
-                    dataManager.deletParametros();
+                    dataManager.deletParametros(true);
                     dataManager.DeleteRegistros();
                     dataManager.DeleteRegistrosCrudos();
                     dataManager.deleteRegistrosTemporales();
                     dataManager.DeletePuertas();
                     break;
                 case 3:
-                    dataManager.deletParametros();
+                    dataManager.deletParametros(false);
                     dataManager.DeletePuertas();
-
+                    addParametrosSinFecha(configuracion, confEstacion, mlan, mqttcdeg);
                     break;
                 default:
 
@@ -1920,6 +2127,67 @@ public class Application {
         }
 
     }
+    
+    public void addParametrosSinFecha(JSONObject configuracion,JSONObject confEstacion,JSONObject mlan,JSONObject mqttcdeg){
+    OP_Parametro conftemp = new OP_Parametro();
+                conftemp.setId(1);
+                conftemp.setNombre("Estacion");
+                conftemp.setValor(configuracion.getString("nombreEstacion"));
+                dataManager.AddParametros(conftemp);
+                conftemp.setId(2);
+                conftemp.setNombre("servidorLocalMQTT");
+                conftemp.setValor(configuracion.getString("servidoLocalMQTT"));
+                dataManager.AddParametros(conftemp);
+
+                conftemp.setId(3);
+                conftemp.setNombre("servidorExternoMQTT");
+                conftemp.setValor(mqttcdeg.getString("mqttServerAddress"));
+                dataManager.AddParametros(conftemp);
+                conftemp.setId(4);
+                conftemp.setNombre("Dispositivo");
+                conftemp.setValor(configuracion.getString("dispositivo"));
+                dataManager.AddParametros(conftemp);
+                conftemp.setId(5);
+                conftemp.setNombre("MacEthernet");
+                conftemp.setValor(configuracion.getString("MacEthernet"));
+                dataManager.AddParametros(conftemp);
+                conftemp.setId(6);
+                conftemp.setNombre("MacWifi");
+                conftemp.setValor(configuracion.getString("MacWifi"));
+                dataManager.AddParametros(conftemp);
+                conftemp.setId(7);
+                conftemp.setNombre("MacBluetooth");
+                conftemp.setValor(configuracion.getString("MacBluetooth"));
+                dataManager.AddParametros(conftemp);
+                conftemp.setId(8);
+                conftemp.setNombre("IdOperador");
+                conftemp.setValor(configuracion.getString("idOperador"));
+                dataManager.AddParametros(conftemp);
+                conftemp.setId(9);
+                conftemp.setNombre("IdEstacion");
+                conftemp.setValor(confEstacion.getString("idEstacion"));
+                dataManager.AddParametros(conftemp);
+                conftemp.setId(10);
+                conftemp.setNombre("versionTrama");
+                conftemp.setValor(configuracion.getString("versionTrama"));
+                dataManager.AddParametros(conftemp);
+
+                
+                conftemp.setId(16);
+                conftemp.setNombre("DireccionMLAN");
+                conftemp.setValor(mlan.getString("DireccionMLAN"));
+                dataManager.AddParametros(conftemp);
+
+                conftemp.setId(17);
+                conftemp.setNombre("PuertoReceptorMLAN");
+                conftemp.setValor(mlan.getString("PuertoReceptorMLAN"));
+                dataManager.AddParametros(conftemp);
+
+                conftemp.setId(18);
+                conftemp.setNombre("PuertoTransmisorMLAN");
+                conftemp.setValor(mlan.getString("PuertoTransmisorMLAN"));
+                dataManager.AddParametros(conftemp);
+    }
 
     private void InterrogarRed() {
         ComandoInterfazVisual comandoInterfazVisual = new ComandoInterfazVisual();
@@ -1936,7 +2204,15 @@ public class Application {
                 subscriberMQTTServiceLocal.Subscribe();
 
                 while (true) {
-                    if (subscriberMQTTServiceLocal.isMessageArrived()) {
+                    if(!subscriberMQTTServiceLocal.isConnected()){
+                        subscriberMQTTServiceLocal.reconect();
+                        try {
+                            Thread.sleep(250);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    else if (subscriberMQTTServiceLocal.isMessageArrived()) {
 
                         try {
 
@@ -2141,6 +2417,36 @@ public class Application {
 
                             try {
                                 for (ModuloConcentradorVagon moduloConcentradorVagon : conjunto.getMVCS()) {
+                                    if (moduloConcentradorVagon.getConexionPuertas() != null) {
+                                        JSONArray puertasVivas = new JSONArray(moduloConcentradorVagon.getConexionPuertas());
+                                        String vagonid = conjunto.getNombre();
+                                        for (int i = 0; i < puertasVivas.length(); i++) {
+                                            JSONObject tempPuerta = puertasVivas.getJSONObject(i);
+                                            if (!tempPuerta.getString("idPuerta").equalsIgnoreCase("0")) {
+                                                Puerta temp = dataManager.GetPuerta(tempPuerta.getString("canal"), vagonid, tempPuerta.getString("idPuerta"));
+                                                if (!tempPuerta.getBoolean("conectada")) {
+
+                                                    if (temp != null) {
+
+                                                        temp.setEstado("SIN CONEXION");
+//                                                            
+                                                        dataManager.UpdatePuerta(temp);
+
+                                                    }
+
+                                                } else {
+                                                    if (temp != null) {
+                                                        temp.setUltimaConexion(System.currentTimeMillis());
+                                                        dataManager.UpdatePuerta(temp);
+
+                                                    }
+
+                                                }
+                                            }
+
+                                        }
+                                        moduloConcentradorVagon.setConexionPuertas(null);
+                                    }
                                     for (Canal canale : moduloConcentradorVagon.getCanales()) {
                                         if (canale.getConexionPuertas() != null) {
                                             JSONArray puertasVivas = new JSONArray(canale.getConexionPuertas());
@@ -2419,37 +2725,19 @@ public class Application {
                 try {
                     clavePrivada = new GenerarClave().Generar(nombreEstacion);
                     publicadorExternoMQTT = new PublicadorExternoMQTT(clavePrivada, dispositivo, servidorExternoMQTT, proyecto, region, registro);
-//                    if (registroTemporal.getIDManatee() == null) {
-//
-//                        registroTemporal.setfechaHoraEnvio(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-//                        Calendar calendar = Calendar.getInstance();
-//                        calendar.setTime(registroTemporal.getfechaHoraEnvio());
-//                        calendar.add(Calendar.HOUR, -5);
-//                        registroTemporal.setfechaHoraEnvio(calendar.getTime());
-//                        registroTemporal.setEstadoEnvioManatee(false);
-//                        dataManager.UpdateRegistroTemporal(registroTemporal);
-//                    }
+
                 } catch (Exception ex) {
                     Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
 
-//                Thread.currentThread().interrupt();
-//            }
-//        }.start();
     }
 
     public void enviarManatee() {
         List<OP_RegistroTemporal> registros = dataManager.GetRegistroTemporalByMTE();
 
         for (OP_RegistroTemporal registroTemporal : registros) {
-//            if (registroTemporal.getIDManatee() == null) {
-//                String idmanatee = registroTemporal.getId() + "" + idEstacion;
-//                registroTemporal.setIDManatee(idmanatee);
-//                registroTemporal.setEstadoEnvioManatee(false);
-//                dataManager.UpdateRegistroTemporal(registroTemporal);
-//            }
             if (registroTemporal.isestadoEnvio()) {
                 try {
                     conexionMTE = new Date();
@@ -2520,80 +2808,92 @@ public class Application {
                 subscriberMQTTServiceLocal.Subscribe();
                 while (true) {
                     try {
-                        JSONObject re;
-                        if (subscriberMQTTServiceLocal.isMessageArrived()) {
-                            subscriberMQTTServiceLocal.setMessageArrived(false);
-                            OP_RegistroCrudo registroCrudo = new OP_RegistroCrudo();
-                            registroCrudoString = subscriberMQTTServiceLocal.getData();
-                            re = new JSONObject(registroCrudoString);
-                            registroCrudo = cast.JSONtoRegistroEventoCrudo(registroCrudoString);
-                            Vagon vagonT = EncontrarVagon(registroCrudo.getIdVagon());
-                            
-                            
-                            if (!re.isNull("fechaHoraOcurrencia")) {
-                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-                                        "dd/MM/yyyy HH:mm:ss.SSS");
-                                try {
-                                    Date date = simpleDateFormat.parse(re.getString("fechaHoraOcurrencia"));
-                                    registroCrudo.setFechaOcurrencia(date);
-                                    //System.out.println(registroCrudo.getFechaOcurrencia());
-                                } catch (ParseException e) {
-                                    System.out.println("Error en convertir fecha");
-                                }
-                            } else {
-                                try {
-                                    registroCrudo.setFechaOcurrencia(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-                                } catch (ParseException ex) {
-                                    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                            }
-                            
-                            
-                            registroCrudo.setOrigen("Estacion");
-                            if (!re.isNull("idRegistro")
-                                    && (registroCrudo.getFuncion().equalsIgnoreCase("EVENTO")
-                                    || registroCrudo.getFuncion().equalsIgnoreCase("BOTON_EMERGENCIA"))
-                                    && !re.isNull("ActivacionAck")
-                                    && re.getString("ActivacionAck").equalsIgnoreCase("1")
-                                    && !re.isNull("dispositivoMCV")) {
-                                String idDispositivo = re.getString("dispositivoMCV");
-                                JSONObject ack = new JSONObject();
-                                ack.put("origen", "PI");
-                                ack.put("funcion", "ACK");
-                                ack.put("dispositivoMCV", idDispositivo);
-                                ack.put("idRegistro", re.getInt("idRegistro"));
-                                ack.put("canal", registroCrudo.getCanal());
+                        if (!subscriberMQTTServiceLocal.isConnected()) {
+                            subscriberMQTTServiceLocal.reconect();
+                            Thread.sleep(100);
+                        } else {
+                            JSONObject re;
+                            if (subscriberMQTTServiceLocal.isMessageArrived()) {
+                                subscriberMQTTServiceLocal.setMessageArrived(false);
+                                OP_RegistroCrudo registroCrudo = new OP_RegistroCrudo();
+                                registroCrudoString = subscriberMQTTServiceLocal.getData();
+                                re = new JSONObject(registroCrudoString);
+                                registroCrudo = cast.JSONtoRegistroEventoCrudo(registroCrudoString);
+                                Vagon vagonT = EncontrarVagon(registroCrudo.getIdVagon());
 
-                                if (vagonT.processMessage(idDispositivo, re.getInt("idRegistro"), Integer.parseInt(registroCrudo.getCanal()))) {
+                                if (!re.isNull("fechaHoraOcurrencia")) {
+                                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+                                            "dd/MM/yyyy HH:mm:ss.SSS");
+                                    try {
+                                        Date date = simpleDateFormat.parse(re.getString("fechaHoraOcurrencia"));
+                                        registroCrudo.setFechaOcurrencia(date);
+                                        //System.out.println(registroCrudo.getFechaOcurrencia());
+                                    } catch (ParseException e) {
+                                        System.out.println("Error en convertir fecha");
+                                    }
+                                } else {
+                                    try {
+                                        registroCrudo.setFechaOcurrencia(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+                                    } catch (ParseException ex) {
+                                        Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                }
 
-                                    //System.out.println(EncontrarVagon(registroCrudo.getIdVagon()).getNombre() + "  " + EncontrarVagon(registroCrudo.getIdVagon()).getUltimo_registro_canalA());
+                                registroCrudo.setOrigen("Estacion");
+                                if (!re.isNull("idRegistro")
+                                        && (registroCrudo.getFuncion().equalsIgnoreCase("EVENTO")
+                                        || registroCrudo.getFuncion().equalsIgnoreCase("BOTON_EMERGENCIA"))
+                                        && !re.isNull("ActivacionAck")
+                                        && re.getString("ActivacionAck").equalsIgnoreCase("1")
+                                        && !re.isNull("dispositivoMCV")) {
+
+                                    String idDispositivo = re.getString("dispositivoMCV");
+                                    JSONObject ack = new JSONObject();
+                                    ack.put("origen", "PI");
+                                    ack.put("funcion", "ACK");
+                                    ack.put("dispositivoMCV", idDispositivo);
+                                    ack.put("idRegistro", re.getInt("idRegistro"));
+                                    ack.put("canal", registroCrudo.getCanal());
+
+                                    if (registroCrudo.getFuncion().equalsIgnoreCase("BOTON_EMERGENCIA")) {
+                                        if (vagonT.processMessageEmergency(idDispositivo, re.getInt("idRegistro"))) {
+                                            registrosCrudos.add(registroCrudo);
+                                        }
+                                    } else if (vagonT.processMessage(idDispositivo, re.getInt("idRegistro"), Integer.parseInt(registroCrudo.getCanal()))) {
+                                        registrosCrudos.add(registroCrudo);
+                                    }
+
+                                    subscriberMQTTServiceLocal.Publisher(ack.toString().getBytes(), registroCrudo.getIdVagon());
+                                } else if (registroCrudo.getFuncion().equalsIgnoreCase("CONEXION_PUERTAS")) {
+                                    if (!re.isNull("dispositivoMCV") && (!re.isNull("canal1Habilitado") && !re.isNull("canal2Habilitado"))) {
+                                        vagonT.actualizarConexionPuertas(re.getString("dispositivoMCV"), registroCrudo.getTrama(), re.getBoolean("canal1Habilitado"), re.getBoolean("canal2Habilitado"));
+                                    } else {
+                                        vagonT.actualizarConexionPuertas("0", registroCrudo.getTrama(), true, true);
+
+                                    }
+
+                                } else {
+                                    if (registroCrudo.getCanal() != null) {
+                                        vagonT.processMessageSinAck(Integer.parseInt(registroCrudo.getCanal()));
+                                    } else if (registroCrudo.getFuncion().equalsIgnoreCase("CONEXION_PUERTAS")) {
+                                        vagonT.actualizarConexionPuertas("0", registroCrudo.getTrama(), true, true);
+                                    } else {
+                                        vagonT.actualizaConexionVagon();
+                                    }
+
                                     registrosCrudos.add(registroCrudo);
-
                                 }
-                                publisherMQTTServiceInterno.Publisher(ack.toString().getBytes(), registroCrudo.getIdVagon());
-                            }else if(registroCrudo.getFuncion().equalsIgnoreCase("CONEXION_PUERTAS")){
-                                if(!re.isNull("dispositivoMCV")&&(!re.isNull("canal1Habilitado")&&!re.isNull("canal2Habilitado"))){
-                                 vagonT.actualizarConexionPuertas(re.getString("dispositivoMCV"), registroCrudo.getTrama(), re.getBoolean("canal2Habilitado"), re.getBoolean("canal2Habilitado"));
-                                }else{
-                                    vagonT.actualizarConexionPuertas("0",registroCrudo.getTrama(), true, true);
-                                
-                                }
-                            
-                            
-                            }else {
-                                
-                                vagonT.processMessageSinAck(Integer.parseInt(registroCrudo.getCanal()));
-                                registrosCrudos.add(registroCrudo);
-                            }
 //                            System.out.println("Julian:  " + new Gson().toJson(subscriberMQTTServiceLocal.getData()));
 
-                        }
+                            }
 
-                        Thread.sleep(1);
+                            Thread.sleep(1);
+                        }
                     } catch (Exception e) {
                         System.out.println("ERROR EN TRAMA DEL MVC: " + e.getMessage());
                     }
                 }
+                    
 
             }
         }.start();

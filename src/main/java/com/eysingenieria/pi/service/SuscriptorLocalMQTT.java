@@ -63,13 +63,28 @@ public class SuscriptorLocalMQTT implements MqttCallback {
             mqttClient = new MqttClient(broker, MqttClient.generateClientId(), memoryPersistence);
             mqttConnectOptions = new MqttConnectOptions();
             mqttConnectOptions.setCleanSession(true);
+            mqttConnectOptions.setAutomaticReconnect(true);
+            mqttConnectOptions.setConnectionTimeout(2000);
+            mqttConnectOptions.setKeepAliveInterval(60);
             mqttClient.connect(mqttConnectOptions);
             mqttClient.setCallback(this);
             mqttClient.subscribe(topic);
+            
             connected = true;
         } catch (MqttException me) {
-            System.err.println(me+" Error 9");
-            
+            System.err.println(me + " Error 9");
+            try {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(PublicadorLocalMQTT.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                System.out.println(me + " ERROR 8");
+                mqttClient.connect(mqttConnectOptions);
+            } catch (MqttException ex) {
+                Logger.getLogger(PublicadorLocalMQTT.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
     }
 
@@ -77,12 +92,7 @@ public class SuscriptorLocalMQTT implements MqttCallback {
     public void connectionLost(Throwable arg0) {
         System.out.println("Conexion Perdida");
         connected = false;
-        try {
-            mqttClient.connect(mqttConnectOptions);
-            mqttClient.subscribe(topic);
-        } catch (MqttException ex) {
-            Logger.getLogger(SuscriptorLocalMQTT.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
 
     @Override
@@ -95,5 +105,41 @@ public class SuscriptorLocalMQTT implements MqttCallback {
         data = message.toString();
         messageTopicArrived = topic;
         messageArrived = true;
+    }
+    
+    public boolean reconect(){
+        try {
+            mqttClient.connect(mqttConnectOptions);
+            
+        } catch (MqttException ex) {
+            Logger.getLogger(SuscriptorLocalMQTT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return mqttClient.isConnected();
+    }
+    public boolean isConnected(){
+        return mqttClient.isConnected();
+    }
+    public void Publisher(byte[] data, String topic) {
+        
+        try {
+            
+           
+            MqttMessage mqttMessage = new MqttMessage(data);
+            mqttMessage.setQos(0);
+            mqttClient.publish(topic, mqttMessage);
+            
+        } catch (MqttException me) {
+            try {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(PublicadorLocalMQTT.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                System.out.println(me + " ERROR 8");
+                mqttClient.connect(mqttConnectOptions);
+            } catch (MqttException ex) {
+                Logger.getLogger(PublicadorLocalMQTT.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

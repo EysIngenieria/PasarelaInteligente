@@ -1,0 +1,187 @@
+{
+    "versionTrama":"1.0.0",
+    "tipoTrama":4,
+    "fechaHoraConfiguracion":"23/01/20223 16:40:60.600",
+    "fechaHoraDifusion":"23/01/2023 16:41:60.600",
+    "fechaHoraPruebaTrama":"23/01/2023 16:41:60.700",
+    "fechaHoraVigencia":"23/01/2023 16:41:60.700",
+    "cabecera":[
+       "versionTrama",
+       "idRegistro",
+       "idOperador",
+       "idEstacion",
+       "idVagon",
+       "idPuerta",
+       "codigoPuerta",
+       "fechaHoraLecturaDato",
+       "fechaHoraEnvioDato",
+       "tipoTrama",
+       "tramaRetransmitida"
+    ],
+    "frecuenciaEnvio":[
+       
+    ],
+    "evento":[
+       {
+          "codigoEvento":"EVP1",
+          "nombreEvento":"Cambio de apertura o cierre de puertas",
+          "variable":[
+             "codigoEvento",
+             "estadoAperturaCierrePuertas"
+          ]
+       },
+       {
+          "codigoEvento":"EVP2",
+          "nombreEvento":"DetecciÃ³n intento de apertura forzada",
+          "variable":[
+             "codigoEvento"
+          ]
+       },
+       {
+          "codigoEvento":"EVP3",
+          "nombreEvento":"DetecciÃ³n de intento de bloqueo en la apertura",
+          "variable":[
+             "codigoEvento"
+          ]
+       },
+       {
+          "codigoEvento":"EVP4",
+          "nombreEvento":"DetecciÃ³n de intento de bloqueo en el cierre",
+          "variable":[
+             "codigoEvento"
+          ]
+       },
+       {
+          "codigoEvento":"EVP5",
+          "nombreEvento":"AutodetecciÃ³n de errores crÃ­ticos internos en la operaciÃ³n de la puerta",
+          "variable":[
+             "codigoEvento",
+             "estadoErrorCritico"
+          ]
+       },
+       {
+          "codigoEvento":"EVP6",
+          "nombreEvento":"PÃ©rdida de alimentaciÃ³n de la red pÃºblica",
+          "variable":[
+             "codigoEvento",
+             "porcentajeCargaBaterias"
+          ]
+       },
+       {
+          "codigoEvento":"EVP7",
+          "nombreEvento":"BotÃ³n de emergencia",
+          "variable":[
+             "codigoEvento"
+ 
+          ]
+       },
+       {
+          "codigoEvento":"EVP8",
+          "nombreEvento":"Inicio de operaciÃ³n",
+          "variable":[
+             "codigoEvento"
+          ]
+       },
+       {
+          "codigoEvento":"EVP9",
+          "nombreEvento":"Fin de la operaciÃ³n",
+          "variable":[
+             "codigoEvento"
+ 
+          ]
+       },
+       {
+          "codigoEvento":"EVP10",
+          "nombreEvento":"Rutina de autodiagnÃ³stico",
+          "variable":[
+             "codigoEvento",
+             "ciclosApertura",
+             "horasServicio",
+             "estadoAperturaCierrePuertas",
+             "estadoErrorCritico",
+             "estadoBotonManual",
+             "tipoEnergizacion",
+             "velocidaMotor",
+             "fuerzaMotor",
+ 	    "modoOperacion"
+ 
+          ]
+       },
+       {
+          "codigoEvento":"EVP11",
+          "nombreEvento":"Respuesta RESET",
+          "variable":[
+             "codigoEvento",
+             "estadoErrorCritico",
+             "estadoAperturaCierrePuertas"
+          ]
+       },
+       {
+          "codigoEvento":"EVP12",
+          "nombreEvento":"Rutina de autodiagnÃ³stico",
+          "variable":[
+             "codigoEvento",
+             "tipoTramaBusEstacion",
+             "numeroParada",
+             "nombreEstacion",
+             "nombreVagon",
+             "numeroEventoBusEstacion",
+             "idVehiculo",
+             "placaVehiculo",
+             "tipologiaVehiculo"
+          ]
+       },
+       {
+           "codigoEvento":"EVP13",
+           "nombreEvento":"Uso boton manual",
+           "variable":[
+              "codigoEvento",
+              "usoBotonManual"
+           ]
+        },
+        {
+           "codigoEvento":"EVP14",
+           "nombreEvento":"Respuesta Boton Manual",
+           "variable":[
+              "codigoEvento",
+              "estadoBotonManual"
+           ]
+        }
+    ],
+    "alarma":[
+       {
+          "codigoAlarma":"ALAP1",
+          "nombreAlarma":"Alarma de baterÃ­a baja de UPS",
+          "variableAlarma":"porcentajeCargaBaterias",
+          "nivelAlarma":[
+             {
+                "codigoNivelAlarma":"NIV5",
+                "valorNivelAlarmaInferior":0,
+                "valorNivelAlarmaSuperior":10
+             },
+             {
+                "codigoNivelAlarma":"NIV4",
+                "valorNivelAlarmaInferior":10,
+                "valorNivelAlarmaSuperior":20
+             }
+          ]
+       },
+       {
+          "codigoAlarma":"ALAP2",
+          "nombreAlarma":"Alarma puerta abierta durante un tiempo determinado",
+          "variableAlarma":"tiempoApertura",
+          "nivelAlarma":[
+             {
+                "codigoNivelAlarma":"NIV2",
+                "valorNivelAlarmaInferior":4000,
+                "valorNivelAlarmaSuperior":5000
+             },
+             {
+                "codigoNivelAlarma":"NIV1",
+                "valorNivelAlarmaInferior":5000,
+                "valorNivelAlarmaSuperior":10000
+             }
+          ]
+       }
+    ]
+ }

@@ -237,8 +237,8 @@ public class DataManager implements IDataManager {
         db.DeletePuertas();
     }
 
-    public void deletParametros() {
-        db.deleteParametros();
+    public void deletParametros(boolean deleteAll) {
+        db.deleteParametros(deleteAll);
     }
 
     public void DeleteRegistros() {
@@ -276,6 +276,10 @@ public class DataManager implements IDataManager {
     @Override
     public void deleteComandoCDEG(Long id) {
         db.deleteComandoCDEG(id);
+    }
+
+    public void addCamposValidos(List<CFG_CamposValidos> camposValidosList) {
+        db.addCamposValidos(camposValidosList);
     }
 
     

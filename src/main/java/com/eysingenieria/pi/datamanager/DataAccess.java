@@ -57,7 +57,7 @@ public class DataAccess implements IDataAccess {
     private final CFG_AlarmaJpaController alarmaJpaController;
     private final CFG_NivelAlarmaJpaController nivelAlarmaJpaController;
     private final ComandoCDEGJpaController comandoController;
-    
+
     private final PuertaJpaController puertaController;
 
     public DataAccess() {
@@ -74,7 +74,7 @@ public class DataAccess implements IDataAccess {
         eventoJpaController = new CFG_EventoJpaController();
         alarmaJpaController = new CFG_AlarmaJpaController();
         nivelAlarmaJpaController = new CFG_NivelAlarmaJpaController();
-        
+
         puertaController = new PuertaJpaController();
     }
 
@@ -83,9 +83,9 @@ public class DataAccess implements IDataAccess {
     public List<OP_Parametro> GetParametros() {
         return parametroJpaController.findOP_ParametroEntities();
     }
-    
+
     @Override
-    public void UpdateParametros(OP_Parametro parametro)throws Exception{
+    public void UpdateParametros(OP_Parametro parametro) throws Exception {
         parametroJpaController.edit(parametro);
     }
 
@@ -151,7 +151,11 @@ public class DataAccess implements IDataAccess {
 //CamposCabecera
     @Override
     public List<CFG_CamposCabecera> GetCamposCabecera() {
-        return camposCabeceraJpaController.findCFG_CamposCabeceraEntities();
+        List<CFG_CamposCabecera> camposCabeceraList = camposCabeceraJpaController.findCFG_CamposCabeceraEntities();
+        if (camposCabeceraList.isEmpty()) {
+            return null;
+        }
+        return camposCabeceraList;
     }
 
     @Override
@@ -167,7 +171,11 @@ public class DataAccess implements IDataAccess {
 //CamposEvento
     @Override
     public List<CFG_CamposEvento> GetCamposEvento() {
-        return camposEventoJpaController.findCFG_CamposEventoEntities();
+        List<CFG_CamposEvento> camposEventoList = camposEventoJpaController.findCFG_CamposEventoEntities();
+        if (camposEventoList.isEmpty()) {
+            return null;
+        }
+        return camposEventoList;
     }
 
     @Override
@@ -205,7 +213,7 @@ public class DataAccess implements IDataAccess {
     @Override
     public CFG_Configuracion GetConfiguracion() {
         List<CFG_Configuracion> list = configuracionJpaController.findCFG_ConfiguracionEntities();
-        return list.get(list.isEmpty() ? null : list.size() - 1);
+        return list.isEmpty() ? null : list.get(list.size() - 1);
     }
 
 //Evento
@@ -213,10 +221,10 @@ public class DataAccess implements IDataAccess {
     public List<CFG_Evento> GetEventos() {
         return eventoJpaController.findCFG_EventoEntities();
     }
-    
+
 //Alarma
     @Override
-    public List<CFG_Alarma> GetAlarmas(){
+    public List<CFG_Alarma> GetAlarmas() {
         return alarmaJpaController.findCFG_AlarmaEntities();
     }
 
@@ -246,13 +254,13 @@ public class DataAccess implements IDataAccess {
         List<Puerta> puertas = GetPuertas();
         for (Iterator<Puerta> iterator = puertas.iterator(); iterator.hasNext();) {
             Puerta temp = iterator.next();
-            if(temp.getCanal().equalsIgnoreCase(canal)&&
-                temp.getIdPuerta().equalsIgnoreCase(idPuerta)&&
-                temp.getVagon().equalsIgnoreCase(vagon)){
-                
+            if (temp.getCanal().equalsIgnoreCase(canal)
+                    && temp.getIdPuerta().equalsIgnoreCase(idPuerta)
+                    && temp.getVagon().equalsIgnoreCase(vagon)) {
+
                 return temp;
             }
-            
+
         }
         return null;
     }
@@ -262,11 +270,11 @@ public class DataAccess implements IDataAccess {
         List<Puerta> puertas = GetPuertas();
         for (Iterator<Puerta> iterator = puertas.iterator(); iterator.hasNext();) {
             Puerta temp = iterator.next();
-            if(temp.getDescripcion().equalsIgnoreCase(descripcion)){
-                
+            if (temp.getDescripcion().equalsIgnoreCase(descripcion)) {
+
                 return temp;
             }
-            
+
         }
         return null;
     }
@@ -277,7 +285,7 @@ public class DataAccess implements IDataAccess {
     }
 
     @Override
-    public void DeletePuerta(int id) throws Exception{
+    public void DeletePuerta(int id) throws Exception {
         puertaController.destroy(id);
     }
 
@@ -297,7 +305,7 @@ public class DataAccess implements IDataAccess {
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     @Override
@@ -324,10 +332,16 @@ public class DataAccess implements IDataAccess {
         }
     }
 
-    void deleteParametros() {
+    void deleteParametros(boolean deleteAll) {
         for (OP_Parametro object : parametroJpaController.findOP_ParametroEntities()) {
             try {
-                parametroJpaController.destroy(object.getId());
+                if (!deleteAll) {
+                    if ((!object.getNombre().equalsIgnoreCase("HoraInicioOperacion") && !object.getNombre().equalsIgnoreCase("HoraFinOperacion") && !object.getNombre().equalsIgnoreCase("TiempoFinOperacion") && !object.getNombre().equalsIgnoreCase("FechaInicioOperacion") && !object.getNombre().equalsIgnoreCase("FechaFinOperacion"))) {
+                        parametroJpaController.destroy(object.getId());
+                    }
+                } else {
+                    parametroJpaController.destroy(object.getId());
+                }
             } catch (NonexistentEntityException ex) {
                 Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -393,7 +407,13 @@ public class DataAccess implements IDataAccess {
         }
     }
 
-    
+    void addCamposValidos(List<CFG_CamposValidos> camposValidosList) {
+        try {
+            for (CFG_CamposValidos cFG_CamposValidos : camposValidosList) {
+                camposValidosJpaController.create(cFG_CamposValidos);
+            }
+        } catch (Exception e) {
+        }
+    }
 
-    
 }
