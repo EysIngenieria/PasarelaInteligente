@@ -61,7 +61,7 @@
        },
        {
           "codigoEvento":"EVP6",
-          "nombreEvento":"PÃ©rdida de alimentaciÃ³n de la red pÃºblica",
+          "nombreEvento":"Perdida de alimentacion de la red publica",
           "variable":[
              "codigoEvento",
              "porcentajeCargaBaterias"

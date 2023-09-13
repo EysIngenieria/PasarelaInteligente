@@ -183,17 +183,18 @@ public class Application {
         try {
             Thread.sleep(3000);
             iniciarPrograma();
+            cargarEventos();
             cargarCamposValidos();
             cargarConfiguracionCDEG();
             cargarConfiguracion();
-            
+
         } catch (IOException ex) {
             Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
             Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
         }
         GetParametros();
-            
+
         GetCamposCabecera();
         GetCamposEventos();
         GetCamposAlarmas();
@@ -261,7 +262,6 @@ public class Application {
     private static final Logger logger = Logger.getLogger(SuscriptorLocalMQTT.class.getName());
 
     // Resto del código de la clase
-
     public void iniciarPrograma() {
         // Especifica la ruta del directorio de logs
         String logDirectoryPath = "./Logs_pi";
@@ -272,7 +272,7 @@ public class Application {
             try {
                 Files.createDirectories(logDirectory);
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println("Error al inicializar el logger: " + e.getMessage());
             }
         }
         // Inicializar el logger
@@ -282,7 +282,7 @@ public class Application {
             SimpleFormatter formatter = new SimpleFormatter();
             fileHandler.setFormatter(formatter);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error al inicializar el logger: " + e.getMessage());
         }
 
         // Registrar un mensaje de inicio en el archivo de log
@@ -324,6 +324,7 @@ public class Application {
     }
 
     private void DeleteCamposCabecera() {
+        GetCamposCabecera();
         if (camposCabecera != null) {
             for (CFG_CamposCabecera campoCabecera : camposCabecera) {
                 try {
@@ -337,37 +338,47 @@ public class Application {
     }
 
     private void DeleteCamposEvento() {
-        for (CFG_CamposEvento campoEvento : camposEventos) {
-            try {
-                dataManager.DeleteCamposEvento(campoEvento.getId());
-            } catch (Exception e) {
-                System.out.println("Error en eliminar campos de eventos");
-            }
+        GetCamposEventos();
+        if (camposEventos != null) {
+            for (CFG_CamposEvento campoEvento : camposEventos) {
+                try {
+                    dataManager.DeleteCamposEvento(campoEvento.getId());
+                } catch (Exception e) {
+                    System.out.println("Error en eliminar campos de eventos");
+                }
 
+            }
         }
     }
 
     private void DeleteCamposAlarma() {
-        for (CFG_CamposAlarma campoAlarma : camposAlarma) {
-            try {
-                dataManager.DeleteCamposAlarma(campoAlarma.getId());
-            } catch (Exception e) {
-                System.out.println("Error en eliminar campos alarma");
+        GetCamposAlarmas();
+        if (camposAlarma != null) {
+            for (CFG_CamposAlarma campoAlarma : camposAlarma) {
+                try {
+                    dataManager.DeleteCamposAlarma(campoAlarma.getId());
+                } catch (Exception e) {
+                    System.out.println("Error en eliminar campos alarma");
+                }
             }
         }
     }
 
     private void DeleteNivelAlarma() {
-        for (CFG_NivelAlarma nivelAlarma : nivelesAlarma) {
-            try {
-                dataManager.DeleteNivelAlarma(nivelAlarma.getId());
-            } catch (Exception e) {
-                System.out.println("Error en eliminar nivel de alarma");
+        GetNivelAlarma();
+        if (nivelesAlarma != null) {
+            for (CFG_NivelAlarma nivelAlarma : nivelesAlarma) {
+                try {
+                    dataManager.DeleteNivelAlarma(nivelAlarma.getId());
+                } catch (Exception e) {
+                    System.out.println("Error en eliminar nivel de alarma");
+                }
             }
         }
     }
 
     private Evento UpdateIdEvento(Evento evento) {
+
         for (CFG_Evento e : eventos) {
             if (e.getNombre().equalsIgnoreCase(evento.getCodigoEvento())) {
                 evento.setId(e.getId());
@@ -377,11 +388,33 @@ public class Application {
     }
 
     private Alarma UpdateIdAlarma(Alarma alarma) {
+        GetAlarmas();
+        if (alarmas == null) {
+            alarmas = new ArrayList<>(); // Inicializar la lista si es null
+        }
+
+        // Buscar una coincidencia en la lista
+        boolean encontrado = false;
         for (CFG_Alarma a : alarmas) {
             if (a.getNombre().equalsIgnoreCase(alarma.getCodigoAlarma())) {
                 alarma.setId(a.getId());
+                encontrado = true;
+                break; // Salir del bucle cuando se encuentra una coincidencia
             }
         }
+
+        // Si no se encontró una coincidencia, agregar una nueva Alarma
+        if (!encontrado) {
+            // Crea un nuevo objeto Alarma y asigna un Id (asegúrate de generar un Id único)
+
+            // Agregar la nueva Alarma a la lista
+            CFG_Alarma alap = new CFG_Alarma();
+            alap.setNombre(alarma.getCodigoAlarma());
+            alap.setDescripcion(alarma.getNombreAlarma());
+            dataManager.addAlarma(alap);
+            alarmas.add(alap);
+        }
+
         return alarma;
     }
 
@@ -458,35 +491,64 @@ public class Application {
         }
 
     }
+
     public void cargarCamposValidos() {
         GetCamposValidos();
-    if (camposValidos == null) {
-        try {
-            String jsonFile = new String(Files.readAllBytes(Paths.get("./ConfiguracionCDEG/camposValidos.json")));
-            JSONArray jsonArray = new JSONArray(jsonFile);
-            List<CFG_CamposValidos> camposValidosList = new ArrayList<>();
+        if (camposValidos == null) {
+            try {
+                String jsonFile = new String(Files.readAllBytes(Paths.get("./ConfiguracionCDEG/camposValidos.json")));
+                JSONArray jsonArray = new JSONArray(jsonFile);
+                List<CFG_CamposValidos> camposValidosList = new ArrayList<>();
 
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                CFG_CamposValidos campoValido = new CFG_CamposValidos();
-                campoValido.setId(jsonObject.getInt("id"));
-                campoValido.setNombre(jsonObject.getString("nombre"));
-                campoValido.setTipoCampo(jsonObject.getString("tipoDato"));
-                campoValido.setTipoCampoValido(jsonObject.getString("tipoCampoValido"));
-                campoValido.setManejaNivel(jsonObject.getBoolean("manejaNivel") );
-                campoValido.setDescripcion(jsonObject.isNull("descripcion") ? null : jsonObject.getString("descripcion"));
+                    CFG_CamposValidos campoValido = new CFG_CamposValidos();
+                    campoValido.setId(jsonObject.getInt("id"));
+                    campoValido.setNombre(jsonObject.getString("nombre"));
+                    campoValido.setTipoCampo(jsonObject.getString("tipoDato"));
+                    campoValido.setTipoCampoValido(jsonObject.getString("tipoCampoValido"));
+                    campoValido.setManejaNivel(jsonObject.getBoolean("manejaNivel"));
+                    campoValido.setDescripcion(jsonObject.isNull("descripcion") ? null : jsonObject.getString("descripcion"));
 
-                camposValidosList.add(campoValido);
+                    camposValidosList.add(campoValido);
+                }
+
+                dataManager.addCamposValidos(camposValidosList);
+                camposValidos = dataManager.GetCamposValidos();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-            dataManager.addCamposValidos(camposValidosList);
-            camposValidos = dataManager.GetCamposValidos();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
-}
+    
+    public void cargarEventos() {
+        GetEventos();
+        if (eventos == null) {
+            try {
+                String jsonFile = new String(Files.readAllBytes(Paths.get("./ConfiguracionCDEG/Eventos.json")));
+                JSONArray jsonArray = new JSONArray(jsonFile);
+                List<CFG_Evento> eventosList = new ArrayList<>();
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    CFG_Evento evento = new CFG_Evento();
+                    evento.setId(jsonObject.getInt("Id"));
+                    evento.setNombre(jsonObject.getString("Nombre"));
+                    evento.setDescripcion(jsonObject.optString("Descripcion"));
+                    
+
+                    eventosList.add(evento);
+                }
+
+                dataManager.addEventos(eventosList);
+                eventos = dataManager.GetEventos();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     private void ProcesarRegistrosCrudos() {
         //System.out.println("ENTRADA6");
@@ -1623,6 +1685,7 @@ public class Application {
 
     private void FinOperacion() {
         try {
+            
 
             if (new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).after(new SimpleDateFormat("HHmm").parse(horaFinOperacion)) && new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).before(new SimpleDateFormat("HHmm").parse(horaLimite))) {
                 tiempoFinOperacion += 1;
@@ -1771,16 +1834,17 @@ public class Application {
         estacion.setTipoTrama(2);
         vagonA.add(estacion);
     }
-    
+
     public void actualizarCampos(String trama) {
         GetCamposValidos();
         CFG_Configuracion cfg_Configuracion = dataManager.GetConfiguracion();
-        if (cfg_Configuracion==null) {
+        if (cfg_Configuracion == null) {
             cfg_Configuracion = new CFG_Configuracion();
             System.out.println("Updated Configuration");
+            
             Configuracion configuracion = cast.JSONtoConfiguracion(trama);
             cfg_Configuracion.setTrama(trama);
-            
+            dataManager.AddConfiguracion(cfg_Configuracion);
             ///Update Cabecera
             DeleteCamposCabecera();
             for (String cabecera : configuracion.getCabecera()) {
@@ -1837,11 +1901,12 @@ public class Application {
                 listAlarmas.add(alarma);
             }
             configuracion.setAlarma(listAlarmas);
+            
             for (Alarma a : configuracion.getAlarma()) {
                 for (CFG_CamposValidos campoValido : camposValidos) {
                     if (campoValido.getTipoCampoValido().equalsIgnoreCase("Alarma")) {
                         if (campoValido.getNombre().equalsIgnoreCase(a.getVariableAlarma())) {
-                            campoAlarma.setAlarma(cast.AlarmatoCFG_Alarma(a));
+                            campoAlarma.setAlarma(getAlarma(a));
                             campoAlarma.setConfiguracion(cfg_Configuracion);
                             campoAlarma.setCamposValidos(campoValido);
 
@@ -1849,19 +1914,19 @@ public class Application {
                                 dataManager.AddCamposAlarma(campoAlarma);
                                 GetCamposAlarmas();
                             } catch (Exception e) {
-                                System.out.println("Error en añadir Campos Alarma CDEG");
+                                System.out.println("Error en añadir Campos Alarma CDEG" +e.getLocalizedMessage());
                             }
                         }
                     }
                     if (campoValido.getNombre().equalsIgnoreCase("codigoAlarma") || campoValido.getNombre().equalsIgnoreCase("codigoNivelAlarma")) {
-                        campoAlarma.setAlarma(cast.AlarmatoCFG_Alarma(a));
+                        campoAlarma.setAlarma(getAlarma(a));
                         campoAlarma.setConfiguracion(cfg_Configuracion);
                         campoAlarma.setCamposValidos(campoValido);
                         try {
                             dataManager.AddCamposAlarma(campoAlarma);
                             GetCamposAlarmas();
                         } catch (Exception e) {
-                            System.out.println("Error en añadir Campos Alarma CDEG 2");
+                            System.out.println("Error en añadir Campos Alarma CDEG 2" +e.getLocalizedMessage());
                         }
 
                     }
@@ -1869,21 +1934,32 @@ public class Application {
                 //NivelAlarma nivelAlarma = new NivelAlarma();
                 for (NivelAlarma nivel : a.getNivelAlarma()) {
                     CFG_NivelAlarma nivelAlarma = cast.NivelAlarmatoCFG_NivelAlarma(nivel);
-                    nivelAlarma.setAlarma(cast.AlarmatoCFG_Alarma(a));
+                    nivelAlarma.setAlarma(getAlarma(a));
                     try {
                         dataManager.AddNivelAlarma(nivelAlarma);
                     } catch (Exception ex) {
                         Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+
                 
-                dataManager.AddConfiguracion(cfg_Configuracion);
                 //nivelAlarma.setCodigoNivelAlarma(a.getNivelAlarma());
             }
         }
     }
-    
-    public void cargarConfiguracionCDEG(){
+
+    public CFG_Alarma getAlarma(Alarma a){
+        GetAlarmas();
+        CFG_Alarma ret = null;
+        for (CFG_Alarma alap : alarmas) {
+            if (alap.getNombre().equalsIgnoreCase(a.getCodigoAlarma())) {
+                ret = alap;
+                break;
+            }
+        }
+        return ret;
+    }
+    public void cargarConfiguracionCDEG() {
         String jsonlec = "";
         try {
             File doc = new File("./ConfiguracionCDEG/configuracion.txt");
@@ -1900,7 +1976,7 @@ public class Application {
         } catch (Exception ex) {
             System.out.println("Error en cargar la configuracion del CDEG" + ex.getLocalizedMessage());
         }
-    
+
     }
 
     public void cargarConfiguracion() throws IOException {
@@ -2127,66 +2203,65 @@ public class Application {
         }
 
     }
-    
-    public void addParametrosSinFecha(JSONObject configuracion,JSONObject confEstacion,JSONObject mlan,JSONObject mqttcdeg){
-    OP_Parametro conftemp = new OP_Parametro();
-                conftemp.setId(1);
-                conftemp.setNombre("Estacion");
-                conftemp.setValor(configuracion.getString("nombreEstacion"));
-                dataManager.AddParametros(conftemp);
-                conftemp.setId(2);
-                conftemp.setNombre("servidorLocalMQTT");
-                conftemp.setValor(configuracion.getString("servidoLocalMQTT"));
-                dataManager.AddParametros(conftemp);
 
-                conftemp.setId(3);
-                conftemp.setNombre("servidorExternoMQTT");
-                conftemp.setValor(mqttcdeg.getString("mqttServerAddress"));
-                dataManager.AddParametros(conftemp);
-                conftemp.setId(4);
-                conftemp.setNombre("Dispositivo");
-                conftemp.setValor(configuracion.getString("dispositivo"));
-                dataManager.AddParametros(conftemp);
-                conftemp.setId(5);
-                conftemp.setNombre("MacEthernet");
-                conftemp.setValor(configuracion.getString("MacEthernet"));
-                dataManager.AddParametros(conftemp);
-                conftemp.setId(6);
-                conftemp.setNombre("MacWifi");
-                conftemp.setValor(configuracion.getString("MacWifi"));
-                dataManager.AddParametros(conftemp);
-                conftemp.setId(7);
-                conftemp.setNombre("MacBluetooth");
-                conftemp.setValor(configuracion.getString("MacBluetooth"));
-                dataManager.AddParametros(conftemp);
-                conftemp.setId(8);
-                conftemp.setNombre("IdOperador");
-                conftemp.setValor(configuracion.getString("idOperador"));
-                dataManager.AddParametros(conftemp);
-                conftemp.setId(9);
-                conftemp.setNombre("IdEstacion");
-                conftemp.setValor(confEstacion.getString("idEstacion"));
-                dataManager.AddParametros(conftemp);
-                conftemp.setId(10);
-                conftemp.setNombre("versionTrama");
-                conftemp.setValor(configuracion.getString("versionTrama"));
-                dataManager.AddParametros(conftemp);
+    public void addParametrosSinFecha(JSONObject configuracion, JSONObject confEstacion, JSONObject mlan, JSONObject mqttcdeg) {
+        OP_Parametro conftemp = new OP_Parametro();
+        conftemp.setId(1);
+        conftemp.setNombre("Estacion");
+        conftemp.setValor(configuracion.getString("nombreEstacion"));
+        dataManager.AddParametros(conftemp);
+        conftemp.setId(2);
+        conftemp.setNombre("servidorLocalMQTT");
+        conftemp.setValor(configuracion.getString("servidoLocalMQTT"));
+        dataManager.AddParametros(conftemp);
 
-                
-                conftemp.setId(16);
-                conftemp.setNombre("DireccionMLAN");
-                conftemp.setValor(mlan.getString("DireccionMLAN"));
-                dataManager.AddParametros(conftemp);
+        conftemp.setId(3);
+        conftemp.setNombre("servidorExternoMQTT");
+        conftemp.setValor(mqttcdeg.getString("mqttServerAddress"));
+        dataManager.AddParametros(conftemp);
+        conftemp.setId(4);
+        conftemp.setNombre("Dispositivo");
+        conftemp.setValor(configuracion.getString("dispositivo"));
+        dataManager.AddParametros(conftemp);
+        conftemp.setId(5);
+        conftemp.setNombre("MacEthernet");
+        conftemp.setValor(configuracion.getString("MacEthernet"));
+        dataManager.AddParametros(conftemp);
+        conftemp.setId(6);
+        conftemp.setNombre("MacWifi");
+        conftemp.setValor(configuracion.getString("MacWifi"));
+        dataManager.AddParametros(conftemp);
+        conftemp.setId(7);
+        conftemp.setNombre("MacBluetooth");
+        conftemp.setValor(configuracion.getString("MacBluetooth"));
+        dataManager.AddParametros(conftemp);
+        conftemp.setId(8);
+        conftemp.setNombre("IdOperador");
+        conftemp.setValor(configuracion.getString("idOperador"));
+        dataManager.AddParametros(conftemp);
+        conftemp.setId(9);
+        conftemp.setNombre("IdEstacion");
+        conftemp.setValor(confEstacion.getString("idEstacion"));
+        dataManager.AddParametros(conftemp);
+        conftemp.setId(10);
+        conftemp.setNombre("versionTrama");
+        conftemp.setValor(configuracion.getString("versionTrama"));
+        dataManager.AddParametros(conftemp);
 
-                conftemp.setId(17);
-                conftemp.setNombre("PuertoReceptorMLAN");
-                conftemp.setValor(mlan.getString("PuertoReceptorMLAN"));
-                dataManager.AddParametros(conftemp);
+        conftemp.setId(16);
+        conftemp.setNombre("DireccionMLAN");
+        conftemp.setValor(mlan.getString("DireccionMLAN"));
+        dataManager.AddParametros(conftemp);
 
-                conftemp.setId(18);
-                conftemp.setNombre("PuertoTransmisorMLAN");
-                conftemp.setValor(mlan.getString("PuertoTransmisorMLAN"));
-                dataManager.AddParametros(conftemp);
+        conftemp.setId(17);
+        conftemp.setNombre("PuertoReceptorMLAN");
+        conftemp.setValor(mlan.getString("PuertoReceptorMLAN"));
+        dataManager.AddParametros(conftemp);
+
+        conftemp.setId(18);
+        conftemp.setNombre("PuertoTransmisorMLAN");
+        conftemp.setValor(mlan.getString("PuertoTransmisorMLAN"));
+        dataManager.AddParametros(conftemp);
     }
 
     private void InterrogarRed() {
@@ -2204,15 +2279,14 @@ public class Application {
                 subscriberMQTTServiceLocal.Subscribe();
 
                 while (true) {
-                    if(!subscriberMQTTServiceLocal.isConnected()){
+                    if (!subscriberMQTTServiceLocal.isConnected()) {
                         subscriberMQTTServiceLocal.reconect();
                         try {
                             Thread.sleep(250);
                         } catch (InterruptedException ex) {
                             Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                    }
-                    else if (subscriberMQTTServiceLocal.isMessageArrived()) {
+                    } else if (subscriberMQTTServiceLocal.isMessageArrived()) {
 
                         try {
 
@@ -2458,11 +2532,11 @@ public class Application {
                                                     if (!tempPuerta.getBoolean("conectada")) {
 
                                                         if (temp != null) {
-                                                            
+
                                                             temp.setEstado("SIN CONEXION");
 //                                                            
                                                             dataManager.UpdatePuerta(temp);
-                                                                
+
                                                         }
 
                                                     } else {
@@ -2476,13 +2550,13 @@ public class Application {
                                                 }
 
                                             }
-                                            
+
                                         }
                                         canale.setConexionPuertas(null);
                                     }
-                                    
+
                                 }
-                                
+
                             } catch (JSONException e) {
 
                             }
@@ -2578,14 +2652,12 @@ public class Application {
                 while (true) {
                     try {
                         for (Puerta puertaTemp : dataManager.GetPuertas()) {
-                            if(!puertaTemp.conexion()){
+                            if (!puertaTemp.conexion()) {
                                 puertaTemp.setEstado("SIN CONEXION");
                                 dataManager.UpdatePuerta(puertaTemp);
                             }
                         }
-                        
 
-                        
                         //30 segundos
                         Thread.sleep(30 * 1000);
                     } catch (Exception e) {
@@ -2632,15 +2704,15 @@ public class Application {
 
                         for (Vagon vagone : vagones) {
                             for (ModuloConcentradorVagon mvc : vagone.getMVCS()) {
-                                for(Canal canal : mvc.getCanales() ){
+                                for (Canal canal : mvc.getCanales()) {
                                     JSONObject mvcJson = new JSONObject();
-                                    mvcJson.put("nombre", "MCV-"+ vagone.getNombreCDEG() + "-" + canal.getCanal() + "/"+ mvc.getIdDispositivo());
-                                    
+                                    mvcJson.put("nombre", "MCV-" + vagone.getNombreCDEG() + "-" + canal.getCanal() + "/" + mvc.getIdDispositivo());
+
                                     mvcJson.put("CONECTADO", canal.conectado());
                                     mvcJson.put("fechaConexion", formatter.format(new Date(canal.getUltimaConexcion())));
                                     conexiones.put(mvcJson);
                                 }
-                                
+
                             }
                         }
 
@@ -2677,7 +2749,6 @@ public class Application {
         }
         //System.out.println(new Gson().toJson(vagones));
     }
-
 
     public void envio(OP_RegistroTemporal registroTemporal) {
 //        new Thread() {
@@ -2893,7 +2964,6 @@ public class Application {
                         System.out.println("ERROR EN TRAMA DEL MVC: " + e.getMessage());
                     }
                 }
-                    
 
             }
         }.start();

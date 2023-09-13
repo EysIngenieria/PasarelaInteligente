@@ -162,7 +162,11 @@ public class DataManager implements IDataManager {
 //Evento
     @Override
     public List<CFG_Evento> GetEventos() {
-        return db.GetEventos();
+        List<CFG_Evento> eventos = db.GetEventos();
+        if (eventos.isEmpty()) {
+            return null;
+        }
+        return eventos;
     }
     
 //Alarma    
@@ -280,6 +284,14 @@ public class DataManager implements IDataManager {
 
     public void addCamposValidos(List<CFG_CamposValidos> camposValidosList) {
         db.addCamposValidos(camposValidosList);
+    }
+
+    public void addEventos(List<CFG_Evento> eventosList) {
+        db.addEventos(eventosList);
+    }
+
+    public void addAlarma(CFG_Alarma alap) {
+        db.addAlarma(alap);
     }
 
     

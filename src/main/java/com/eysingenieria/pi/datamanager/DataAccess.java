@@ -145,7 +145,11 @@ public class DataAccess implements IDataAccess {
 //CamposValidos
     @Override
     public List<CFG_CamposValidos> GetCamposValidos() {
-        return camposValidosJpaController.findCFG_CamposValidosEntities();
+        List<CFG_CamposValidos> camposValidos = camposValidosJpaController.findCFG_CamposValidosEntities();
+        if (camposValidos.isEmpty()) {
+            return null;
+        }
+        return camposValidos;
     }
 
 //CamposCabecera
@@ -191,7 +195,11 @@ public class DataAccess implements IDataAccess {
 //CamposAlarma
     @Override
     public List<CFG_CamposAlarma> GetCamposAlarma() {
-        return camposAlarmaJpaController.findCFG_CamposAlarmaEntities();
+        List<CFG_CamposAlarma> camposAlarma = camposAlarmaJpaController.findCFG_CamposAlarmaEntities();
+    if (camposAlarma.isEmpty()) {
+        return null;
+    }
+    return camposAlarma;
     }
 
     @Override
@@ -414,6 +422,19 @@ public class DataAccess implements IDataAccess {
             }
         } catch (Exception e) {
         }
+    }
+
+    void addEventos(List<CFG_Evento> eventosList) {
+        try {
+            for (CFG_Evento evento : eventosList) {
+                eventoJpaController.create(evento);
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    void addAlarma(CFG_Alarma alap) {
+        alarmaJpaController.create(alap);
     }
 
 }
