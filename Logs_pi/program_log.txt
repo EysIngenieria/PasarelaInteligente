@@ -460,3 +460,897 @@ sep 13, 2023 5:32:53 PM com.eysingenieria.pi.Application iniciarPrograma
 INFORMACIÓN: El programa ha sido iniciado.
 sep 13, 2023 5:35:07 PM com.eysingenieria.pi.Application iniciarPrograma
 INFORMACIÓN: El programa ha sido iniciado.
+sep 15, 2023 2:17:11 PM com.eysingenieria.pi.Application iniciarPrograma
+INFORMACIÓN: El programa ha sido iniciado.
+sep 15, 2023 2:19:02 PM com.eysingenieria.pi.Application iniciarPrograma
+INFORMACIÓN: El programa ha sido iniciado.
+sep 15, 2023 2:20:14 PM com.eysingenieria.pi.Application iniciarPrograma
+INFORMACIÓN: El programa ha sido iniciado.
+sep 15, 2023 2:21:20 PM com.eysingenieria.pi.Application iniciarPrograma
+INFORMACIÓN: El programa ha sido iniciado.
+sep 15, 2023 2:22:19 PM com.eysingenieria.pi.Application iniciarPrograma
+INFORMACIÓN: El programa ha sido iniciado.
+sep 15, 2023 2:22:22 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:23 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:25 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:26 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:26 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:27 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:28 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:29 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:29 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:29 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:30 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:31 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:31 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:32 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:32 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:32 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:33 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:33 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:34 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:34 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:35 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:35 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:36 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:37 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:37 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:37 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:38 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:38 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:39 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:40 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:41 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:42 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:44 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:46 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:47 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:47 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:48 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:49 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:49 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:49 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:52 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:55 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:56 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:22:57 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:01 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:02 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:03 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:04 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:07 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:08 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:09 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:19 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:21 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:24 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:25 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:26 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:28 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:32 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:32 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:34 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:34 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:37 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:38 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:39 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:41 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:43 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:44 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:44 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:45 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:46 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:46 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:47 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:48 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:52 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:23:59 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:01 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:03 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:05 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:08 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:09 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:09 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:10 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:11 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:12 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:15 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:16 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:17 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:18 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:19 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:24 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:26 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:28 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:35 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:37 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:42 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:46 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:48 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:49 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:24:59 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:25:01 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:25:01 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:25:04 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:25:18 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:25:18 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:25:19 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:25:21 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:25:21 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:25:23 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:25:24 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:25:26 PM com.eysingenieria.pi.service.SuscriptorLocalMQTT reconect
+GRAVE: null
+El cliente se está desconectando (32102)
+	at org.eclipse.paho.client.mqttv3.MqttAsyncClient.connect(MqttAsyncClient.java:605)
+	at org.eclipse.paho.client.mqttv3.MqttClient.connect(MqttClient.java:331)
+	at com.eysingenieria.pi.service.SuscriptorLocalMQTT.reconect(SuscriptorLocalMQTT.java:112)
+	at com.eysingenieria.pi.Application$12.run(Application.java:2900)
+
+sep 15, 2023 2:28:42 PM com.eysingenieria.pi.Application iniciarPrograma
+INFORMACIÓN: El programa ha sido iniciado.
+sep 18, 2023 9:46:20 AM com.eysingenieria.pi.Application iniciarPrograma
+INFORMACIÓN: El programa ha sido iniciado.

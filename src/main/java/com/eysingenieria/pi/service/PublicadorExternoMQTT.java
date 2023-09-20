@@ -183,7 +183,7 @@ public class PublicadorExternoMQTT implements MqttCallback {
 
     @Override
     public void deliveryComplete(IMqttDeliveryToken arg0) {
-        System.out.println("Entregado");
+        //System.out.println("Entregado");
     }
 
     @Override

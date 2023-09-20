@@ -4,6 +4,7 @@
  */
 package com.eysingenieria.pi.datamanager;
 
+import com.eysingenieria.pi.entities.ACKVagon;
 import com.eysingenieria.pi.entities.CFG_Alarma;
 import com.eysingenieria.pi.entities.CFG_CamposAlarma;
 import com.eysingenieria.pi.entities.CFG_CamposCabecera;
@@ -19,6 +20,7 @@ import com.eysingenieria.pi.entities.OP_RegistroTemporal;
 import com.eysingenieria.pi.entities.Puerta;
 import com.eysingenieria.pi.entities.Comando;
 import com.eysingenieria.pi.entities.ComandoCDEG;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -117,4 +119,11 @@ public interface IDataAccess {
     public void saveComando(ComandoCDEG comando);
     public List<ComandoCDEG> getComandosCDEG();
     public void deleteComandoCDEG(Long id);
+    
+    //VAGON ACK
+    public void saveVagon(ACKVagon vagon);
+    public void deleteAllVagonACK();
+    public ArrayList<ACKVagon> GetAllVagonACK();
+    public void UpdateVagonACK(String vagon, int canal, int registro, String idDispositivo);
+    
 }

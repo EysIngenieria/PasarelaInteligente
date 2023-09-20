@@ -14,7 +14,7 @@ import org.json.JSONArray;
  *
  * @author pi
  */
-public class Vagon {
+ public class Vagon {
     private String nombre;
     
     private String nombreCDEG;

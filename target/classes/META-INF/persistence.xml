@@ -17,6 +17,7 @@
     <class>com.eysingenieria.pi.entities.Puerta</class>
     <class>com.eysingenieria.pi.entities.OP_RegistroTemporalManatee</class>
     <class>com.eysingenieria.pi.entities.ComandoCDEG</class>
+    <class>com.eysingenieria.pi.entities.ACKVagon</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/PIDB?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="PIUSER"/>

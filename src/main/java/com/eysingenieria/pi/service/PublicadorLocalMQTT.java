@@ -38,7 +38,7 @@ public class PublicadorLocalMQTT {
             
            
             MqttMessage mqttMessage = new MqttMessage(data);
-            mqttMessage.setQos(0);
+            mqttMessage.setQos(2);
             mqttClient.publish(topic, mqttMessage);
             
         } catch (MqttException me) {

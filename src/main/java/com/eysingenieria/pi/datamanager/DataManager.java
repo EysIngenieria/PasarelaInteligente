@@ -4,6 +4,7 @@
  */
 package com.eysingenieria.pi.datamanager;
 
+import com.eysingenieria.pi.entities.ACKVagon;
 import com.eysingenieria.pi.entities.CFG_Alarma;
 import com.eysingenieria.pi.entities.CFG_CamposAlarma;
 import com.eysingenieria.pi.entities.CFG_CamposCabecera;
@@ -18,7 +19,10 @@ import com.eysingenieria.pi.entities.OP_Registro;
 import com.eysingenieria.pi.entities.OP_RegistroCrudo;
 import com.eysingenieria.pi.entities.OP_RegistroTemporal;
 import com.eysingenieria.pi.entities.Puerta;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -85,8 +89,12 @@ public class DataManager implements IDataManager {
     }
     
     @Override
-    public void DeleteRegistroCrudo(int id) throws Exception {
-        db.DeleteRegistroCrudo(id);
+    public void DeleteRegistroCrudo(int id) {
+        try {
+            db.DeleteRegistroCrudo(id);
+        } catch (Exception ex) {
+            Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Override
@@ -292,6 +300,26 @@ public class DataManager implements IDataManager {
 
     public void addAlarma(CFG_Alarma alap) {
         db.addAlarma(alap);
+    }
+
+    @Override
+    public void saveVagon(ACKVagon vagon) {
+        db.saveVagon(vagon);
+    }
+
+    @Override
+    public void deleteAllVagonACK() {
+        db.deleteAllVagonACK();
+    }
+
+    @Override
+    public ArrayList<ACKVagon> GetAllVagonACK() {
+        return db.GetAllVagonACK();
+    }
+
+    @Override
+    public void UpdateVagonACK(String vagon, int canal, int registro, String idDispositivo) {
+        db.UpdateVagonACK(vagon, canal, registro, idDispositivo);
     }
 
     

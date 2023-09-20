@@ -23,6 +23,7 @@ com\eysingenieria\pi\Application$4.class
 com\eysingenieria\pi\entities\ComandoInterfazVisual.class
 com\eysingenieria\pi\entities\NivelAlarma.class
 com\eysingenieria\pi\entities\Comando.class
+com\eysingenieria\pi\controller\ACKVagonJpaController.class
 com\eysingenieria\pi\controller\OP_RegistroTemporalJpaController.class
 com\eysingenieria\pi\Application$7.class
 com\eysingenieria\pi\controller\exceptions\PreexistingEntityException.class
@@ -48,6 +49,7 @@ com\eysingenieria\pi\entities\Puerta_.class
 com\eysingenieria\pi\service\Constantes.class
 com\eysingenieria\pi\entities\Alarma.class
 com\eysingenieria\pi\entities\CFG_Configuracion_.class
+com\eysingenieria\pi\entities\ACKVagon.class
 com\eysingenieria\pi\entities\CFG_Alarma_.class
 com\eysingenieria\pi\Application$5.class
 com\eysingenieria\pi\entities\Canal.class
@@ -86,6 +88,7 @@ com\eysingenieria\pi\controller\CFG_AlarmaJpaController.class
 com\eysingenieria\pi\entities\OP_Parametro_.class
 com\eysingenieria\pi\controller\CFG_NivelAlarmaJpaController.class
 com\eysingenieria\pi\service\PublicadorMANATEEMQTT1.class
+com\eysingenieria\pi\entities\ACKVagon_.class
 com\eysingenieria\pi\Application$8.class
 com\eysingenieria\pi\entities\HubData.class
 com\eysingenieria\pi\exceptions\IllegalOrphanException.class

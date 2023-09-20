@@ -4,6 +4,7 @@
  */
 package com.eysingenieria.pi.datamanager;
 
+import com.eysingenieria.pi.controller.ACKVagonJpaController;
 import com.eysingenieria.pi.controller.CFG_AlarmaJpaController;
 import com.eysingenieria.pi.controller.CFG_CamposAlarmaJpaController;
 import com.eysingenieria.pi.controller.CFG_CamposCabeceraJpaController;
@@ -19,6 +20,7 @@ import com.eysingenieria.pi.controller.OP_RegistroJpaController;
 import com.eysingenieria.pi.controller.OP_RegistroTemporalJpaController;
 import com.eysingenieria.pi.controller.PuertaJpaController;
 import com.eysingenieria.pi.controller.exceptions.NonexistentEntityException;
+import com.eysingenieria.pi.entities.ACKVagon;
 import com.eysingenieria.pi.entities.CFG_Alarma;
 import com.eysingenieria.pi.entities.CFG_CamposAlarma;
 import com.eysingenieria.pi.entities.CFG_CamposCabecera;
@@ -33,6 +35,7 @@ import com.eysingenieria.pi.entities.OP_Registro;
 import com.eysingenieria.pi.entities.OP_RegistroCrudo;
 import com.eysingenieria.pi.entities.OP_RegistroTemporal;
 import com.eysingenieria.pi.entities.Puerta;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -57,10 +60,12 @@ public class DataAccess implements IDataAccess {
     private final CFG_AlarmaJpaController alarmaJpaController;
     private final CFG_NivelAlarmaJpaController nivelAlarmaJpaController;
     private final ComandoCDEGJpaController comandoController;
+    private final ACKVagonJpaController vagonJpaController;
 
     private final PuertaJpaController puertaController;
 
     public DataAccess() {
+        vagonJpaController = new ACKVagonJpaController();
         comandoController = new ComandoCDEGJpaController();
         parametroJpaController = new OP_ParametroJpaController();
         registroJpaController = new OP_RegistroJpaController();
@@ -435,6 +440,36 @@ public class DataAccess implements IDataAccess {
 
     void addAlarma(CFG_Alarma alap) {
         alarmaJpaController.create(alap);
+    }
+
+    @Override
+    public void saveVagon(ACKVagon vagon) {
+        vagonJpaController.create(vagon);
+    }
+
+    @Override
+    public void deleteAllVagonACK() {
+       vagonJpaController.deleteAllVagonACK();
+    }
+
+    @Override
+    public ArrayList<ACKVagon> GetAllVagonACK() {
+        ArrayList<ACKVagon> vagonList = new ArrayList<>();
+
+        // Obtiene una lista de todos los registros de ACKVagon
+        List<ACKVagon> ackVagonEntities = vagonJpaController.findACKVagonEntities();
+
+        // Convierte la lista de entidades en un ArrayList
+        if (ackVagonEntities != null) {
+            vagonList.addAll(ackVagonEntities);
+        }
+
+        return vagonList;
+    }
+
+    @Override
+    public void UpdateVagonACK(String vagon, int canal, int registro, String idDispositivo) {
+        vagonJpaController.updateACKVagonByCanalAndIdDispositivo(vagon, idDispositivo, canal, registro);
     }
 
 }

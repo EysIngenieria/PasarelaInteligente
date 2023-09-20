@@ -6,6 +6,7 @@ package com.eysingenieria.pi;
 
 import com.eysingenieria.pi.casting.Cast;
 import com.eysingenieria.pi.datamanager.DataManager;
+import com.eysingenieria.pi.entities.ACKVagon;
 import com.eysingenieria.pi.entities.Alarma;
 import com.eysingenieria.pi.entities.CFG_Alarma;
 import com.eysingenieria.pi.entities.CFG_CamposCabecera;
@@ -554,7 +555,7 @@ public class Application {
         //System.out.println("ENTRADA6");
 
         List<OP_RegistroCrudo> listRegistrosCrudos = new ArrayList<>();
-        listRegistrosCrudos.addAll(registrosCrudos);
+        listRegistrosCrudos.addAll(dataManager.GetRegistroCrudo());
         for (OP_RegistroCrudo registroCrudo : listRegistrosCrudos) {
             try {
                 DatoCDEG datoAux = new DatoCDEG();
@@ -1166,7 +1167,7 @@ public class Application {
                                 }
                             }
 
-                            registrosCrudos.remove(registroCrudo);
+                            dataManager.DeleteRegistroCrudo(registroCrudo.getId());
                             break;
                         case "CDEG":
 
@@ -1289,31 +1290,35 @@ public class Application {
                                         }
 
                                     }
-                                    registrosCrudos.remove(registroCrudo);
+                                    //dataManager.DeleteRegistroCrudo(registroCrudo.getId());
                                     break;
                                 case 5:
                                     Comando comando = cast.JSONtoComando(registroCrudo.getTrama());
                                     ProcesarComandoCDEG(comando);
                                     break;
                             }
-                            registrosCrudos.remove(registroCrudo);
+                            dataManager.DeleteRegistroCrudo(registroCrudo.getId());
                             break;
                         case "MLAN":
                             if (!registroCrudo.getTrama().isEmpty() && registroCrudo.getTrama().contains("<") && registroCrudo.getTrama().contains(">")) {
                                 ProcesarMLAN(registroCrudo.getTrama());
                             }
-                            registrosCrudos.remove(registroCrudo);
+                            dataManager.DeleteRegistroCrudo(registroCrudo.getId());
                             break;
                         default:
-                            registrosCrudos.remove(registroCrudo);
+                            dataManager.DeleteRegistroCrudo(registroCrudo.getId());
                             break;
                     }
                 }
                 Thread.sleep(40);
             } catch (Exception ex) {
-                registrosCrudos.remove(registroCrudo);
-                System.out.println("Error en registro Crudo");
-                Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+                try {
+                    dataManager.DeleteRegistroCrudo(registroCrudo.getId());
+                    System.out.println("Error en registro Crudo " + ex.getLocalizedMessage());
+                    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex1) {
+                    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex1);
+                }
             }
         }
 
@@ -2034,10 +2039,12 @@ public class Application {
                     dataManager.DeleteRegistrosCrudos();
                     dataManager.deleteRegistrosTemporales();
                     dataManager.DeletePuertas();
+                    dataManager.deleteAllVagonACK();
                     break;
                 case 3:
                     dataManager.deletParametros(false);
                     dataManager.DeletePuertas();
+                    dataManager.deleteAllVagonACK();
                     addParametrosSinFecha(configuracion, confEstacion, mlan, mqttcdeg);
                     break;
                 default:
@@ -2188,10 +2195,10 @@ public class Application {
                     }
 
                 }
-
+                
                 //System.out.println("Vagones " + "\n" + new Gson().toJson(vagones));
             }
-
+            cargarDatosACK();
             try {
                 publicadorManatee = new PublicadorMANATEEMQTT1(brokerManatee, claveManatee,
                         usuarioManatee);
@@ -2200,6 +2207,25 @@ public class Application {
             }
         } catch (Exception e) {
             System.out.println("Error al cargar el json");
+        }
+
+    }
+    
+    public void cargarDatosACK() {
+        for (ACKVagon aCKVagon : dataManager.GetAllVagonACK()) {
+            for (Vagon vagone : vagones) {
+                if (vagone.getNombre().equalsIgnoreCase(aCKVagon.getVagon())) {
+                    if (aCKVagon.getCanal() != 0) {
+                        vagone.processMessage(aCKVagon.getIdDispositivo(), aCKVagon.getRegistro(), aCKVagon.getCanal());
+                        break;
+                    } else {
+                        vagone.processMessageEmergency(aCKVagon.getIdDispositivo(), aCKVagon.getRegistro());
+                        break;
+                    }
+                    //System.out.println(re);
+                }
+            }
+
         }
 
     }
@@ -2312,7 +2338,7 @@ public class Application {
                                     comandoRecibido.setFechaHoraOcurrencia(registroCrudo.getFechaOcurrencia());
                                     dataManager.saveComando(comandoRecibido);
                                     publicadorManatee.Publisher(envioManatee.toString().getBytes(), topicManatee);
-                                    registrosCrudos.add(registroCrudo);
+                                    dataManager.AddRegistroCrudo(registroCrudo);
                                     break;
                                 case "InterfazVisual":
                                     ComandoInterfazVisual comandoInterfazVisual = new ComandoInterfazVisual();
@@ -2372,7 +2398,7 @@ public class Application {
                                         registroCrudo.setFechaOcurrencia(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
 
                                         if (!datoCDEGString.equalsIgnoreCase(" ")) {
-                                            registrosCrudos.add(registroCrudo);
+                                            dataManager.AddRegistroCrudo(registroCrudo);
                                         }
                                         ComandoCDEG comandoRecibido = new ComandoCDEG();
                                         comandoRecibido.setTrama(datoCDEGString);
@@ -2441,7 +2467,7 @@ public class Application {
                                 Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                             }
                             //System.out.println(new Gson().toJson(registroCrudo));
-                            registrosCrudos.add(registroCrudo);
+                            dataManager.AddRegistroCrudo(registroCrudo);
 
                         }
                         Thread.sleep(100);
@@ -2887,9 +2913,9 @@ public class Application {
                             if (subscriberMQTTServiceLocal.isMessageArrived()) {
                                 subscriberMQTTServiceLocal.setMessageArrived(false);
                                 OP_RegistroCrudo registroCrudo = new OP_RegistroCrudo();
-                                registroCrudoString = subscriberMQTTServiceLocal.getData();
-                                re = new JSONObject(registroCrudoString);
-                                registroCrudo = cast.JSONtoRegistroEventoCrudo(registroCrudoString);
+                                String registroCrudoStringTEMP = subscriberMQTTServiceLocal.getData();
+                                re = new JSONObject(registroCrudoStringTEMP);
+                                registroCrudo = cast.JSONtoRegistroEventoCrudo(registroCrudoStringTEMP);
                                 Vagon vagonT = EncontrarVagon(registroCrudo.getIdVagon());
 
                                 if (!re.isNull("fechaHoraOcurrencia")) {
@@ -2928,10 +2954,12 @@ public class Application {
 
                                     if (registroCrudo.getFuncion().equalsIgnoreCase("BOTON_EMERGENCIA")) {
                                         if (vagonT.processMessageEmergency(idDispositivo, re.getInt("idRegistro"))) {
-                                            registrosCrudos.add(registroCrudo);
+                                            dataManager.UpdateVagonACK(vagonT.getNombre(), Integer.parseInt(registroCrudo.getCanal()), re.getInt("idRegistro"), idDispositivo);
+                                            dataManager.AddRegistroCrudo(registroCrudo);
                                         }
                                     } else if (vagonT.processMessage(idDispositivo, re.getInt("idRegistro"), Integer.parseInt(registroCrudo.getCanal()))) {
-                                        registrosCrudos.add(registroCrudo);
+                                        dataManager.UpdateVagonACK(vagonT.getNombre(), Integer.parseInt(registroCrudo.getCanal()), re.getInt("idRegistro"), idDispositivo);
+                                        dataManager.AddRegistroCrudo(registroCrudo);
                                     }
 
                                     subscriberMQTTServiceLocal.Publisher(ack.toString().getBytes(), registroCrudo.getIdVagon());
@@ -2952,7 +2980,7 @@ public class Application {
                                         vagonT.actualizaConexionVagon();
                                     }
 
-                                    registrosCrudos.add(registroCrudo);
+                                    dataManager.AddRegistroCrudo(registroCrudo);
                                 }
 //                            System.out.println("Julian:  " + new Gson().toJson(subscriberMQTTServiceLocal.getData()));
 
