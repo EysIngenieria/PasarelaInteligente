@@ -93,10 +93,7 @@ public class Application {
     List<DatoCDEG> vagonA;
     List<OP_RegistroCrudo> registrosCrudos;
     List<Vagon> vagones;
-    private DatoCDEG puerta1;
-    private DatoCDEG puerta2;
-    private DatoCDEG vagon;
-    private DatoCDEG estacion;
+
     private AuxService auxService;
     final static int ACK_ON = 1;
 
@@ -171,10 +168,7 @@ public class Application {
         vagones = new ArrayList<>();
         vagonA = new ArrayList<>();
         puertas = new ArrayList<>();
-        puerta1 = new DatoCDEG();
-        puerta2 = new DatoCDEG();
-        vagon = new DatoCDEG();
-        estacion = new DatoCDEG();
+
         cast = new Cast();
         auxService = new AuxService();
     }
@@ -522,7 +516,7 @@ public class Application {
             }
         }
     }
-    
+
     public void cargarEventos() {
         GetEventos();
         if (eventos == null) {
@@ -538,7 +532,6 @@ public class Application {
                     evento.setId(jsonObject.getInt("Id"));
                     evento.setNombre(jsonObject.getString("Nombre"));
                     evento.setDescripcion(jsonObject.optString("Descripcion"));
-                    
 
                     eventosList.add(evento);
                 }
@@ -1452,6 +1445,12 @@ public class Application {
 
     private void ProcesarMLAN(String dato) {
         //System.out.println("DATO MLAN " + dato);
+        DatoCDEG vagon = new DatoCDEG();
+        vagon.setVersionTrama(versionTrama);
+        vagon.setIdOperador(idOperador);
+        vagon.setIdEstacion(idEstacion);
+        vagon.setTipoTrama(2);
+        vagon.setIdVagon("1");
         String[] datos = ((dato.split(">")[1]).split("<")[0]).split(",");
         if (datos.length == 10) {
             try {
@@ -1474,7 +1473,6 @@ public class Application {
                 vagon.setTipologiaVehiculo(datos[9]);
                 vagon.setIdPuerta("BUS-ESTACION");
                 vagon.setCodigoPuerta("BUS-ESTACION");
-                vagonA.set(2, vagon);
                 ArmarEventos(vagon);
             } catch (ParseException ex) {
                 Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
@@ -1651,56 +1649,89 @@ public class Application {
 
     private void InicioOperacion() {
         try {
+            // Get the current time as hours and minutes
+            int currentHour = Integer.parseInt(new SimpleDateFormat("HH").format(new Date()));
+            int currentMinute = Integer.parseInt(new SimpleDateFormat("mm").format(new Date()));
 
-            if (new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).after(new SimpleDateFormat("HHmm").parse(horaInicioOperacion))) {
-                for (Puerta temp : dataManager.GetPuertas()) {
-                    DatoCDEG puerta = new DatoCDEG();
-                    puerta.setVersionTrama(versionTrama);
-                    puerta.setIdOperador(idOperador);
-                    puerta.setTipoTrama(2);
-                    puerta.setCanal(temp.getCanal());
-                    puerta.setIdVagon(temp.getVagon());
-                    puerta.setCodigoPuerta(temp.getDescripcion());
-                    puerta.setIdPuerta(temp.getDescripcion());
-                    cast.datosPuerta(temp, puerta);
-                    Boolean ce = temp.isEstadoAperturaCierre();
-                    if (ce != null && ce) {
-                        String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-                        if (!fechaInicioOperacion.equalsIgnoreCase(fecha)) {
-                            OP_Parametro parametro = new OP_Parametro();
-                            parametro.setId(14);
-                            parametro.setNombre("FechaInicioOperacion");
-                            parametro.setValor(fecha);
-                            fechaInicioOperacion = fecha;
-                            dataManager.UpdateParametros(parametro);
-                            puerta.setIdVagon("INICIO-OP");
-                            puerta.setIdPuerta("INICIO-OP");
-                            puerta.setCodigoPuerta("INICIO-OP");
-                            puerta.setCodigoEvento("EVP8");
-                            puerta.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-                            ArmarEventos(puerta);
+            // Check if the current time is between 4:00 AM and 5:00 AM
+            if (currentHour == 4 && currentMinute >= 0 && currentMinute < 60) {
+                if (new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).after(new SimpleDateFormat("HHmm").parse(horaInicioOperacion))) {
+                    for (Puerta temp : dataManager.GetPuertas()) {
+                        DatoCDEG puerta = new DatoCDEG();
+                        puerta.setVersionTrama(versionTrama);
+                        puerta.setIdOperador(idOperador);
+                        puerta.setTipoTrama(2);
+                        puerta.setCanal(temp.getCanal());
+                        puerta.setIdVagon(temp.getVagon());
+                        puerta.setCodigoPuerta(temp.getDescripcion());
+                        puerta.setIdPuerta(temp.getDescripcion());
+                        cast.datosPuerta(temp, puerta);
+                        Boolean ce = temp.isEstadoAperturaCierre();
+                        if (ce != null && ce) {
+                            String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+                            if (!fechaInicioOperacion.equalsIgnoreCase(fecha)) {
+                                OP_Parametro parametro = new OP_Parametro();
+                                parametro.setId(14);
+                                parametro.setNombre("FechaInicioOperacion");
+                                parametro.setValor(fecha);
+                                fechaInicioOperacion = fecha;
+                                dataManager.UpdateParametros(parametro);
+                                puerta.setIdVagon("INICIO-OP");
+                                puerta.setIdPuerta("INICIO-OP");
+                                puerta.setCodigoPuerta("INICIO-OP");
+                                puerta.setCodigoEvento("EVP8");
+                                puerta.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+                                ArmarEventos(puerta);
+                                break;
+                            }
                         }
                     }
                 }
+            } else {
+                // Handle the case when the current time is not within the specified range
+                // You can log a message or take any appropriate action here.
             }
         } catch (Exception e) {
             System.out.println("Error en INICIO OPERACION");
         }
     }
 
+
     private void FinOperacion() {
         try {
-            
+            // Get the current time as hours and minutes
+            int currentHour = Integer.parseInt(new SimpleDateFormat("HH").format(new Date()));
+            int currentMinute = Integer.parseInt(new SimpleDateFormat("mm").format(new Date()));
 
-            if (new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).after(new SimpleDateFormat("HHmm").parse(horaFinOperacion)) && new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).before(new SimpleDateFormat("HHmm").parse(horaLimite))) {
-                tiempoFinOperacion += 1;
-                for (Puerta puerta : dataManager.GetPuertas()) {
-                    if (puerta.isEstadoAperturaCierre() != null && puerta.isEstadoAperturaCierre()) {
-                        tiempoFinOperacion = 0;
+            // Check if the current time is between 12:00 AM (midnight) and 1:00 AM
+            if (currentHour == 0 && currentMinute >= 0 && currentMinute < 60) {
+                DatoCDEG estacion = new DatoCDEG();
+                if (new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).after(new SimpleDateFormat("HHmm").parse(horaFinOperacion)) && new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).before(new SimpleDateFormat("HHmm").parse(horaLimite))) {
+                    tiempoFinOperacion += 1;
+                    for (Puerta puerta : dataManager.GetPuertas()) {
+                        if (puerta.isEstadoAperturaCierre() != null && puerta.isEstadoAperturaCierre()) {
+                            tiempoFinOperacion = 0;
+                        }
                     }
-                }
-                if (tiempoFinOperacion > Integer.parseInt(tiempoFinOperacionDB)) {
-                    tiempoFinOperacion = 0;
+                    if (tiempoFinOperacion > Integer.parseInt(tiempoFinOperacionDB)) {
+                        tiempoFinOperacion = 0;
+                        String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+                        if (!fechaFinOperacion.equalsIgnoreCase(fecha)) {
+                            fechaFinOperacion = fecha;
+                            OP_Parametro parametro = new OP_Parametro();
+                            parametro.setId(15);
+                            parametro.setNombre("FechaFinOperacion");
+                            parametro.setValor(fecha);
+                            dataManager.UpdateParametros(parametro);
+                            estacion.setIdVagon("FIN-OP");
+                            estacion.setIdPuerta("FIN-OP");
+                            estacion.setCodigoPuerta("FIN-OP");
+                            estacion.setCodigoEvento("EVP9");
+                            estacion.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+                            ArmarEventos(estacion);
+                        }
+                    }
+                } else if (new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).after(new SimpleDateFormat("HHmm").parse(horaLimite))) {
                     String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
                     if (!fechaFinOperacion.equalsIgnoreCase(fecha)) {
                         fechaFinOperacion = fecha;
@@ -1717,22 +1748,9 @@ public class Application {
                         ArmarEventos(estacion);
                     }
                 }
-            } else if (new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).after(new SimpleDateFormat("HHmm").parse(horaLimite))) {
-                String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-                if (!fechaFinOperacion.equalsIgnoreCase(fecha)) {
-                    fechaFinOperacion = fecha;
-                    OP_Parametro parametro = new OP_Parametro();
-                    parametro.setId(15);
-                    parametro.setNombre("FechaFinOperacion");
-                    parametro.setValor(fecha);
-                    dataManager.UpdateParametros(parametro);
-                    estacion.setIdVagon("FIN-OP");
-                    estacion.setIdPuerta("FIN-OP");
-                    estacion.setCodigoPuerta("FIN-OP");
-                    estacion.setCodigoEvento("EVP9");
-                    estacion.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-                    ArmarEventos(estacion);
-                }
+            } else {
+                // Handle the case when the current time is not within the specified range
+                // You can log a message or take any appropriate action here.
             }
         } catch (Exception e) {
             System.out.println("Error en FIN OPERACION " + e);
@@ -1804,40 +1822,7 @@ public class Application {
     }
 
     private void InicializarVagones() {
-        puerta1.setVersionTrama(versionTrama);
-        puerta1.setIdOperador(idOperador);
-        puerta1.setIdEstacion(idEstacion);
-        puerta1.setTipoTrama(2);
-        puerta1.setIdPuerta("9115-WA-OR-1");
-        puerta1.setIdVagon("1");
-        puerta1.setCodigoPuerta("9115-WA-OR-1");
-        puerta1.setEstadoBotonManual(2);
-        puerta1.setCanal("1");
-        vagonA.add(puerta1);
 
-        puerta2.setVersionTrama(versionTrama);
-        puerta2.setIdOperador(idOperador);
-        puerta2.setIdEstacion(idEstacion);
-        puerta2.setTipoTrama(2);
-        puerta2.setIdPuerta("9115-WA-OR-2");
-        puerta2.setIdVagon("1");
-        puerta2.setCodigoPuerta("9115-WA-OR-2");
-        puerta2.setEstadoBotonManual(2);
-        puerta2.setCanal("1");
-        vagonA.add(puerta2);
-
-        vagon.setVersionTrama(versionTrama);
-        vagon.setIdOperador(idOperador);
-        vagon.setIdEstacion(idEstacion);
-        vagon.setTipoTrama(2);
-        vagon.setIdVagon("1");
-        vagonA.add(vagon);
-
-        estacion.setVersionTrama(versionTrama);
-        estacion.setIdOperador(idOperador);
-        estacion.setIdEstacion(idEstacion);
-        estacion.setTipoTrama(2);
-        vagonA.add(estacion);
     }
 
     public void actualizarCampos(String trama) {
@@ -1846,7 +1831,7 @@ public class Application {
         if (cfg_Configuracion == null) {
             cfg_Configuracion = new CFG_Configuracion();
             System.out.println("Updated Configuration");
-            
+
             Configuracion configuracion = cast.JSONtoConfiguracion(trama);
             cfg_Configuracion.setTrama(trama);
             dataManager.AddConfiguracion(cfg_Configuracion);
@@ -1906,7 +1891,7 @@ public class Application {
                 listAlarmas.add(alarma);
             }
             configuracion.setAlarma(listAlarmas);
-            
+
             for (Alarma a : configuracion.getAlarma()) {
                 for (CFG_CamposValidos campoValido : camposValidos) {
                     if (campoValido.getTipoCampoValido().equalsIgnoreCase("Alarma")) {
@@ -1919,7 +1904,7 @@ public class Application {
                                 dataManager.AddCamposAlarma(campoAlarma);
                                 GetCamposAlarmas();
                             } catch (Exception e) {
-                                System.out.println("Error en añadir Campos Alarma CDEG" +e.getLocalizedMessage());
+                                System.out.println("Error en añadir Campos Alarma CDEG" + e.getLocalizedMessage());
                             }
                         }
                     }
@@ -1931,7 +1916,7 @@ public class Application {
                             dataManager.AddCamposAlarma(campoAlarma);
                             GetCamposAlarmas();
                         } catch (Exception e) {
-                            System.out.println("Error en añadir Campos Alarma CDEG 2" +e.getLocalizedMessage());
+                            System.out.println("Error en añadir Campos Alarma CDEG 2" + e.getLocalizedMessage());
                         }
 
                     }
@@ -1947,13 +1932,12 @@ public class Application {
                     }
                 }
 
-                
                 //nivelAlarma.setCodigoNivelAlarma(a.getNivelAlarma());
             }
         }
     }
 
-    public CFG_Alarma getAlarma(Alarma a){
+    public CFG_Alarma getAlarma(Alarma a) {
         GetAlarmas();
         CFG_Alarma ret = null;
         for (CFG_Alarma alap : alarmas) {
@@ -1964,6 +1948,7 @@ public class Application {
         }
         return ret;
     }
+
     public void cargarConfiguracionCDEG() {
         String jsonlec = "";
         try {
@@ -2195,7 +2180,7 @@ public class Application {
                     }
 
                 }
-                
+
                 //System.out.println("Vagones " + "\n" + new Gson().toJson(vagones));
             }
             cargarDatosACK();
@@ -2210,7 +2195,7 @@ public class Application {
         }
 
     }
-    
+
     public void cargarDatosACK() {
         for (ACKVagon aCKVagon : dataManager.GetAllVagonACK()) {
             for (Vagon vagone : vagones) {
