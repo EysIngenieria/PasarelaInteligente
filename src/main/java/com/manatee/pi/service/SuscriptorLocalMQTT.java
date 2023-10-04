@@ -4,6 +4,8 @@
  */
 package com.manatee.pi.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -63,7 +65,6 @@ public class SuscriptorLocalMQTT implements MqttCallback {
             mqttClient = new MqttClient(broker, MqttClient.generateClientId(), memoryPersistence);
             mqttConnectOptions = new MqttConnectOptions();
             mqttConnectOptions.setCleanSession(true);
-            mqttConnectOptions.setAutomaticReconnect(true);
             mqttConnectOptions.setConnectionTimeout(2000);
             mqttConnectOptions.setKeepAliveInterval(60);
             mqttClient.connect(mqttConnectOptions);
@@ -90,7 +91,7 @@ public class SuscriptorLocalMQTT implements MqttCallback {
 
     @Override
     public void connectionLost(Throwable arg0) {
-        System.out.println("Conexion Perdida");
+        System.out.println("Conexion Perdida Local - " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(new Date()) + " " + clientId);
         connected = false;
         
     }
@@ -110,6 +111,7 @@ public class SuscriptorLocalMQTT implements MqttCallback {
     public boolean reconect(){
         try {
             mqttClient.connect(mqttConnectOptions);
+            System.out.println("Se conecto " + clientId);
             
         } catch (MqttException ex) {
             Logger.getLogger(SuscriptorLocalMQTT.class.getName()).log(Level.SEVERE, null, ex);

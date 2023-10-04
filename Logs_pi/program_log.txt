@@ -1358,3 +1358,7 @@ sep 29, 2023 9:47:28 AM com.manatee.pi.Application iniciarPrograma
 INFORMACIÓN: El programa ha sido iniciado.
 sep 29, 2023 9:48:39 AM com.manatee.pi.Application iniciarPrograma
 INFORMACIÓN: El programa ha sido iniciado.
+oct 02, 2023 11:30:33 AM com.manatee.pi.Application iniciarPrograma
+INFORMACIÓN: El programa ha sido iniciado.
+oct 02, 2023 5:19:01 PM com.manatee.pi.Application iniciarPrograma
+INFORMACIÓN: El programa ha sido iniciado.

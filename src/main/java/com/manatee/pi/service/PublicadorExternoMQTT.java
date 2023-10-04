@@ -157,7 +157,7 @@ public class PublicadorExternoMQTT implements MqttCallback {
             mqttClient.setCallback(this);
             mqttClient.subscribe(topico);
             conectado = true;
-            System.out.println("Conexion correcta" + " - " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(new Date()));
+            System.out.println("Conexion correcta CDEG" + " - " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(new Date()));
         } catch (MqttException ex) {
             ex.printStackTrace();
             conectado = false;
@@ -169,7 +169,7 @@ public class PublicadorExternoMQTT implements MqttCallback {
 
     @Override
     public void connectionLost(Throwable arg0) {
-        System.out.println("Conexion Perdida" + " - " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(new Date()));
+        System.out.println("Conexion Perdida CDEG" + " - " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(new Date()));
         conectado = false;
         try {
             Thread.sleep(1000);
@@ -188,7 +188,7 @@ public class PublicadorExternoMQTT implements MqttCallback {
 
     @Override
     public void messageArrived(String topico, MqttMessage message) {
-        System.out.println("Mensaje recibido");
+        //System.out.println("Mensaje recibido");
         dato = message.toString();
         topicoEntro = topico;
         entroDato = true;
