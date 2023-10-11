@@ -26,7 +26,7 @@ import org.json.JSONArray;
 
     private String puertas;
     
-    private Queue comandos;
+    private ArrayList<byte[]> comandos;
     
     
     private ArrayList<ModuloConcentradorVagon> mvcs;
@@ -99,13 +99,15 @@ import org.json.JSONArray;
         this.nombreCDEG = nombreCDEG;
     }
 
-    public Queue getComandos() {
+    public ArrayList<byte[]> getComandos() {
         return comandos;
     }
 
-    public void setComandos(Queue comandos) {
+    public void setComandos(ArrayList<byte[]> comandos) {
         this.comandos = comandos;
     }
+
+  
 
     
 

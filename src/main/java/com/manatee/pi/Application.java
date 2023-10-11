@@ -83,7 +83,7 @@ import org.json.JSONObject;
  */
 public class Application {
 
-    private static final String VERSION = "1.1.6 BETA";
+    private static final String VERSION = "1.1.6";
     int activado = 0;
     int ModoACK = 0;
     DataManager dataManager;
@@ -1152,7 +1152,7 @@ public class Application {
                                         break;
 
                                     case "GET_DATE":
-
+                                        GuardarComando(registroCrudo.getIdVagon(), auxService.wr_date().toString().getBytes());
                                         publisherMQTTServiceInterno.Publisher(auxService.wr_date().toString().getBytes(), registroCrudo.getIdVagon());
                                         break;
 
@@ -1372,30 +1372,40 @@ public class Application {
 
             case Constantes.Comandos.BOTON_MANUAL:
                 try {
-
-                //System.out.println(new Gson().toJson(puerta1));
+                // System.out.println(new Gson().toJson(puerta1));
                 {
                     try {
-                        //puerta.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-                        datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+                        datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS")
+                                .parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
                     } catch (ParseException ex) {
                         Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                }
-                datoAux.setFechaHoraInicioActivaciondesactivacion(comando.getFechaHoraInicioActivaciondesactivacion());
-                datoAux.setFechaHoraFinalActivaciondesactivacion(comando.getFechaHoraFinalActivaciondesactivacion());
-                datoAux.setActivadoDesactivado(comando.getActivadoDesactivado());
-                //DECIDIMOS RESPONDER CON LO QUE ELLA MANDA PERO NO ES EL ESTADO REAL
-                datoAux.setEstadoBotonManual(comando.getActivadoDesactivado());
-                datoAux.setCodigoEvento("EVP14");
-                ArmarEventos(datoAux);
-                temp.setFechaHoraFinalActivacionDesactivacion(comando.getFechaHoraFinalActivaciondesactivacion());
-                temp.setFechaHoraInicioActivacionDesactivacion(comando.getFechaHoraInicioActivaciondesactivacion());
-                temp.setActivadoDesactivado(comando.getActivadoDesactivado());
-                dataManager.UpdatePuerta(temp);
-                System.out.println(temp.getCanal() + " " + temp.getIdPuerta() + " " + temp.getActivadoDesactivado() + " fecha" + temp.getFechaHoraInicioActivacionDesactivacion() + " " + temp.getFechaHoraFinalActivacionDesactivacion());
+                    }
+                    datoAux.setFechaHoraInicioActivaciondesactivacion(comando.getFechaHoraInicioActivaciondesactivacion());
+                    datoAux.setFechaHoraFinalActivaciondesactivacion(comando.getFechaHoraFinalActivaciondesactivacion());
+                    datoAux.setActivadoDesactivado(comando.getActivadoDesactivado());
+                    datoAux.setEstadoBotonManual(comando.getActivadoDesactivado());
+                    datoAux.setCodigoEvento("EVP14");
+                    ArmarEventos(datoAux);
+                    // Check if activadoDesactivado is 1 or 2 before proceeding
+                    if (comando.getActivadoDesactivado() == 1 || comando.getActivadoDesactivado() == 2) {
+                        // DECIDIMOS RESPONDER CON LO QUE ELLA MANDA PERO NO ES EL ESTADO REAL
 
-            } catch (Exception e) {
+                        temp.setFechaHoraFinalActivacionDesactivacion(comando.getFechaHoraFinalActivaciondesactivacion());
+                        temp.setFechaHoraInicioActivacionDesactivacion(comando.getFechaHoraInicioActivaciondesactivacion());
+                        temp.setActivadoDesactivado(comando.getActivadoDesactivado());
+                        dataManager.UpdatePuerta(temp);
+
+                        System.out.println(temp.getCanal() + " " + temp.getIdPuerta() + " " + temp.getActivadoDesactivado()
+                                + " fecha" + temp.getFechaHoraInicioActivacionDesactivacion() + " "
+                                + temp.getFechaHoraFinalActivacionDesactivacion());
+                    } else {
+                        // Handle the case where activadoDesactivado is not 1 or 2
+                        System.out.println("Invalid value for activadoDesactivado: " + comando.getActivadoDesactivado());
+                        // You may want to throw an exception, log an error, or take appropriate action here.
+                    }
+
+                } catch (Exception e) {
                 System.out.println("Error en boton manual CDEG");
             }
             break;
@@ -1417,7 +1427,8 @@ public class Application {
                 break;
             case Constantes.Comandos.APERTURA:
                 JSONObject envio = auxService.ComandoAperturaPuertaCDEG(comandoCrudo, temp, numeroVagon(comandoCrudo.getIdVagon()));
-
+                
+                GuardarComando(comandoCrudo.getIdVagon(), envio.toString().getBytes());
                 publisherMQTTServiceInterno.Publisher(envio.toString().getBytes(), comandoCrudo.getIdVagon());
                 break;
             case Constantes.Comandos.CIERRE:
@@ -1438,7 +1449,7 @@ public class Application {
                 envioC.put("idPuerta", temp.getIdPuerta());
                 envioC.put("trama", comandoCrudo.getTrama());
                 System.out.println(envioC + "CIERRE CDG");
-
+                GuardarComando(comandoCrudo.getIdVagon(), envioC.toString().getBytes());
                 publisherMQTTServiceInterno.Publisher(envioC.toString().getBytes(), comandoCrudo.getIdVagon());
                 break;
         }
@@ -1504,6 +1515,7 @@ public class Application {
                             puerta.setEstadoBotonManual(1);
                             comando.setTrama(trama);
                             System.out.println(new Gson().toJson(comando));
+                            GuardarComando(comando.getIdVagon(), new Gson().toJson(comando).getBytes());
                             publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                             puerta.setActivadoDesactivado(null);
                             dataManager.UpdatePuerta(puerta);
@@ -1516,6 +1528,7 @@ public class Application {
                                     puerta.setEstadoBotonManual(1);
                                     comando.setTrama(trama);
                                     System.out.println(new Gson().toJson(comando));
+                                    GuardarComando(comando.getIdVagon(), new Gson().toJson(comando).getBytes());
                                     publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                                     puerta.setActivadoDesactivado(201);
                                     dataManager.UpdatePuerta(puerta);
@@ -1531,6 +1544,7 @@ public class Application {
                             puerta.setEstadoBotonManual(1);
                             comando.setTrama(trama);
                             System.out.println(new Gson().toJson(comando));
+                            GuardarComando(comando.getIdVagon(), new Gson().toJson(comando).getBytes());
                             publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                             puerta.setActivadoDesactivado(null);
                             dataManager.UpdatePuerta(puerta);
@@ -1541,6 +1555,7 @@ public class Application {
                                 puerta.setEstadoBotonManual(1);
                                 comando.setTrama(trama);
                                 System.out.println(new Gson().toJson(comando));
+                                GuardarComando(comando.getIdVagon(), new Gson().toJson(comando).getBytes());
                                 publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                                 puerta.setActivadoDesactivado(202);
                                 dataManager.UpdatePuerta(puerta);
@@ -1556,6 +1571,7 @@ public class Application {
                             puerta.setEstadoBotonManual(1);
                             comando.setTrama(trama);
                             System.out.println(new Gson().toJson(comando));
+                            GuardarComando(comando.getIdVagon(), new Gson().toJson(comando).getBytes());
                             publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                             puerta.setActivadoDesactivado(null);
                             dataManager.UpdatePuerta(puerta);
@@ -1571,6 +1587,7 @@ public class Application {
                             puerta.setEstadoBotonManual(1);
                             comando.setTrama(trama);
                             System.out.println(new Gson().toJson(comando));
+                            GuardarComando(comando.getIdVagon(), new Gson().toJson(comando).getBytes());
                             publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                             puerta.setActivadoDesactivado(null);
                             dataManager.UpdatePuerta(puerta);
@@ -1637,6 +1654,7 @@ public class Application {
                         comando.setTrama(trama);
                         comando.setFuncion("CMD");
                         System.out.println("comando reproduccion " + new Gson().toJson(comando));
+                        GuardarComando(comando.getIdVagon(), new Gson().toJson(comando).getBytes());
                         publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
 
                     }
@@ -2158,7 +2176,7 @@ public class Application {
                     temp.setNombreCDEG(numero);
                     contador++;
                     vagones.add(temp);
-                    crerarHiloEscuchador("vagon" + temp.getNombre());
+                    crerarHiloEscuchador("vagon" + temp.getNombre(),temp);
                 } else {
                     boolean ce = false;
                     Vagon temp = new Vagon();
@@ -2176,7 +2194,7 @@ public class Application {
                         temp.setNombreCDEG(numero);
                         contador++;
                         vagones.add(temp);
-                        crerarHiloEscuchador("vagon" + temp.getNombre());
+                        crerarHiloEscuchador("vagon" + temp.getNombre(),temp);
                     }
 
                 }
@@ -2332,6 +2350,7 @@ public class Application {
                                                     JSONObject dato = auxService.JsonProcesarComandoIV(comandoInterfazVisual, puerta, puertaTemp);
 
                                                     System.out.println("Dato Interfaz VIsual: " + dato);
+                                                    GuardarComando(puertaTemp.getVagon(), dato.toString().getBytes());
                                                     publisherMQTTServiceInterno.Publisher(dato.toString().getBytes(), puertaTemp.getVagon());
 
                                                     Thread.sleep(250);
@@ -2925,7 +2944,7 @@ public class Application {
 
     }
 
-    public void crerarHiloEscuchador(String topic) {
+    public void crerarHiloEscuchador(String topic, Vagon vagon) {
         new Thread() {
             @Override
             public void run() {
@@ -3024,6 +3043,19 @@ public class Application {
 
             }
         }.start();
+        new Thread(() -> {
+            while (true) {
+                try {
+                    for (byte[] comando : vagon.getComandos()) {
+                        publisherMQTTServiceInterno.Publisher(comando, vagon.getNombre());
+                        
+                    }
+                    Thread.sleep(1); // Puedes ajustar el tiempo de espera según tus necesidades
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
     }
 
@@ -3033,10 +3065,20 @@ public class Application {
         for (Vagon vagone : vagones) {
             if (vagone.getNombre().equalsIgnoreCase(vagon)) {
                 re = vagone;
+                break;
                 //System.out.println(re);
             }
         }
         return re;
+    }
+    public void GuardarComando(String vagon, byte[] comando) {
+        for (Vagon vagone : vagones) {
+            if (vagone.getNombre().equalsIgnoreCase(vagon)) {
+                vagone.getComandos().add(comando);
+                break;
+                //System.out.println(re);
+            }
+        }
     }
 
     public String nombreVagon(String nombre) {
