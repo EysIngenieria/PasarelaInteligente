@@ -83,7 +83,7 @@ import org.json.JSONObject;
  */
 public class Application {
 
-    private static final String VERSION = "1.1.6";
+    private static final String VERSION = "1.1.7";
     int activado = 0;
     int ModoACK = 0;
     DataManager dataManager;
@@ -416,6 +416,8 @@ public class Application {
     private void ArmarEventos(DatoCDEG dato) {
         DatoCDEG datoCDEGSalida = new DatoCDEG();
         dato.setIdEstacion(idEstacion);
+        dato.setVersionTrama(versionTrama);
+        dato.setIdOperador(idOperador);
         dato.setTipoTrama(2);
         String idRegistro = new SimpleDateFormat("yyMMddHHmmssSSS").format(new Date()) + consecutivo();
         dato.setIdRegistro(Long.parseLong(idRegistro));
@@ -1152,7 +1154,6 @@ public class Application {
                                         break;
 
                                     case "GET_DATE":
-                                        GuardarComando(registroCrudo.getIdVagon(), auxService.wr_date().toString().getBytes());
                                         publisherMQTTServiceInterno.Publisher(auxService.wr_date().toString().getBytes(), registroCrudo.getIdVagon());
                                         break;
 
@@ -1428,7 +1429,6 @@ public class Application {
             case Constantes.Comandos.APERTURA:
                 JSONObject envio = auxService.ComandoAperturaPuertaCDEG(comandoCrudo, temp, numeroVagon(comandoCrudo.getIdVagon()));
                 
-                GuardarComando(comandoCrudo.getIdVagon(), envio.toString().getBytes());
                 publisherMQTTServiceInterno.Publisher(envio.toString().getBytes(), comandoCrudo.getIdVagon());
                 break;
             case Constantes.Comandos.CIERRE:
@@ -1449,7 +1449,6 @@ public class Application {
                 envioC.put("idPuerta", temp.getIdPuerta());
                 envioC.put("trama", comandoCrudo.getTrama());
                 System.out.println(envioC + "CIERRE CDG");
-                GuardarComando(comandoCrudo.getIdVagon(), envioC.toString().getBytes());
                 publisherMQTTServiceInterno.Publisher(envioC.toString().getBytes(), comandoCrudo.getIdVagon());
                 break;
         }
@@ -1515,7 +1514,6 @@ public class Application {
                             puerta.setEstadoBotonManual(1);
                             comando.setTrama(trama);
                             System.out.println(new Gson().toJson(comando));
-                            GuardarComando(comando.getIdVagon(), new Gson().toJson(comando).getBytes());
                             publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                             puerta.setActivadoDesactivado(null);
                             dataManager.UpdatePuerta(puerta);
@@ -1528,7 +1526,6 @@ public class Application {
                                     puerta.setEstadoBotonManual(1);
                                     comando.setTrama(trama);
                                     System.out.println(new Gson().toJson(comando));
-                                    GuardarComando(comando.getIdVagon(), new Gson().toJson(comando).getBytes());
                                     publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                                     puerta.setActivadoDesactivado(201);
                                     dataManager.UpdatePuerta(puerta);
@@ -1544,7 +1541,6 @@ public class Application {
                             puerta.setEstadoBotonManual(1);
                             comando.setTrama(trama);
                             System.out.println(new Gson().toJson(comando));
-                            GuardarComando(comando.getIdVagon(), new Gson().toJson(comando).getBytes());
                             publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                             puerta.setActivadoDesactivado(null);
                             dataManager.UpdatePuerta(puerta);
@@ -1555,7 +1551,6 @@ public class Application {
                                 puerta.setEstadoBotonManual(1);
                                 comando.setTrama(trama);
                                 System.out.println(new Gson().toJson(comando));
-                                GuardarComando(comando.getIdVagon(), new Gson().toJson(comando).getBytes());
                                 publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                                 puerta.setActivadoDesactivado(202);
                                 dataManager.UpdatePuerta(puerta);
@@ -1571,7 +1566,6 @@ public class Application {
                             puerta.setEstadoBotonManual(1);
                             comando.setTrama(trama);
                             System.out.println(new Gson().toJson(comando));
-                            GuardarComando(comando.getIdVagon(), new Gson().toJson(comando).getBytes());
                             publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                             puerta.setActivadoDesactivado(null);
                             dataManager.UpdatePuerta(puerta);
@@ -1587,7 +1581,6 @@ public class Application {
                             puerta.setEstadoBotonManual(1);
                             comando.setTrama(trama);
                             System.out.println(new Gson().toJson(comando));
-                            GuardarComando(comando.getIdVagon(), new Gson().toJson(comando).getBytes());
                             publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                             puerta.setActivadoDesactivado(null);
                             dataManager.UpdatePuerta(puerta);
@@ -1654,7 +1647,6 @@ public class Application {
                         comando.setTrama(trama);
                         comando.setFuncion("CMD");
                         System.out.println("comando reproduccion " + new Gson().toJson(comando));
-                        GuardarComando(comando.getIdVagon(), new Gson().toJson(comando).getBytes());
                         publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
 
                     }
@@ -2176,7 +2168,7 @@ public class Application {
                     temp.setNombreCDEG(numero);
                     contador++;
                     vagones.add(temp);
-                    crerarHiloEscuchador("vagon" + temp.getNombre(),temp);
+                    crerarHiloEscuchador("vagon" + temp.getNombre());
                 } else {
                     boolean ce = false;
                     Vagon temp = new Vagon();
@@ -2194,7 +2186,7 @@ public class Application {
                         temp.setNombreCDEG(numero);
                         contador++;
                         vagones.add(temp);
-                        crerarHiloEscuchador("vagon" + temp.getNombre(),temp);
+                        crerarHiloEscuchador("vagon" + temp.getNombre());
                     }
 
                 }
@@ -2350,7 +2342,6 @@ public class Application {
                                                     JSONObject dato = auxService.JsonProcesarComandoIV(comandoInterfazVisual, puerta, puertaTemp);
 
                                                     System.out.println("Dato Interfaz VIsual: " + dato);
-                                                    GuardarComando(puertaTemp.getVagon(), dato.toString().getBytes());
                                                     publisherMQTTServiceInterno.Publisher(dato.toString().getBytes(), puertaTemp.getVagon());
 
                                                     Thread.sleep(250);
@@ -2944,18 +2935,21 @@ public class Application {
 
     }
 
-    public void crerarHiloEscuchador(String topic, Vagon vagon) {
+    public void crerarHiloEscuchador(String topic) {
         new Thread() {
             @Override
             public void run() {
 
-                while (true) {
+               
                     String topics[] = {topic};
                     SuscriptorLocalMQTT subscriberMQTTServiceLocal = new SuscriptorLocalMQTT(topics, "tcp://localhost:1883", "PILocal");
                     subscriberMQTTServiceLocal.Subscribe();
-                    while (subscriberMQTTServiceLocal.isConnected()) {
+                    while (true) {
                         try {
-
+                            if(!subscriberMQTTServiceLocal.isConnected()){
+                                subscriberMQTTServiceLocal.reconect();
+                                Thread.sleep(100);
+                            }else{
                             JSONObject re;
                             if (subscriberMQTTServiceLocal.isMessageArrived()) {
                                 subscriberMQTTServiceLocal.setMessageArrived(false);
@@ -3034,28 +3028,17 @@ public class Application {
                             }
 
                             Thread.sleep(1);
+                            }
 
                         } catch (Exception e) {
                             System.out.println("ERROR EN TRAMA DEL MVC: " + e.getMessage());
                         }
                     }
-                }
+                
 
             }
         }.start();
-        new Thread(() -> {
-            while (true) {
-                try {
-                    for (byte[] comando : vagon.getComandos()) {
-                        publisherMQTTServiceInterno.Publisher(comando, vagon.getNombre());
-                        
-                    }
-                    Thread.sleep(1); // Puedes ajustar el tiempo de espera según tus necesidades
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+        
 
     }
 
@@ -3071,15 +3054,7 @@ public class Application {
         }
         return re;
     }
-    public void GuardarComando(String vagon, byte[] comando) {
-        for (Vagon vagone : vagones) {
-            if (vagone.getNombre().equalsIgnoreCase(vagon)) {
-                vagone.getComandos().add(comando);
-                break;
-                //System.out.println(re);
-            }
-        }
-    }
+    
 
     public String nombreVagon(String nombre) {
         String re = null;

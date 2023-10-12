@@ -110,9 +110,16 @@ public class SuscriptorLocalMQTT implements MqttCallback {
     
     public boolean reconect(){
         try {
+            MemoryPersistence memoryPersistence = new MemoryPersistence();
+            mqttClient = new MqttClient(broker, MqttClient.generateClientId(), memoryPersistence);
+            mqttConnectOptions = new MqttConnectOptions();
+            mqttConnectOptions.setCleanSession(true);
+            mqttConnectOptions.setConnectionTimeout(2000);
+            mqttConnectOptions.setKeepAliveInterval(60);
             mqttClient.connect(mqttConnectOptions);
-            System.out.println("Se conecto " + clientId);
-            
+            mqttClient.setCallback(this);
+            mqttClient.subscribe(topic);
+
         } catch (MqttException ex) {
             Logger.getLogger(SuscriptorLocalMQTT.class.getName()).log(Level.SEVERE, null, ex);
         }
