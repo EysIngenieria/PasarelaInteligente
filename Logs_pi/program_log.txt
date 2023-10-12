@@ -1362,3 +1362,21 @@ oct 02, 2023 11:30:33 AM com.manatee.pi.Application iniciarPrograma
 INFORMACIÓN: El programa ha sido iniciado.
 oct 02, 2023 5:19:01 PM com.manatee.pi.Application iniciarPrograma
 INFORMACIÓN: El programa ha sido iniciado.
+oct 12, 2023 9:03:56 AM com.manatee.pi.Application iniciarPrograma
+INFORMACIÓN: El programa ha sido iniciado.
+oct 12, 2023 11:59:16 PM com.manatee.pi.Application$12 run
+INFORMACIÓN: El reloj se ha adelantado. La diferencia es de 894 minutos.
+oct 13, 2023 12:20:37 AM com.manatee.pi.Application iniciarPrograma
+INFORMACIÓN: El programa ha sido iniciado.
+oct 12, 2023 9:26:24 AM com.manatee.pi.Application iniciarPrograma
+INFORMACIÓN: El programa ha sido iniciado.
+oct 12, 2023 12:00:29 PM com.manatee.pi.Application$12 run
+INFORMACIÓN: El reloj se ha adelantado. La diferencia es de 151 minutos.
+oct 12, 2023 12:17:48 PM com.manatee.pi.Application iniciarPrograma
+INFORMACIÓN: El programa ha sido iniciado.
+oct 12, 2023 12:18:52 AM com.manatee.pi.Application$12 run
+INFORMACIÓN: El reloj se ha atrasado. La diferencia es de 720 minutos.
+oct 12, 2023 12:31:00 AM com.manatee.pi.Application$12 run
+INFORMACIÓN: El reloj se ha adelantado. La diferencia es de 10 minutos.
+oct 12, 2023 9:50:25 AM com.manatee.pi.Application$12 run
+INFORMACIÓN: El reloj se ha adelantado. La diferencia es de 557 minutos.

@@ -1724,6 +1724,8 @@ public class Application {
                             parametro.setValor(fecha);
                             dataManager.UpdateParametros(parametro);
                             estacion.setIdVagon("FIN-OP");
+                            estacion.setVersionTrama(versionTrama);
+                            estacion.setIdOperador(idOperador);
                             estacion.setIdPuerta("FIN-OP");
                             estacion.setCodigoPuerta("FIN-OP");
                             estacion.setCodigoEvento("EVP9");
@@ -1742,6 +1744,8 @@ public class Application {
                         dataManager.UpdateParametros(parametro);
                         estacion.setIdVagon("FIN-OP");
                         estacion.setIdPuerta("FIN-OP");
+                        estacion.setVersionTrama(versionTrama);
+                        estacion.setIdOperador(idOperador);
                         estacion.setCodigoPuerta("FIN-OP");
                         estacion.setCodigoEvento("EVP9");
                         estacion.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
