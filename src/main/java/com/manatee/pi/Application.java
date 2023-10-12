@@ -415,6 +415,9 @@ public class Application {
 
     private void ArmarEventos(DatoCDEG dato) {
         DatoCDEG datoCDEGSalida = new DatoCDEG();
+        dato.setVersionTrama(versionTrama);
+        dato.setIdOperador(idOperador);
+        dato.setTipoTrama(2);
         dato.setIdEstacion(idEstacion);
         dato.setTipoTrama(2);
         String idRegistro = new SimpleDateFormat("yyMMddHHmmssSSS").format(new Date()) + consecutivo();
@@ -2934,12 +2937,15 @@ public class Application {
             @Override
             public void run() {
 
+                String topics[] = {topic};
+                SuscriptorLocalMQTT subscriberMQTTServiceLocal = new SuscriptorLocalMQTT(topics, "tcp://localhost:1883", "PILocal");
+                subscriberMQTTServiceLocal.Subscribe();
                 while (true) {
-                    String topics[] = {topic};
-                    SuscriptorLocalMQTT subscriberMQTTServiceLocal = new SuscriptorLocalMQTT(topics, "tcp://localhost:1883", "PILocal");
-                    subscriberMQTTServiceLocal.Subscribe();
-                    while (subscriberMQTTServiceLocal.isConnected()) {
-                        try {
+                    try {
+                        if (!subscriberMQTTServiceLocal.isConnected()) {
+                            subscriberMQTTServiceLocal.reconect();
+                            Thread.sleep(100);
+                        } else {
 
                             JSONObject re;
                             if (subscriberMQTTServiceLocal.isMessageArrived()) {
@@ -3017,16 +3023,17 @@ public class Application {
 //                            System.out.println("Julian:  " + new Gson().toJson(subscriberMQTTServiceLocal.getData()));
 
                             }
-
                             Thread.sleep(1);
-
-                        } catch (Exception e) {
-                            System.out.println("ERROR EN TRAMA DEL MVC: " + e.getMessage());
                         }
+
+                        
+
+                    } catch (Exception e) {
+                        System.out.println("ERROR EN TRAMA DEL MVC: " + e.getMessage());
                     }
                 }
-
             }
+
         }.start();
 
     }
