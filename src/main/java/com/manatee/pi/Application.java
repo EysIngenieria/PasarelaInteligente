@@ -83,7 +83,7 @@ import org.json.JSONObject;
  */
 public class Application {
 
-    private static final String VERSION = "1.1.7";
+    private static final String VERSION = "1.1.7 BETA";
     int activado = 0;
     int ModoACK = 0;
     DataManager dataManager;
@@ -93,7 +93,10 @@ public class Application {
     List<DatoCDEG> vagonA;
     List<OP_RegistroCrudo> registrosCrudos;
     List<Vagon> vagones;
-
+    private DatoCDEG puerta1;
+    private DatoCDEG puerta2;
+    private DatoCDEG vagon;
+    private DatoCDEG estacion;
     private AuxService auxService;
     final static int ACK_ON = 1;
 
@@ -168,7 +171,10 @@ public class Application {
         vagones = new ArrayList<>();
         vagonA = new ArrayList<>();
         puertas = new ArrayList<>();
-
+        puerta1 = new DatoCDEG();
+        puerta2 = new DatoCDEG();
+        vagon = new DatoCDEG();
+        estacion = new DatoCDEG();
         cast = new Cast();
         auxService = new AuxService();
     }
@@ -415,9 +421,9 @@ public class Application {
 
     private void ArmarEventos(DatoCDEG dato) {
         DatoCDEG datoCDEGSalida = new DatoCDEG();
-        dato.setIdEstacion(idEstacion);
         dato.setVersionTrama(versionTrama);
         dato.setIdOperador(idOperador);
+        dato.setIdEstacion(idEstacion);
         dato.setTipoTrama(2);
         String idRegistro = new SimpleDateFormat("yyMMddHHmmssSSS").format(new Date()) + consecutivo();
         dato.setIdRegistro(Long.parseLong(idRegistro));
@@ -518,7 +524,7 @@ public class Application {
             }
         }
     }
-
+    
     public void cargarEventos() {
         GetEventos();
         if (eventos == null) {
@@ -534,6 +540,7 @@ public class Application {
                     evento.setId(jsonObject.getInt("Id"));
                     evento.setNombre(jsonObject.getString("Nombre"));
                     evento.setDescripcion(jsonObject.optString("Descripcion"));
+                    
 
                     eventosList.add(evento);
                 }
@@ -1154,6 +1161,7 @@ public class Application {
                                         break;
 
                                     case "GET_DATE":
+
                                         publisherMQTTServiceInterno.Publisher(auxService.wr_date().toString().getBytes(), registroCrudo.getIdVagon());
                                         break;
 
@@ -1428,7 +1436,7 @@ public class Application {
                 break;
             case Constantes.Comandos.APERTURA:
                 JSONObject envio = auxService.ComandoAperturaPuertaCDEG(comandoCrudo, temp, numeroVagon(comandoCrudo.getIdVagon()));
-                
+
                 publisherMQTTServiceInterno.Publisher(envio.toString().getBytes(), comandoCrudo.getIdVagon());
                 break;
             case Constantes.Comandos.CIERRE:
@@ -1449,6 +1457,7 @@ public class Application {
                 envioC.put("idPuerta", temp.getIdPuerta());
                 envioC.put("trama", comandoCrudo.getTrama());
                 System.out.println(envioC + "CIERRE CDG");
+
                 publisherMQTTServiceInterno.Publisher(envioC.toString().getBytes(), comandoCrudo.getIdVagon());
                 break;
         }
@@ -1457,12 +1466,6 @@ public class Application {
 
     private void ProcesarMLAN(String dato) {
         //System.out.println("DATO MLAN " + dato);
-        DatoCDEG vagon = new DatoCDEG();
-        vagon.setVersionTrama(versionTrama);
-        vagon.setIdOperador(idOperador);
-        vagon.setIdEstacion(idEstacion);
-        vagon.setTipoTrama(2);
-        vagon.setIdVagon("1");
         String[] datos = ((dato.split(">")[1]).split("<")[0]).split(",");
         if (datos.length == 10) {
             try {
@@ -1485,6 +1488,7 @@ public class Application {
                 vagon.setTipologiaVehiculo(datos[9]);
                 vagon.setIdPuerta("BUS-ESTACION");
                 vagon.setCodigoPuerta("BUS-ESTACION");
+                vagonA.set(2, vagon);
                 ArmarEventos(vagon);
             } catch (ParseException ex) {
                 Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
@@ -1707,7 +1711,6 @@ public class Application {
         }
     }
 
-
     private void FinOperacion() {
         try {
             // Get the current time as hours and minutes
@@ -1832,7 +1835,40 @@ public class Application {
     }
 
     private void InicializarVagones() {
+        puerta1.setVersionTrama(versionTrama);
+        puerta1.setIdOperador(idOperador);
+        puerta1.setIdEstacion(idEstacion);
+        puerta1.setTipoTrama(2);
+        puerta1.setIdPuerta("9115-WA-OR-1");
+        puerta1.setIdVagon("1");
+        puerta1.setCodigoPuerta("9115-WA-OR-1");
+        puerta1.setEstadoBotonManual(2);
+        puerta1.setCanal("1");
+        vagonA.add(puerta1);
 
+        puerta2.setVersionTrama(versionTrama);
+        puerta2.setIdOperador(idOperador);
+        puerta2.setIdEstacion(idEstacion);
+        puerta2.setTipoTrama(2);
+        puerta2.setIdPuerta("9115-WA-OR-2");
+        puerta2.setIdVagon("1");
+        puerta2.setCodigoPuerta("9115-WA-OR-2");
+        puerta2.setEstadoBotonManual(2);
+        puerta2.setCanal("1");
+        vagonA.add(puerta2);
+
+        vagon.setVersionTrama(versionTrama);
+        vagon.setIdOperador(idOperador);
+        vagon.setIdEstacion(idEstacion);
+        vagon.setTipoTrama(2);
+        vagon.setIdVagon("1");
+        vagonA.add(vagon);
+
+        estacion.setVersionTrama(versionTrama);
+        estacion.setIdOperador(idOperador);
+        estacion.setIdEstacion(idEstacion);
+        estacion.setTipoTrama(2);
+        vagonA.add(estacion);
     }
 
     public void actualizarCampos(String trama) {
@@ -1841,7 +1877,7 @@ public class Application {
         if (cfg_Configuracion == null) {
             cfg_Configuracion = new CFG_Configuracion();
             System.out.println("Updated Configuration");
-
+            
             Configuracion configuracion = cast.JSONtoConfiguracion(trama);
             cfg_Configuracion.setTrama(trama);
             dataManager.AddConfiguracion(cfg_Configuracion);
@@ -1901,7 +1937,7 @@ public class Application {
                 listAlarmas.add(alarma);
             }
             configuracion.setAlarma(listAlarmas);
-
+            
             for (Alarma a : configuracion.getAlarma()) {
                 for (CFG_CamposValidos campoValido : camposValidos) {
                     if (campoValido.getTipoCampoValido().equalsIgnoreCase("Alarma")) {
@@ -1914,7 +1950,7 @@ public class Application {
                                 dataManager.AddCamposAlarma(campoAlarma);
                                 GetCamposAlarmas();
                             } catch (Exception e) {
-                                System.out.println("Error en añadir Campos Alarma CDEG" + e.getLocalizedMessage());
+                                System.out.println("Error en añadir Campos Alarma CDEG" +e.getLocalizedMessage());
                             }
                         }
                     }
@@ -1926,7 +1962,7 @@ public class Application {
                             dataManager.AddCamposAlarma(campoAlarma);
                             GetCamposAlarmas();
                         } catch (Exception e) {
-                            System.out.println("Error en añadir Campos Alarma CDEG 2" + e.getLocalizedMessage());
+                            System.out.println("Error en añadir Campos Alarma CDEG 2" +e.getLocalizedMessage());
                         }
 
                     }
@@ -1942,12 +1978,13 @@ public class Application {
                     }
                 }
 
+                
                 //nivelAlarma.setCodigoNivelAlarma(a.getNivelAlarma());
             }
         }
     }
 
-    public CFG_Alarma getAlarma(Alarma a) {
+    public CFG_Alarma getAlarma(Alarma a){
         GetAlarmas();
         CFG_Alarma ret = null;
         for (CFG_Alarma alap : alarmas) {
@@ -1958,7 +1995,6 @@ public class Application {
         }
         return ret;
     }
-
     public void cargarConfiguracionCDEG() {
         String jsonlec = "";
         try {
@@ -2190,7 +2226,7 @@ public class Application {
                     }
 
                 }
-
+                
                 //System.out.println("Vagones " + "\n" + new Gson().toJson(vagones));
             }
             cargarDatosACK();
@@ -2205,7 +2241,7 @@ public class Application {
         }
 
     }
-
+    
     public void cargarDatosACK() {
         for (ACKVagon aCKVagon : dataManager.GetAllVagonACK()) {
             for (Vagon vagone : vagones) {
@@ -2295,81 +2331,81 @@ public class Application {
         new Thread() {
             @Override
             public void run() {
+                String[] topic = {"Estacion", "CDEG", "InterfazVisual", "MCV485"};
+                SuscriptorLocalMQTT subscriberMQTTServiceLocal = new SuscriptorLocalMQTT(topic, "tcp://localhost:1883", "PILocal");
+                subscriberMQTTServiceLocal.Subscribe();
+
                 while (true) {
-                    try {
-                        String[] topic = {"Estacion", "CDEG", "InterfazVisual", "MCV485"};
-                        SuscriptorLocalMQTT subscriberMQTTServiceLocal = new SuscriptorLocalMQTT(topic, "tcp://localhost:1883", "PILocal");
-                        subscriberMQTTServiceLocal.Subscribe();
+                    if (!subscriberMQTTServiceLocal.isConnected()) {
+                        subscriberMQTTServiceLocal.reconect();
+                        try {
+                            Thread.sleep(250);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else if (subscriberMQTTServiceLocal.isMessageArrived()) {
 
-                        while (subscriberMQTTServiceLocal.isConnected()) {
-                            try {
-                                if (subscriberMQTTServiceLocal.isMessageArrived()) {
+                        try {
 
-                                    subscriberMQTTServiceLocal.setMessageArrived(false);
-                                    OP_RegistroCrudo registroCrudo = new OP_RegistroCrudo();
-                                    switch (subscriberMQTTServiceLocal.getMessageTopicArrived()) {
-                                        case "CDEG":
+                            subscriberMQTTServiceLocal.setMessageArrived(false);
+                            OP_RegistroCrudo registroCrudo = new OP_RegistroCrudo();
+                            switch (subscriberMQTTServiceLocal.getMessageTopicArrived()) {
+                                case "CDEG":
 
-                                            datoCDEGString = subscriberMQTTServiceLocal.getData();
-                                            System.out.println("DATO A REVISAR " + datoCDEGString + "");
-                                            registroCrudo.setTrama(datoCDEGString);
-                                            registroCrudo.setFechaOcurrencia(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-                                            registroCrudo.setOrigen(subscriberMQTTServiceLocal.getMessageTopicArrived());
-                                            JSONObject envioManatee = new JSONObject();
-                                            envioManatee.put("trama", datoCDEGString);
-                                            envioManatee.put("estadoEnvioManatee", true);
-                                            Long idF = Long.valueOf(new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
-                                            String id = idEstacion + idF;
-                                            envioManatee.put("IDManatee", id);
-                                            envioManatee.put("fechaHoraEnvio", formatoFecha.format(new Date()));
-                                            ComandoCDEG comandoRecibido = new ComandoCDEG();
-                                            comandoRecibido.setTrama(datoCDEGString);
-                                            comandoRecibido.setFechaHoraOcurrencia(registroCrudo.getFechaOcurrencia());
-                                            dataManager.saveComando(comandoRecibido);
-                                            publicadorManatee.Publisher(envioManatee.toString().getBytes(), topicManatee);
-                                            dataManager.AddRegistroCrudo(registroCrudo);
-                                            break;
-                                        case "InterfazVisual":
-                                            ComandoInterfazVisual comandoInterfazVisual = new ComandoInterfazVisual();
-                                            comandoInterfazVisual = cast.JSONtoComandoInterfazVisual(subscriberMQTTServiceLocal.getData());
-                                            //System.out.println("InterfazVisual: " + subscriberMQTTServiceLocal.getData());
+                                    datoCDEGString = subscriberMQTTServiceLocal.getData();
+                                    System.out.println("DATO A REVISAR " + datoCDEGString + "");
+                                    registroCrudo.setTrama(datoCDEGString);
+                                    registroCrudo.setFechaOcurrencia(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+                                    registroCrudo.setOrigen(subscriberMQTTServiceLocal.getMessageTopicArrived());
+                                    JSONObject envioManatee = new JSONObject();
+                                    envioManatee.put("trama", datoCDEGString);
+                                    envioManatee.put("estadoEnvioManatee", true);
+                                    Long idF = Long.valueOf(new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
+                                    String id = idEstacion + idF;
+                                    envioManatee.put("IDManatee", id);
+                                    envioManatee.put("fechaHoraEnvio", formatoFecha.format(new Date()));
+                                    ComandoCDEG comandoRecibido = new ComandoCDEG();
+                                    comandoRecibido.setTrama(datoCDEGString);
+                                    comandoRecibido.setFechaHoraOcurrencia(registroCrudo.getFechaOcurrencia());
+                                    dataManager.saveComando(comandoRecibido);
+                                    publicadorManatee.Publisher(envioManatee.toString().getBytes(), topicManatee);
+                                    dataManager.AddRegistroCrudo(registroCrudo);
+                                    break;
+                                case "InterfazVisual":
+                                    ComandoInterfazVisual comandoInterfazVisual = new ComandoInterfazVisual();
+                                    comandoInterfazVisual = cast.JSONtoComandoInterfazVisual(subscriberMQTTServiceLocal.getData());
+                                    //System.out.println("InterfazVisual: " + subscriberMQTTServiceLocal.getData());
 
-                                            try {
-                                                for (String puerta : comandoInterfazVisual.getPuertas()) {
+                                    try {
+                                        for (String puerta : comandoInterfazVisual.getPuertas()) {
 
-                                                    Puerta puertaTemp = dataManager.GetPuerta(puerta);
+                                            Puerta puertaTemp = dataManager.GetPuerta(puerta);
 
-                                                    JSONObject dato = auxService.JsonProcesarComandoIV(comandoInterfazVisual, puerta, puertaTemp);
+                                            JSONObject dato = auxService.JsonProcesarComandoIV(comandoInterfazVisual, puerta, puertaTemp);
 
-                                                    System.out.println("Dato Interfaz VIsual: " + dato);
-                                                    publisherMQTTServiceInterno.Publisher(dato.toString().getBytes(), puertaTemp.getVagon());
+                                            System.out.println("Dato Interfaz VIsual: " + dato);
+                                            publisherMQTTServiceInterno.Publisher(dato.toString().getBytes(), puertaTemp.getVagon());
 
-                                                    Thread.sleep(250);
+                                            Thread.sleep(250);
 
-                                                }
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-
-                                        //System.out.println(new Gson().toJson(comandoInterfazVisual));
-                                        case "MCV485":
-                                            System.out.println("Dato: " + subscriberMQTTServiceLocal.getData());
-                                            break;
-
+                                        }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
                                     }
 
-                                }
+                                //System.out.println(new Gson().toJson(comandoInterfazVisual));
+                                case "MCV485":
+                                    System.out.println("Dato: " + subscriberMQTTServiceLocal.getData());
+                                    break;
 
-                            } catch (Exception e) {
-
-                                System.out.println("Error al volver a escuchar");
                             }
-                            
+                        } catch (Exception ex) {
+                            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        Thread.sleep(500);
-                    } catch (Exception e) {
-                        
-                        System.out.println("Error al volver a escuchar");
+                    }
+                    try {
+                        Thread.sleep(1);
+                    } catch (Exception ie) {
                     }
                 }
             }
@@ -2379,48 +2415,44 @@ public class Application {
                 @Override
                 public void run() {
                     while (true) {
-                        try {
-                            clavePrivada = new GenerarClave().Generar(nombreEstacion);
-                            while (publicadorExternoMQTT.conect()) {
-                                if (publicadorExternoMQTT.isEntroDato()) {
-                                    if (!publicadorExternoMQTT.getDato().equalsIgnoreCase("")) {
-                                        try {
-                                            datoCDEGString = publicadorExternoMQTT.getDato();
-                                            System.out.println("\nDato Plataforma: " + datoCDEGString + " - " + "Topico: " + publicadorExternoMQTT.getTopicoEntro() + "\n");
-                                            publicadorExternoMQTT.setEntroDato(false);
-                                            OP_RegistroCrudo registroCrudo = new OP_RegistroCrudo();
-                                            registroCrudo.setOrigen("CDEG");
-                                            registroCrudo.setTrama(datoCDEGString);
-                                            registroCrudo.setFechaOcurrencia(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+                        clavePrivada = new GenerarClave().Generar(nombreEstacion);
+                        while (publicadorExternoMQTT.conect()) {
+                            if (publicadorExternoMQTT.isEntroDato()) {
+                                if (!publicadorExternoMQTT.getDato().equalsIgnoreCase("")) {
+                                    try {
+                                        datoCDEGString = publicadorExternoMQTT.getDato();
+                                        System.out.println("\nDato Plataforma: " + datoCDEGString + " - " + "Topico: " + publicadorExternoMQTT.getTopicoEntro() + "\n");
+                                        publicadorExternoMQTT.setEntroDato(false);
+                                        OP_RegistroCrudo registroCrudo = new OP_RegistroCrudo();
+                                        registroCrudo.setOrigen("CDEG");
+                                        registroCrudo.setTrama(datoCDEGString);
+                                        registroCrudo.setFechaOcurrencia(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
 
-                                            if (!datoCDEGString.equalsIgnoreCase(" ")) {
-                                                dataManager.AddRegistroCrudo(registroCrudo);
-                                            }
-                                            ComandoCDEG comandoRecibido = new ComandoCDEG();
-                                            comandoRecibido.setTrama(datoCDEGString);
-                                            comandoRecibido.setFechaHoraOcurrencia(registroCrudo.getFechaOcurrencia());
-                                            dataManager.saveComando(comandoRecibido);
-                                            publicadorManatee.Publisher(auxService.comandoCDEGMTE(datoCDEGString, idEstacion, formatoFecha).toString().getBytes(), topicManatee);
-                                        } catch (Exception ex) {
-                                            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+                                        if (!datoCDEGString.equalsIgnoreCase(" ")) {
+                                            dataManager.AddRegistroCrudo(registroCrudo);
                                         }
+                                        ComandoCDEG comandoRecibido = new ComandoCDEG();
+                                        comandoRecibido.setTrama(datoCDEGString);
+                                        comandoRecibido.setFechaHoraOcurrencia(registroCrudo.getFechaOcurrencia());
+                                        dataManager.saveComando(comandoRecibido);
+                                        publicadorManatee.Publisher(auxService.comandoCDEGMTE(datoCDEGString, idEstacion, formatoFecha).toString().getBytes(), topicManatee);
+                                    } catch (Exception ex) {
+                                        Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                                     }
                                 }
-                                try {
-                                    Thread.sleep(10);
-                                } catch (InterruptedException ie) {
-                                }
-
                             }
-
                             try {
-                                Thread.sleep(5000);
-
-                            } catch (InterruptedException ex) {
-                                Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+                                Thread.sleep(10);
+                            } catch (InterruptedException ie) {
                             }
-                        } catch (Exception e) {
-                            System.out.println("Error mqtt CDEG");
+
+                        }
+
+                        try {
+                            Thread.sleep(5000);
+
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
                     }
@@ -2759,7 +2791,6 @@ public class Application {
             }
 
         }.start();
-        
         new Thread() {
             @Override
             public void run() {
@@ -2940,16 +2971,15 @@ public class Application {
             @Override
             public void run() {
 
-               
-                    String topics[] = {topic};
-                    SuscriptorLocalMQTT subscriberMQTTServiceLocal = new SuscriptorLocalMQTT(topics, "tcp://localhost:1883", "PILocal");
-                    subscriberMQTTServiceLocal.Subscribe();
-                    while (true) {
-                        try {
-                            if(!subscriberMQTTServiceLocal.isConnected()){
-                                subscriberMQTTServiceLocal.reconect();
-                                Thread.sleep(100);
-                            }else{
+                String topics[] = {topic};
+                SuscriptorLocalMQTT subscriberMQTTServiceLocal = new SuscriptorLocalMQTT(topics, "tcp://localhost:1883", "PILocal");
+                subscriberMQTTServiceLocal.Subscribe();
+                while (true) {
+                    try {
+                        if (!subscriberMQTTServiceLocal.isConnected()) {
+                            subscriberMQTTServiceLocal.reconect();
+                            Thread.sleep(100);
+                        } else {
                             JSONObject re;
                             if (subscriberMQTTServiceLocal.isMessageArrived()) {
                                 subscriberMQTTServiceLocal.setMessageArrived(false);
@@ -3028,17 +3058,14 @@ public class Application {
                             }
 
                             Thread.sleep(1);
-                            }
-
-                        } catch (Exception e) {
-                            System.out.println("ERROR EN TRAMA DEL MVC: " + e.getMessage());
                         }
+                    } catch (Exception e) {
+                        System.out.println("ERROR EN TRAMA DEL MVC: " + e.getMessage());
                     }
-                
+                }
 
             }
         }.start();
-        
 
     }
 
@@ -3048,13 +3075,11 @@ public class Application {
         for (Vagon vagone : vagones) {
             if (vagone.getNombre().equalsIgnoreCase(vagon)) {
                 re = vagone;
-                break;
                 //System.out.println(re);
             }
         }
         return re;
     }
-    
 
     public String nombreVagon(String nombre) {
         String re = null;
