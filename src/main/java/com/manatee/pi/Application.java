@@ -1381,28 +1381,40 @@ public class Application {
 
             case Constantes.Comandos.BOTON_MANUAL:
                 try {
-
-                //System.out.println(new Gson().toJson(puerta1));
+                // System.out.println(new Gson().toJson(puerta1));
                 {
                     try {
-                        //puerta.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-                        datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+                        datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS")
+                                .parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
                     } catch (ParseException ex) {
                         Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                }
-                datoAux.setFechaHoraInicioActivaciondesactivacion(comando.getFechaHoraInicioActivaciondesactivacion());
-                datoAux.setFechaHoraFinalActivaciondesactivacion(comando.getFechaHoraFinalActivaciondesactivacion());
-                datoAux.setActivadoDesactivado(comando.getActivadoDesactivado());
-                datoAux.setCodigoEvento("EVP14");
-                ArmarEventos(datoAux);
-                temp.setFechaHoraFinalActivacionDesactivacion(comando.getFechaHoraFinalActivaciondesactivacion());
-                temp.setFechaHoraInicioActivacionDesactivacion(comando.getFechaHoraInicioActivaciondesactivacion());
-                temp.setActivadoDesactivado(comando.getActivadoDesactivado());
-                dataManager.UpdatePuerta(temp);
-                System.out.println(temp.getCanal() + " " + temp.getIdPuerta() + " " + temp.getActivadoDesactivado() + " fecha" + temp.getFechaHoraInicioActivacionDesactivacion() + " " + temp.getFechaHoraFinalActivacionDesactivacion());
+                    }
+                    datoAux.setFechaHoraInicioActivaciondesactivacion(comando.getFechaHoraInicioActivaciondesactivacion());
+                    datoAux.setFechaHoraFinalActivaciondesactivacion(comando.getFechaHoraFinalActivaciondesactivacion());
+                    datoAux.setActivadoDesactivado(comando.getActivadoDesactivado());
+                    datoAux.setEstadoBotonManual(comando.getActivadoDesactivado());
+                    datoAux.setCodigoEvento("EVP14");
+                    ArmarEventos(datoAux);
+                    // Check if activadoDesactivado is 1 or 2 before proceeding
+                    if (comando.getActivadoDesactivado() == 1 || comando.getActivadoDesactivado() == 2) {
+                        // DECIDIMOS RESPONDER CON LO QUE ELLA MANDA PERO NO ES EL ESTADO REAL
 
-            } catch (Exception e) {
+                        temp.setFechaHoraFinalActivacionDesactivacion(comando.getFechaHoraFinalActivaciondesactivacion());
+                        temp.setFechaHoraInicioActivacionDesactivacion(comando.getFechaHoraInicioActivaciondesactivacion());
+                        temp.setActivadoDesactivado(comando.getActivadoDesactivado());
+                        dataManager.UpdatePuerta(temp);
+
+                        System.out.println(temp.getCanal() + " " + temp.getIdPuerta() + " " + temp.getActivadoDesactivado()
+                                + " fecha" + temp.getFechaHoraInicioActivacionDesactivacion() + " "
+                                + temp.getFechaHoraFinalActivacionDesactivacion());
+                    } else {
+                        // Handle the case where activadoDesactivado is not 1 or 2
+                        System.out.println("Invalid value for activadoDesactivado: " + comando.getActivadoDesactivado());
+                        // You may want to throw an exception, log an error, or take appropriate action here.
+                    }
+
+                } catch (Exception e) {
                 System.out.println("Error en boton manual CDEG");
             }
             break;
