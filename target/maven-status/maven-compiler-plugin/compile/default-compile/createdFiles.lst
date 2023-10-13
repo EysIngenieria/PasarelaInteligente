@@ -40,6 +40,7 @@ com\eysingenieria\pi\exceptions\PreexistingEntityException.class
 com\eysingenieria\pi\Application$6.class
 com\eysingenieria\pi\entities\OP_RegistroTemporal_.class
 com\eysingenieria\pi\service\GenerarClave.class
+com\eysingenieria\pi\Application$13.class
 com\eysingenieria\pi\entities\CFG_CamposCabecera_.class
 com\eysingenieria\pi\entities\Configuracion.class
 com\eysingenieria\pi\entities\ModuloConcentradorVagon.class

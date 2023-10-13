@@ -83,7 +83,7 @@ import org.json.JSONObject;
  */
 public class Application {
 
-    private static final String VERSION = "1.1.6 BETA";
+    private static final String VERSION = "1.1.7 BETA";
     int activado = 0;
     int ModoACK = 0;
     DataManager dataManager;
@@ -421,6 +421,8 @@ public class Application {
 
     private void ArmarEventos(DatoCDEG dato) {
         DatoCDEG datoCDEGSalida = new DatoCDEG();
+        dato.setVersionTrama(versionTrama);
+        dato.setIdOperador(idOperador);
         dato.setIdEstacion(idEstacion);
         dato.setTipoTrama(2);
         String idRegistro = new SimpleDateFormat("yyMMddHHmmssSSS").format(new Date()) + consecutivo();
@@ -1651,37 +1653,46 @@ public class Application {
 
     private void InicioOperacion() {
         try {
+            // Get the current time as hours and minutes
+            int currentHour = Integer.parseInt(new SimpleDateFormat("HH").format(new Date()));
 
-            if (new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).after(new SimpleDateFormat("HHmm").parse(horaInicioOperacion))) {
-                for (Puerta temp : dataManager.GetPuertas()) {
-                    DatoCDEG puerta = new DatoCDEG();
-                    puerta.setVersionTrama(versionTrama);
-                    puerta.setIdOperador(idOperador);
-                    puerta.setTipoTrama(2);
-                    puerta.setCanal(temp.getCanal());
-                    puerta.setIdVagon(temp.getVagon());
-                    puerta.setCodigoPuerta(temp.getDescripcion());
-                    puerta.setIdPuerta(temp.getDescripcion());
-                    cast.datosPuerta(temp, puerta);
-                    Boolean ce = temp.isEstadoAperturaCierre();
-                    if (ce != null && ce) {
-                        String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-                        if (!fechaInicioOperacion.equalsIgnoreCase(fecha)) {
-                            OP_Parametro parametro = new OP_Parametro();
-                            parametro.setId(14);
-                            parametro.setNombre("FechaInicioOperacion");
-                            parametro.setValor(fecha);
-                            fechaInicioOperacion = fecha;
-                            dataManager.UpdateParametros(parametro);
-                            puerta.setIdVagon("INICIO-OP");
-                            puerta.setIdPuerta("INICIO-OP");
-                            puerta.setCodigoPuerta("INICIO-OP");
-                            puerta.setCodigoEvento("EVP8");
-                            puerta.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-                            ArmarEventos(puerta);
+            // Check if the current time is between 4:00 AM and 5:00 AM
+            if (currentHour == 4 ) {
+                if (new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).after(new SimpleDateFormat("HHmm").parse(horaInicioOperacion))) {
+                    for (Puerta temp : dataManager.GetPuertas()) {
+                        DatoCDEG puerta = new DatoCDEG();
+                        puerta.setVersionTrama(versionTrama);
+                        puerta.setIdOperador(idOperador);
+                        puerta.setTipoTrama(2);
+                        puerta.setCanal(temp.getCanal());
+                        puerta.setIdVagon(temp.getVagon());
+                        puerta.setCodigoPuerta(temp.getDescripcion());
+                        puerta.setIdPuerta(temp.getDescripcion());
+                        cast.datosPuerta(temp, puerta);
+                        Boolean ce = temp.isEstadoAperturaCierre();
+                        if (ce != null && ce) {
+                            String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+                            if (!fechaInicioOperacion.equalsIgnoreCase(fecha)) {
+                                OP_Parametro parametro = new OP_Parametro();
+                                parametro.setId(14);
+                                parametro.setNombre("FechaInicioOperacion");
+                                parametro.setValor(fecha);
+                                fechaInicioOperacion = fecha;
+                                dataManager.UpdateParametros(parametro);
+                                puerta.setIdVagon("INICIO-OP");
+                                puerta.setIdPuerta("INICIO-OP");
+                                puerta.setCodigoPuerta("INICIO-OP");
+                                puerta.setCodigoEvento("EVP8");
+                                puerta.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+                                ArmarEventos(puerta);
+                                break;
+                            }
                         }
                     }
                 }
+            } else {
+                // Handle the case when the current time is not within the specified range
+                // You can log a message or take any appropriate action here.
             }
         } catch (Exception e) {
             System.out.println("Error en INICIO OPERACION");
@@ -1690,17 +1701,38 @@ public class Application {
 
     private void FinOperacion() {
         try {
-            
+            // Get the current time as hours and minutes
+            int currentHour = Integer.parseInt(new SimpleDateFormat("HH").format(new Date()));
 
-            if (new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).after(new SimpleDateFormat("HHmm").parse(horaFinOperacion)) && new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).before(new SimpleDateFormat("HHmm").parse(horaLimite))) {
-                tiempoFinOperacion += 1;
-                for (Puerta puerta : dataManager.GetPuertas()) {
-                    if (puerta.isEstadoAperturaCierre() != null && puerta.isEstadoAperturaCierre()) {
-                        tiempoFinOperacion = 0;
+            // Check if the current time is between 12:00 AM (midnight) and 1:00 AM
+            if (currentHour == 0) {
+                DatoCDEG estacion = new DatoCDEG();
+                if (new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).after(new SimpleDateFormat("HHmm").parse(horaFinOperacion)) && new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).before(new SimpleDateFormat("HHmm").parse(horaLimite))) {
+                    tiempoFinOperacion += 1;
+                    for (Puerta puerta : dataManager.GetPuertas()) {
+                        if (puerta.isEstadoAperturaCierre() != null && puerta.isEstadoAperturaCierre()) {
+                            tiempoFinOperacion = 0;
+                        }
                     }
-                }
-                if (tiempoFinOperacion > Integer.parseInt(tiempoFinOperacionDB)) {
-                    tiempoFinOperacion = 0;
+                    if (tiempoFinOperacion > Integer.parseInt(tiempoFinOperacionDB)) {
+                        tiempoFinOperacion = 0;
+                        String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+                        if (!fechaFinOperacion.equalsIgnoreCase(fecha)) {
+                            fechaFinOperacion = fecha;
+                            OP_Parametro parametro = new OP_Parametro();
+                            parametro.setId(15);
+                            parametro.setNombre("FechaFinOperacion");
+                            parametro.setValor(fecha);
+                            dataManager.UpdateParametros(parametro);
+                            estacion.setIdVagon("FIN-OP");
+                            estacion.setIdPuerta("FIN-OP");
+                            estacion.setCodigoPuerta("FIN-OP");
+                            estacion.setCodigoEvento("EVP9");
+                            estacion.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+                            ArmarEventos(estacion);
+                        }
+                    }
+                } else if (new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).after(new SimpleDateFormat("HHmm").parse(horaLimite))) {
                     String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
                     if (!fechaFinOperacion.equalsIgnoreCase(fecha)) {
                         fechaFinOperacion = fecha;
@@ -1717,22 +1749,9 @@ public class Application {
                         ArmarEventos(estacion);
                     }
                 }
-            } else if (new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).after(new SimpleDateFormat("HHmm").parse(horaLimite))) {
-                String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-                if (!fechaFinOperacion.equalsIgnoreCase(fecha)) {
-                    fechaFinOperacion = fecha;
-                    OP_Parametro parametro = new OP_Parametro();
-                    parametro.setId(15);
-                    parametro.setNombre("FechaFinOperacion");
-                    parametro.setValor(fecha);
-                    dataManager.UpdateParametros(parametro);
-                    estacion.setIdVagon("FIN-OP");
-                    estacion.setIdPuerta("FIN-OP");
-                    estacion.setCodigoPuerta("FIN-OP");
-                    estacion.setCodigoEvento("EVP9");
-                    estacion.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-                    ArmarEventos(estacion);
-                }
+            } else {
+                // Handle the case when the current time is not within the specified range
+                // You can log a message or take any appropriate action here.
             }
         } catch (Exception e) {
             System.out.println("Error en FIN OPERACION " + e);
@@ -2759,6 +2778,46 @@ public class Application {
 
             }
 
+        }.start();
+        new Thread() {
+            @Override
+            public void run() {
+                long tiempoAnterior = 0;
+
+                while (true) {
+                    // Espera durante 1 segundo antes de realizar la siguiente verificación
+                    try {
+                        Thread.sleep(1000); // espera 1000 milisegundos (1 segundo)
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    // Obtén el tiempo actual
+                    // Obtén el tiempo actual en milisegundos
+                    long tiempoActual = System.currentTimeMillis();
+
+                    // Si es la primera vez, simplemente almacena el tiempo actual
+                    if (tiempoAnterior == 0) {
+                        tiempoAnterior = tiempoActual;
+                        System.out.println("Primera vez que se ejecuta el programa. Se almacenó el tiempo actual.");
+                    } else {
+                        // Calcula la diferencia entre el tiempo actual y el tiempo anterior
+                        long diferenciaEnMilisegundos = tiempoActual - tiempoAnterior;
+
+                        // Comprueba si la diferencia es mayor a 2 minutos (en milisegundos)
+                        if (Math.abs(diferenciaEnMilisegundos) >= 2 * 60 * 1000) {
+                            if (diferenciaEnMilisegundos < 0) {
+                                logger.log(Level.INFO,"El reloj se ha atrasado. La diferencia es de " + Math.abs(diferenciaEnMilisegundos) / 1000 / 60 + " minutos.");
+                            } else {
+                                logger.log(Level.INFO,"El reloj se ha adelantado. La diferencia es de " + diferenciaEnMilisegundos / 1000 / 60 + " minutos.");
+                            }
+                        } 
+
+                        // Actualiza el tiempo anterior con el tiempo actual para la próxima verificación
+                        tiempoAnterior = tiempoActual;
+                    }
+                }
+            }
         }.start();
 
     }

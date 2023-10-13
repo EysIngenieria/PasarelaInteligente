@@ -1354,3 +1354,5 @@ sep 15, 2023 2:28:42 PM com.eysingenieria.pi.Application iniciarPrograma
 INFORMACIÓN: El programa ha sido iniciado.
 sep 18, 2023 9:46:20 AM com.eysingenieria.pi.Application iniciarPrograma
 INFORMACIÓN: El programa ha sido iniciado.
+oct 13, 2023 7:45:10 AM com.eysingenieria.pi.Application iniciarPrograma
+INFORMACIÓN: El programa ha sido iniciado.
