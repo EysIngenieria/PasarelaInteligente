@@ -46,12 +46,12 @@ public class PublicadorLocalMQTT {
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(PublicadorLocalMQTT.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println(ex.getLocalizedMessage());
                 }
                 System.out.println(me + " ERROR 8");
                 mqttClient.connect(mqttConnectOptions);
             } catch (MqttException ex) {
-                Logger.getLogger(PublicadorLocalMQTT.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getLocalizedMessage());
             }
         }
     }

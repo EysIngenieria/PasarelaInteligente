@@ -93,7 +93,7 @@ public class DataManager implements IDataManager {
         try {
             db.DeleteRegistroCrudo(id);
         } catch (Exception ex) {
-            Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getLocalizedMessage());
         }
     }
     

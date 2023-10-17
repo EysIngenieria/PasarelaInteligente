@@ -307,7 +307,7 @@ public class DataAccess implements IDataAccess {
         try {
             puertaController.edit(puerta);
         } catch (Exception ex) {
-            Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getLocalizedMessage());
         }
     }
 
@@ -316,7 +316,7 @@ public class DataAccess implements IDataAccess {
         try {
             registroJpaController.destroy(id);
         } catch (NonexistentEntityException ex) {
-            Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getLocalizedMessage());
         }
 
     }
@@ -326,7 +326,7 @@ public class DataAccess implements IDataAccess {
         try {
             registroTemporalJpaController.edit(registroTemporal);
         } catch (Exception ex) {
-            Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getLocalizedMessage());
         }
     }
 
@@ -340,7 +340,7 @@ public class DataAccess implements IDataAccess {
             try {
                 puertaController.destroy(findPuertaEntity.getId());
             } catch (NonexistentEntityException ex) {
-                Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getLocalizedMessage());
             }
         }
     }
@@ -356,7 +356,7 @@ public class DataAccess implements IDataAccess {
                     parametroJpaController.destroy(object.getId());
                 }
             } catch (NonexistentEntityException ex) {
-                Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getLocalizedMessage());
             }
         }
     }
@@ -366,7 +366,7 @@ public class DataAccess implements IDataAccess {
             try {
                 registroJpaController.destroy(object.getId());
             } catch (NonexistentEntityException ex) {
-                Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getLocalizedMessage());
             }
         }
     }
@@ -376,7 +376,7 @@ public class DataAccess implements IDataAccess {
             try {
                 registroCrudoJpaController.destroy(object.getId());
             } catch (NonexistentEntityException ex) {
-                Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getLocalizedMessage());
             }
         }
     }
@@ -386,7 +386,7 @@ public class DataAccess implements IDataAccess {
             try {
                 registroTemporalJpaController.destroy(object.getId());
             } catch (NonexistentEntityException ex) {
-                Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getLocalizedMessage());
             }
         }
     }
@@ -416,7 +416,7 @@ public class DataAccess implements IDataAccess {
         try {
             comandoController.destroy(id);
         } catch (com.manatee.pi.exceptions.NonexistentEntityException ex) {
-            Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getLocalizedMessage());
         }
     }
 

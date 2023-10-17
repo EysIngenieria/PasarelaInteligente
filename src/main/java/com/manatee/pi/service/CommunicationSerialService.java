@@ -42,7 +42,7 @@ public class CommunicationSerialService {
         try {
             serial.open(serialConfig);
         } catch (IOException ex) {
-            Logger.getLogger(CommunicationSerialService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getLocalizedMessage());
         }
     }
 
@@ -50,7 +50,7 @@ public class CommunicationSerialService {
         try {
             serial.write(data);
         } catch (IOException ex) {
-            Logger.getLogger(CommunicationSerialService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getLocalizedMessage());
         }
     }
 
@@ -61,11 +61,11 @@ public class CommunicationSerialService {
                     messageArrived = true;
                     data = event.getAsciiString();
                 } catch (IOException ex) {
-                    Logger.getLogger(CommunicationSerialService.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println(ex.getLocalizedMessage());
                 }
             });
         } catch (IllegalStateException ex) {
-            Logger.getLogger(CommunicationSerialService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getLocalizedMessage());
         }
     }
 }

@@ -53,13 +53,13 @@ public class PublicadorMANATEEMQTT1 {
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(PublicadorMANATEEMQTT1.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println(ex.getLocalizedMessage());
                 }
                 System.out.println(me + " ERROR 8");
                 mqttClient.connect(mqttConnectOptions);
                 return false;
             } catch (MqttException ex) {
-                Logger.getLogger(PublicadorMANATEEMQTT1.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getLocalizedMessage());
             }
         }
         return false;
