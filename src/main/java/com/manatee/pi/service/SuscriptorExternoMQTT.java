@@ -110,7 +110,7 @@ public class SuscriptorExternoMQTT implements MqttCallback {
                 try {
                     mqttClient.close(true);
                 } catch (MqttException ex1) {
-                    Logger.getLogger(SuscriptorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex1);
+                    
                 }
             }
              */
