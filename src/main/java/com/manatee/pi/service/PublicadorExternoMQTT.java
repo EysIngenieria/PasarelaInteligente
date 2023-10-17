@@ -73,9 +73,8 @@ public class PublicadorExternoMQTT implements MqttCallback {
         } catch (MqttException ex) {
 
             try {
-                
+                System.out.println(ex.getLocalizedMessage());
                 //System.out.println("Error al publicar");
-                //Logger.getLogger(PublicadorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex);
                 Thread.sleep(5000);
             } catch (InterruptedException ex1) {
                 System.out.println(ex.getLocalizedMessage());
