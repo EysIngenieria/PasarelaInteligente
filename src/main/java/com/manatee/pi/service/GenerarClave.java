@@ -54,7 +54,7 @@ public class GenerarClave {
             return token;
         } catch (IOException | NoSuchAlgorithmException | InvalidKeySpecException ex) {
             ex.toString();
-            Logger.getLogger(GenerarClave.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getLocalizedMessage());
             return null;
         }
     }

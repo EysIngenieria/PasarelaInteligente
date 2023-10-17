@@ -76,12 +76,12 @@ public class SuscriptorLocalMQTT implements MqttCallback {
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(PublicadorLocalMQTT.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println(ex.getLocalizedMessage());
                 }
                 System.out.println(me + " ERROR 8");
                 mqttClient.connect(mqttConnectOptions);
             } catch (MqttException ex) {
-                Logger.getLogger(PublicadorLocalMQTT.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getLocalizedMessage());
             }
 
         }
@@ -119,7 +119,7 @@ public class SuscriptorLocalMQTT implements MqttCallback {
             mqttClient.subscribe(topic);
             
         } catch (MqttException ex) {
-            Logger.getLogger(SuscriptorLocalMQTT.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getLocalizedMessage());
         }
         return mqttClient.isConnected();
     }
@@ -140,7 +140,7 @@ public class SuscriptorLocalMQTT implements MqttCallback {
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(PublicadorLocalMQTT.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println(ex.getLocalizedMessage());
                 }
                 System.out.println(me + " ERROR 8");
                 mqttClient.connect(mqttConnectOptions);

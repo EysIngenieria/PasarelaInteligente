@@ -78,7 +78,7 @@ public class PublicadorExternoMQTT implements MqttCallback {
                 //Logger.getLogger(PublicadorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex);
                 Thread.sleep(5000);
             } catch (InterruptedException ex1) {
-                Logger.getLogger(PublicadorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex1);
+                System.out.println(ex.getLocalizedMessage());
             }
 
             return false;
@@ -176,7 +176,7 @@ public class PublicadorExternoMQTT implements MqttCallback {
             
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(PublicadorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getLocalizedMessage());
         }
 
     }
@@ -199,7 +199,7 @@ public class PublicadorExternoMQTT implements MqttCallback {
             try {
                 mqttClient.subscribe(topics);
             } catch (MqttException ex) {
-                Logger.getLogger(PublicadorExternoMQTT.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getLocalizedMessage());
             }
             System.out.println("se suscribio");
         }

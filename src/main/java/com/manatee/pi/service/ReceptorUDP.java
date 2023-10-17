@@ -53,7 +53,7 @@ public class ReceptorUDP {
             socket = new DatagramSocket(puertoRecibir);
             
         } catch (SocketException ex) {
-            Logger.getLogger(TransmisorUDP.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getLocalizedMessage());
         }
     }
 
@@ -69,7 +69,7 @@ public class ReceptorUDP {
             dato = new String(packet.getData(), 0, packet.getLength());
             entroDato = true;
         } catch (IOException ex) {
-            Logger.getLogger(TransmisorUDP.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getLocalizedMessage());
         }
     }
 
