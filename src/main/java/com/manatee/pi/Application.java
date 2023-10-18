@@ -42,16 +42,16 @@ import com.manatee.pi.service.PublicadorExternoMQTT;
 import com.manatee.pi.service.PublicadorLocalMQTT;
 import com.manatee.pi.service.PublicadorMANATEEMQTT1;
 import com.manatee.pi.service.ReceptorUDP;
-import com.manatee.pi.service.SuscriptorExternoMQTT;
+import com.sun.management.OperatingSystemMXBean;
 import com.manatee.pi.service.SuscriptorLocalMQTT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.opencsv.CSVReader;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -61,7 +61,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -70,9 +69,6 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -109,6 +105,7 @@ public class Application {
     private ArrayList<MLan> MLans;
     private Date conexionCDEG;
     private Date conexionMTE;
+    private boolean moduloPi;
 
     List<CFG_Evento> eventos;
     List<CFG_Alarma> alarmas;
@@ -177,6 +174,7 @@ public class Application {
         estacion = new DatoCDEG();
         cast = new Cast();
         auxService = new AuxService();
+        moduloPi = false;
     }
 
     public void Run() {
@@ -2249,12 +2247,15 @@ public class Application {
                     if (aCKVagon.getCanal() != 0) {
                         vagone.processMessage(aCKVagon.getIdDispositivo(), aCKVagon.getRegistro(), aCKVagon.getCanal());
                         break;
-                    } else {
+                    } else if (aCKVagon.getCanal() == 0){
                         vagone.processMessageEmergency(aCKVagon.getIdDispositivo(), aCKVagon.getRegistro());
                         break;
                     }
                     //System.out.println(re);
                 }
+            }
+            if(aCKVagon.getCanal()== -1){
+                moduloPi = (aCKVagon.getRegistro()==1);
             }
 
         }
@@ -2477,6 +2478,26 @@ public class Application {
                 }
             }
         }.start();
+        new Thread() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        if(moduloPi){
+                           Thread.sleep(2 * 60 * 60 * 1000); 
+                           moduloPi = false;
+                           dataManager.UpdateVagonACK("moduloPi", -1,0, "-1");
+                        }
+
+//                        guardarRegistroCrudo();
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ie) {
+                        ie.printStackTrace();
+                    }
+                }
+            }
+        }.start();
+        
         new Thread() {
             @Override
             public void run() {
@@ -2735,6 +2756,13 @@ public class Application {
                         JSONObject puertas = new JSONObject();
                         JSONArray conexiones = new JSONArray();
                         JSONObject conexion = new JSONObject();
+                        if (moduloPi) {
+                            conexion = new JSONObject();
+                            conexion.put("nombre", "ModuloPi");
+                            conexion.put("CONECTADO", false);
+                            conexion.put("fechaConexion", "--/--/-- --:--:--");
+                            conexiones.put(conexion);
+                        }
                         for (MLan MLanT : MLans) {
                             conexion = new JSONObject();
                             conexion.put("nombre", "MLAN" + (MLans.indexOf(MLanT) + 1));
@@ -2752,6 +2780,7 @@ public class Application {
                         conexion.put("CONECTADO", publicadorExternoMQTT.conect());
                         conexion.put("fechaConexion", formatter.format(conexionCDEG));
                         conexiones.put(conexion);
+                        
 
                         conexion = new JSONObject();
                         conexion.put("nombre", "CENTRO CONTROL");
@@ -2818,12 +2847,16 @@ public class Application {
 
                         // Comprueba si la diferencia es mayor a 2 minutos (en milisegundos)
                         if (Math.abs(diferenciaEnMilisegundos) >= 2 * 60 * 1000) {
+                            moduloPi = true;
+                            dataManager.UpdateVagonACK("moduloPi", -1, 1, "-1");
+                            Date fechaAntes = new Date(tiempoAnterior);
+                            Date fechaDespues = new Date(tiempoActual);
                             if (diferenciaEnMilisegundos < 0) {
-                                logger.log(Level.INFO,"El reloj se ha atrasado. La diferencia es de " + Math.abs(diferenciaEnMilisegundos) / 1000 / 60 + " minutos.");
+                                logger.info(formatoFecha.format(fechaAntes) +" El reloj se ha atrasado. La diferencia es de " + Math.abs(diferenciaEnMilisegundos) / 1000 / 60 + " minutos." + " Fecha actual " + formatoFecha.format(fechaDespues));
                             } else {
-                                logger.log(Level.INFO,"El reloj se ha adelantado. La diferencia es de " + diferenciaEnMilisegundos / 1000 / 60 + " minutos.");
+                                logger.info(formatoFecha.format(fechaAntes) + " El reloj se ha adelantado. La diferencia es de " + diferenciaEnMilisegundos / 1000 / 60 + " minutos." + " Fecha actual " + formatoFecha.format(fechaDespues));
                             }
-                        } 
+                        }
 
                         // Actualiza el tiempo anterior con el tiempo actual para la próxima verificación
                         tiempoAnterior = tiempoActual;
@@ -2831,7 +2864,33 @@ public class Application {
                 }
             }
         }.start();
+        new Thread() {
+            @Override
+            public void run() {
+                while (true) {
+            try {
+                // Obtener el uso de la CPU
+                double cpuUsage = getCPUUsage();
 
+                // Obtener la fecha actual
+                String currentDate = formatoFecha.format(new Date());
+
+                // Registrar en el archivo de log
+                logger.info(currentDate + " - Uso de la CPU: " + cpuUsage + "%");
+
+                // Esperar 5 minutos antes de la próxima verificación
+                Thread.sleep(5 * 60 * 1000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+            }
+        }.start();
+
+    }
+    private double getCPUUsage() {
+        OperatingSystemMXBean osBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+        return osBean.getSystemCpuLoad() * 100;
     }
 
     public void conexionVagon(Vagon conect) {
