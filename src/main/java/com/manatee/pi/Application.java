@@ -2053,7 +2053,6 @@ public class Application {
             registro = mqttcdeg.getString("registro");
             region = mqttcdeg.getString("region");
             proyecto = mqttcdeg.getString("proyecto");
-            dataManager.DeletePuertas();
 
             activado = (int) configuracion.getNumber("ACTIVADO");
             ModoACK = (int) configuracion.getNumber("ACK");
