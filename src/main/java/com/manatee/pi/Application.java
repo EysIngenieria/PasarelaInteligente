@@ -1508,7 +1508,7 @@ public class Application {
             trama += String.format("%02x", (Integer.parseInt(puerta.getIdPuerta()) & 0xFF));
             trama += "00710107";
             if (puerta.getActivadoDesactivado() != null) {
-                System.out.println("entro " + puerta.getCanal() + " " + puerta.getVagon() + " " + puerta.getIdPuerta() + " " + puerta.getActivadoDesactivado());
+                //System.out.println("entro " + puerta.getCanal() + " " + puerta.getVagon() + " " + puerta.getIdPuerta() + " " + puerta.getActivadoDesactivado());
                 switch (puerta.getActivadoDesactivado()) {
                     case 1:
                         if (puerta.getFechaHoraInicioActivacionDesactivacion() == null && puerta.getFechaHoraFinalActivacionDesactivacion() == null) {
@@ -1523,7 +1523,7 @@ public class Application {
                             try {
                                 //System.out.println("fecha != null");
                                 if (formatoFecha.parse(puerta.getFechaHoraFinalActivacionDesactivacion()).after(new Date()) && formatoFecha.parse(puerta.getFechaHoraInicioActivacionDesactivacion()).before(new Date())) {
-                                    System.out.println("entro en rango");
+                                    //System.out.println("entro en rango");
                                     trama += "0100";
                                     puerta.setEstadoBotonManual(1);
                                     comando.setTrama(trama);
@@ -1548,7 +1548,7 @@ public class Application {
                             dataManager.UpdatePuerta(puerta);
                         } else try {
                             if (formatoFecha.parse(puerta.getFechaHoraFinalActivacionDesactivacion()).after(new Date()) && formatoFecha.parse(puerta.getFechaHoraInicioActivacionDesactivacion()).before(new Date())) {
-                                System.out.println("entro en rango");
+                                //System.out.println("entro en rango");
                                 trama += "0000";
                                 puerta.setEstadoBotonManual(1);
                                 comando.setTrama(trama);
