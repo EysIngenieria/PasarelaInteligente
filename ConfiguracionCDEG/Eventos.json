@@ -1,0 +1,72 @@
+[
+	{
+		"Id" : 1,
+		"Nombre" : "EVP1",
+		"Descripcion" : "Evento de información de cambio en el estado de cierre o apertura de las puertas."
+	},
+	{
+		"Id" : 2,
+		"Nombre" : "EVP2",
+		"Descripcion" : "Evento de detección de intento de apertura forzada."
+	},
+	{
+		"Id" : 3,
+		"Nombre" : "EVP3",
+		"Descripcion" : "Evento de detección de intento de bloqueo durante la apertura de una puerta."
+	},
+	{
+		"Id" : 4,
+		"Nombre" : "EVP4",
+		"Descripcion" : "Evento de detección de intento de bloqueo durante el cierre de una puerta."
+	},
+	{
+		"Id" : 5,
+		"Nombre" : "EVP5",
+		"Descripcion" : "Evento de autodetección de un error crítico interno en la operación de la puerta."
+	},
+	{
+		"Id" : 6,
+		"Nombre" : "EVP6",
+		"Descripcion" : "Apagado de la energía principal de alimentación de la red pública."
+	},
+	{
+		"Id" : 7,
+		"Nombre" : "EVP7",
+		"Descripcion" : "Activación del botón de emergencia."
+	},
+	{
+		"Id" : 8,
+		"Nombre" : "EVP8",
+		"Descripcion" : "Inicio de la operación."
+	},
+	{
+		"Id" : 9,
+		"Nombre" : "EVP9",
+		"Descripcion" : "Fin de la operación."
+	},
+	{
+		"Id" : 10,
+		"Nombre" : "EVP10",
+		"Descripcion" : "Evento que se envía después de recibir un comando de autodiagnóstico."
+	},
+	{
+		"Id" : 11,
+		"Nombre" : "EVP11",
+		"Descripcion" : "Evento que se envía después de recibir un RESET."
+	},
+	{
+		"Id" : 12,
+		"Nombre" : "EVP12",
+		"Descripcion" : "Ocurrencia de un evento en el sistema bus-estación."
+	},
+	{
+		"Id" : 13,
+		"Nombre" : "EVP13",
+		"Descripcion" : "Uso boton manual"
+	},
+	{
+		"Id" : 14,
+		"Nombre" : "EVP14",
+		"Descripcion" : "Respuesta Boton Manual"
+	}
+]

@@ -2,21 +2,22 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="PIPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>com.eysingenieria.pi.entities.OP_Parametro</class>
-    <class>com.eysingenieria.pi.entities.OP_RegistroCrudo</class>
-    <class>com.eysingenieria.pi.entities.OP_Registro</class>
-    <class>com.eysingenieria.pi.entities.CFG_Alarma</class>
-    <class>com.eysingenieria.pi.entities.CFG_CamposCabecera</class>
-    <class>com.eysingenieria.pi.entities.CFG_CamposEvento</class>
-    <class>com.eysingenieria.pi.entities.CFG_Configuracion</class>
-    <class>com.eysingenieria.pi.entities.CFG_Evento</class>
-    <class>com.eysingenieria.pi.entities.CFG_NivelAlarma</class>
-    <class>com.eysingenieria.pi.entities.CFG_CamposAlarma</class>
-    <class>com.eysingenieria.pi.entities.CFG_CamposValidos</class>
-    <class>com.eysingenieria.pi.entities.OP_RegistroTemporal</class>
-    <class>com.eysingenieria.pi.entities.Puerta</class>
     <class>com.eysingenieria.pi.entities.OP_RegistroTemporalManatee</class>
-    <class>com.eysingenieria.pi.entities.ComandoCDEG</class>
+    <class>com.manatee.pi.entities.CFG_CamposValidos</class>
+    <class>com.manatee.pi.entities.CFG_CamposAlarma</class>
+    <class>com.manatee.pi.entities.Puerta</class>
+    <class>com.manatee.pi.entities.ACKVagon</class>
+    <class>com.manatee.pi.entities.CFG_Alarma</class>
+    <class>com.manatee.pi.entities.ComandoCDEG</class>
+    <class>com.manatee.pi.entities.CFG_CamposCabecera</class>
+    <class>com.manatee.pi.entities.OP_RegistroCrudo</class>
+    <class>com.manatee.pi.entities.OP_Registro</class>
+    <class>com.manatee.pi.entities.OP_RegistroTemporal</class>
+    <class>com.manatee.pi.entities.CFG_NivelAlarma</class>
+    <class>com.manatee.pi.entities.CFG_Configuracion</class>
+    <class>com.manatee.pi.entities.CFG_Evento</class>
+    <class>com.manatee.pi.entities.CFG_CamposEvento</class>
+    <class>com.manatee.pi.entities.OP_Parametro</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/PIDB?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="PIUSER"/>
