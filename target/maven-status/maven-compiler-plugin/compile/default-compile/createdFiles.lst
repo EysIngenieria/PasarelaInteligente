@@ -61,7 +61,6 @@ com\manatee\pi\controller\OP_RegistroCrudoJpaController.class
 com\manatee\pi\Application$2.class
 com\manatee\pi\service\ProcesarDatoEstacion.class
 com\manatee\pi\Application$12.class
-com\manatee\pi\Application$15.class
 com\manatee\pi\entities\OP_Registro_.class
 com\manatee\pi\entities\Audio.class
 com\manatee\pi\entities\ModuloConcentradorVagon.class

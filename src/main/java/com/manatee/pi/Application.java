@@ -47,10 +47,13 @@ import com.manatee.pi.service.SuscriptorLocalMQTT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.management.ManagementFactory;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -80,6 +83,8 @@ import org.json.JSONObject;
 public class Application {
 
     private static final String VERSION = "1.1.7 BETA";
+    private static final String LOG_FILE_PATH = "./Logs_pi/program_log.txt";
+
     int activado = 0;
     int ModoACK = 0;
     DataManager dataManager;
@@ -161,6 +166,7 @@ public class Application {
     private String CanalCostadoPI;
 
     public Application() {
+        formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
         MLans = new ArrayList<>();
         registrosCrudos = new ArrayList<>();
         dataManager = new DataManager();
@@ -188,9 +194,9 @@ public class Application {
             cargarConfiguracion();
 
         } catch (IOException ex) {
-           System.err.println(ex.getLocalizedMessage()+"");
+            System.err.println(ex.getLocalizedMessage() + "");
         } catch (InterruptedException ex) {
-            System.err.println(ex.getLocalizedMessage()+"");
+            System.err.println(ex.getLocalizedMessage() + "");
         }
         GetParametros();
 
@@ -263,29 +269,9 @@ public class Application {
     // Resto del código de la clase
     public void iniciarPrograma() {
         // Especifica la ruta del directorio de logs
-        String logDirectoryPath = "./Logs_pi";
-
-        // Verifica si el directorio de logs existe, y si no, créalo
-        Path logDirectory = Paths.get(logDirectoryPath);
-        if (!Files.exists(logDirectory)) {
-            try {
-                Files.createDirectories(logDirectory);
-            } catch (IOException e) {
-                System.err.println("Error al inicializar el logger: " + e.getMessage());
-            }
-        }
-        // Inicializar el logger
-        try {
-            FileHandler fileHandler = new FileHandler("./Logs_pi/program_log.txt", true);
-            logger.addHandler(fileHandler);
-            SimpleFormatter formatter = new SimpleFormatter();
-            fileHandler.setFormatter(formatter);
-        } catch (IOException e) {
-            System.err.println("Error al inicializar el logger: " + e.getMessage());
-        }
 
         // Registrar un mensaje de inicio en el archivo de log
-        logger.log(Level.INFO, "El programa ha sido iniciado.");
+        log("El programa ha sido iniciado. Version: " + VERSION);
 
         // Resto de la lógica del programa
     }
@@ -522,7 +508,7 @@ public class Application {
             }
         }
     }
-    
+
     public void cargarEventos() {
         GetEventos();
         if (eventos == null) {
@@ -538,7 +524,6 @@ public class Application {
                     evento.setId(jsonObject.getInt("Id"));
                     evento.setNombre(jsonObject.getString("Nombre"));
                     evento.setDescripcion(jsonObject.optString("Descripcion"));
-                    
 
                     eventosList.add(evento);
                 }
@@ -601,7 +586,7 @@ public class Application {
                                                         try {
                                                             datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date(registroCrudo.getFechaOcurrencia().getTime()))));
                                                         } catch (ParseException ex) {
-                                                            System.err.println(ex.getLocalizedMessage()+"");
+                                                            System.err.println(ex.getLocalizedMessage() + "");
                                                         }
                                                     }
 
@@ -629,7 +614,7 @@ public class Application {
                                                         try {
                                                             datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date(registroCrudo.getFechaOcurrencia().getTime()))));
                                                         } catch (ParseException ex) {
-                                                            System.err.println(ex.getLocalizedMessage()+"");
+                                                            System.err.println(ex.getLocalizedMessage() + "");
                                                         }
                                                     }
                                                     cast.datosPuerta(temp, datoAux);
@@ -668,7 +653,7 @@ public class Application {
                                                         try {
                                                             datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date(registroCrudo.getFechaOcurrencia().getTime()))));
                                                         } catch (ParseException ex) {
-                                                            System.err.println(ex.getLocalizedMessage()+"");
+                                                            System.err.println(ex.getLocalizedMessage() + "");
                                                         }
                                                     }
                                                     cast.datosPuerta(temp, datoAux);
@@ -698,7 +683,7 @@ public class Application {
                                                         try {
                                                             datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date(registroCrudo.getFechaOcurrencia().getTime()))));
                                                         } catch (ParseException ex) {
-                                                            System.err.println(ex.getLocalizedMessage()+"");
+                                                            System.err.println(ex.getLocalizedMessage() + "");
                                                         }
                                                     }
                                                     if (temp.getEstadoErrorCritico() != null && temp.getModoOperacion() != null) {
@@ -741,7 +726,7 @@ public class Application {
 
                                                             datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date(registroCrudo.getFechaOcurrencia().getTime()))));
                                                         } catch (ParseException ex) {
-                                                            System.err.println(ex.getLocalizedMessage()+"");
+                                                            System.err.println(ex.getLocalizedMessage() + "");
                                                         }
                                                     }
                                                     cast.datosPuerta(temp, datoAux);
@@ -768,7 +753,7 @@ public class Application {
                                                         try {
                                                             datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date(registroCrudo.getFechaOcurrencia().getTime()))));
                                                         } catch (ParseException ex) {
-                                                            System.err.println(ex.getLocalizedMessage()+"");
+                                                            System.err.println(ex.getLocalizedMessage() + "");
                                                         }
                                                     }
                                                     cast.datosPuerta(temp, datoAux);
@@ -797,7 +782,7 @@ public class Application {
                                                         try {
                                                             datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date(registroCrudo.getFechaOcurrencia().getTime()))));
                                                         } catch (ParseException ex) {
-                                                            System.err.println(ex.getLocalizedMessage()+"");
+                                                            System.err.println(ex.getLocalizedMessage() + "");
                                                         }
                                                     }
                                                     cast.datosPuerta(temp, datoAux);
@@ -824,7 +809,7 @@ public class Application {
                                                         try {
                                                             datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date(registroCrudo.getFechaOcurrencia().getTime()))));
                                                         } catch (ParseException ex) {
-                                                            System.err.println(ex.getLocalizedMessage()+"");
+                                                            System.err.println(ex.getLocalizedMessage() + "");
                                                         }
                                                     }
                                                     cast.datosPuerta(temp, datoAux);
@@ -849,7 +834,7 @@ public class Application {
                                                         try {
                                                             datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date(registroCrudo.getFechaOcurrencia().getTime()))));
                                                         } catch (ParseException ex) {
-                                                            System.err.println(ex.getLocalizedMessage()+"");
+                                                            System.err.println(ex.getLocalizedMessage() + "");
                                                         }
                                                     }
                                                 }
@@ -874,7 +859,7 @@ public class Application {
                                                         try {
                                                             datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date(registroCrudo.getFechaOcurrencia().getTime()))));
                                                         } catch (ParseException ex) {
-                                                            System.err.println(ex.getLocalizedMessage()+"");
+                                                            System.err.println(ex.getLocalizedMessage() + "");
                                                         }
                                                     }
 
@@ -920,7 +905,7 @@ public class Application {
                                                         try {
                                                             datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date(registroCrudo.getFechaOcurrencia().getTime()))));
                                                         } catch (ParseException ex) {
-                                                            System.err.println(ex.getLocalizedMessage()+"");
+                                                            System.err.println(ex.getLocalizedMessage() + "");
                                                         }
                                                     }
                                                     cast.datosPuerta(temp, datoAux);
@@ -948,7 +933,7 @@ public class Application {
                                                         try {
                                                             datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date(registroCrudo.getFechaOcurrencia().getTime()))));
                                                         } catch (ParseException ex) {
-                                                            System.err.println(ex.getLocalizedMessage()+"");
+                                                            System.err.println(ex.getLocalizedMessage() + "");
                                                         }
                                                     }
                                                     cast.datosPuerta(temp, datoAux);
@@ -981,7 +966,7 @@ public class Application {
                                                         try {
                                                             datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date(registroCrudo.getFechaOcurrencia().getTime()))));
                                                         } catch (ParseException ex) {
-                                                            System.err.println(ex.getLocalizedMessage()+"");
+                                                            System.err.println(ex.getLocalizedMessage() + "");
                                                         }
                                                     }
 
@@ -1055,7 +1040,7 @@ public class Application {
                                                         try {
                                                             datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date(registroCrudo.getFechaOcurrencia().getTime()))));
                                                         } catch (ParseException ex) {
-                                                            System.err.println(ex.getLocalizedMessage()+"");
+                                                            System.err.println(ex.getLocalizedMessage() + "");
                                                         }
                                                     }
 
@@ -1142,7 +1127,7 @@ public class Application {
                                                 //vagon.setCodigoPuerta("9115-WA-OR-1");
                                                 datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date(registroCrudo.getFechaOcurrencia().getTime()))));
                                             } catch (ParseException ex) {
-                                                System.err.println(ex.getLocalizedMessage()+"");
+                                                System.err.println(ex.getLocalizedMessage() + "");
                                             }
                                         }
                                         datoAux.setIdVagon(nombreVagon(registroCrudo.getIdVagon()));
@@ -1283,7 +1268,7 @@ public class Application {
                                                 try {
                                                     dataManager.AddNivelAlarma(nivelAlarma);
                                                 } catch (Exception ex) {
-                                                    System.err.println(ex.getLocalizedMessage()+"");
+                                                    System.err.println(ex.getLocalizedMessage() + "");
                                                 }
                                             }
                                             //nivelAlarma.setCodigoNivelAlarma(a.getNivelAlarma());
@@ -1315,9 +1300,9 @@ public class Application {
                 try {
                     dataManager.DeleteRegistroCrudo(registroCrudo.getId());
                     System.out.println("Error en registro Crudo " + ex.getLocalizedMessage());
-                    System.err.println(ex.getLocalizedMessage()+"");
+                    System.err.println(ex.getLocalizedMessage() + "");
                 } catch (Exception ex1) {
-                    System.err.println(ex.getLocalizedMessage()+"");
+                    System.err.println(ex.getLocalizedMessage() + "");
                 }
             }
         }
@@ -1355,7 +1340,7 @@ public class Application {
                 try {
                     datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
                 } catch (ParseException ex) {
-                    System.err.println(ex.getLocalizedMessage()+"");
+                    System.err.println(ex.getLocalizedMessage() + "");
                 }
             }
             datoAux.setCodigoEvento("EVP10");
@@ -1369,7 +1354,7 @@ public class Application {
                     //puerta.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
                     datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
                 } catch (ParseException ex) {
-                    System.err.println(ex.getLocalizedMessage()+"");
+                    System.err.println(ex.getLocalizedMessage() + "");
                 }
             }
             datoAux.setCodigoEvento("EVP11");
@@ -1385,34 +1370,34 @@ public class Application {
                         datoAux.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS")
                                 .parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
                     } catch (ParseException ex) {
-                        System.err.println(ex.getLocalizedMessage()+"");
+                        System.err.println(ex.getLocalizedMessage() + "");
                     }
-                    }
-                    datoAux.setFechaHoraInicioActivaciondesactivacion(comando.getFechaHoraInicioActivaciondesactivacion());
-                    datoAux.setFechaHoraFinalActivaciondesactivacion(comando.getFechaHoraFinalActivaciondesactivacion());
-                    datoAux.setActivadoDesactivado(comando.getActivadoDesactivado());
-                    datoAux.setEstadoBotonManual(comando.getActivadoDesactivado());
-                    datoAux.setCodigoEvento("EVP14");
-                    ArmarEventos(datoAux);
-                    // Check if activadoDesactivado is 1 or 2 before proceeding
-                    if (comando.getActivadoDesactivado() == 1 || comando.getActivadoDesactivado() == 2) {
-                        // DECIDIMOS RESPONDER CON LO QUE ELLA MANDA PERO NO ES EL ESTADO REAL
+                }
+                datoAux.setFechaHoraInicioActivaciondesactivacion(comando.getFechaHoraInicioActivaciondesactivacion());
+                datoAux.setFechaHoraFinalActivaciondesactivacion(comando.getFechaHoraFinalActivaciondesactivacion());
+                datoAux.setActivadoDesactivado(comando.getActivadoDesactivado());
+                datoAux.setEstadoBotonManual(comando.getActivadoDesactivado());
+                datoAux.setCodigoEvento("EVP14");
+                ArmarEventos(datoAux);
+                // Check if activadoDesactivado is 1 or 2 before proceeding
+                if (comando.getActivadoDesactivado() == 1 || comando.getActivadoDesactivado() == 2) {
+                    // DECIDIMOS RESPONDER CON LO QUE ELLA MANDA PERO NO ES EL ESTADO REAL
 
-                        temp.setFechaHoraFinalActivacionDesactivacion(comando.getFechaHoraFinalActivaciondesactivacion());
-                        temp.setFechaHoraInicioActivacionDesactivacion(comando.getFechaHoraInicioActivaciondesactivacion());
-                        temp.setActivadoDesactivado(comando.getActivadoDesactivado());
-                        dataManager.UpdatePuerta(temp);
+                    temp.setFechaHoraFinalActivacionDesactivacion(comando.getFechaHoraFinalActivaciondesactivacion());
+                    temp.setFechaHoraInicioActivacionDesactivacion(comando.getFechaHoraInicioActivaciondesactivacion());
+                    temp.setActivadoDesactivado(comando.getActivadoDesactivado());
+                    dataManager.UpdatePuerta(temp);
 
-                        System.out.println(temp.getCanal() + " " + temp.getIdPuerta() + " " + temp.getActivadoDesactivado()
-                                + " fecha" + temp.getFechaHoraInicioActivacionDesactivacion() + " "
-                                + temp.getFechaHoraFinalActivacionDesactivacion());
-                    } else {
-                        // Handle the case where activadoDesactivado is not 1 or 2
-                        System.out.println("Invalid value for activadoDesactivado: " + comando.getActivadoDesactivado());
-                        // You may want to throw an exception, log an error, or take appropriate action here.
-                    }
+                    System.out.println(temp.getCanal() + " " + temp.getIdPuerta() + " " + temp.getActivadoDesactivado()
+                            + " fecha" + temp.getFechaHoraInicioActivacionDesactivacion() + " "
+                            + temp.getFechaHoraFinalActivacionDesactivacion());
+                } else {
+                    // Handle the case where activadoDesactivado is not 1 or 2
+                    System.out.println("Invalid value for activadoDesactivado: " + comando.getActivadoDesactivado());
+                    // You may want to throw an exception, log an error, or take appropriate action here.
+                }
 
-                } catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("Error en boton manual CDEG");
             }
             break;
@@ -1489,7 +1474,7 @@ public class Application {
                 vagonA.set(2, vagon);
                 ArmarEventos(vagon);
             } catch (ParseException ex) {
-                System.err.println(ex.getLocalizedMessage()+"");
+                System.err.println(ex.getLocalizedMessage() + "");
             }
         }
     }
@@ -1533,7 +1518,7 @@ public class Application {
                                     dataManager.UpdatePuerta(puerta);
                                 }
                             } catch (ParseException ex) {
-                                System.err.println(ex.getLocalizedMessage()+"");
+                                System.err.println(ex.getLocalizedMessage() + "");
                             }
                         }
                         break;
@@ -1558,7 +1543,7 @@ public class Application {
                                 dataManager.UpdatePuerta(puerta);
                             }
                         } catch (ParseException ex) {
-                            System.err.println(ex.getLocalizedMessage()+"");
+                            System.err.println(ex.getLocalizedMessage() + "");
                         }
                         break;
                     case 201:
@@ -1573,7 +1558,7 @@ public class Application {
                             dataManager.UpdatePuerta(puerta);
                         }
                     } catch (ParseException ex) {
-                        System.err.println(ex.getLocalizedMessage()+"");
+                        System.err.println(ex.getLocalizedMessage() + "");
                     }
                     break;
                     case 202:
@@ -1588,7 +1573,7 @@ public class Application {
                             dataManager.UpdatePuerta(puerta);
                         }
                     } catch (ParseException ex) {
-                        System.err.println(ex.getLocalizedMessage()+"");
+                        System.err.println(ex.getLocalizedMessage() + "");
                     }
                     break;
                     default:
@@ -1599,7 +1584,7 @@ public class Application {
             try {
                 Thread.sleep(200);
             } catch (InterruptedException ex) {
-                System.err.println(ex.getLocalizedMessage()+"");
+                System.err.println(ex.getLocalizedMessage() + "");
             }
         }
     }
@@ -1667,7 +1652,7 @@ public class Application {
             int currentHour = Integer.parseInt(new SimpleDateFormat("HH").format(new Date()));
 
             // Check if the current time is between 4:00 AM and 5:00 AM
-            if (currentHour == 4 ) {
+            if (currentHour == 4) {
                 if (new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).after(new SimpleDateFormat("HHmm").parse(horaInicioOperacion))) {
                     for (Puerta temp : dataManager.GetPuertas()) {
                         DatoCDEG puerta = new DatoCDEG();
@@ -1875,7 +1860,7 @@ public class Application {
         if (cfg_Configuracion == null) {
             cfg_Configuracion = new CFG_Configuracion();
             System.out.println("Updated Configuration");
-            
+
             Configuracion configuracion = cast.JSONtoConfiguracion(trama);
             cfg_Configuracion.setTrama(trama);
             dataManager.AddConfiguracion(cfg_Configuracion);
@@ -1935,7 +1920,7 @@ public class Application {
                 listAlarmas.add(alarma);
             }
             configuracion.setAlarma(listAlarmas);
-            
+
             for (Alarma a : configuracion.getAlarma()) {
                 for (CFG_CamposValidos campoValido : camposValidos) {
                     if (campoValido.getTipoCampoValido().equalsIgnoreCase("Alarma")) {
@@ -1948,7 +1933,7 @@ public class Application {
                                 dataManager.AddCamposAlarma(campoAlarma);
                                 GetCamposAlarmas();
                             } catch (Exception e) {
-                                System.out.println("Error en añadir Campos Alarma CDEG" +e.getLocalizedMessage());
+                                System.out.println("Error en añadir Campos Alarma CDEG" + e.getLocalizedMessage());
                             }
                         }
                     }
@@ -1960,7 +1945,7 @@ public class Application {
                             dataManager.AddCamposAlarma(campoAlarma);
                             GetCamposAlarmas();
                         } catch (Exception e) {
-                            System.out.println("Error en añadir Campos Alarma CDEG 2" +e.getLocalizedMessage());
+                            System.out.println("Error en añadir Campos Alarma CDEG 2" + e.getLocalizedMessage());
                         }
 
                     }
@@ -1972,17 +1957,16 @@ public class Application {
                     try {
                         dataManager.AddNivelAlarma(nivelAlarma);
                     } catch (Exception ex) {
-                        System.err.println(ex.getLocalizedMessage()+"");
+                        System.err.println(ex.getLocalizedMessage() + "");
                     }
                 }
 
-                
                 //nivelAlarma.setCodigoNivelAlarma(a.getNivelAlarma());
             }
         }
     }
 
-    public CFG_Alarma getAlarma(Alarma a){
+    public CFG_Alarma getAlarma(Alarma a) {
         GetAlarmas();
         CFG_Alarma ret = null;
         for (CFG_Alarma alap : alarmas) {
@@ -1993,6 +1977,7 @@ public class Application {
         }
         return ret;
     }
+
     public void cargarConfiguracionCDEG() {
         String jsonlec = "";
         try {
@@ -2030,7 +2015,7 @@ public class Application {
 
             //System.out.println(jsonlec);
         } catch (IOException ex) {
-            System.err.println(ex.getLocalizedMessage()+"");
+            System.err.println(ex.getLocalizedMessage() + "");
         }
         try {
             JSONObject configuracion = new JSONObject(jsonlec);
@@ -2223,7 +2208,7 @@ public class Application {
                     }
 
                 }
-                
+
                 //System.out.println("Vagones " + "\n" + new Gson().toJson(vagones));
             }
             cargarDatosACK();
@@ -2238,7 +2223,7 @@ public class Application {
         }
 
     }
-    
+
     public void cargarDatosACK() {
         for (ACKVagon aCKVagon : dataManager.GetAllVagonACK()) {
             for (Vagon vagone : vagones) {
@@ -2246,15 +2231,15 @@ public class Application {
                     if (aCKVagon.getCanal() != 0) {
                         vagone.processMessage(aCKVagon.getIdDispositivo(), aCKVagon.getRegistro(), aCKVagon.getCanal());
                         break;
-                    } else if (aCKVagon.getCanal() == 0){
+                    } else if (aCKVagon.getCanal() == 0) {
                         vagone.processMessageEmergency(aCKVagon.getIdDispositivo(), aCKVagon.getRegistro());
                         break;
                     }
                     //System.out.println(re);
                 }
             }
-            if(aCKVagon.getCanal()== -1){
-                moduloPi = (aCKVagon.getRegistro()==1);
+            if (aCKVagon.getCanal() == -1) {
+                moduloPi = (aCKVagon.getRegistro() == 1);
             }
 
         }
@@ -2341,7 +2326,7 @@ public class Application {
                         try {
                             Thread.sleep(250);
                         } catch (InterruptedException ex) {
-                            System.err.println(ex.getLocalizedMessage()+"");
+                            System.err.println(ex.getLocalizedMessage() + "");
                         }
                     } else if (subscriberMQTTServiceLocal.isMessageArrived()) {
 
@@ -2400,7 +2385,7 @@ public class Application {
 
                             }
                         } catch (Exception ex) {
-                            System.err.println(ex.getLocalizedMessage()+"");
+                            System.err.println(ex.getLocalizedMessage() + "");
                         }
                     }
                     try {
@@ -2437,7 +2422,7 @@ public class Application {
                                         dataManager.saveComando(comandoRecibido);
                                         publicadorManatee.Publisher(auxService.comandoCDEGMTE(datoCDEGString, idEstacion, formatoFecha).toString().getBytes(), topicManatee);
                                     } catch (Exception ex) {
-                                        System.err.println(ex.getLocalizedMessage()+"");
+                                        System.err.println(ex.getLocalizedMessage() + "");
                                     }
                                 }
                             }
@@ -2452,7 +2437,7 @@ public class Application {
                             Thread.sleep(5000);
 
                         } catch (InterruptedException ex) {
-                            System.err.println(ex.getLocalizedMessage()+"");
+                            System.err.println(ex.getLocalizedMessage() + "");
                         }
 
                     }
@@ -2482,10 +2467,10 @@ public class Application {
             public void run() {
                 while (true) {
                     try {
-                        if(moduloPi){
-                           Thread.sleep(2 * 60 * 60 * 1000); 
-                           moduloPi = false;
-                           dataManager.UpdateVagonACK("moduloPi", -1,0, "-1");
+                        if (moduloPi) {
+                            Thread.sleep(2 * 60 * 60 * 1000);
+                            moduloPi = false;
+                            dataManager.UpdateVagonACK("moduloPi", -1, 0, "-1");
                         }
 
 //                        guardarRegistroCrudo();
@@ -2496,7 +2481,7 @@ public class Application {
                 }
             }
         }.start();
-        
+
         new Thread() {
             @Override
             public void run() {
@@ -2515,7 +2500,7 @@ public class Application {
                             try {
                                 registroCrudo.setFechaOcurrencia(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
                             } catch (ParseException ex) {
-                                System.err.println(ex.getLocalizedMessage()+"");
+                                System.err.println(ex.getLocalizedMessage() + "");
                             }
                             //System.out.println(new Gson().toJson(registroCrudo));
                             dataManager.AddRegistroCrudo(registroCrudo);
@@ -2702,7 +2687,7 @@ public class Application {
                                         break;
                                     }
                                 } catch (ParseException ex) {
-                                   System.err.println(ex.getLocalizedMessage()+"");
+                                    System.err.println(ex.getLocalizedMessage() + "");
                                 }
 
                             }
@@ -2724,7 +2709,7 @@ public class Application {
                 try {
                     Thread.sleep(1000 * 60 * 2);
                 } catch (InterruptedException ex) {
-                    System.err.println(ex.getLocalizedMessage()+"");
+                    System.err.println(ex.getLocalizedMessage() + "");
                 }
                 while (true) {
                     try {
@@ -2779,7 +2764,6 @@ public class Application {
                         conexion.put("CONECTADO", publicadorExternoMQTT.conect());
                         conexion.put("fechaConexion", formatter.format(conexionCDEG));
                         conexiones.put(conexion);
-                        
 
                         conexion = new JSONObject();
                         conexion.put("nombre", "CENTRO CONTROL");
@@ -2812,7 +2796,7 @@ public class Application {
                         publisherMQTTServiceInterno.Publisher(puertas.toString().getBytes(), "STATUSIV");
                         Thread.sleep(250);
                     } catch (Exception ex) {
-                        System.err.println(ex.getLocalizedMessage()+"");
+                        System.err.println(ex.getLocalizedMessage() + "");
                     }
                 }
 
@@ -2851,9 +2835,9 @@ public class Application {
                             Date fechaAntes = new Date(tiempoAnterior);
                             Date fechaDespues = new Date(tiempoActual);
                             if (diferenciaEnMilisegundos < 0) {
-                                logger.info(formatoFecha.format(fechaAntes) +" El reloj se ha atrasado. La diferencia es de " + Math.abs(diferenciaEnMilisegundos) / 1000 / 60 + " minutos." + " Fecha actual " + formatoFecha.format(fechaDespues));
+                                log(" El reloj se ha atrasado. La diferencia es de " + Math.abs(diferenciaEnMilisegundos) / 1000 / 60 + " minutos." + " Fecha anterior " + formatoFecha.format(fechaAntes) + " Fecha actual " + formatoFecha.format(fechaDespues));
                             } else {
-                                logger.info(formatoFecha.format(fechaAntes) + " El reloj se ha adelantado. La diferencia es de " + diferenciaEnMilisegundos / 1000 / 60 + " minutos." + " Fecha actual " + formatoFecha.format(fechaDespues));
+                                log(" El reloj se ha adelantado. La diferencia es de " + diferenciaEnMilisegundos / 1000 / 60 + " minutos." + " Fecha anterior " + formatoFecha.format(fechaAntes) + " Fecha actual " + formatoFecha.format(fechaDespues));
                             }
                         }
 
@@ -2863,33 +2847,90 @@ public class Application {
                 }
             }
         }.start();
-        new Thread() {
-            @Override
-            public void run() {
-                while (true) {
-            try {
-                // Obtener el uso de la CPU
-                double cpuUsage = getCPUUsage();
+        new Thread(() -> {
+            while (true) {
+                try {
+                    // Obtener el uso de la CPU
+                    double cpuUsage = getCPUUsage();
 
-                // Obtener la fecha actual
-                String currentDate = formatoFecha.format(new Date());
+                    // Obtener la temperatura de la CPU en sistemas Linux
+                    double cpuTemperature = getCpuTemperature();
 
-                // Registrar en el archivo de log
-                logger.info(currentDate + " - Uso de la CPU: " + cpuUsage + "%");
+                    // Obtener la fecha actual
+                    String currentDate = formatoFecha.format(new Date());
 
-                // Esperar 5 minutos antes de la próxima verificación
-                Thread.sleep(5 * 60 * 1000);
-            } catch (Exception e) {
-                e.printStackTrace();
+                    // Registrar en el archivo de log
+                    log("CPU Usage: " + cpuUsage + "%, Temperature: " + cpuTemperature + "°C");
+
+                    // Esperar 5 minutos antes de la próxima verificación
+                    Thread.sleep(5 * 60 * 1000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-        }
-            }
-        }.start();
+        }).start();
 
     }
+
     private double getCPUUsage() {
-        OperatingSystemMXBean osBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-        return osBean.getSystemCpuLoad() * 100;
+        try {
+            Process process = Runtime.getRuntime().exec("top -bn1");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+            String line;
+            // Saltar líneas hasta llegar a la línea que contiene la información de la CPU
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("Cpu(s)")) {
+                    break;
+                }
+            }
+
+            // Leer la línea que contiene la información de la CPU
+            line = reader.readLine();
+
+            // Analizar la línea para obtener el uso de la CPU
+            String[] parts = line.split(",");
+            for (String part : parts) {
+                if (part.contains("id")) {
+                    String[] cpuInfo = part.trim().split("\\s+");
+                    return 100 - Double.parseDouble(cpuInfo[cpuInfo.length - 1]);
+                }
+            }
+
+            // Si no se encuentra información de uso de la CPU, devuelve -1
+            return -1.0;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return -1.0;
+        }
+    }
+
+    private double getCpuTemperature() {
+        try {
+            Process process = Runtime.getRuntime().exec("sensors");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Busca una línea que contenga información sobre la temperatura
+                // Esta parte puede variar según la salida específica de 'sensors' en tu sistema
+                if (line.contains("Package id 0:")) {
+                    // Analiza la línea para obtener la temperatura
+                    String[] parts = line.split("\\s+");
+                    for (int i = 0; i < parts.length; i++) {
+                        if (parts[i].equals("°C")) {
+                            return Double.parseDouble(parts[i - 1]);
+                        }
+                    }
+                }
+            }
+
+            // Si no se encuentra información de temperatura, devuelve -1
+            return -1.0;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return -1.0;
+        }
     }
 
     public void conexionVagon(Vagon conect) {
@@ -2920,7 +2961,7 @@ public class Application {
                 calendar.add(Calendar.HOUR, -5);
                 registroTemporal.setfechaHoraEnvio(calendar.getTime());
             } catch (ParseException ex) {
-                System.err.println(ex.getLocalizedMessage()+"");
+                System.err.println(ex.getLocalizedMessage() + "");
             }
             if (publicadorExternoMQTT.Publicar(registroTemporal.getTrama().getBytes(), "events")) {
 
@@ -2942,7 +2983,7 @@ public class Application {
                     //publicadorManatee.Publisher(new Gson().toJson(registroTemporal).getBytes(), "S1", "tcp://4.236.168.64:1883", macWifi);
 
                 } catch (Exception ex) {
-                    System.err.println(ex.getLocalizedMessage()+"");
+                    System.err.println(ex.getLocalizedMessage() + "");
                 }
             } else {
                 JSONObject retransmitida = new JSONObject(registroTemporal.getTrama());
@@ -2953,7 +2994,7 @@ public class Application {
                     publicadorExternoMQTT = new PublicadorExternoMQTT(clavePrivada, dispositivo, servidorExternoMQTT, proyecto, region, registro);
 
                 } catch (Exception ex) {
-                    System.err.println(ex.getLocalizedMessage()+"");
+                    System.err.println(ex.getLocalizedMessage() + "");
                 }
             }
         }
@@ -2974,7 +3015,7 @@ public class Application {
                     dataManager.UpdateRegistroTemporal(registroTemporal);
                     //System.out.println("Envio a manatee cc " + temp);
                 } catch (Exception ex) {
-                    System.err.println(ex.getLocalizedMessage()+"");
+                    System.err.println(ex.getLocalizedMessage() + "");
                 }
             } else if (!registroTemporal.isEstadoEnvioManatee()) {
                 conexionMTE = new Date();
@@ -3005,19 +3046,19 @@ public class Application {
                     try {
                         dataManager.DeleteRegistroTemporal(registroTemporal.getId());
                     } catch (Exception ex) {
-                        System.err.println(ex.getLocalizedMessage()+"");
+                        System.err.println(ex.getLocalizedMessage() + "");
                     }
                 } else if (registroTemporal.isestadoEnvio() && registroTemporal.isEstadoEnvioManatee()) {
 
                     try {
                         dataManager.DeleteRegistroTemporal(registroTemporal.getId());
                     } catch (Exception ex) {
-                        System.err.println(ex.getLocalizedMessage()+"");
+                        System.err.println(ex.getLocalizedMessage() + "");
                     }
 
                 }
             } catch (ParseException ex) {
-                System.err.println(ex.getLocalizedMessage()+"");
+                System.err.println(ex.getLocalizedMessage() + "");
             }
 
         }
@@ -3061,7 +3102,7 @@ public class Application {
                                     try {
                                         registroCrudo.setFechaOcurrencia(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
                                     } catch (ParseException ex) {
-                                        System.err.println(ex.getLocalizedMessage()+"");
+                                        System.err.println(ex.getLocalizedMessage() + "");
                                     }
                                 }
 
@@ -3198,5 +3239,30 @@ public class Application {
             consecutivoT = 0;
         }
         return formattedNumber;
+    }
+
+    public void log(String message) {
+        ensureLogFileExists();
+        try ( BufferedWriter writer = new BufferedWriter(new FileWriter(LOG_FILE_PATH, true))) {
+            String currentDate = formatoFecha.format(new Date());
+            String logEntry = currentDate + " - " + message;
+            writer.write(logEntry);
+            writer.newLine();
+        } catch (IOException e) {
+            System.err.println("Error al escribir en el archivo de log: " + e.getMessage());
+        }
+    }
+
+    private static void ensureLogFileExists() {
+        Path logFilePath = Paths.get(LOG_FILE_PATH);
+
+        if (!Files.exists(logFilePath)) {
+            try {
+                Files.createDirectories(logFilePath.getParent());
+                Files.createFile(logFilePath);
+            } catch (IOException e) {
+                System.err.println("Error al crear el archivo de log: " + e.getMessage());
+            }
+        }
     }
 }
