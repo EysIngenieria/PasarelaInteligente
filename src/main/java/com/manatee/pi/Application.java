@@ -1145,7 +1145,7 @@ public class Application {
 
                                     case "GET_DATE":
                                         AddComando(registroCrudo.getIdVagon(), auxService.wr_date());
-                                        publisherMQTTServiceInterno.Publisher(auxService.wr_date().toString().getBytes(), registroCrudo.getIdVagon());
+                                        //publisherMQTTServiceInterno.Publisher(auxService.wr_date().toString().getBytes(), registroCrudo.getIdVagon());
                                         break;
 
                                     default:
@@ -1420,7 +1420,7 @@ public class Application {
             case Constantes.Comandos.APERTURA:
                 JSONObject envio = auxService.ComandoAperturaPuertaCDEG(comandoCrudo, temp, numeroVagon(comandoCrudo.getIdVagon()));
                 AddComando(comandoCrudo.getIdVagon(), envio);
-                publisherMQTTServiceInterno.Publisher(envio.toString().getBytes(), comandoCrudo.getIdVagon());
+                //publisherMQTTServiceInterno.Publisher(envio.toString().getBytes(), comandoCrudo.getIdVagon());
                 break;
             case Constantes.Comandos.CIERRE:
                 comandoCrudo.setFuncion("CMD");
@@ -1441,7 +1441,7 @@ public class Application {
                 envioC.put("trama", comandoCrudo.getTrama());
                 System.out.println(envioC + "CIERRE CDG");
                 AddComando(comandoCrudo.getIdVagon(), envioC);
-                publisherMQTTServiceInterno.Publisher(envioC.toString().getBytes(), comandoCrudo.getIdVagon());
+                //publisherMQTTServiceInterno.Publisher(envioC.toString().getBytes(), comandoCrudo.getIdVagon());
                 break;
         }
         //ArmarEventos();
@@ -1502,7 +1502,7 @@ public class Application {
                             comando.setTrama(trama);
                             System.out.println(new Gson().toJson(comando));
                             AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
-                            publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
+                            //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                             puerta.setActivadoDesactivado(null);
                             dataManager.UpdatePuerta(puerta);
                         } else {
@@ -1515,7 +1515,7 @@ public class Application {
                                     comando.setTrama(trama);
                                     System.out.println(new Gson().toJson(comando));
                                     AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
-                                    publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
+                                    //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                                     puerta.setActivadoDesactivado(201);
                                     dataManager.UpdatePuerta(puerta);
                                 } else if (formatoFecha.parse(puerta.getFechaHoraFinalActivacionDesactivacion()).before(new Date())) {
@@ -1524,7 +1524,7 @@ public class Application {
                                     comando.setTrama(trama);
                                     System.out.println(new Gson().toJson(comando));
                                     AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
-                                    publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
+                                    //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                                     puerta.setActivadoDesactivado(201);
                                     dataManager.UpdatePuerta(puerta);
                                 }
@@ -1540,7 +1540,7 @@ public class Application {
                             comando.setTrama(trama);
                             System.out.println(new Gson().toJson(comando));
                             AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
-                            publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
+                            //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                             puerta.setActivadoDesactivado(null);
                             dataManager.UpdatePuerta(puerta);
                         } else try {
@@ -1551,7 +1551,7 @@ public class Application {
                                 comando.setTrama(trama);
                                 System.out.println(new Gson().toJson(comando));
                                 AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
-                                publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
+                                //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                                 puerta.setActivadoDesactivado(202);
                                 dataManager.UpdatePuerta(puerta);
                             } else if (formatoFecha.parse(puerta.getFechaHoraFinalActivacionDesactivacion()).before(new Date())) {
@@ -1561,7 +1561,7 @@ public class Application {
                                 comando.setTrama(trama);
                                 System.out.println(new Gson().toJson(comando));
                                 AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
-                                publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
+                                //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                                 puerta.setActivadoDesactivado(202);
                                 dataManager.UpdatePuerta(puerta);
 
@@ -1578,7 +1578,7 @@ public class Application {
                             comando.setTrama(trama);
                             System.out.println(new Gson().toJson(comando));
                             AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
-                            publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
+                            //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                             puerta.setActivadoDesactivado(null);
                             dataManager.UpdatePuerta(puerta);
                         }
@@ -1594,7 +1594,7 @@ public class Application {
                             comando.setTrama(trama);
                             System.out.println((JSONObject) JSONObject.wrap(comando));
                             AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
-                            publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
+                            //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                             puerta.setActivadoDesactivado(null);
                             dataManager.UpdatePuerta(puerta);
                         }
@@ -1662,7 +1662,7 @@ public class Application {
                         System.out.println("comando reproduccion " + (JSONObject) JSONObject.wrap(comando));
                         
                         AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
-                        publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
+                        //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
 
                     }
                 }
@@ -2398,7 +2398,7 @@ public class Application {
 
                                             System.out.println("Dato Interfaz VIsual: " + dato);
                                             AddComando(puertaTemp.getVagon(), dato);
-                                            publisherMQTTServiceInterno.Publisher(dato.toString().getBytes(), puertaTemp.getVagon());
+                                            //publisherMQTTServiceInterno.Publisher(dato.toString().getBytes(), puertaTemp.getVagon());
 
                                             Thread.sleep(250);
 
@@ -2667,6 +2667,28 @@ public class Application {
                 while (true) {
                     try {
                         ProcesarRegistrosCrudos();
+
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
+        
+        new Thread() {
+            @Override
+            public void run() {
+                String topics[] = new String[0];
+                SuscriptorLocalMQTT subscriberMQTTServiceLocal = new SuscriptorLocalMQTT(topics, "tcp://localhost:1883", "PILocal");
+                while (true) {
+                    try {
+                        for (Vagon vagone : vagones) {
+                            for (JSONObject comando : vagone.getComandos()) {
+                                subscriberMQTTServiceLocal.Publisher(comando.toString().getBytes(), vagone.getNombre());
+                                Thread.sleep(80);
+                            }
+                        }
 
                         Thread.sleep(1);
                     } catch (InterruptedException e) {
@@ -3161,7 +3183,7 @@ public class Application {
                                         dataManager.AddRegistroCrudo(registroCrudo);
                                     }
                                     AddComando(registroCrudo.getIdVagon(), ack);
-                                    subscriberMQTTServiceLocal.Publisher(ack.toString().getBytes(), registroCrudo.getIdVagon());
+                                    //subscriberMQTTServiceLocal.Publisher(ack.toString().getBytes(), registroCrudo.getIdVagon());
                                 } else if (registroCrudo.getFuncion().equalsIgnoreCase("CONEXION_PUERTAS")) {
                                     if (!re.isNull("dispositivoMCV") && (!re.isNull("canal1Habilitado") && !re.isNull("canal2Habilitado"))) {
                                         vagonT.actualizarConexionPuertas(re.getString("dispositivoMCV"), registroCrudo.getTrama(), re.getBoolean("canal1Habilitado"), re.getBoolean("canal2Habilitado"));
