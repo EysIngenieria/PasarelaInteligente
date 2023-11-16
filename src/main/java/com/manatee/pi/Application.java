@@ -1144,7 +1144,7 @@ public class Application {
                                         break;
 
                                     case "GET_DATE":
-
+                                        AddComando(registroCrudo.getIdVagon(), auxService.wr_date());
                                         publisherMQTTServiceInterno.Publisher(auxService.wr_date().toString().getBytes(), registroCrudo.getIdVagon());
                                         break;
 
@@ -1419,7 +1419,7 @@ public class Application {
                 break;
             case Constantes.Comandos.APERTURA:
                 JSONObject envio = auxService.ComandoAperturaPuertaCDEG(comandoCrudo, temp, numeroVagon(comandoCrudo.getIdVagon()));
-
+                AddComando(comandoCrudo.getIdVagon(), envio);
                 publisherMQTTServiceInterno.Publisher(envio.toString().getBytes(), comandoCrudo.getIdVagon());
                 break;
             case Constantes.Comandos.CIERRE:
@@ -1440,7 +1440,7 @@ public class Application {
                 envioC.put("idPuerta", temp.getIdPuerta());
                 envioC.put("trama", comandoCrudo.getTrama());
                 System.out.println(envioC + "CIERRE CDG");
-
+                AddComando(comandoCrudo.getIdVagon(), envioC);
                 publisherMQTTServiceInterno.Publisher(envioC.toString().getBytes(), comandoCrudo.getIdVagon());
                 break;
         }
@@ -1501,6 +1501,7 @@ public class Application {
                             puerta.setEstadoBotonManual(1);
                             comando.setTrama(trama);
                             System.out.println(new Gson().toJson(comando));
+                            AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
                             publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                             puerta.setActivadoDesactivado(null);
                             dataManager.UpdatePuerta(puerta);
@@ -1513,6 +1514,16 @@ public class Application {
                                     puerta.setEstadoBotonManual(1);
                                     comando.setTrama(trama);
                                     System.out.println(new Gson().toJson(comando));
+                                    AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
+                                    publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
+                                    puerta.setActivadoDesactivado(201);
+                                    dataManager.UpdatePuerta(puerta);
+                                } else if (formatoFecha.parse(puerta.getFechaHoraFinalActivacionDesactivacion()).before(new Date())) {
+                                    trama += "0100";
+                                    puerta.setEstadoBotonManual(1);
+                                    comando.setTrama(trama);
+                                    System.out.println(new Gson().toJson(comando));
+                                    AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
                                     publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                                     puerta.setActivadoDesactivado(201);
                                     dataManager.UpdatePuerta(puerta);
@@ -1528,6 +1539,7 @@ public class Application {
                             puerta.setEstadoBotonManual(1);
                             comando.setTrama(trama);
                             System.out.println(new Gson().toJson(comando));
+                            AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
                             publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                             puerta.setActivadoDesactivado(null);
                             dataManager.UpdatePuerta(puerta);
@@ -1538,9 +1550,21 @@ public class Application {
                                 puerta.setEstadoBotonManual(1);
                                 comando.setTrama(trama);
                                 System.out.println(new Gson().toJson(comando));
+                                AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
                                 publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                                 puerta.setActivadoDesactivado(202);
                                 dataManager.UpdatePuerta(puerta);
+                            } else if (formatoFecha.parse(puerta.getFechaHoraFinalActivacionDesactivacion()).before(new Date())) {
+
+                                trama += "0000";
+                                puerta.setEstadoBotonManual(1);
+                                comando.setTrama(trama);
+                                System.out.println(new Gson().toJson(comando));
+                                AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
+                                publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
+                                puerta.setActivadoDesactivado(202);
+                                dataManager.UpdatePuerta(puerta);
+
                             }
                         } catch (ParseException ex) {
                             System.err.println(ex.getLocalizedMessage() + "");
@@ -1553,6 +1577,7 @@ public class Application {
                             puerta.setEstadoBotonManual(1);
                             comando.setTrama(trama);
                             System.out.println(new Gson().toJson(comando));
+                            AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
                             publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                             puerta.setActivadoDesactivado(null);
                             dataManager.UpdatePuerta(puerta);
@@ -1567,7 +1592,8 @@ public class Application {
                             trama += "0100";
                             puerta.setEstadoBotonManual(1);
                             comando.setTrama(trama);
-                            System.out.println(new Gson().toJson(comando));
+                            System.out.println((JSONObject) JSONObject.wrap(comando));
+                            AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
                             publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                             puerta.setActivadoDesactivado(null);
                             dataManager.UpdatePuerta(puerta);
@@ -1633,7 +1659,9 @@ public class Application {
                         trama += "00";
                         comando.setTrama(trama);
                         comando.setFuncion("CMD");
-                        System.out.println("comando reproduccion " + new Gson().toJson(comando));
+                        System.out.println("comando reproduccion " + (JSONObject) JSONObject.wrap(comando));
+                        
+                        AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
                         publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
 
                     }
@@ -2369,6 +2397,7 @@ public class Application {
                                             JSONObject dato = auxService.JsonProcesarComandoIV(comandoInterfazVisual, puerta, puertaTemp);
 
                                             System.out.println("Dato Interfaz VIsual: " + dato);
+                                            AddComando(puertaTemp.getVagon(), dato);
                                             publisherMQTTServiceInterno.Publisher(dato.toString().getBytes(), puertaTemp.getVagon());
 
                                             Thread.sleep(250);
@@ -3131,7 +3160,7 @@ public class Application {
                                         dataManager.UpdateVagonACK(vagonT.getNombre(), Integer.parseInt(registroCrudo.getCanal()), re.getInt("idRegistro"), idDispositivo);
                                         dataManager.AddRegistroCrudo(registroCrudo);
                                     }
-
+                                    AddComando(registroCrudo.getIdVagon(), ack);
                                     subscriberMQTTServiceLocal.Publisher(ack.toString().getBytes(), registroCrudo.getIdVagon());
                                 } else if (registroCrudo.getFuncion().equalsIgnoreCase("CONEXION_PUERTAS")) {
                                     if (!re.isNull("dispositivoMCV") && (!re.isNull("canal1Habilitado") && !re.isNull("canal2Habilitado"))) {
@@ -3178,6 +3207,18 @@ public class Application {
             }
         }
         return re;
+    }
+
+    public void AddComando(String vagon, JSONObject comando) {
+        Vagon re = new Vagon();
+
+        for (Vagon vagone : vagones) {
+            if (vagone.getNombre().equalsIgnoreCase(vagon)) {
+                vagone.getComandos().add(comando);
+                break;
+                //System.out.println(re);
+            }
+        }
     }
 
     public String nombreVagon(String nombre) {

@@ -7,6 +7,7 @@ package com.manatee.pi.entities;
 import java.util.ArrayList;
 import java.util.Queue;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 
 
@@ -26,7 +27,7 @@ import org.json.JSONArray;
 
     private String puertas;
     
-    private ArrayList<byte[]> comandos;
+    private ArrayList<JSONObject> comandos;
     
     
     private ArrayList<ModuloConcentradorVagon> mvcs;
@@ -99,11 +100,11 @@ import org.json.JSONArray;
         this.nombreCDEG = nombreCDEG;
     }
 
-    public ArrayList<byte[]> getComandos() {
+    public ArrayList<JSONObject> getComandos() {
         return comandos;
     }
 
-    public void setComandos(ArrayList<byte[]> comandos) {
+    public void setComandos(ArrayList<JSONObject> comandos) {
         this.comandos = comandos;
     }
 
