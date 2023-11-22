@@ -4,7 +4,7 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2023-11-14T16:35:27")
+@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2023-11-21T08:22:05")
 @StaticMetamodel(ACKVagon.class)
 public class ACKVagon_ { 
 

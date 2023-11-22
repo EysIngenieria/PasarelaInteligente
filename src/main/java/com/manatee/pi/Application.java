@@ -1494,118 +1494,115 @@ public class Application {
             trama += "00710107";
             if (puerta.getActivadoDesactivado() != null) {
                 //System.out.println("entro " + puerta.getCanal() + " " + puerta.getVagon() + " " + puerta.getIdPuerta() + " " + puerta.getActivadoDesactivado());
-                switch (puerta.getActivadoDesactivado()) {
-                    case 1:
-                        if (puerta.getFechaHoraInicioActivacionDesactivacion() == null && puerta.getFechaHoraFinalActivacionDesactivacion() == null) {
-                            trama += "0100";
-                            puerta.setEstadoBotonManual(1);
-                            comando.setTrama(trama);
-                            System.out.println(new Gson().toJson(comando));
-                            AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
-                            //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
-                            puerta.setActivadoDesactivado(null);
-                            dataManager.UpdatePuerta(puerta);
-                        } else {
-                            try {
-                                //System.out.println("fecha != null");
-                                if (formatoFecha.parse(puerta.getFechaHoraFinalActivacionDesactivacion()).after(new Date()) && formatoFecha.parse(puerta.getFechaHoraInicioActivacionDesactivacion()).before(new Date())) {
-                                    //System.out.println("entro en rango");
-                                    trama += "0100";
-                                    puerta.setEstadoBotonManual(1);
-                                    comando.setTrama(trama);
-                                    System.out.println(new Gson().toJson(comando));
-                                    AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
-                                    //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
-                                    puerta.setActivadoDesactivado(201);
-                                    dataManager.UpdatePuerta(puerta);
-                                } else if (formatoFecha.parse(puerta.getFechaHoraFinalActivacionDesactivacion()).before(new Date())) {
-                                    trama += "0100";
-                                    puerta.setEstadoBotonManual(1);
-                                    comando.setTrama(trama);
-                                    System.out.println(new Gson().toJson(comando));
-                                    AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
-                                    //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
-                                    puerta.setActivadoDesactivado(201);
-                                    dataManager.UpdatePuerta(puerta);
-                                }
-                            } catch (ParseException ex) {
-                                System.err.println(ex.getLocalizedMessage() + "");
-                            }
-                        }
-                        break;
-                    case 2:
-                        if (puerta.getFechaHoraInicioActivacionDesactivacion() == null && puerta.getFechaHoraFinalActivacionDesactivacion() == null) {
-                            trama += "0000";
-                            puerta.setEstadoBotonManual(1);
-                            comando.setTrama(trama);
-                            System.out.println(new Gson().toJson(comando));
-                            AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
-                            //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
-                            puerta.setActivadoDesactivado(null);
-                            dataManager.UpdatePuerta(puerta);
-                        } else try {
-                            if (formatoFecha.parse(puerta.getFechaHoraFinalActivacionDesactivacion()).after(new Date()) && formatoFecha.parse(puerta.getFechaHoraInicioActivacionDesactivacion()).before(new Date())) {
-                                //System.out.println("entro en rango");
+
+                try {
+                    if (puerta.getFechaHoraInicioActivacionDesactivacion() == null && puerta.getFechaHoraFinalActivacionDesactivacion() == null) {
+                        //zona = "ninguna";
+                        //ACTIVAR/DESACTIVAR INMEDIATAMENTE
+                        switch (puerta.getActivadoDesactivado()) {
+                            case 1:
+                                System.out.println("boton activado");
+                                trama += "0100";
+                                puerta.setEstadoBotonManual(1);
+                                comando.setTrama(trama);
+                                System.out.println(new Gson().toJson(comando));
+                                AddComando(comando.getIdVagon(), new JSONObject(new Gson().toJson(comando)));
+                                //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
+                                puerta.setActivadoDesactivado(null);
+                                dataManager.UpdatePuerta(puerta);
+                                log("BOTON USUARIO - V" + puerta.getVagon() + "-CH" + puerta.getCanal() + "-P" + puerta.getIdPuerta() + " - Trama enviada: '" + trama + "' C1.1");  //jal log test
+                                break;
+
+                            case 2:
+                                System.out.println("boton desactivado");
                                 trama += "0000";
                                 puerta.setEstadoBotonManual(1);
                                 comando.setTrama(trama);
                                 System.out.println(new Gson().toJson(comando));
-                                AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
+                                AddComando(comando.getIdVagon(), new JSONObject(new Gson().toJson(comando)));
                                 //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
-                                puerta.setActivadoDesactivado(202);
+                                puerta.setActivadoDesactivado(null);
                                 dataManager.UpdatePuerta(puerta);
-                            } else if (formatoFecha.parse(puerta.getFechaHoraFinalActivacionDesactivacion()).before(new Date())) {
+                                log("BOTON USUARIO - V" + puerta.getVagon() + "-CH" + puerta.getCanal() + "-P" + puerta.getIdPuerta() + " - Trama enviada: '" + trama + "' C2.1");  //jal log test
+                                break;
 
+                            default:
+                                break;
+                        }
+                    }
+
+                    if (formatoFecha.parse(puerta.getFechaHoraInicioActivacionDesactivacion()).before(new Date()) && formatoFecha.parse(puerta.getFechaHoraFinalActivacionDesactivacion()).after(new Date())) {
+                        //zona = "rango";
+                        switch (puerta.getActivadoDesactivado()) {
+                            case 1:
+                                System.out.println("entro en rango 1 - boton activado");
+                                trama += "0100";
+                                puerta.setEstadoBotonManual(1);
+                                comando.setTrama(trama);
+                                System.out.println(new Gson().toJson(comando));
+                                AddComando(comando.getIdVagon(), new JSONObject(new Gson().toJson(comando)));
+                                //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
+                                puerta.setActivadoDesactivado(201);
+                                dataManager.UpdatePuerta(puerta);
+                                log("BOTON USUARIO - V" + puerta.getVagon() + "-CH" + puerta.getCanal() + "-P" + puerta.getIdPuerta() + " - Trama enviada: '" + trama + "' C1.2");  //jal log test
+                                break;
+
+                            case 2:
+                                System.out.println("entro en rango 2 - boton desactivado");
                                 trama += "0000";
                                 puerta.setEstadoBotonManual(1);
                                 comando.setTrama(trama);
                                 System.out.println(new Gson().toJson(comando));
-                                AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
+                                AddComando(comando.getIdVagon(), new JSONObject(new Gson().toJson(comando)));
                                 //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                                 puerta.setActivadoDesactivado(202);
                                 dataManager.UpdatePuerta(puerta);
+                                log("BOTON USUARIO - V" + puerta.getVagon() + "-CH" + puerta.getCanal() + "-P" + puerta.getIdPuerta() + " - Trama enviada: '" + trama + "' C2.2");  //jal log test
+                                break;
 
-                            }
-                        } catch (ParseException ex) {
-                            System.err.println(ex.getLocalizedMessage() + "");
+                            default:
+                                break;
                         }
-                        break;
-                    case 201:
-                        try {
-                        if (formatoFecha.parse(puerta.getFechaHoraFinalActivacionDesactivacion()).before(new Date())) {
-                            trama += "0000";
-                            puerta.setEstadoBotonManual(1);
-                            comando.setTrama(trama);
-                            System.out.println(new Gson().toJson(comando));
-                            AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
-                            //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
-                            puerta.setActivadoDesactivado(null);
-                            dataManager.UpdatePuerta(puerta);
-                        }
-                    } catch (ParseException ex) {
-                        System.err.println(ex.getLocalizedMessage() + "");
                     }
-                    break;
-                    case 202:
-                        try {
-                        if (formatoFecha.parse(puerta.getFechaHoraFinalActivacionDesactivacion()).before(new Date())) {
-                            trama += "0100";
-                            puerta.setEstadoBotonManual(1);
-                            comando.setTrama(trama);
-                            System.out.println((JSONObject) JSONObject.wrap(comando));
-                            AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
-                            //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
-                            puerta.setActivadoDesactivado(null);
-                            dataManager.UpdatePuerta(puerta);
+
+                    if (formatoFecha.parse(puerta.getFechaHoraFinalActivacionDesactivacion()).before(new Date())) {
+                        //zona = "despues";
+                        switch (puerta.getActivadoDesactivado()) {
+                            case 1:
+                            case 201:
+                                System.out.println("salio de rango 1 - boton desactivado");
+                                trama += "0000";
+                                puerta.setEstadoBotonManual(1);
+                                comando.setTrama(trama);
+                                System.out.println(new Gson().toJson(comando));
+                                AddComando(comando.getIdVagon(), new JSONObject(new Gson().toJson(comando)));
+                                //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
+                                puerta.setActivadoDesactivado(null);
+                                dataManager.UpdatePuerta(puerta);
+                                log("BOTON USUARIO - V" + puerta.getVagon() + "-CH" + puerta.getCanal() + "-P" + puerta.getIdPuerta() + " - Trama enviada: '" + trama + "' C201");  //jal log test
+                                break;
+
+                            case 2:
+                            case 202:
+                                System.out.println("salio de rango 2 - boton activado");
+                                trama += "0100";
+                                puerta.setEstadoBotonManual(1);
+                                comando.setTrama(trama);
+                                System.out.println(new Gson().toJson(comando));
+                                AddComando(comando.getIdVagon(), new JSONObject(new Gson().toJson(comando)));
+                                //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
+                                puerta.setActivadoDesactivado(null);
+                                dataManager.UpdatePuerta(puerta);
+                                log("BOTON USUARIO - V" + puerta.getVagon() + "-CH" + puerta.getCanal() + "-P" + puerta.getIdPuerta() + " - Trama enviada: '" + trama + "' C202");  //jal log test
+                                break;
+
+                            default:
+                                break;
                         }
-                    } catch (ParseException ex) {
-                        System.err.println(ex.getLocalizedMessage() + "");
                     }
-                    break;
-                    default:
-                        break;
+                } catch (ParseException ex) {
+                    System.err.println(ex.getLocalizedMessage() + "");
                 }
-
             }
             try {
                 Thread.sleep(200);
@@ -1660,8 +1657,8 @@ public class Application {
                         comando.setTrama(trama);
                         comando.setFuncion("CMD");
                         System.out.println("comando reproduccion " + (JSONObject) JSONObject.wrap(comando));
-                        
-                        AddComando(comando.getIdVagon(), (JSONObject) JSONObject.wrap(comando));
+
+                        AddComando(comando.getIdVagon(), new JSONObject(new Gson().toJson(comando)));
                         //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
 
                     }
@@ -2073,14 +2070,16 @@ public class Application {
                 case 1:
                     System.exit(0);
                     break;
-                //System.out.println("mlan " + mlan);
+                
                 case 2:
+                    
                     dataManager.deletParametros(true);
                     dataManager.DeleteRegistros();
                     dataManager.DeleteRegistrosCrudos();
                     dataManager.deleteRegistrosTemporales();
                     dataManager.DeletePuertas();
                     dataManager.deleteAllVagonACK();
+                    System.out.println("Entro en modo 2");
                     break;
                 case 3:
                     dataManager.deletParametros(false);
@@ -2206,6 +2205,7 @@ public class Application {
             for (Puerta puerta : dataManager.GetPuertas()) {
                 if (vagones.isEmpty()) {
                     Vagon temp = new Vagon();
+                    temp.setComandos(new ArrayList<JSONObject>());
                     temp.setNombre(puerta.getVagon());
                     temp.setUltimaConexion(0);
 
@@ -2218,6 +2218,8 @@ public class Application {
                 } else {
                     boolean ce = false;
                     Vagon temp = new Vagon();
+                    temp.setComandos(new ArrayList<JSONObject>());
+
                     for (Vagon vagont : vagones) {
                         if (puerta.getVagon().equalsIgnoreCase(vagont.getNombre())) {
                             ce = true;
@@ -2399,8 +2401,6 @@ public class Application {
                                             System.out.println("Dato Interfaz VIsual: " + dato);
                                             AddComando(puertaTemp.getVagon(), dato);
                                             //publisherMQTTServiceInterno.Publisher(dato.toString().getBytes(), puertaTemp.getVagon());
-
-                                            Thread.sleep(250);
 
                                         }
                                     } catch (Exception e) {
@@ -2675,23 +2675,26 @@ public class Application {
                 }
             }
         }.start();
-        
+
         new Thread() {
             @Override
             public void run() {
                 String topics[] = new String[0];
-                SuscriptorLocalMQTT subscriberMQTTServiceLocal = new SuscriptorLocalMQTT(topics, "tcp://localhost:1883", "PILocal");
+                PublicadorLocalMQTT subscriberMQTTServiceLocal = new PublicadorLocalMQTT("tcp://localhost:1883");
                 while (true) {
                     try {
                         for (Vagon vagone : vagones) {
-                            for (JSONObject comando : vagone.getComandos()) {
+                            List<JSONObject> comandos = new ArrayList<>();
+                            comandos.addAll(vagone.getComandos());
+                            for (JSONObject comando : comandos) {
                                 subscriberMQTTServiceLocal.Publisher(comando.toString().getBytes(), vagone.getNombre());
-                                Thread.sleep(80);
+                                vagone.getComandos().remove(comando);
+                                Thread.sleep(200);
                             }
                         }
 
-                        Thread.sleep(1);
-                    } catch (InterruptedException e) {
+                        Thread.sleep(10);
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -2898,59 +2901,53 @@ public class Application {
                 }
             }
         }.start();
-        new Thread(() -> {
-            while (true) {
-                try {
-                    // Obtener el uso de la CPU
-                    double cpuUsage = getCPUUsage();
+        new Thread() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        // Obtener el uso de la CPU
+                        double cpuUsage = getCPUUsage();
 
-                    // Obtener la temperatura de la CPU en sistemas Linux
-                    double cpuTemperature = getCpuTemperature();
+                        // Obtener la temperatura de la CPU en sistemas Linux
+                        double cpuTemperature = getCpuTemperature();
 
-                    // Obtener la fecha actual
-                    String currentDate = formatoFecha.format(new Date());
+                        // Obtener la fecha actual
+                        String currentDate = formatoFecha.format(new Date());
 
-                    // Registrar en el archivo de log
-                    log("CPU Usage: " + cpuUsage + "%, Temperature: " + cpuTemperature + "°C");
+                        // Registrar en el archivo de log
+                        log("CPU: " + cpuUsage + "% - Temp: " + cpuTemperature + "°C");
 
-                    // Esperar 5 minutos antes de la próxima verificación
-                    Thread.sleep(5 * 60 * 1000);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                        // Esperar 5 minutos antes de la próxima verificación
+                        Thread.sleep(5 * 60 * 1000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-        }).start();
+        }.start();
 
     }
 
     private double getCPUUsage() {
         try {
-            Process process = Runtime.getRuntime().exec("top -bn1");
+            // Ejecutar el comando 'top' y capturar la salida
+            Process process = Runtime.getRuntime().exec("top -b -n 1");
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
+            // Leer las líneas de salida y buscar la línea que contiene la información de la CPU
             String line;
-            // Saltar líneas hasta llegar a la línea que contiene la información de la CPU
             while ((line = reader.readLine()) != null) {
                 if (line.contains("Cpu(s)")) {
-                    break;
-                }
-            }
-
-            // Leer la línea que contiene la información de la CPU
-            line = reader.readLine();
-
-            // Analizar la línea para obtener el uso de la CPU
-            String[] parts = line.split(",");
-            for (String part : parts) {
-                if (part.contains("id")) {
-                    String[] cpuInfo = part.trim().split("\\s+");
-                    return 100 - Double.parseDouble(cpuInfo[cpuInfo.length - 1]);
+                    String[] tokens = line.split(",");
+                    String cpuUsageStr = tokens[0].split(":")[1].trim();
+                    return Double.parseDouble(cpuUsageStr);
                 }
             }
 
             // Si no se encuentra información de uso de la CPU, devuelve -1
             return -1.0;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return -1.0;
         }
@@ -2958,31 +2955,43 @@ public class Application {
 
     private double getCpuTemperature() {
         try {
+            // Ejecutar el comando 'sensors' y capturar la salida
             Process process = Runtime.getRuntime().exec("sensors");
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
+            // Leer las líneas de salida y buscar la línea que contiene la información de la temperatura
             String line;
             while ((line = reader.readLine()) != null) {
-                // Busca una línea que contenga información sobre la temperatura
-                // Esta parte puede variar según la salida específica de 'sensors' en tu sistema
-                if (line.contains("Package id 0:")) {
-                    // Analiza la línea para obtener la temperatura
-                    String[] parts = line.split("\\s+");
-                    for (int i = 0; i < parts.length; i++) {
-                        if (parts[i].equals("°C")) {
-                            return Double.parseDouble(parts[i - 1]);
-                        }
+                if (line.contains("Core 0:")) { // Ajusta esto según el formato de salida de 'sensors'
+                    // Buscar el índice del primer dígito en la línea para extraer la temperatura
+                    int startIndex = line.indexOf("+");
+                    int endIndex = line.indexOf(".", startIndex);
+
+                    // Verificar si se encontraron los índices válidos
+                    if (startIndex >= 0 && endIndex > startIndex) {
+                        String temperatureStr = line.substring(startIndex, endIndex + 3); // Incluir el punto y dos dígitos decimales
+
+                        // Eliminar cualquier carácter no numérico al final de la cadena
+                        temperatureStr = temperatureStr.replaceAll("[^\\d.]", "");
+
+                        return Double.parseDouble(temperatureStr);
+                    } else {
+                        System.err.println("No se pudo encontrar la temperatura en el formato esperado.");
+                        return -1.0;
                     }
                 }
             }
 
             // Si no se encuentra información de temperatura, devuelve -1
             return -1.0;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return -1.0;
         }
     }
+
+
+
 
     public void conexionVagon(Vagon conect) {
 

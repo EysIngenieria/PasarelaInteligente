@@ -34,7 +34,7 @@ import org.json.JSONObject;
     
     public Vagon(){
         this.mvcs = new ArrayList<>();
-    
+        this.comandos = new ArrayList<JSONObject>();
     }
 
     public ArrayList<ModuloConcentradorVagon> getMVCS() {

@@ -19,6 +19,7 @@ com\manatee\pi\controller\CFG_CamposAlarmaJpaController.class
 com\manatee\pi\Application$13.class
 com\manatee\pi\entities\NivelAlarma.class
 com\manatee\pi\entities\Configuracion.class
+com\manatee\pi\Application$16.class
 com\manatee\pi\entities\ComandoCDEG.class
 com\manatee\pi\entities\ComandoInterfazVisual.class
 com\manatee\pi\entities\CFG_Configuracion.class
@@ -61,6 +62,7 @@ com\manatee\pi\controller\OP_RegistroCrudoJpaController.class
 com\manatee\pi\Application$2.class
 com\manatee\pi\service\ProcesarDatoEstacion.class
 com\manatee\pi\Application$12.class
+com\manatee\pi\Application$15.class
 com\manatee\pi\entities\OP_Registro_.class
 com\manatee\pi\entities\Audio.class
 com\manatee\pi\entities\ModuloConcentradorVagon.class

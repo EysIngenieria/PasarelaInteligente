@@ -1,1 +1,17 @@
 14/11/2023 15:47:58.871 - Uso de la CPU: 100.0%
+16/11/2023 13:55:46.588 - El programa ha sido iniciado. Version: 1.1.7 BETA
+16/11/2023 13:58:42.146 - El programa ha sido iniciado. Version: 1.1.7 BETA
+16/11/2023 14:00:08.772 - El programa ha sido iniciado. Version: 1.1.7 BETA
+16/11/2023 14:04:53.232 - El programa ha sido iniciado. Version: 1.1.7 BETA
+16/11/2023 14:05:08.515 - CPU Usage: -1.0%, Temperature: -1.0°C
+16/11/2023 14:07:12.485 - El programa ha sido iniciado. Version: 1.1.7 BETA
+16/11/2023 14:07:16.596 - CPU Usage: -1.0%, Temperature: -1.0°C
+16/11/2023 14:13:24.831 - El programa ha sido iniciado. Version: 1.1.7 BETA
+16/11/2023 14:13:28.995 - CPU Usage: -1.0%, Temperature: -1.0°C
+16/11/2023 14:16:52.726 - El programa ha sido iniciado. Version: 1.1.7 BETA
+16/11/2023 14:18:56.198 - El programa ha sido iniciado. Version: 1.1.7 BETA
+16/11/2023 14:18:59.939 - CPU Usage: -1.0%, Temperature: -1.0°C
+16/11/2023 14:19:46.391 - El programa ha sido iniciado. Version: 1.1.7 BETA
+16/11/2023 14:19:50.229 - CPU Usage: -1.0%, Temperature: -1.0°C
+16/11/2023 14:27:17.295 - El programa ha sido iniciado. Version: 1.1.7 BETA
+16/11/2023 14:27:21.101 - CPU Usage: -1.0%, Temperature: -1.0°C
