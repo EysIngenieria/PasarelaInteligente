@@ -13,11 +13,30 @@ public class Canal{
     private long ultimaConexcion;
     private int idRegistro;
     private String conexionPuertas;
-
+    private boolean cambio;
+    private boolean ultimoEstado;
     public Canal(int canal, int idRegistro) {
         this.canal = canal;
         this.ultimaConexcion = System.currentTimeMillis();
         this.idRegistro = idRegistro;
+        cambio = false;
+        ultimoEstado = false;
+    }
+
+    public boolean isUltimoEstado() {
+        return ultimoEstado;
+    }
+
+    public void setUltimoEstado(boolean ultimoEstado) {
+        this.ultimoEstado = ultimoEstado;
+    }
+    
+    public boolean isCambio() {
+        return cambio;
+    }
+
+    public void setCambio(boolean cambio) {
+        this.cambio = cambio;
     }
 
     public String getConexionPuertas() {
@@ -71,8 +90,14 @@ public class Canal{
         long date = System.currentTimeMillis();
         long restaFechas = date - ultimaConexcion;
         long minutos = restaFechas / (60 * 1000);
-
-        return !(minutos > 1);
+        boolean ret = !(minutos > 1);
+        if(ret!=ultimoEstado){
+            cambio = true;
+            ultimoEstado=ret;
+        }else{
+            cambio = false;
+        }
+        return ret;
     }
 
 }

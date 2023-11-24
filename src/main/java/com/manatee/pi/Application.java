@@ -2218,7 +2218,7 @@ public class Application {
                     contador++;
                     vagones.add(temp);
                     crerarHiloEscuchador("vagon" + temp.getNombre());
-                    crerarHiloPublicador(vagones.indexOf(temp));
+                    crearHiloPublicador(vagones.indexOf(temp));
                 } else {
                     boolean ce = false;
                     Vagon temp = new Vagon();
@@ -2239,7 +2239,7 @@ public class Application {
                         contador++;
                         vagones.add(temp);
                         crerarHiloEscuchador("vagon" + temp.getNombre());
-                        crerarHiloPublicador(vagones.indexOf(temp));
+                        crearHiloPublicador(vagones.indexOf(temp));
                     }
 
                 }
@@ -2785,6 +2785,9 @@ public class Application {
         new Thread() {
             @Override
             public void run() {
+                boolean SCDEG = false;
+                boolean SCC = false;
+                
                 while (true) {
                     try {
 
@@ -2814,12 +2817,20 @@ public class Application {
 
                         conexion = new JSONObject();
                         conexion.put("nombre", "CDEG");
+                        if(publicadorExternoMQTT.conect()!=SCDEG){
+                            SCDEG=publicadorExternoMQTT.conect();
+                            log("Cambio conexion Centro de Gestion a " + (SCDEG ? "conectado" : "desconectado"));
+                        }
                         conexion.put("CONECTADO", publicadorExternoMQTT.conect());
                         conexion.put("fechaConexion", formatter.format(conexionCDEG));
                         conexiones.put(conexion);
 
                         conexion = new JSONObject();
                         conexion.put("nombre", "CENTRO CONTROL");
+                        if(publicadorManatee.isConected()!=SCC){
+                            SCC=publicadorManatee.isConected();
+                            log("Cambio conexion Centro de Control a " + (SCC ? "conectado" : "desconectado"));
+                        }
                         conexion.put("CONECTADO", publicadorManatee.isConected());
                         conexion.put("fechaConexion", formatter.format(conexionMTE));
                         conexiones.put(conexion);
@@ -2829,8 +2840,10 @@ public class Application {
                                 for (Canal canal : mvc.getCanales()) {
                                     JSONObject mvcJson = new JSONObject();
                                     mvcJson.put("nombre", "MCV-" + vagone.getNombreCDEG() + "-" + canal.getCanal() + "/" + mvc.getIdDispositivo());
-
                                     mvcJson.put("CONECTADO", canal.conectado());
+                                    if(canal.isCambio()){
+                                        log("Cambio conexion " + "MCV-" + vagone.getNombreCDEG() + "-" + canal.getCanal() + "/" + mvc.getIdDispositivo()+(canal.conectado() ? " conectado" : " desconectado"));
+                                    }
                                     mvcJson.put("fechaConexion", formatter.format(new Date(canal.getUltimaConexcion())));
                                     conexiones.put(mvcJson);
                                 }
@@ -3226,7 +3239,7 @@ public class Application {
         }.start();
 
     }
-    public void crerarHiloPublicador(int indexVagon) {
+    public void crearHiloPublicador(int indexVagon) {
         new Thread() {
             @Override
             public void run() {
