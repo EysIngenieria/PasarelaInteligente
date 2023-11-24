@@ -336,13 +336,13 @@ public class DataAccess implements IDataAccess {
     }
 
     void DeletePuertas() {
-        for (Puerta findPuertaEntity : puertaController.findPuertaEntities()) {
+        
             try {
-                puertaController.destroy(findPuertaEntity.getId());
-            } catch (NonexistentEntityException ex) {
+                puertaController.deleteAll();
+            } catch (Exception ex) {
                 System.out.println(ex.getLocalizedMessage());
             }
-        }
+        
     }
 
     void deleteParametros(boolean deleteAll) {
@@ -362,33 +362,31 @@ public class DataAccess implements IDataAccess {
     }
 
     void deleteRegistros() {
-        for (OP_Registro object : registroJpaController.findOP_RegistroEventoEntities()) {
             try {
-                registroJpaController.destroy(object.getId());
-            } catch (NonexistentEntityException ex) {
+                registroJpaController.deleteAll();
+            } catch (Exception ex) {
                 System.out.println(ex.getLocalizedMessage());
             }
-        }
     }
 
     void deleteRegistrosCurdos() {
-        for (OP_RegistroCrudo object : registroCrudoJpaController.findOP_RegistroCrudoEntities()) {
+        
             try {
-                registroCrudoJpaController.destroy(object.getId());
-            } catch (NonexistentEntityException ex) {
+                registroCrudoJpaController.deleteAll();
+            } catch (Exception ex) {
                 System.out.println(ex.getLocalizedMessage());
             }
-        }
+        
     }
 
     void deleteRegistrosTemporales() {
-        for (OP_RegistroTemporal object : registroTemporalJpaController.findOP_RegistroTemporalEntities()) {
+        
             try {
-                registroTemporalJpaController.destroy(object.getId());
-            } catch (NonexistentEntityException ex) {
+                registroTemporalJpaController.deleteAll();
+            } catch (Exception ex) {
                 System.out.println(ex.getLocalizedMessage());
             }
-        }
+        
     }
 
     @Override

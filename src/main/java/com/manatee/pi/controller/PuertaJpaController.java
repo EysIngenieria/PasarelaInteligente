@@ -69,6 +69,20 @@ public class PuertaJpaController implements Serializable {
             }
         }
     }
+    public void deleteAll() {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            // Utiliza una consulta de borrado para eliminar todos los registros
+            Query query = em.createQuery("DELETE FROM Puerta");
+            query.executeUpdate();
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
 
     public void destroy(int id) throws NonexistentEntityException {
         EntityManager em = null;
@@ -123,6 +137,7 @@ public class PuertaJpaController implements Serializable {
             em.close();
         }
     }
+    
 
     public int getPuertaCount() {
         EntityManager em = getEntityManager();

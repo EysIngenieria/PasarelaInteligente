@@ -94,7 +94,20 @@ public class OP_RegistroTemporalJpaController implements Serializable {
             }
         }
     }
-
+    public void deleteAll() {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            // Utiliza una consulta de borrado para eliminar todos los registros
+            Query query = em.createQuery("DELETE FROM OP_RegistroTemporal");
+            query.executeUpdate();
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
     public List<OP_RegistroTemporal> findOP_RegistroTemporalEntities() {
         return findOP_RegistroTemporalEntities(false, 100, 0);
     }

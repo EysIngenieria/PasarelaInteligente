@@ -1501,7 +1501,7 @@ public class Application {
                         //ACTIVAR/DESACTIVAR INMEDIATAMENTE
                         switch (puerta.getActivadoDesactivado()) {
                             case 1:
-                                System.out.println("boton activado");
+//                                System.out.println("boton activado");
                                 trama += "0100";
                                 puerta.setEstadoBotonManual(1);
                                 comando.setTrama(trama);
@@ -1510,11 +1510,11 @@ public class Application {
                                 //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                                 puerta.setActivadoDesactivado(null);
                                 dataManager.UpdatePuerta(puerta);
-                                log("BOTON USUARIO - V" + puerta.getVagon() + "-CH" + puerta.getCanal() + "-P" + puerta.getIdPuerta() + " - Trama enviada: '" + trama + "' C1.1");  //jal log test
+                                log("Activar boton usuario - V" + puerta.getVagon() + "-CH" + puerta.getCanal() + "-P" + puerta.getIdPuerta());  //jal log test
                                 break;
 
                             case 2:
-                                System.out.println("boton desactivado");
+//                                System.out.println("boton desactivado");
                                 trama += "0000";
                                 puerta.setEstadoBotonManual(1);
                                 comando.setTrama(trama);
@@ -1523,7 +1523,7 @@ public class Application {
                                 //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                                 puerta.setActivadoDesactivado(null);
                                 dataManager.UpdatePuerta(puerta);
-                                log("BOTON USUARIO - V" + puerta.getVagon() + "-CH" + puerta.getCanal() + "-P" + puerta.getIdPuerta() + " - Trama enviada: '" + trama + "' C2.1");  //jal log test
+                                log("Desactivar boton usuario - V" + puerta.getVagon() + "-CH" + puerta.getCanal() + "-P" + puerta.getIdPuerta());  //jal log test
                                 break;
 
                             default:
@@ -1535,7 +1535,7 @@ public class Application {
                         //zona = "rango";
                         switch (puerta.getActivadoDesactivado()) {
                             case 1:
-                                System.out.println("entro en rango 1 - boton activado");
+//                                System.out.println("entro en rango 1 - boton activado");
                                 trama += "0100";
                                 puerta.setEstadoBotonManual(1);
                                 comando.setTrama(trama);
@@ -1544,11 +1544,11 @@ public class Application {
                                 //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                                 puerta.setActivadoDesactivado(201);
                                 dataManager.UpdatePuerta(puerta);
-                                log("BOTON USUARIO - V" + puerta.getVagon() + "-CH" + puerta.getCanal() + "-P" + puerta.getIdPuerta() + " - Trama enviada: '" + trama + "' C1.2");  //jal log test
+                                log("Activar boton usuario - V" + puerta.getVagon() + "-CH" + puerta.getCanal() + "-P" + puerta.getIdPuerta());  //jal log test
                                 break;
 
                             case 2:
-                                System.out.println("entro en rango 2 - boton desactivado");
+//                                System.out.println("entro en rango 2 - boton desactivado");
                                 trama += "0000";
                                 puerta.setEstadoBotonManual(1);
                                 comando.setTrama(trama);
@@ -1557,7 +1557,7 @@ public class Application {
                                 //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                                 puerta.setActivadoDesactivado(202);
                                 dataManager.UpdatePuerta(puerta);
-                                log("BOTON USUARIO - V" + puerta.getVagon() + "-CH" + puerta.getCanal() + "-P" + puerta.getIdPuerta() + " - Trama enviada: '" + trama + "' C2.2");  //jal log test
+                                log("Desactivar boton usuario - V" + puerta.getVagon() + "-CH" + puerta.getCanal() + "-P" + puerta.getIdPuerta());  //jal log test
                                 break;
 
                             default:
@@ -1570,7 +1570,7 @@ public class Application {
                         switch (puerta.getActivadoDesactivado()) {
                             case 1:
                             case 201:
-                                System.out.println("salio de rango 1 - boton desactivado");
+//                                System.out.println("salio de rango 1 - boton desactivado");
                                 trama += "0000";
                                 puerta.setEstadoBotonManual(1);
                                 comando.setTrama(trama);
@@ -1579,12 +1579,12 @@ public class Application {
                                 //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                                 puerta.setActivadoDesactivado(null);
                                 dataManager.UpdatePuerta(puerta);
-                                log("BOTON USUARIO - V" + puerta.getVagon() + "-CH" + puerta.getCanal() + "-P" + puerta.getIdPuerta() + " - Trama enviada: '" + trama + "' C201");  //jal log test
+                                log("Desactivar boton usuario - V" + puerta.getVagon() + "-CH" + puerta.getCanal() + "-P" + puerta.getIdPuerta());  //jal log test
                                 break;
 
                             case 2:
                             case 202:
-                                System.out.println("salio de rango 2 - boton activado");
+//                                System.out.println("salio de rango 2 - boton activado");
                                 trama += "0100";
                                 puerta.setEstadoBotonManual(1);
                                 comando.setTrama(trama);
@@ -1593,7 +1593,7 @@ public class Application {
                                 //publisherMQTTServiceInterno.Publisher(new Gson().toJson(comando).getBytes(), comando.getIdVagon());
                                 puerta.setActivadoDesactivado(null);
                                 dataManager.UpdatePuerta(puerta);
-                                log("BOTON USUARIO - V" + puerta.getVagon() + "-CH" + puerta.getCanal() + "-P" + puerta.getIdPuerta() + " - Trama enviada: '" + trama + "' C202");  //jal log test
+                                log("Activar boton usuario - V" + puerta.getVagon() + "-CH" + puerta.getCanal() + "-P" + puerta.getIdPuerta());  //jal log test
                                 break;
 
                             default:
@@ -2068,26 +2068,29 @@ public class Application {
             ModoACK = (int) configuracion.getNumber("ACK");
             switch (activado) {
                 case 1:
+                    log("Modo 1");
                     System.exit(0);
                     break;
                 
                 case 2:
-                    
+                    log("Modo 2");
                     dataManager.deletParametros(true);
                     dataManager.DeleteRegistros();
                     dataManager.DeleteRegistrosCrudos();
                     dataManager.deleteRegistrosTemporales();
                     dataManager.DeletePuertas();
                     dataManager.deleteAllVagonACK();
-                    System.out.println("Entro en modo 2");
                     break;
                 case 3:
+                    log("Modo 3");
                     dataManager.deletParametros(false);
                     dataManager.DeletePuertas();
                     dataManager.deleteAllVagonACK();
                     addParametrosSinFecha(configuracion, confEstacion, mlan, mqttcdeg);
                     break;
                 default:
+                    log("Modo " + activado);
+                    break;
 
             }
 
@@ -2215,6 +2218,7 @@ public class Application {
                     contador++;
                     vagones.add(temp);
                     crerarHiloEscuchador("vagon" + temp.getNombre());
+                    crerarHiloPublicador(vagones.indexOf(temp));
                 } else {
                     boolean ce = false;
                     Vagon temp = new Vagon();
@@ -2235,6 +2239,7 @@ public class Application {
                         contador++;
                         vagones.add(temp);
                         crerarHiloEscuchador("vagon" + temp.getNombre());
+                        crerarHiloPublicador(vagones.indexOf(temp));
                     }
 
                 }
@@ -2676,30 +2681,24 @@ public class Application {
             }
         }.start();
 
-        new Thread() {
-            @Override
-            public void run() {
-                String topics[] = new String[0];
-                PublicadorLocalMQTT subscriberMQTTServiceLocal = new PublicadorLocalMQTT("tcp://localhost:1883");
-                while (true) {
-                    try {
-                        for (Vagon vagone : vagones) {
-                            List<JSONObject> comandos = new ArrayList<>();
-                            comandos.addAll(vagone.getComandos());
-                            for (JSONObject comando : comandos) {
-                                subscriberMQTTServiceLocal.Publisher(comando.toString().getBytes(), vagone.getNombre());
-                                vagone.getComandos().remove(comando);
-                                Thread.sleep(200);
-                            }
-                        }
-
-                        Thread.sleep(10);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }.start();
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                String topics[] = new String[0];
+//                PublicadorLocalMQTT subscriberMQTTServiceLocal = new PublicadorLocalMQTT("tcp://localhost:1883");
+//                while (true) {
+//                    try {
+//                        for (Vagon vagone : vagones) {
+//                            
+//                        }
+//
+//                        Thread.sleep(10);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }.start();
 
         new Thread() {
             @Override
@@ -3218,6 +3217,34 @@ public class Application {
 
                             Thread.sleep(1);
                         }
+                    } catch (Exception e) {
+                        System.out.println("ERROR EN TRAMA DEL MVC: " + e.getMessage());
+                    }
+                }
+
+            }
+        }.start();
+
+    }
+    public void crerarHiloPublicador(int indexVagon) {
+        new Thread() {
+            @Override
+            public void run() {
+
+                
+                PublicadorLocalMQTT publicador = new PublicadorLocalMQTT("tcp://localhost:1883");
+                
+                while (true) {
+                    try {
+                        List<JSONObject> comandos = new ArrayList<>();
+                            comandos.addAll(vagones.get(indexVagon).getComandos());
+                            for (JSONObject comando : comandos) {
+                                publicador.Publisher(comando.toString().getBytes(), vagones.get(indexVagon).getNombre());
+                                vagones.get(indexVagon).getComandos().remove(comando);
+                                Thread.sleep(80);
+                            }
+                            
+                        Thread.sleep(1);
                     } catch (Exception e) {
                         System.out.println("ERROR EN TRAMA DEL MVC: " + e.getMessage());
                     }
