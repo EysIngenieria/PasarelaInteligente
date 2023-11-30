@@ -2406,7 +2406,7 @@ public class Application {
                                             System.out.println("Dato Interfaz VIsual: " + dato);
                                             AddComando(puertaTemp.getVagon(), dato);
                                             //publisherMQTTServiceInterno.Publisher(dato.toString().getBytes(), puertaTemp.getVagon());
-
+                                            Thread.sleep(100);
                                         }
                                     } catch (Exception e) {
                                         e.printStackTrace();
@@ -3254,10 +3254,10 @@ public class Application {
                             for (JSONObject comando : comandos) {
                                 publicador.Publisher(comando.toString().getBytes(), vagones.get(indexVagon).getNombre());
                                 vagones.get(indexVagon).getComandos().remove(comando);
-                                Thread.sleep(80);
+                                Thread.sleep(50);
                             }
                             
-                        Thread.sleep(1);
+                        Thread.sleep(10);
                     } catch (Exception e) {
                         System.out.println("ERROR EN TRAMA DEL MVC: " + e.getMessage());
                     }
