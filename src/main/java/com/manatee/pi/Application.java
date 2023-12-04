@@ -1677,38 +1677,37 @@ public class Application {
             int currentHour = Integer.parseInt(new SimpleDateFormat("HH").format(new Date()));
 
             // Check if the current time is between 4:00 AM and 5:00 AM
-            if (currentHour == 4) {
-                if (new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).after(new SimpleDateFormat("HHmm").parse(horaInicioOperacion))) {
-                    for (Puerta temp : dataManager.GetPuertas()) {
-                        DatoCDEG puerta = new DatoCDEG();
-                        puerta.setVersionTrama(versionTrama);
-                        puerta.setIdOperador(idOperador);
-                        puerta.setTipoTrama(2);
-                        puerta.setCanal(temp.getCanal());
-                        puerta.setIdVagon(temp.getVagon());
-                        puerta.setCodigoPuerta(temp.getDescripcion());
-                        puerta.setIdPuerta(temp.getDescripcion());
-                        cast.datosPuerta(temp, puerta);
-                        Boolean ce = temp.isEstadoAperturaCierre();
-                        if (ce != null && ce) {
-                            String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-                            if (!fechaInicioOperacion.equalsIgnoreCase(fecha)) {
-                                OP_Parametro parametro = new OP_Parametro();
-                                parametro.setId(14);
-                                parametro.setNombre("FechaInicioOperacion");
-                                parametro.setValor(fecha);
-                                fechaInicioOperacion = fecha;
-                                dataManager.UpdateParametros(parametro);
-                                puerta.setIdVagon("INICIO-OP");
-                                puerta.setIdPuerta("INICIO-OP");
-                                puerta.setCodigoPuerta("INICIO-OP");
-                                puerta.setCodigoEvento("EVP8");
-                                puerta.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-                                ArmarEventos(puerta);
-                                break;
-                            }
+            if (new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).after(new SimpleDateFormat("HHmm").parse(horaInicioOperacion))) {
+                for (Puerta temp : dataManager.GetPuertas()) {
+                    DatoCDEG puerta = new DatoCDEG();
+                    puerta.setVersionTrama(versionTrama);
+                    puerta.setIdOperador(idOperador);
+                    puerta.setTipoTrama(2);
+                    puerta.setCanal(temp.getCanal());
+                    puerta.setIdVagon(temp.getVagon());
+                    puerta.setCodigoPuerta(temp.getDescripcion());
+                    puerta.setIdPuerta(temp.getDescripcion());
+                    cast.datosPuerta(temp, puerta);
+                    Boolean ce = temp.isEstadoAperturaCierre();
+                    if (ce != null && ce) {
+                        String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+                        if (!fechaInicioOperacion.equalsIgnoreCase(fecha)) {
+                            OP_Parametro parametro = new OP_Parametro();
+                            parametro.setId(14);
+                            parametro.setNombre("FechaInicioOperacion");
+                            parametro.setValor(fecha);
+                            fechaInicioOperacion = fecha;
+                            dataManager.UpdateParametros(parametro);
+                            puerta.setIdVagon("INICIO-OP");
+                            puerta.setIdPuerta("INICIO-OP");
+                            puerta.setCodigoPuerta("INICIO-OP");
+                            puerta.setCodigoEvento("EVP8");
+                            puerta.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+                            ArmarEventos(puerta);
+                            break;
                         }
                     }
+
                 }
             } else {
                 // Handle the case when the current time is not within the specified range
@@ -2084,7 +2083,6 @@ public class Application {
                 case 3:
                     log("Modo 3");
                     dataManager.deletParametros(false);
-                    dataManager.DeletePuertas();
                     dataManager.deleteAllVagonACK();
                     addParametrosSinFecha(configuracion, confEstacion, mlan, mqttcdeg);
                     break;
@@ -2406,7 +2404,7 @@ public class Application {
                                             System.out.println("Dato Interfaz VIsual: " + dato);
                                             AddComando(puertaTemp.getVagon(), dato);
                                             //publisherMQTTServiceInterno.Publisher(dato.toString().getBytes(), puertaTemp.getVagon());
-
+                                            Thread.sleep(100);
                                         }
                                     } catch (Exception e) {
                                         e.printStackTrace();
@@ -2673,7 +2671,7 @@ public class Application {
                     try {
                         ProcesarRegistrosCrudos();
 
-                        Thread.sleep(1);
+                        Thread.sleep(50);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -3254,10 +3252,10 @@ public class Application {
                             for (JSONObject comando : comandos) {
                                 publicador.Publisher(comando.toString().getBytes(), vagones.get(indexVagon).getNombre());
                                 vagones.get(indexVagon).getComandos().remove(comando);
-                                Thread.sleep(80);
+                                Thread.sleep(50);
                             }
                             
-                        Thread.sleep(1);
+                        Thread.sleep(10);
                     } catch (Exception e) {
                         System.out.println("ERROR EN TRAMA DEL MVC: " + e.getMessage());
                     }
