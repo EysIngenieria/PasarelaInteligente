@@ -84,7 +84,7 @@ public class Application {
 
     private static final String VERSION = "1.1.7 BETA";
     private static final String LOG_FILE_PATH = "./Logs_pi/program_log.txt";
-
+    private SimpleDateFormat formatoFechaMM_yyyy = new SimpleDateFormat("MM_yyyy");
     int activado = 0;
     int ModoACK = 0;
     DataManager dataManager;
@@ -1720,38 +1720,17 @@ public class Application {
 
     private void FinOperacion() {
         try {
-            // Get the current time as hours and minutes
-            int currentHour = Integer.parseInt(new SimpleDateFormat("HH").format(new Date()));
 
-            // Check if the current time is between 12:00 AM (midnight) and 1:00 AM
-            if (currentHour == 0) {
-                DatoCDEG estacion = new DatoCDEG();
-                if (new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).after(new SimpleDateFormat("HHmm").parse(horaFinOperacion)) && new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).before(new SimpleDateFormat("HHmm").parse(horaLimite))) {
-                    tiempoFinOperacion += 1;
-                    for (Puerta puerta : dataManager.GetPuertas()) {
-                        if (puerta.isEstadoAperturaCierre() != null && puerta.isEstadoAperturaCierre()) {
-                            tiempoFinOperacion = 0;
-                        }
-                    }
-                    if (tiempoFinOperacion > Integer.parseInt(tiempoFinOperacionDB)) {
+            DatoCDEG estacion = new DatoCDEG();
+            if (new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).after(new SimpleDateFormat("HHmm").parse(horaFinOperacion)) && new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).before(new SimpleDateFormat("HHmm").parse(horaLimite))) {
+                tiempoFinOperacion += 1;
+                for (Puerta puerta : dataManager.GetPuertas()) {
+                    if (puerta.isEstadoAperturaCierre() != null && puerta.isEstadoAperturaCierre()) {
                         tiempoFinOperacion = 0;
-                        String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-                        if (!fechaFinOperacion.equalsIgnoreCase(fecha)) {
-                            fechaFinOperacion = fecha;
-                            OP_Parametro parametro = new OP_Parametro();
-                            parametro.setId(15);
-                            parametro.setNombre("FechaFinOperacion");
-                            parametro.setValor(fecha);
-                            dataManager.UpdateParametros(parametro);
-                            estacion.setIdVagon("FIN-OP");
-                            estacion.setIdPuerta("FIN-OP");
-                            estacion.setCodigoPuerta("FIN-OP");
-                            estacion.setCodigoEvento("EVP9");
-                            estacion.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-                            ArmarEventos(estacion);
-                        }
                     }
-                } else if (new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).after(new SimpleDateFormat("HHmm").parse(horaLimite))) {
+                }
+                if (tiempoFinOperacion > Integer.parseInt(tiempoFinOperacionDB)) {
+                    tiempoFinOperacion = 0;
                     String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
                     if (!fechaFinOperacion.equalsIgnoreCase(fecha)) {
                         fechaFinOperacion = fecha;
@@ -1768,9 +1747,22 @@ public class Application {
                         ArmarEventos(estacion);
                     }
                 }
-            } else {
-                // Handle the case when the current time is not within the specified range
-                // You can log a message or take any appropriate action here.
+            } else if (new SimpleDateFormat("HHmm").parse(new SimpleDateFormat("HHmm").format(new Date())).after(new SimpleDateFormat("HHmm").parse(horaLimite))) {
+                String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+                if (!fechaFinOperacion.equalsIgnoreCase(fecha)) {
+                    fechaFinOperacion = fecha;
+                    OP_Parametro parametro = new OP_Parametro();
+                    parametro.setId(15);
+                    parametro.setNombre("FechaFinOperacion");
+                    parametro.setValor(fecha);
+                    dataManager.UpdateParametros(parametro);
+                    estacion.setIdVagon("FIN-OP");
+                    estacion.setIdPuerta("FIN-OP");
+                    estacion.setCodigoPuerta("FIN-OP");
+                    estacion.setCodigoEvento("EVP9");
+                    estacion.setFechaHoraLecturaDato(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+                    ArmarEventos(estacion);
+                }
             }
         } catch (Exception e) {
             System.out.println("Error en FIN OPERACION " + e);
@@ -2972,7 +2964,7 @@ public class Application {
             // Leer las líneas de salida y buscar la línea que contiene la información de la temperatura
             String line;
             while ((line = reader.readLine()) != null) {
-                if (line.contains("Core 0:")) { // Ajusta esto según el formato de salida de 'sensors'
+                if (line.contains("Package id 0:")) { // Ajusta esto según el formato de salida de 'sensors'
                     // Buscar el índice del primer dígito en la línea para extraer la temperatura
                     int startIndex = line.indexOf("+");
                     int endIndex = line.indexOf(".", startIndex);
@@ -3353,7 +3345,9 @@ public class Application {
 
     public void log(String message) {
         ensureLogFileExists();
-        try ( BufferedWriter writer = new BufferedWriter(new FileWriter(LOG_FILE_PATH, true))) {
+        String nameFile = formatoFechaMM_yyyy.format(new Date()) + "_logPI.txt";   //formatoFechaMM_yyyy = new SimpleDateFormat("MM_yyyy");
+        
+        try ( BufferedWriter writer = new BufferedWriter(new FileWriter(LOG_FILE_PATH + nameFile, true))) {
             String currentDate = formatoFecha.format(new Date());
             String logEntry = currentDate + " - " + message;
             writer.write(logEntry);
@@ -3363,8 +3357,10 @@ public class Application {
         }
     }
 
-    private static void ensureLogFileExists() {
-        Path logFilePath = Paths.get(LOG_FILE_PATH);
+    public void ensureLogFileExists() {
+        String nameFile = formatoFechaMM_yyyy.format(new Date()) + "_logPI.txt";   //formatoFechaMM_yyyy = new SimpleDateFormat("MM_yyyy");
+        
+        Path logFilePath = Paths.get(LOG_FILE_PATH + nameFile);
 
         if (!Files.exists(logFilePath)) {
             try {
