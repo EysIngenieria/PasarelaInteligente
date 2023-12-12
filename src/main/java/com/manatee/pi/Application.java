@@ -83,10 +83,11 @@ import org.json.JSONObject;
 public class Application {
 
     private static final String VERSION = "1.1.7 BETA";
-    private static final String LOG_FILE_PATH = "./Logs_pi/program_log.txt";
     private SimpleDateFormat formatoFechaMM_yyyy = new SimpleDateFormat("MM_yyyy");
     int activado = 0;
     int ModoACK = 0;
+    private static final String LOG_FILE_PATH = "./Logs_pi/";    //jal, adicion_1
+    String nameFile;    //jal, adicion_1
     DataManager dataManager;
     PublicadorLocalMQTT publisherMQTTServiceInterno;
     PublicadorExternoMQTT publicadorExternoMQTT;
@@ -3345,7 +3346,7 @@ public class Application {
 
     public void log(String message) {
         ensureLogFileExists();
-        String nameFile = formatoFechaMM_yyyy.format(new Date()) + "_logPI.txt";   //formatoFechaMM_yyyy = new SimpleDateFormat("MM_yyyy");
+        nameFile = formatoFechaMM_yyyy.format(new Date()) + "_logPI.txt";   //formatoFechaMM_yyyy = new SimpleDateFormat("MM_yyyy");
         
         try ( BufferedWriter writer = new BufferedWriter(new FileWriter(LOG_FILE_PATH + nameFile, true))) {
             String currentDate = formatoFecha.format(new Date());
@@ -3358,7 +3359,7 @@ public class Application {
     }
 
     public void ensureLogFileExists() {
-        String nameFile = formatoFechaMM_yyyy.format(new Date()) + "_logPI.txt";   //formatoFechaMM_yyyy = new SimpleDateFormat("MM_yyyy");
+        nameFile = formatoFechaMM_yyyy.format(new Date()) + "_logPI.txt";   //formatoFechaMM_yyyy = new SimpleDateFormat("MM_yyyy");
         
         Path logFilePath = Paths.get(LOG_FILE_PATH + nameFile);
 
