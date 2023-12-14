@@ -2762,40 +2762,40 @@ public class Application {
             }
         }.start();
 
-        new Thread() {
-            @Override
-            public void run() {
-                while (true) {
-                    try {
-                        boolean ce = true;
-                        while (ce) {
-                            for (OP_Registro dato : dataManager.GetRegistro()) {
-                                try {
-                                    Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date()));
-                                    long restaFechas = ((date.getTime() - dato.getfechaHoraOcurrencia().getTime()));
-                                    long dias = restaFechas / (60 * 60 * 1000 * 24);
-                                    if (dias >= 60) {
-                                        dataManager.DeleteRegistro(dato.getId());
-                                    } else {
-                                        ce = false;
-                                        break;
-                                    }
-                                } catch (ParseException ex) {
-                                    System.err.println(ex.getLocalizedMessage() + "");
-                                }
-
-                            }
-                            Thread.sleep(1000);
-                        }
-
-                        //cada 8 horas
-                        Thread.sleep(24 * 60 * 60 * 1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }.start();
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                while (true) {
+//                    try {
+//                        boolean ce = true;
+//                        while (ce) {
+//                            for (OP_Registro dato : dataManager.GetRegistro()) {
+//                                try {
+//                                    Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date()));
+//                                    long restaFechas = ((date.getTime() - dato.getfechaHoraOcurrencia().getTime()));
+//                                    long dias = restaFechas / (60 * 60 * 1000 * 24);
+//                                    if (dias >= 60) {
+//                                        dataManager.DeleteRegistro(dato.getId());
+//                                    } else {
+//                                        ce = false;
+//                                        break;
+//                                    }
+//                                } catch (ParseException ex) {
+//                                    System.err.println(ex.getLocalizedMessage() + "");
+//                                }
+//
+//                            }
+//                            Thread.sleep(1000);
+//                        }
+//
+//                        //cada 8 horas
+//                        Thread.sleep(24 * 60 * 60 * 1000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }.start();
 
         new Thread() {
             @Override
@@ -3152,16 +3152,7 @@ public class Application {
         for (OP_RegistroTemporal registroTemporal : registros) {
 
             try {
-                Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date()));
-                long restaFechas = ((date.getTime() - registroTemporal.getfechaHoraOcurrencia().getTime()));
-                long dias = restaFechas / (60 * 60 * 1000 * 24);
-                if (dias >= 60) {
-                    try {
-                        dataManager.DeleteRegistroTemporal(registroTemporal.getId());
-                    } catch (Exception ex) {
-                        System.err.println(ex.getLocalizedMessage() + "");
-                    }
-                } else if (registroTemporal.isestadoEnvio() && registroTemporal.isEstadoEnvioManatee()) {
+                 if (registroTemporal.isestadoEnvio() && registroTemporal.isEstadoEnvioManatee()) {
 
                     try {
                         dataManager.DeleteRegistroTemporal(registroTemporal.getId());
@@ -3170,7 +3161,7 @@ public class Application {
                     }
 
                 }
-            } catch (ParseException ex) {
+            } catch (Exception ex) {
                 System.err.println(ex.getLocalizedMessage() + "");
             }
 
