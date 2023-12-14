@@ -2066,12 +2066,62 @@ public class Application {
                 
                 case 2:
                     log("Modo 2");
+                    System.out.println("");
+                    System.out.println("");
+
+                    Date dateIni = new Date();
+                    System.out.println(formatoFecha.format(dateIni) + " - INICIO BORRADO DE TABLAS ...");
+                    log("INICIO BORRADO DE TABLAS ...");
+                    System.out.println("");
+
+                    System.out.println(formatoFecha.format(new Date()) + " - Borrando...       tabla OP_Parametros: " + dataManager.parametrosSize());
+                    log("Borrando...       tabla OP_Parametros: " + dataManager.parametrosSize());
                     dataManager.deletParametros(true);
+                    System.out.println(formatoFecha.format(new Date()) + " - Borrado OK        tabla OP_Parametros: " + dataManager.parametrosSize());
+                    log("Borrado OK        tabla OP_Parametros: " + dataManager.parametrosSize());
+                    System.out.println("");
+
+                    System.out.println(formatoFecha.format(new Date()) + " - Borrando...         tabla OP_Registro: " + dataManager.registroSize());
+                    log("Borrando...         tabla OP_Registro: " + dataManager.registroSize());
                     dataManager.DeleteRegistros();
+                    System.out.println(formatoFecha.format(new Date()) + " - Borrado OK          tabla OP_Registro: " + dataManager.registroSize());
+                    log("Borrado OK          tabla OP_Registro: " + dataManager.registroSize());
+                    System.out.println("");
+
+                    System.out.println(formatoFecha.format(new Date()) + " - Borrando...    tabla OP_RegistroCrudo: " + dataManager.registroCrudoSize());
+                    log("Borrando...    tabla OP_RegistroCrudo: " + dataManager.registroCrudoSize());
                     dataManager.DeleteRegistrosCrudos();
+                    System.out.println(formatoFecha.format(new Date()) + " - Borrado OK     tabla OP_RegistroCrudo: " + dataManager.registroCrudoSize());
+                    log("Borrado OK     tabla OP_RegistroCrudo: " + dataManager.registroCrudoSize());
+                    System.out.println("");
+
+                    System.out.println(formatoFecha.format(new Date()) + " - Borrando... tabla OP_RegistroTemporal: " + dataManager.registroTemporalSize());
+                    log("Borrando... tabla OP_RegistroTemporal: " + dataManager.registroTemporalSize());
                     dataManager.deleteRegistrosTemporales();
+                    System.out.println(formatoFecha.format(new Date()) + " - Borrado OK  tabla OP_RegistroTemporal: " + dataManager.registroTemporalSize());
+                    log("Borrado OK  tabla OP_RegistroTemporal: " + dataManager.registroTemporalSize());
+                    System.out.println("");
+
+                    System.out.println(formatoFecha.format(new Date()) + " - Borrando...             tabla Puertas: " + dataManager.puertasSize());
+                    log("Borrando...             tabla Puertas: " + dataManager.puertasSize());
                     dataManager.DeletePuertas();
+                    System.out.println(formatoFecha.format(new Date()) + " - Borrado OK              tabla Puertas: " + dataManager.puertasSize());
+                    log("Borrado OK              tabla Puertas: " + dataManager.puertasSize());
+                    System.out.println("");
+
+                    System.out.println(formatoFecha.format(new Date()) + " - Borrando...            tabla ACKVAGON: " + dataManager.ackVagonSize());
+                    log("Borrando...            tabla ACKVAGON: " + dataManager.ackVagonSize());
                     dataManager.deleteAllVagonACK();
+                    System.out.println(formatoFecha.format(new Date()) + " - Borrado OK             tabla ACKVAGON: " + dataManager.ackVagonSize());
+                    log("Borrado OK             tabla ACKVAGON: " + dataManager.ackVagonSize());
+                    System.out.println("");
+
+                    System.out.println(formatoFecha.format(dateIni) + " - INICIO BORRADO DE TABLAS");
+                    log(formatoFecha.format(dateIni) + " - INICIO BORRADO DE TABLAS");
+                    System.out.println(formatoFecha.format(new Date()) + " - FIN    BORRADO DE TABLAS");
+                    log(formatoFecha.format(new Date()) + " - FIN    BORRADO DE TABLAS");
+                    System.out.println("");
+                    System.out.println("");
                     break;
                 case 3:
                     log("Modo 3");

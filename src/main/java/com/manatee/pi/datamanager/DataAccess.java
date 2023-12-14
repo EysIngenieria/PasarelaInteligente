@@ -470,4 +470,28 @@ public class DataAccess implements IDataAccess {
         vagonJpaController.updateACKVagonByCanalAndIdDispositivo(vagon, idDispositivo, canal, registro);
     }
 
+    public int parametrosSize() {
+        return parametroJpaController.getOP_ParametroCount();
+    }
+
+    public int registroSize() {
+        return registroJpaController.getOP_RegistroEventoCount();
+    }
+
+    public int registroCrudoSize() {
+        return registroCrudoJpaController.getOP_RegistroCrudoCount();
+    }
+
+    public int registroTemporalSize() {
+        return registroTemporalJpaController.getOP_RegistroTemporalCount();
+    }
+
+    public int puertasSize() {
+        return puertaController.getPuertaCount();
+    }
+
+    int ackVagonSize() {
+        return vagonJpaController.getACKVagonCount();
+    }
+
 }
