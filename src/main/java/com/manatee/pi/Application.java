@@ -572,6 +572,12 @@ public class Application {
 
                                             case "ABRIENDO":
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
+                                                if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),13)){
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    break;
+                                                }
+                                        
+                                                
                                                 if (temp != null) {
                                                     temp.setEstadoAperturaCierre(datoAux.getEstadoAperturaCierrePuertas());
                                                     temp.setEntradasApertura(datoAux.getEntradasApertura());
@@ -600,6 +606,10 @@ public class Application {
                                             case "ABIERTA":
                                                 //System.out.println("ABIERTA " + registroCrudo.getCanal() + " " + registroCrudo.getIdPuerta());
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
+                                                if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),13)){
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    break;
+                                                }
                                                 if (temp != null) {
                                                     temp.setEstadoAperturaCierre(datoAux.getEstadoAperturaCierrePuertas());
                                                     temp.setEntradasApertura(datoAux.getEntradasApertura());
@@ -639,6 +649,10 @@ public class Application {
                                             case "CERRANDO":
 
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
+                                                if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),13)){
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    break;
+                                                }
                                                 if (temp != null) {
                                                     temp.setEstadoAperturaCierre(datoAux.getEstadoAperturaCierrePuertas());
                                                     temp.setEntradasApertura(datoAux.getEntradasApertura());
@@ -668,6 +682,10 @@ public class Application {
                                             case "CERRADA":
                                                 //System.out.println("cerrada " + registroCrudo.getCanal() + " " + registroCrudo.getIdPuerta());
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
+                                                if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),13)){
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    break;
+                                                }
                                                 if (temp != null) {
                                                     temp.setEstadoAperturaCierre(datoAux.getEstadoAperturaCierrePuertas());
                                                     temp.setEntradasApertura(datoAux.getEntradasApertura());
@@ -709,6 +727,10 @@ public class Application {
 
                                             case "OBSTACULO_ABRIENDO":
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
+                                                if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),13)){
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    break;
+                                                }
                                                 if (temp != null) {
                                                     temp.setEstadoAperturaCierre(datoAux.getEstadoAperturaCierrePuertas());
                                                     temp.setEntradasApertura(datoAux.getEntradasApertura());
@@ -738,6 +760,10 @@ public class Application {
 
                                             case "OBSTACULO_CERRANDO":
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
+                                                if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),13)){
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion());
+                                                    break;
+                                                }
                                                 if (temp != null) {
                                                     temp.setEstadoAperturaCierre(datoAux.getEstadoAperturaCierrePuertas());
                                                     temp.setEntradasApertura(datoAux.getEntradasApertura());
@@ -765,6 +791,10 @@ public class Application {
 
                                             case "APERTURA_FORZADA":
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
+                                                if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),9)){
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    break;
+                                                }
                                                 if (temp != null) {
                                                     temp.setEstadoAperturaCierre(datoAux.getEstadoAperturaCierrePuertas());
                                                     temp.setPorcentajeApertura(datoAux.getPorcentajeApertura());
@@ -794,6 +824,10 @@ public class Application {
 
                                             case "CIERRE_FORZADO":
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
+                                                if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),9)){
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    break;
+                                                }
                                                 if (temp != null) {
                                                     temp.setEstadoAperturaCierre(datoAux.getEstadoAperturaCierrePuertas());
                                                     temp.setPorcentajeApertura(datoAux.getPorcentajeApertura());
@@ -821,6 +855,10 @@ public class Application {
 
                                             case "CALIBRACION":
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
+                                                if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),9)){
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    break;
+                                                }
                                                 if (temp != null) {
                                                     temp.setEstadoCalibracion(datoAux.getEstadoCalibracion());
                                                     temp.setContadorEncoder(datoAux.getContadorEncoder());
@@ -844,6 +882,10 @@ public class Application {
                                             case "CAMBIO_FUENTE_ALIMENTACION":
 
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
+                                                if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),12)){
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    break;
+                                                }
                                                 if (temp != null) {
                                                     temp.setEstadoPoder(datoAux.getEstadoPoder());
                                                     temp.setVoltajeBateria(datoAux.getVoltajeBateria());
@@ -945,6 +987,10 @@ public class Application {
 
                                             case "PERIODICO_1":
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
+                                                if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),19)){
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    break;
+                                                }
                                                 //new Gson().toJson(puerta1));
                                                 if (temp != null) {
                                                     temp.setUltimaConexion(System.currentTimeMillis());
@@ -1019,6 +1065,10 @@ public class Application {
 
                                             case "PERIODICO_2":
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
+                                                if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),20)){
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    break;
+                                                }
                                                 //new Gson().toJson(puerta1));
                                                 if (temp != null) {
                                                     temp.setUltimaConexion(System.currentTimeMillis());
@@ -1090,6 +1140,10 @@ public class Application {
                                             case "CAMBIO_MODO":
 
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
+                                                if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),7)){
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    break;
+                                                }
                                                 if (temp != null) {
                                                     temp.setUltimaConexion(System.currentTimeMillis());
                                                     temp.setModoOperacion(datoAux.getModoOperacion());
