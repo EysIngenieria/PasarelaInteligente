@@ -1,0 +1,47 @@
+24/01/2024 13:33:48.854 - El programa ha sido iniciado. Version: 1.1.7 BETA
+24/01/2024 13:33:49.048 - Modo 2
+24/01/2024 13:33:49.049 - INICIO BORRADO DE TABLAS ...
+24/01/2024 13:33:49.065 - Borrando...       tabla OP_Parametros: 18
+24/01/2024 13:33:49.144 - Borrado OK        tabla OP_Parametros: 0
+24/01/2024 13:33:49.149 - Borrando...         tabla OP_Registro: 0
+24/01/2024 13:33:49.373 - Borrado OK          tabla OP_Registro: 0
+24/01/2024 13:33:49.380 - Borrando...    tabla OP_RegistroCrudo: 0
+24/01/2024 13:33:49.387 - Borrado OK     tabla OP_RegistroCrudo: 0
+24/01/2024 13:33:49.397 - Borrando... tabla OP_RegistroTemporal: 0
+24/01/2024 13:33:49.403 - Borrado OK  tabla OP_RegistroTemporal: 0
+24/01/2024 13:33:49.410 - Borrando...             tabla Puertas: 47
+24/01/2024 13:33:49.417 - Borrado OK              tabla Puertas: 0
+24/01/2024 13:33:49.423 - Borrando...            tabla ACKVAGON: 0
+24/01/2024 13:33:49.431 - Borrado OK             tabla ACKVAGON: 0
+24/01/2024 13:33:49.432 - 24/01/2024 13:33:49.048 - INICIO BORRADO DE TABLAS
+24/01/2024 13:33:49.434 - 24/01/2024 13:33:49.433 - FIN    BORRADO DE TABLAS
+24/01/2024 13:33:53.163 - Cambio conexion Centro de Gestion a conectado
+24/01/2024 13:33:53.167 - Cambio conexion Centro de Control a conectado
+24/01/2024 13:33:53.243 - CPU: -1.0% - Temp: -1.0°C
+24/01/2024 13:35:09.094 - Cambio conexion MCV-WA-2/e4:5f:01:a2:5a:52 conectado
+24/01/2024 13:37:47.595 - El programa ha sido iniciado. Version: 1.1.7 BETA
+24/01/2024 13:37:47.748 - Modo 2
+24/01/2024 13:37:47.750 - INICIO BORRADO DE TABLAS ...
+24/01/2024 13:37:47.762 - Borrando...       tabla OP_Parametros: 18
+24/01/2024 13:37:47.822 - Borrado OK        tabla OP_Parametros: 0
+24/01/2024 13:37:47.825 - Borrando...         tabla OP_Registro: 2
+24/01/2024 13:37:47.958 - Borrado OK          tabla OP_Registro: 0
+24/01/2024 13:37:47.962 - Borrando...    tabla OP_RegistroCrudo: 0
+24/01/2024 13:37:47.970 - Borrado OK     tabla OP_RegistroCrudo: 0
+24/01/2024 13:37:47.977 - Borrando... tabla OP_RegistroTemporal: 0
+24/01/2024 13:37:47.983 - Borrado OK  tabla OP_RegistroTemporal: 0
+24/01/2024 13:37:47.986 - Borrando...             tabla Puertas: 47
+24/01/2024 13:37:47.992 - Borrado OK              tabla Puertas: 0
+24/01/2024 13:37:47.995 - Borrando...            tabla ACKVAGON: 1
+24/01/2024 13:37:48.000 - Borrado OK             tabla ACKVAGON: 0
+24/01/2024 13:37:48.002 - 24/01/2024 13:37:47.749 - INICIO BORRADO DE TABLAS
+24/01/2024 13:37:48.004 - 24/01/2024 13:37:48.002 - FIN    BORRADO DE TABLAS
+24/01/2024 13:37:50.896 - Cambio conexion Centro de Gestion a conectado
+24/01/2024 13:37:50.900 - Cambio conexion Centro de Control a conectado
+24/01/2024 13:37:50.944 - CPU: -1.0% - Temp: -1.0°C
+24/01/2024 13:38:09.916 - Cambio conexion MCV-WA-2/e4:5f:01:a2:5a:52 conectado
+24/01/2024 13:39:05.771 - Cambio conexion MCV-WA-1/e4:5f:01:a2:5a:52 conectado
+24/01/2024 13:40:10.126 - Cambio conexion MCV-WA-2/e4:5f:01:a2:5a:52 desconectado
+24/01/2024 13:41:05.856 - Cambio conexion MCV-WA-1/e4:5f:01:a2:5a:52 desconectado
+24/01/2024 13:42:50.969 - CPU: -1.0% - Temp: -1.0°C
+24/01/2024 13:42:59.362 - Cambio conexion Centro de Gestion a desconectado

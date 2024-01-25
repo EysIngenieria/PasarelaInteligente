@@ -195,7 +195,7 @@ public class Cast {
         if ( puerta.getTiempoPausa() != null) {
             dato.setTiempoPausa(puerta.getTiempoPausa());
         }
-        if ( puerta.getEstadoErrorCritico() != null) {
+        if ( puerta.getEstadoBluetooth()!= null) {
             dato.setEstadoBluetooth(puerta.getEstadoBluetooth());
         }
         if(puerta.getEstadoBotonManual()!=null){
