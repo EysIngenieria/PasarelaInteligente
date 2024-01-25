@@ -24,6 +24,7 @@ public class ProcesarDatoEstacion {
     public DatoCDEG ProcessData(String data, DatoCDEG datoCDEG) {
         byte[] tramaBytes = hexStringToByteArray(data);
         try {
+            
             datoCDEG.setInfo("DESCONOCIDO");
             //0x70 = 112d evento de puerta
             if (tramaBytes[3] == 112) {
@@ -257,6 +258,11 @@ public class ProcesarDatoEstacion {
         return datoCDEG;
     }
 
+    public boolean verifyTrama(String trama, int size) {
+        byte[] tramaBytes = hexStringToByteArray(trama);
+        return tramaBytes.length >= 6 && tramaBytes.length == size;
+    }
+
     private byte[] hexStringToByteArray(String s) {
         int len = s.length();
         byte[] data = new byte[len / 2];
@@ -265,4 +271,6 @@ public class ProcesarDatoEstacion {
         }
         return data;
     }
+
+    
 }
