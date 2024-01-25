@@ -225,9 +225,9 @@ public class ProcesarDatoEstacion {
                             if (datoCDEG.getEstadoErrorCritico() == null || !datoCDEG.getEstadoErrorCritico()) {
                                 datoCDEG.setEstadoErrorCritico(true);
 
-                            } else {
-                            datoCDEG.setEstadoErrorCritico(false);
                             }
+                        } else {
+                            datoCDEG.setEstadoErrorCritico(false);
                         }
                         break;
                     case Constantes.Eventos.EMERGENCIA:

@@ -78,7 +78,7 @@ import org.json.JSONObject;
 
 /**
  *
- * @author DesarrolloJC
+ * @author Josues
  */
 public class Application {
 
@@ -573,7 +573,7 @@ public class Application {
                                             case "ABRIENDO":
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
                                                 if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),13)){
-                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ datoAux.getInfo());
                                                     break;
                                                 }
                                         
@@ -607,7 +607,7 @@ public class Application {
                                                 //System.out.println("ABIERTA " + registroCrudo.getCanal() + " " + registroCrudo.getIdPuerta());
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
                                                 if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),13)){
-                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ datoAux.getInfo());
                                                     break;
                                                 }
                                                 if (temp != null) {
@@ -650,7 +650,7 @@ public class Application {
 
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
                                                 if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),13)){
-                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ datoAux.getInfo());
                                                     break;
                                                 }
                                                 if (temp != null) {
@@ -683,7 +683,7 @@ public class Application {
                                                 //System.out.println("cerrada " + registroCrudo.getCanal() + " " + registroCrudo.getIdPuerta());
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
                                                 if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),13)){
-                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ datoAux.getInfo());
                                                     break;
                                                 }
                                                 if (temp != null) {
@@ -728,7 +728,7 @@ public class Application {
                                             case "OBSTACULO_ABRIENDO":
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
                                                 if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),13)){
-                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ datoAux.getInfo());
                                                     break;
                                                 }
                                                 if (temp != null) {
@@ -761,7 +761,7 @@ public class Application {
                                             case "OBSTACULO_CERRANDO":
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
                                                 if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),13)){
-                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion());
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + datoAux.getInfo());
                                                     break;
                                                 }
                                                 if (temp != null) {
@@ -792,7 +792,7 @@ public class Application {
                                             case "APERTURA_FORZADA":
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
                                                 if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),9)){
-                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ datoAux.getInfo());
                                                     break;
                                                 }
                                                 if (temp != null) {
@@ -825,7 +825,7 @@ public class Application {
                                             case "CIERRE_FORZADO":
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
                                                 if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),9)){
-                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ datoAux.getInfo());
                                                     break;
                                                 }
                                                 if (temp != null) {
@@ -856,7 +856,7 @@ public class Application {
                                             case "CALIBRACION":
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
                                                 if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),9)){
-                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ datoAux.getInfo());
                                                     break;
                                                 }
                                                 if (temp != null) {
@@ -883,7 +883,7 @@ public class Application {
 
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
                                                 if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),12)){
-                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ datoAux.getInfo());
                                                     break;
                                                 }
                                                 if (temp != null) {
@@ -988,7 +988,7 @@ public class Application {
                                             case "PERIODICO_1":
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
                                                 if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),19)){
-                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ datoAux.getInfo());
                                                     break;
                                                 }
                                                 //new Gson().toJson(puerta1));
@@ -1066,7 +1066,7 @@ public class Application {
                                             case "PERIODICO_2":
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
                                                 if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),20)){
-                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ datoAux.getInfo());
                                                     break;
                                                 }
                                                 //new Gson().toJson(puerta1));
@@ -2830,7 +2830,7 @@ public class Application {
 //                                    long dias = restaFechas / (60 * 60 * 1000 * 24);
 //                                    if (dias >= 60) {
 //                                        dataManager.DeleteRegistro(dato.getId());
-//                                    } else {
+//                                    } else { 
 //                                        ce = false;
 //                                        break;
 //                                    }
