@@ -322,5 +322,31 @@ public class DataManager implements IDataManager {
         db.UpdateVagonACK(vagon, canal, registro, idDispositivo);
     }
 
+    public int parametrosSize() {
+        return db.parametrosSize();
+    }
+
+    public int registroSize() {
+        return db.registroSize();
+    }
+
+    public int registroCrudoSize() {
+         return db.registroCrudoSize();
+    }
+
+    public int registroTemporalSize() {
+        return db.registroTemporalSize();
+    }
+
+    public int puertasSize() {
+        return db.puertasSize();
+    }
+
+    public int ackVagonSize() {
+        return db.ackVagonSize();
+    }
+
+    
+
     
 }
