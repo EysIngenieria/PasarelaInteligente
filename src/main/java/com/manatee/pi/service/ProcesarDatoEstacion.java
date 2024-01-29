@@ -27,9 +27,14 @@ public class ProcesarDatoEstacion {
             
             datoCDEG.setInfo("DESCONOCIDO");
             //0x70 = 112d evento de puerta
+            if (tramaBytes.length < 6) {
+                datoCDEG.setInfo("ERROR TRAMA");
+                return datoCDEG;
+            }
             if (tramaBytes[3] == 112) {
                 switch (tramaBytes[5]) {
                     case Constantes.Eventos.ABRIENDO:
+                        datoCDEG.setInfo("ABRIENDO");
                         datoCDEG.setEstadoAperturaCierrePuertas((tramaBytes[6] & 0x01) == 1);
                         datoCDEG.setEntradasApertura((tramaBytes[7] & 0xFF) << 8 | (tramaBytes[8] & 0xFF));
                         datoCDEG.setTiempoApertura((tramaBytes[9] & 0xFF) << 8 | (tramaBytes[10] & 0xFF));
@@ -40,18 +45,19 @@ public class ProcesarDatoEstacion {
                         } else {
                             datoCDEG.setUsoBotonManual(0);
                         }
-                        datoCDEG.setInfo("ABRIENDO");
+                        
                         break;
                     case Constantes.Eventos.ABIERTA:
+                        datoCDEG.setInfo("ABIERTA");
                         datoCDEG.setCodigoEvento("EVP1");
                         datoCDEG.setEstadoAperturaCierrePuertas((tramaBytes[6] & 0x01) == 1);
                         datoCDEG.setEntradasApertura((tramaBytes[7] & 0xFF) << 8 | (tramaBytes[8] & 0xFF));
                         datoCDEG.setTiempoApertura((tramaBytes[9] & 0xFF) << 8 | (tramaBytes[10] & 0xFF));
                         datoCDEG.setPorcentajeApertura((tramaBytes[11] & 0xFF) << 8 | (tramaBytes[12] & 0xFF));
                         
-                        datoCDEG.setInfo("ABIERTA");
                         break;
                     case Constantes.Eventos.CERRANDO:
+                        datoCDEG.setInfo("CERRANDO");
                         datoCDEG.setEstadoAperturaCierrePuertas((tramaBytes[6] & 0x01) == 1);
                         datoCDEG.setEntradasApertura((tramaBytes[7] & 0xFF) << 8 | (tramaBytes[8] & 0xFF));
                         datoCDEG.setTiempoApertura((tramaBytes[9] & 0xFF) << 8 | (tramaBytes[10] & 0xFF));
@@ -61,50 +67,57 @@ public class ProcesarDatoEstacion {
                         } else {
                             datoCDEG.setUsoBotonManual(0);
                         }
-                        datoCDEG.setInfo("CERRANDO");
+                        
                         break;
                     case Constantes.Eventos.CERRADA:
+                        datoCDEG.setInfo("CERRADA");
                         datoCDEG.setCodigoEvento("EVP1");
                         datoCDEG.setEstadoAperturaCierrePuertas((tramaBytes[6] & 0x01) == 1);
                         datoCDEG.setEntradasApertura((tramaBytes[7] & 0xFF) << 8 | (tramaBytes[8] & 0xFF));
                         datoCDEG.setTiempoApertura((tramaBytes[9] & 0xFF) << 8 | (tramaBytes[10] & 0xFF));
                         datoCDEG.setPorcentajeApertura((tramaBytes[11] & 0xFF) << 8 | (tramaBytes[12] & 0xFF));
                         
-                        datoCDEG.setInfo("CERRADA");
+                        
                         break;
                     case Constantes.Eventos.OBSTACULO_ABRIENDO:
+                        datoCDEG.setInfo("OBSTACULO_ABRIENDO");
                         datoCDEG.setCodigoEvento("EVP3");
                         datoCDEG.setEstadoAperturaCierrePuertas((tramaBytes[6] & 0x01) == 1);
                         datoCDEG.setEntradasApertura((tramaBytes[7] & 0xFF) << 8 | (tramaBytes[8] & 0xFF));
                         datoCDEG.setTiempoApertura((tramaBytes[9] & 0xFF) << 8 | (tramaBytes[10] & 0xFF));
                         datoCDEG.setPorcentajeApertura((tramaBytes[11] & 0xFF) << 8 | (tramaBytes[12] & 0xFF));
-                        datoCDEG.setInfo("OBSTACULO_ABRIENDO");
+                        
                         break;
                     case Constantes.Eventos.OBSTACULO_CERRANDO:
+                        datoCDEG.setInfo("OBSTACULO_CERRANDO");
                         datoCDEG.setCodigoEvento("EVP4");
                         datoCDEG.setEstadoAperturaCierrePuertas((tramaBytes[6] & 0x01) == 1);
                         datoCDEG.setEntradasApertura((tramaBytes[7] & 0xFF) << 8 | (tramaBytes[8] & 0xFF));
                         datoCDEG.setTiempoApertura((tramaBytes[9] & 0xFF) << 8 | (tramaBytes[10] & 0xFF));
                         datoCDEG.setPorcentajeApertura((tramaBytes[11] & 0xFF) << 8 | (tramaBytes[12] & 0xFF));
-                        datoCDEG.setInfo("OBSTACULO_CERRANDO");
+                        
                         break;
                     case Constantes.Eventos.APERTURA_FORZADA:
+                        datoCDEG.setInfo("APERTURA_FORZADA");
                         datoCDEG.setCodigoEvento("EVP2");
                         datoCDEG.setEstadoAperturaCierrePuertas((tramaBytes[6] & 0x01) == 1);
                         datoCDEG.setPorcentajeApertura((tramaBytes[7] & 0xFF) << 8 | (tramaBytes[8] & 0xFF));
-                        datoCDEG.setInfo("APERTURA_FORZADA");
+                        
                         break;
                     case Constantes.Eventos.CIERRE_FORZADO:
+                        datoCDEG.setInfo("CIERRE_FORZADO");
                         datoCDEG.setEstadoAperturaCierrePuertas((tramaBytes[6] & 0x01) == 1);
                         datoCDEG.setPorcentajeApertura((tramaBytes[7] & 0xFF) << 8 | (tramaBytes[8] & 0xFF));
-                        datoCDEG.setInfo("CIERRE_FORZADO");
+                        
                         break;
                     case Constantes.Eventos.CALIBRACION:
+                        datoCDEG.setInfo("CALIBRACION");
                         datoCDEG.setEstadoCalibracion((tramaBytes[6] & 0x01) == 1);
                         datoCDEG.setContadorEncoder((tramaBytes[7] & 0xFF) << 8 | (tramaBytes[8] & 0xFF));
-                        datoCDEG.setInfo("CALIBRACION");
+                        
                         break;
                     case Constantes.Eventos.CAMBIO_FUENTE_ALIMENTACION:
+                        datoCDEG.setInfo("CAMBIO_FUENTE_ALIMENTACION");
                         datoCDEG.setEstadoPoder(tramaBytes[6]);
 
                         if ((tramaBytes[6] & 0x01) == 0x1) {
@@ -113,7 +126,7 @@ public class ProcesarDatoEstacion {
                         datoCDEG.setVoltajeBateria((tramaBytes[7] & 0xFF) << 8 | (tramaBytes[8] & 0xFF));
                         datoCDEG.setPorcentajeCargaBaterias((tramaBytes[9] & 0xFF) / 2);
                         datoCDEG.setVoltajeVI((tramaBytes[10] & 0xFF) << 8 | (tramaBytes[11] & 0xFF));
-                        datoCDEG.setInfo("CAMBIO_FUENTE_ALIMENTACION");
+                        
                         break;
                     case Constantes.Eventos.BATERIA_BAJA:
                         datoCDEG.setEstadoPoder(tramaBytes[6] & 0xFF);
@@ -124,14 +137,16 @@ public class ProcesarDatoEstacion {
                         datoCDEG.setInfo("BATERIA_BAJA");
                         break;
                     case Constantes.Eventos.BATERIA_NO_CARGA:
+                        datoCDEG.setInfo("BATERIA_NO_CARGA");
                         datoCDEG.setEstadoPoder(tramaBytes[6] & 0xFF);
                         datoCDEG.setTipoEnergizacion(datoCDEG.getEstadoPoder() & 0x01);
                         datoCDEG.setVoltajeBateria((tramaBytes[7] & 0xFF) << 8 | (tramaBytes[8] & 0xFF));
                         datoCDEG.setPorcentajeCargaBaterias((tramaBytes[9] & 0xFF) / 2);
                         datoCDEG.setVoltajeVI((tramaBytes[10] & 0xFF) << 8 | (tramaBytes[11] & 0xFF));
-                        datoCDEG.setInfo("BATERIA_NO_CARGA");
+                        
                         break;
                     case Constantes.Eventos.PERIODICO_1:
+                        datoCDEG.setInfo("PERIODICO_1");
                         datoCDEG.setEstadoAperturaCierrePuertas((tramaBytes[6] & 0x01) == 1);
                         datoCDEG.setEntradasApertura((tramaBytes[7] & 0xFF) << 8 | (tramaBytes[8] & 0xFF));
                         datoCDEG.setTiempoApertura(((tramaBytes[9] & 0xFF) << 8 | (tramaBytes[10] & 0xFF)));
@@ -142,7 +157,7 @@ public class ProcesarDatoEstacion {
                         datoCDEG.setVoltajeBateria((tramaBytes[14] & 0xFF) << 8 | (tramaBytes[15] & 0xFF));
                         datoCDEG.setPorcentajeCargaBaterias((tramaBytes[16] & 0xFF) / 2);
                         datoCDEG.setVoltajeVI((tramaBytes[17] & 0xFF) << 8 | (tramaBytes[18] & 0xFF));
-                        datoCDEG.setInfo("PERIODICO_1");
+                        
                         break;
 
                     case Constantes.Eventos.PERIODICO_2:
@@ -235,13 +250,14 @@ public class ProcesarDatoEstacion {
                         datoCDEG.setCodigoEvento("EVP7");
                         break;
                     case Constantes.Eventos.CAMBIO_MODO:
+                        datoCDEG.setInfo("CAMBIO_MODO");
                         if ((tramaBytes[6] & 0xFF) == 1) {
                             datoCDEG.setModoOperacion(tramaBytes[6] & 0xFF);
                         } else {
                             datoCDEG.setModoOperacion(0);
                         }
                         
-                        datoCDEG.setInfo("CAMBIO_MODO");
+                        
                         break;
 
                 }

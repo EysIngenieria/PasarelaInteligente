@@ -82,7 +82,7 @@ import org.json.JSONObject;
  */
 public class Application {
 
-    private static final String VERSION = "1.1.7 BETA";
+    private static final String VERSION = "1.1.7 BETA 1";
     private SimpleDateFormat formatoFechaMM_yyyy = new SimpleDateFormat("MM_yyyy");
     int activado = 0;
     int ModoACK = 0;
@@ -565,6 +565,11 @@ public class Application {
                                         datoAux = datoEstacion.ProcessData(registroCrudo.getTrama(), datoAux);
                                         datoAux.setIdEstacion(idEstacion);
                                         JSONObject envioJson;
+                                        if(datoAux.getInfo().equalsIgnoreCase("ERROR TRAMA")){
+                                            temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
+                                            log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " FUNCION: "+ registroCrudo.getFuncion());
+                                            break;
+                                        }
 //                                        if (datoAux.getCanal() != null) {
 //                                            conexionVagon(v, datoAux.getCanal());
 //                                        }
@@ -761,7 +766,7 @@ public class Application {
                                             case "OBSTACULO_CERRANDO":
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
                                                 if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),13)){
-                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + datoAux.getInfo());
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ datoAux.getInfo());
                                                     break;
                                                 }
                                                 if (temp != null) {
@@ -1141,7 +1146,7 @@ public class Application {
 
                                                 temp = dataManager.GetPuerta(registroCrudo.getCanal(), registroCrudo.getIdVagon(), registroCrudo.getIdPuerta());
                                                 if(!datoEstacion.verifyTrama(registroCrudo.getTrama(),7)){
-                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ registroCrudo.getFuncion());
+                                                    log("TRAMA: " + registroCrudo.getTrama() + " ID_PUERTA: " + temp.getDescripcion() + " EVENTO: "+ datoAux.getInfo());
                                                     break;
                                                 }
                                                 if (temp != null) {
@@ -2614,30 +2619,18 @@ public class Application {
         new Thread() {
             @Override
             public void run() {
-                ReceptorUDP receptorUDP = new ReceptorUDP(direccionMLAN, Integer.parseInt(puertoReceptorMLAN));
+                
                 while (true) {
                     try {
-                        receptorUDP.RecibirDato();
-                        if (receptorUDP.isEntroDato()) {
-                            //System.out.println("MLAN: " + receptorUDP.getDato());
-                            receptorUDP.setEntroDato(false);
-                            OP_RegistroCrudo registroCrudo = new OP_RegistroCrudo();
-                            registroCrudo.setTrama(receptorUDP.getDato());
-                            registroCrudo.setOrigen("MLAN");
-                            //System.out.println(receptorUDP.getIp());
-                            mlanVivo(receptorUDP.getIp());
-                            try {
-                                registroCrudo.setFechaOcurrencia(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
-                            } catch (ParseException ex) {
-                                System.err.println(ex.getLocalizedMessage() + "");
-                            }
-                            //System.out.println(new Gson().toJson(registroCrudo));
-                            dataManager.AddRegistroCrudo(registroCrudo);
-
-                        }
-                        Thread.sleep(100);
-                    } catch (InterruptedException ie) {
+                        EscucharMLANS();
+                    } catch (Exception ie) {
                         ie.printStackTrace();
+                        log("ERROR EN UDP: " + ie.getLocalizedMessage());
+                        try {
+                            Thread.sleep(5000);
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
                     }
                 }
             }
@@ -3464,6 +3457,34 @@ public class Application {
                 Files.createFile(logFilePath);
             } catch (IOException e) {
                 System.err.println("Error al crear el archivo de log: " + e.getMessage());
+            }
+        }
+    }
+    public void EscucharMLANS() {
+        ReceptorUDP receptorUDP = new ReceptorUDP(direccionMLAN, Integer.parseInt(puertoReceptorMLAN));
+        while (true) {
+            try {
+                receptorUDP.RecibirDato();
+                if (receptorUDP.isEntroDato()) {
+                    //System.out.println("MLAN: " + receptorUDP.getDato());
+                    receptorUDP.setEntroDato(false);
+                    OP_RegistroCrudo registroCrudo = new OP_RegistroCrudo();
+                    registroCrudo.setTrama(receptorUDP.getDato());
+                    registroCrudo.setOrigen("MLAN");
+                    //System.out.println(receptorUDP.getIp());
+                    mlanVivo(receptorUDP.getIp());
+                    try {
+                        registroCrudo.setFechaOcurrencia(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").parse(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS").format(new Date())));
+                    } catch (ParseException ex) {
+                        System.err.println(ex.getLocalizedMessage() + "");
+                    }
+                    //System.out.println(new Gson().toJson(registroCrudo));
+                    dataManager.AddRegistroCrudo(registroCrudo);
+
+                }
+                Thread.sleep(100);
+            } catch (InterruptedException ie) {
+                ie.printStackTrace();
             }
         }
     }
