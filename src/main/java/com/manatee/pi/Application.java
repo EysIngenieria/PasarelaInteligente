@@ -2619,18 +2619,21 @@ public class Application {
         new Thread() {
             @Override
             public void run() {
-                
+
+               
                 while (true) {
                     try {
                         EscucharMLANS();
+                        System.out.println("ESPERANDO 5 SEGUNDOS PARA VOLVER A ESCUCHAR");
+                        Thread.sleep(5000);
                     } catch (Exception ie) {
+                        
                         ie.printStackTrace();
-                        log("ERROR EN UDP: " + ie.getLocalizedMessage());
-                        try {
-                            Thread.sleep(5000);
-                        } catch (InterruptedException ex) {
-                            ex.printStackTrace();
-                        }
+                    }
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
@@ -3461,11 +3464,26 @@ public class Application {
         }
     }
     public void EscucharMLANS() {
+        log("ABRIENDO SOCKET");
         ReceptorUDP receptorUDP = new ReceptorUDP(direccionMLAN, Integer.parseInt(puertoReceptorMLAN));
+        boolean primeraVez = false;
         while (true) {
             try {
+                if(receptorUDP.isClosed()){
+                    System.out.println("SOCKET CERRADO, SALIENDO DEL WHILE");
+                    log("SOCKET UDP CERRADO (MLAN)");
+                    break;
+                }
+                if(!primeraVez){
+                  log("SOCKET UDP ABIERTO (MLAN)");  
+                  primeraVez = true;
+                }
+                
                 receptorUDP.RecibirDato();
                 if (receptorUDP.isEntroDato()) {
+                    if(receptorUDP.getDato().contains("error")){
+                        throw new NullPointerException("null");
+                    }
                     //System.out.println("MLAN: " + receptorUDP.getDato());
                     receptorUDP.setEntroDato(false);
                     OP_RegistroCrudo registroCrudo = new OP_RegistroCrudo();
@@ -3483,8 +3501,14 @@ public class Application {
 
                 }
                 Thread.sleep(100);
-            } catch (InterruptedException ie) {
+            } catch (Exception ie) {
+                receptorUDP.CloseSocket();
                 ie.printStackTrace();
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }

@@ -68,17 +68,28 @@ public class ReceptorUDP {
             packet = new DatagramPacket(buf, buf.length, address, puertoRecibir);
             dato = new String(packet.getData(), 0, packet.getLength());
             entroDato = true;
+            System.out.println("ESCUCHANDO: "+ dato + " IP: " + ip);
+            if(dato.contains(">cerrarpuerto<")){
+                socket.close();
+                System.out.println("SOCKET CERRADO: "+ dato);
+            }
         } catch (IOException ex) {
             System.out.println(ex.getLocalizedMessage());
         }
     }
-
+    public boolean isClosed(){
+        return socket.isClosed();
+    }
     public String getIp() {
         return ip;
     }
 
     public void setIp(String ip) {
         this.ip = ip;
+    }
+
+    public void CloseSocket() {
+        socket.close();
     }
     
 }
