@@ -3481,9 +3481,7 @@ public class Application {
                 
                 receptorUDP.RecibirDato();
                 if (receptorUDP.isEntroDato()) {
-                    if(receptorUDP.getDato().contains("error")){
-                        throw new NullPointerException("null");
-                    }
+                    
                     //System.out.println("MLAN: " + receptorUDP.getDato());
                     receptorUDP.setEntroDato(false);
                     OP_RegistroCrudo registroCrudo = new OP_RegistroCrudo();
