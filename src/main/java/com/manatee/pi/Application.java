@@ -2624,7 +2624,7 @@ public class Application {
                 while (true) {
                     try {
                         EscucharMLANS();
-                        System.out.println("ESPERANDO 5 SEGUNDOS PARA VOLVER A ESCUCHAR");
+                        //System.out.println("ESPERANDO 5 SEGUNDOS PARA VOLVER A ESCUCHAR");
                         Thread.sleep(5000);
                     } catch (Exception ie) {
                         
@@ -3470,7 +3470,7 @@ public class Application {
         while (true) {
             try {
                 if(receptorUDP.isClosed()){
-                    System.out.println("SOCKET CERRADO, SALIENDO DEL WHILE");
+                    //System.out.println("SOCKET CERRADO, SALIENDO DEL WHILE");
                     log("SOCKET UDP CERRADO (MLAN)");
                     break;
                 }

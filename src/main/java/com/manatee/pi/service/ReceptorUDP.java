@@ -68,7 +68,7 @@ public class ReceptorUDP {
             packet = new DatagramPacket(buf, buf.length, address, puertoRecibir);
             dato = new String(packet.getData(), 0, packet.getLength());
             entroDato = true;
-            System.out.println("ESCUCHANDO: "+ dato + " IP: " + ip);
+            //System.out.println("ESCUCHANDO: "+ dato + " IP: " + ip);
             if(dato.contains(">cerrarpuerto<")){
                 socket.close();
                 System.out.println("SOCKET CERRADO: "+ dato);
