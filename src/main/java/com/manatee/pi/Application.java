@@ -82,7 +82,7 @@ import org.json.JSONObject;
  */
 public class Application {
 
-    private static final String VERSION = "1.1.7 BETA 1";
+    private static final String VERSION = "1.1.7";
     private SimpleDateFormat formatoFechaMM_yyyy = new SimpleDateFormat("MM_yyyy");
     int activado = 0;
     int ModoACK = 0;
