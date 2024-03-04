@@ -17,12 +17,14 @@ public class ModuloConcentradorVagon {
     ArrayList<Canal> canales;
     String conexionPuertas;
     int idRegistroEmergencia;
+    boolean botonEmergencia;
  
     public ModuloConcentradorVagon( String idDispositivo) {
         
         canales = new ArrayList<Canal>();
         this.idDispositivo = idDispositivo;
         this.ultimaConexion = System.currentTimeMillis();
+        botonEmergencia = false;
     }
 
     public int getIdRegistroEmergencia() {
@@ -182,6 +184,64 @@ public class ModuloConcentradorVagon {
         }
         
         return ret;
+    }
+
+    void actualizarConexionPuertas(String conexionPuertas, boolean canal1, boolean canal2, boolean botonEmergencia) {
+        boolean canalExists = false;
+        for (Canal message : canales) {
+            if (canal1 && canal2) {
+                actualicarMCV();
+                message.setConexionPuertas(conexionPuertas);
+                message.setBotonEmergencia(botonEmergencia);
+                canalExists = true;
+            
+                break;
+            } else if (canal1) {
+                if (message.getCanal() == 1) {
+                    message.actualizarSinACK();
+                    message.setConexionPuertas(conexionPuertas);
+                    message.setBotonEmergencia(botonEmergencia);
+                    canalExists = true;
+                }
+                
+            }else{
+                if (message.getCanal() == 2) {
+                    message.actualizarSinACK();
+                    message.setConexionPuertas(conexionPuertas);
+                    message.setBotonEmergencia(botonEmergencia);
+                    canalExists = true;
+                }
+            
+            }
+        }
+
+        // If the MAC address doesn't exist, create a new ModuloConcentradorVagon object and add it to the list
+        if (!canalExists) {
+            Canal newMessage = null;
+            if (canal1 && canal2) {
+                setConexionPuertas(conexionPuertas);
+                this.botonEmergencia=botonEmergencia;
+                actualicarMCV();
+
+            } else if (canal1) {
+                newMessage = new Canal(1, 0);
+                newMessage.actualizarSinACK();
+                newMessage.setConexionPuertas(conexionPuertas);
+                this.botonEmergencia=botonEmergencia;
+                canales.add(newMessage);
+
+            } else {
+                newMessage = new Canal(2, 0);
+                newMessage.actualizarSinACK();
+                newMessage.setConexionPuertas(conexionPuertas);
+                canalExists = true;
+                this.botonEmergencia=botonEmergencia;
+                canales.add(newMessage);
+
+            }
+            
+            
+        }
     }
 }
 

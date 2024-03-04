@@ -15,14 +15,25 @@ public class Canal{
     private String conexionPuertas;
     private boolean cambio;
     private boolean ultimoEstado;
+    private boolean botonEmergencia;
     public Canal(int canal, int idRegistro) {
         this.canal = canal;
         this.ultimaConexcion = System.currentTimeMillis();
         this.idRegistro = idRegistro;
         cambio = false;
         ultimoEstado = false;
+        botonEmergencia = false;
     }
 
+    public boolean isBotonEmergencia() {
+        return botonEmergencia;
+    }
+
+    public void setBotonEmergencia(boolean botonEmergencia) {
+        this.botonEmergencia = botonEmergencia;
+    }
+    
+    
     public boolean isUltimoEstado() {
         return ultimoEstado;
     }

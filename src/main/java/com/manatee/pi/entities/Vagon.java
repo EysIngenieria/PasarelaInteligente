@@ -218,6 +218,26 @@ import org.json.JSONObject;
         }
         return ret;
     }
+
+    public void actualizarConexionPuertas(String idDispositivo, String conexionPuertas, boolean canal1, boolean canal2, boolean botonEmergencia) {
+        boolean idExists = false;
+        for (ModuloConcentradorVagon mvc : mvcs) {
+            if (mvc.getIdDispositivo().equals(idDispositivo)) {
+                // MAC address already exists, call the actualizar method
+                mvc.actualizarConexionPuertas(conexionPuertas, canal1, canal2, botonEmergencia );
+                idExists = true;
+                break;
+            }
+        }
+
+        // If the MAC address doesn't exist, create a new ModuloConcentradorVagon object and add it to the list
+        if (!idExists) {
+            ModuloConcentradorVagon newMessage = new ModuloConcentradorVagon(idDispositivo);
+            newMessage.actualizarConexionPuertas(conexionPuertas, canal1, canal2,botonEmergencia);
+            mvcs.add(newMessage);
+            
+        }
+    }
     
 
     

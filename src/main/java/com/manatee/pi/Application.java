@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -72,6 +72,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
+import java.util.stream.Collectors;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -82,10 +83,11 @@ import org.json.JSONObject;
  */
 public class Application {
 
-    private static final String VERSION = "1.1.7";
+    private static final String VERSION = "1.1.8 beta 1";
     private SimpleDateFormat formatoFechaMM_yyyy = new SimpleDateFormat("MM_yyyy");
     int activado = 0;
     int ModoACK = 0;
+    int eventoEmergencia = 0;
     private static final String LOG_FILE_PATH = "./Logs_pi/";    //jal, adicion_1
     String nameFile;    //jal, adicion_1
     DataManager dataManager;
@@ -95,6 +97,7 @@ public class Application {
     List<DatoCDEG> vagonA;
     List<OP_RegistroCrudo> registrosCrudos;
     List<Vagon> vagones;
+
     private DatoCDEG puerta1;
     private DatoCDEG puerta2;
     private DatoCDEG vagon;
@@ -1191,10 +1194,16 @@ public class Application {
                                             }
                                         }
                                         datoAux.setIdVagon(nombreVagon(registroCrudo.getIdVagon()));
+                                        
+
+                                        if ((System.currentTimeMillis() - registroCrudo.getFechaOcurrencia().getTime()) <= (5 * 1000 * 60)) {
+                                            EmergencyMethod(registroCrudo.getIdVagon());
+                                        }
+                                        log("Botón Emergencia Activado en el vagon " + registroCrudo.getIdVagon() + " Fecha de ocurrencia: " + formatoFecha.format(registroCrudo.getFechaOcurrencia()));
                                         ArmarEventos(datoAux);
                                         break;
                                     case "CONEXION_PUERTAS":
-
+                                        
                                         for (Vagon vagone : vagones) {
                                             if (vagone.getNombre().equalsIgnoreCase(registroCrudo.getIdVagon())) {
 
@@ -2114,17 +2123,20 @@ public class Application {
             registro = mqttcdeg.getString("registro");
             region = mqttcdeg.getString("region");
             proyecto = mqttcdeg.getString("proyecto");
-
+            if (!configuracion.isNull("eventoEmergencia")) {
+                eventoEmergencia = configuracion.getInt("eventoEmergencia");
+                
+            }
             activado = (int) configuracion.getNumber("ACTIVADO");
             ModoACK = (int) configuracion.getNumber("ACK");
             switch (activado) {
                 case 1:
-                    log("Modo 1");
+                    log("Modo 1" + " - Emergencia " + eventoEmergencia);
                     System.exit(0);
                     break;
                 
                 case 2:
-                    log("Modo 2");
+                    log("Modo 2"+ " - Emergencia " + eventoEmergencia);
                     System.out.println("");
                     System.out.println("");
 
@@ -2183,13 +2195,13 @@ public class Application {
                     System.out.println("");
                     break;
                 case 3:
-                    log("Modo 3");
+                    log("Modo 3"+ " - Emergencia " + eventoEmergencia);
                     dataManager.deletParametros(false);
                     dataManager.deleteAllVagonACK();
                     addParametrosSinFecha(configuracion, confEstacion, mlan, mqttcdeg);
                     break;
                 default:
-                    log("Modo " + activado);
+                    log("Modo " + activado + " - Emergencia " + eventoEmergencia);
                     break;
 
             }
@@ -2937,6 +2949,13 @@ public class Application {
                                     }
                                     mvcJson.put("fechaConexion", formatter.format(new Date(canal.getUltimaConexcion())));
                                     conexiones.put(mvcJson);
+                                    if (eventoEmergencia != 0) {
+                                        mvcJson = new JSONObject();
+                                        mvcJson.put("nombre", "BotonEmergencia MCV-" + vagone.getNombreCDEG() + "-" + canal.getCanal() + "/" + mvc.getIdDispositivo());
+                                        mvcJson.put("CONECTADO", canal.isBotonEmergencia());
+                                        mvcJson.put("fechaConexion", formatter.format(new Date(canal.getUltimaConexcion())));
+                                        conexiones.put(mvcJson);
+                                    }
                                 }
 
                             }
@@ -3288,8 +3307,9 @@ public class Application {
                                     AddComando(registroCrudo.getIdVagon(), ack);
                                     //subscriberMQTTServiceLocal.Publisher(ack.toString().getBytes(), registroCrudo.getIdVagon());
                                 } else if (registroCrudo.getFuncion().equalsIgnoreCase("CONEXION_PUERTAS")) {
-                                    if (!re.isNull("dispositivoMCV") && (!re.isNull("canal1Habilitado") && !re.isNull("canal2Habilitado"))) {
-                                        vagonT.actualizarConexionPuertas(re.getString("dispositivoMCV"), registroCrudo.getTrama(), re.getBoolean("canal1Habilitado"), re.getBoolean("canal2Habilitado"));
+                                    if (!re.isNull("dispositivoMCV") && (!re.isNull("canal1Habilitado") && !re.isNull("canal2Habilitado")&& !re.isNull("estadoActualEntrada01"))) {
+                                        vagonT.actualizarConexionPuertas(re.getString("dispositivoMCV"), registroCrudo.getTrama(), re.getBoolean("canal1Habilitado"), re.getBoolean("canal2Habilitado"),re.getBoolean("estadoActualEntrada01"));
+                                        System.out.println("Estado boton emergencia: " + re.getBoolean("estadoActualEntrada01"));
                                     } else {
                                         vagonT.actualizarConexionPuertas("0", registroCrudo.getTrama(), true, true);
 
@@ -3363,17 +3383,39 @@ public class Application {
     }
 
     public void AddComando(String vagon, JSONObject comando) {
-        Vagon re = new Vagon();
-
-        for (Vagon vagone : vagones) {
-            if (vagone.getNombre().equalsIgnoreCase(vagon)) {
-                vagone.getComandos().add(comando);
-                break;
-                //System.out.println(re);
+        vagones.stream()
+       .filter(vagone -> vagone.getNombre().equalsIgnoreCase(vagon))
+       .findFirst()
+       .ifPresent(vagone -> vagone.getComandos().add(comando));
+    }
+    
+    public void EmergencyMethod(String vagon) {
+        List<Puerta> todasLasPuertas = dataManager.GetPuertas();
+        if (eventoEmergencia!=0) {
+            if (eventoEmergencia == 1) {
+                todasLasPuertas.stream()
+                        .filter(puerta -> puerta.getVagon().equalsIgnoreCase(vagon))
+                        .forEach(this::AperturaPuerta);
+            }else{
+                todasLasPuertas.stream()
+                        .forEach(this::AperturaPuerta);
             }
+
         }
     }
 
+    private void AperturaPuerta(Puerta puerta) {
+        try {
+            ComandoInterfazVisual comandoInterfazVisual = new ComandoInterfazVisual();
+            comandoInterfazVisual.setComando("aperturaDePuerta");
+            JSONObject dato = auxService.JsonProcesarComandoIV(comandoInterfazVisual, puerta.getDescripcion(), puerta);
+            AddComando(puerta.getVagon(), dato);
+
+            Thread.sleep(100);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public String nombreVagon(String nombre) {
         String re = null;
 

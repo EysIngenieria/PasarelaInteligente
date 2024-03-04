@@ -1,0 +1,135 @@
+28/02/2024 15:37:04.583 - El programa ha sido iniciado. Version: 1.1.7
+28/02/2024 15:40:02.394 - El programa ha sido iniciado. Version: 1.1.7
+28/02/2024 16:29:23.814 - El programa ha sido iniciado. Version: 1.1.7
+28/02/2024 16:31:24.032 - Modo 2
+28/02/2024 16:31:24.034 - INICIO BORRADO DE TABLAS ...
+28/02/2024 16:31:24.054 - Borrando...       tabla OP_Parametros: 18
+28/02/2024 16:31:24.134 - Borrado OK        tabla OP_Parametros: 0
+28/02/2024 16:31:24.141 - Borrando...         tabla OP_Registro: 1
+28/02/2024 16:31:24.343 - Borrado OK          tabla OP_Registro: 0
+28/02/2024 16:31:24.350 - Borrando...    tabla OP_RegistroCrudo: 0
+28/02/2024 16:31:24.356 - Borrado OK     tabla OP_RegistroCrudo: 0
+28/02/2024 16:31:24.366 - Borrando... tabla OP_RegistroTemporal: 0
+28/02/2024 16:31:24.372 - Borrado OK  tabla OP_RegistroTemporal: 0
+28/02/2024 16:31:24.380 - Borrando...             tabla Puertas: 47
+28/02/2024 16:31:24.388 - Borrado OK              tabla Puertas: 0
+28/02/2024 16:31:24.394 - Borrando...            tabla ACKVAGON: 0
+28/02/2024 16:31:24.400 - Borrado OK             tabla ACKVAGON: 0
+28/02/2024 16:31:24.401 - 28/02/2024 16:31:24.032 - INICIO BORRADO DE TABLAS
+28/02/2024 16:31:24.402 - 28/02/2024 16:31:24.401 - FIN    BORRADO DE TABLAS
+28/02/2024 16:31:27.925 - ABRIENDO SOCKET
+28/02/2024 16:31:27.936 - Cambio conexion Centro de Gestion a conectado
+28/02/2024 16:31:27.941 - SOCKET UDP ABIERTO (MLAN)
+28/02/2024 16:31:27.943 - Cambio conexion Centro de Control a conectado
+28/02/2024 16:31:27.977 - CPU: -1.0% - Temp: -1.0°C
+28/02/2024 16:33:38.543 - Cambio conexion Centro de Gestion a desconectado
+28/02/2024 16:36:27.987 - CPU: -1.0% - Temp: -1.0°C
+28/02/2024 16:40:48.146 - Cambio conexion Centro de Control a desconectado
+28/02/2024 16:46:09.562 - El programa ha sido iniciado. Version: 1.1.7
+28/02/2024 16:46:24.858 - Modo 2
+28/02/2024 16:46:24.860 - INICIO BORRADO DE TABLAS ...
+28/02/2024 16:46:24.872 - Borrando...       tabla OP_Parametros: 18
+28/02/2024 16:46:24.945 - Borrado OK        tabla OP_Parametros: 0
+28/02/2024 16:46:24.950 - Borrando...         tabla OP_Registro: 1
+28/02/2024 16:46:25.284 - Borrado OK          tabla OP_Registro: 0
+28/02/2024 16:46:25.288 - Borrando...    tabla OP_RegistroCrudo: 0
+28/02/2024 16:46:25.295 - Borrado OK     tabla OP_RegistroCrudo: 0
+28/02/2024 16:46:25.303 - Borrando... tabla OP_RegistroTemporal: 0
+28/02/2024 16:46:25.310 - Borrado OK  tabla OP_RegistroTemporal: 0
+28/02/2024 16:46:25.314 - Borrando...             tabla Puertas: 47
+28/02/2024 16:46:25.322 - Borrado OK              tabla Puertas: 0
+28/02/2024 16:46:25.326 - Borrando...            tabla ACKVAGON: 0
+28/02/2024 16:46:25.331 - Borrado OK             tabla ACKVAGON: 0
+28/02/2024 16:46:25.332 - 28/02/2024 16:46:24.860 - INICIO BORRADO DE TABLAS
+28/02/2024 16:46:25.333 - 28/02/2024 16:46:25.332 - FIN    BORRADO DE TABLAS
+28/02/2024 16:46:28.390 - ABRIENDO SOCKET
+28/02/2024 16:46:28.403 - SOCKET UDP ABIERTO (MLAN)
+28/02/2024 16:46:28.408 - Cambio conexion Centro de Gestion a conectado
+28/02/2024 16:46:28.413 - Cambio conexion Centro de Control a conectado
+28/02/2024 16:46:28.443 - CPU: -1.0% - Temp: -1.0°C
+28/02/2024 16:50:39.539 - Cambio conexion Centro de Gestion a desconectado
+28/02/2024 16:51:28.454 - CPU: -1.0% - Temp: -1.0°C
+29/02/2024 13:27:55.836 - El programa ha sido iniciado. Version: 1.1.8 beta 1
+29/02/2024 13:27:56.070 - Modo 2
+29/02/2024 13:27:56.072 - INICIO BORRADO DE TABLAS ...
+29/02/2024 13:27:56.087 - Borrando...       tabla OP_Parametros: 18
+29/02/2024 13:27:56.161 - Borrado OK        tabla OP_Parametros: 0
+29/02/2024 13:27:56.166 - Borrando...         tabla OP_Registro: 1
+29/02/2024 13:27:56.411 - Borrado OK          tabla OP_Registro: 0
+29/02/2024 13:27:56.417 - Borrando...    tabla OP_RegistroCrudo: 1
+29/02/2024 13:27:56.425 - Borrado OK     tabla OP_RegistroCrudo: 0
+29/02/2024 13:27:56.432 - Borrando... tabla OP_RegistroTemporal: 0
+29/02/2024 13:27:56.437 - Borrado OK  tabla OP_RegistroTemporal: 0
+29/02/2024 13:27:56.442 - Borrando...             tabla Puertas: 47
+29/02/2024 13:27:56.448 - Borrado OK              tabla Puertas: 0
+29/02/2024 13:27:56.452 - Borrando...            tabla ACKVAGON: 1
+29/02/2024 13:27:56.457 - Borrado OK             tabla ACKVAGON: 0
+29/02/2024 13:27:56.458 - 29/02/2024 13:27:56.071 - INICIO BORRADO DE TABLAS
+29/02/2024 13:27:56.459 - 29/02/2024 13:27:56.458 - FIN    BORRADO DE TABLAS
+29/02/2024 13:29:52.509 - El programa ha sido iniciado. Version: 1.1.8 beta 1
+29/02/2024 13:29:53.119 - Modo 2
+29/02/2024 13:29:53.122 - INICIO BORRADO DE TABLAS ...
+29/02/2024 13:29:53.198 - Borrando...       tabla OP_Parametros: 18
+29/02/2024 13:29:53.395 - Borrado OK        tabla OP_Parametros: 0
+29/02/2024 13:29:53.414 - Borrando...         tabla OP_Registro: 0
+29/02/2024 13:29:54.077 - Borrado OK          tabla OP_Registro: 0
+29/02/2024 13:29:54.088 - Borrando...    tabla OP_RegistroCrudo: 0
+29/02/2024 13:29:54.123 - Borrado OK     tabla OP_RegistroCrudo: 0
+29/02/2024 13:29:54.133 - Borrando... tabla OP_RegistroTemporal: 0
+29/02/2024 13:29:54.155 - Borrado OK  tabla OP_RegistroTemporal: 0
+29/02/2024 13:29:54.166 - Borrando...             tabla Puertas: 47
+29/02/2024 13:29:54.187 - Borrado OK              tabla Puertas: 0
+29/02/2024 13:29:54.196 - Borrando...            tabla ACKVAGON: 0
+29/02/2024 13:29:54.210 - Borrado OK             tabla ACKVAGON: 0
+29/02/2024 13:29:54.215 - 29/02/2024 13:29:53.120 - INICIO BORRADO DE TABLAS
+29/02/2024 13:29:54.224 - 29/02/2024 13:29:54.217 - FIN    BORRADO DE TABLAS
+29/02/2024 13:30:00.069 - ABRIENDO SOCKET
+29/02/2024 13:30:00.122 - SOCKET UDP ABIERTO (MLAN)
+29/02/2024 13:30:00.245 - Cambio conexion Centro de Gestion a conectado
+29/02/2024 13:30:00.249 - Cambio conexion Centro de Control a conectado
+29/02/2024 13:30:00.408 - CPU: -1.0% - Temp: -1.0°C
+29/02/2024 13:36:25.283 - El programa ha sido iniciado. Version: 1.1.8 beta 1
+29/02/2024 13:36:25.427 - Modo 2
+29/02/2024 13:36:25.428 - INICIO BORRADO DE TABLAS ...
+29/02/2024 13:36:25.438 - Borrando...       tabla OP_Parametros: 18
+29/02/2024 13:36:25.499 - Borrado OK        tabla OP_Parametros: 0
+29/02/2024 13:36:25.502 - Borrando...         tabla OP_Registro: 1
+29/02/2024 13:36:25.625 - Borrado OK          tabla OP_Registro: 0
+29/02/2024 13:36:25.629 - Borrando...    tabla OP_RegistroCrudo: 0
+29/02/2024 13:36:25.636 - Borrado OK     tabla OP_RegistroCrudo: 0
+29/02/2024 13:36:25.642 - Borrando... tabla OP_RegistroTemporal: 0
+29/02/2024 13:36:25.653 - Borrado OK  tabla OP_RegistroTemporal: 0
+29/02/2024 13:36:25.658 - Borrando...             tabla Puertas: 47
+29/02/2024 13:36:25.666 - Borrado OK              tabla Puertas: 0
+29/02/2024 13:36:25.670 - Borrando...            tabla ACKVAGON: 0
+29/02/2024 13:36:25.677 - Borrado OK             tabla ACKVAGON: 0
+29/02/2024 13:36:25.679 - 29/02/2024 13:36:25.428 - INICIO BORRADO DE TABLAS
+29/02/2024 13:36:25.680 - 29/02/2024 13:36:25.679 - FIN    BORRADO DE TABLAS
+29/02/2024 13:36:28.616 - ABRIENDO SOCKET
+29/02/2024 13:36:28.626 - SOCKET UDP ABIERTO (MLAN)
+29/02/2024 13:36:28.629 - Cambio conexion Centro de Gestion a conectado
+29/02/2024 13:36:28.632 - Cambio conexion Centro de Control a conectado
+29/02/2024 13:36:28.660 - CPU: -1.0% - Temp: -1.0°C
+29/02/2024 13:41:28.671 - CPU: -1.0% - Temp: -1.0°C
+29/02/2024 13:42:18.152 - El programa ha sido iniciado. Version: 1.1.8 beta 1
+29/02/2024 13:42:18.313 - Modo 2
+29/02/2024 13:42:18.314 - INICIO BORRADO DE TABLAS ...
+29/02/2024 13:42:18.324 - Borrando...       tabla OP_Parametros: 18
+29/02/2024 13:42:18.393 - Borrado OK        tabla OP_Parametros: 0
+29/02/2024 13:42:18.396 - Borrando...         tabla OP_Registro: 1
+29/02/2024 13:42:18.558 - Borrado OK          tabla OP_Registro: 0
+29/02/2024 13:42:18.563 - Borrando...    tabla OP_RegistroCrudo: 0
+29/02/2024 13:42:18.569 - Borrado OK     tabla OP_RegistroCrudo: 0
+29/02/2024 13:42:18.574 - Borrando... tabla OP_RegistroTemporal: 0
+29/02/2024 13:42:18.582 - Borrado OK  tabla OP_RegistroTemporal: 0
+29/02/2024 13:42:18.586 - Borrando...             tabla Puertas: 47
+29/02/2024 13:42:18.594 - Borrado OK              tabla Puertas: 0
+29/02/2024 13:42:18.598 - Borrando...            tabla ACKVAGON: 0
+29/02/2024 13:42:18.604 - Borrado OK             tabla ACKVAGON: 0
+29/02/2024 13:42:18.606 - 29/02/2024 13:42:18.313 - INICIO BORRADO DE TABLAS
+29/02/2024 13:42:18.606 - 29/02/2024 13:42:18.606 - FIN    BORRADO DE TABLAS
+29/02/2024 13:42:21.662 - ABRIENDO SOCKET
+29/02/2024 13:42:21.673 - SOCKET UDP ABIERTO (MLAN)
+29/02/2024 13:42:21.683 - Cambio conexion Centro de Gestion a conectado
+29/02/2024 13:42:21.686 - Cambio conexion Centro de Control a conectado
+29/02/2024 13:42:21.703 - CPU: -1.0% - Temp: -1.0°C

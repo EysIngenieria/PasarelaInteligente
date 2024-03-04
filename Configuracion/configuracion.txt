@@ -1,6 +1,7 @@
 {
   "ACK":1,
   "ACTIVADO":2,
+  "eventoEmergencia":1,
   "CostadoPI": "norte",
   "CanalCostadoPI": "2",
   "PrimerVagonDerecha": "3",
